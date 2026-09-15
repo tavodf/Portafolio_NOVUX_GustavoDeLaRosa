@@ -13,6 +13,7 @@ import {
   AppWindow
 } from 'lucide-react';
 import { TechItem } from '../types';
+import { sfx } from '../utils/soundEffects';
 
 interface TechStackProps {
   items?: TechItem[];
@@ -114,6 +115,7 @@ function TechCard({ item, index }: TechCardProps) {
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ delay: 0.15 + index * 0.08, duration: 0.4 }}
       onMouseEnter={() => {
+        sfx.playHover();
         if (isDecoded) {
           startDecoding();
         }

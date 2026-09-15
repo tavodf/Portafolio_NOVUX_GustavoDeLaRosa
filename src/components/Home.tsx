@@ -2,12 +2,17 @@ import { motion } from 'motion/react';
 import { Github } from 'lucide-react';
 import { serviceList } from '../data';
 import { ServiceId } from '../types';
+import { sfx } from '../utils/soundEffects';
 
 interface HomeProps {
   onSelectService: (id: ServiceId) => void;
 }
 
 export function Home({ onSelectService }: HomeProps) {
+  const handleCardClick = (id: ServiceId) => {
+    sfx.playSelect();
+    onSelectService(id);
+  };
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -67,7 +72,8 @@ export function Home({ onSelectService }: HomeProps) {
               </p>
               
               <button
-                onClick={() => onSelectService(service.id)}
+                onClick={() => handleCardClick(service.id)}
+                onMouseEnter={() => sfx.playHover()}
                 className="w-full border border-[#C5A059] text-[#C5A059] py-3 text-sm tracking-widest hover:bg-[#C5A059] hover:text-[#141414] transition-all duration-300 rounded-sm uppercase font-medium shadow-md cursor-pointer"
               >
                 Abrir Servicio
@@ -82,6 +88,8 @@ export function Home({ onSelectService }: HomeProps) {
             href="https://github.com/tavodf"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => sfx.playClick()}
+            onMouseEnter={() => sfx.playHover()}
             className="group inline-flex items-center gap-3 px-6 py-3 rounded-sm border border-[#C5A059]/40 hover:border-[#C5A059] bg-[#0e0e11]/85 hover:bg-[#18181f]/95 backdrop-blur-md text-zinc-200 hover:text-[#FFE066] shadow-[0_4px_24px_rgba(0,0,0,0.7)] hover:shadow-[0_0_25px_rgba(197,160,89,0.35)] transition-all duration-300 text-sm font-mono tracking-wider cursor-pointer"
             title="Visitar perfil de GitHub de Gustavo De La Rosa (tavodf)"
           >

@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { Service } from '../types';
 import { TechStack } from './TechStack';
+import { sfx } from '../utils/soundEffects';
 
 interface ServiceDetailProps {
   service: Service;
@@ -9,6 +10,14 @@ interface ServiceDetailProps {
 }
 
 export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
+  const handleBackClick = () => {
+    sfx.playBack();
+    onBack();
+  };
+
+  const handleCtaClick = () => {
+    sfx.playPowerUp();
+  };
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -77,6 +86,8 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
                 href={service.externalLink}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={handleCtaClick}
+                onMouseEnter={() => sfx.playHover()}
                 className="w-full md:w-auto inline-flex items-center justify-center border border-[#C5A059] text-[#C5A059] px-8 py-3.5 mb-6 font-mono font-bold tracking-widest uppercase hover:bg-[#C5A059] hover:text-[#141414] hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] transition-all duration-300 rounded-sm text-center cursor-pointer"
               >
                 {service.ctaText || 'ABRIR SERVICIO'}
@@ -85,7 +96,8 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
 
             {/* Botón de Volver */}
             <button
-              onClick={onBack}
+              onClick={handleBackClick}
+              onMouseEnter={() => sfx.playHover()}
               className="group flex items-center gap-3 border border-[#C5A059]/50 text-[#C5A059] px-6 py-3 rounded-sm hover:bg-[#C5A059]/10 transition-all duration-300 tracking-wider text-xs uppercase cursor-pointer mt-2"
             >
               <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
@@ -129,6 +141,8 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
                     }
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => sfx.playClick()}
+                    onMouseEnter={() => sfx.playHover()}
                     className="absolute top-2 right-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black/85 hover:bg-[#C5A059] text-zinc-300 hover:text-black border border-[#C5A059]/40 rounded px-2.5 py-1 text-[11px] font-mono flex items-center gap-1.5 shadow-lg backdrop-blur-sm cursor-pointer"
                     title="Abrir en pestaña nueva"
                   >

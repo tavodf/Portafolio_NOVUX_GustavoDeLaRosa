@@ -8,23 +8,28 @@ import { AnimatePresence, motion } from 'motion/react';
 import { Home } from './components/Home';
 import { ServiceDetail } from './components/ServiceDetail';
 import { MatrixRain } from './components/MatrixRain';
+import { AudioPlayer } from './components/AudioPlayer';
 import { services } from './data';
 import { ServiceId } from './types';
+import { sfx } from './utils/soundEffects';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'HOME' | ServiceId>('HOME');
 
   const handleSelectService = (id: ServiceId) => {
+    sfx.playWarp();
     setCurrentView(id);
   };
 
   const handleBack = () => {
+    sfx.playBack();
     setCurrentView('HOME');
   };
 
   return (
     <div className="w-full min-h-screen bg-[#060608] overflow-hidden relative">
       <MatrixRain />
+      <AudioPlayer videoId="Dy080SqIEMU" />
       <div className="relative z-10 w-full min-h-screen overflow-y-auto">
         <AnimatePresence mode="wait">
           {currentView === 'HOME' ? (
