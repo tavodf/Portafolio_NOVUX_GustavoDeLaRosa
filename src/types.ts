@@ -21,9 +21,9 @@ export interface Service {
   id: ServiceId;
   categoryTitle: string;
   shortDescription: string;
-  image?: string;       // Parámetro opcional / preview
-  videoSrc?: string;    // Parámetro opcional para video local/remoto
-  iframeSrc?: string;   // Nuevo parámetro para orígenes interactivos
+  image?: string;
+  videoSrc?: string;
+  iframeSrc?: string;
   heading: string;
   description: string;
   keyServices?: KeyServiceItem[];
@@ -31,5 +31,21 @@ export interface Service {
   techStack?: TechItem[];
   externalLink?: string;
   ctaText?: string;
+}
+
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  tags: string[];
+  image?: string;
+  content: string;
+  readingTime?: string;
+  author?: {
+    name: string;
+    role: string;
+  };
 }
 

@@ -1,17 +1,36 @@
 import { motion } from 'motion/react';
-import { Github } from 'lucide-react';
+import { Github, BookOpen, ChevronRight, Sparkles } from 'lucide-react';
 import { serviceList } from '../data';
-import { ServiceId } from '../types';
+import { blogPosts } from '../blogData';
+import { ServiceId, BlogPost } from '../types';
 import { sfx } from '../utils/soundEffects';
 
 interface HomeProps {
   onSelectService: (id: ServiceId) => void;
+  onOpenBlog?: () => void;
+  onSelectBlogPost?: (post: BlogPost) => void;
 }
 
-export function Home({ onSelectService }: HomeProps) {
+export function Home({ onSelectService, onOpenBlog, onSelectBlogPost }: HomeProps) {
+  const latestPost = blogPosts[0];
+
   const handleCardClick = (id: ServiceId) => {
     sfx.playSelect();
     onSelectService(id);
+  };
+
+  const handleOpenBlog = () => {
+    sfx.playWarp();
+    if (onOpenBlog) onOpenBlog();
+  };
+
+  const handleOpenLatestPost = () => {
+    sfx.playSelect();
+    if (onSelectBlogPost && latestPost) {
+      onSelectBlogPost(latestPost);
+    } else if (onOpenBlog) {
+      onOpenBlog();
+    }
   };
   return (
     <motion.div
@@ -82,18 +101,69 @@ export function Home({ onSelectService }: HomeProps) {
           ))}
         </div>
 
-        {/* Enlace a GitHub centrado en la parte inferior de la página principal */}
-        <div className="flex justify-center items-center my-6">
+        {/* Banner destacado: Bitácora & Radar Técnico */}
+        {latestPost && (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25 }}
+            className="w-full max-w-4xl mb-4"
+          >
+            <div 
+              onClick={handleOpenLatestPost}
+              onMouseEnter={() => sfx.playHover()}
+              className="group bg-[#0e0e13]/90 hover:bg-[#151520] border border-[#C5A059]/40 hover:border-[#C5A059] rounded-sm p-4 sm:p-5 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.8)] hover:shadow-[0_0_25px_rgba(197,160,89,0.25)] transition-all duration-300 cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+            >
+              <div className="flex items-start sm:items-center gap-3">
+                <div className="p-2.5 rounded bg-[#C5A059]/10 border border-[#C5A059]/30 text-[#C5A059] shrink-0 mt-0.5 sm:mt-0">
+                  <BookOpen size={18} />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 text-[11px] font-mono text-[#C5A059] mb-1">
+                    <span className="flex items-center gap-1">
+                      <Sparkles size={11} />
+                      NUEVO EN LA BITÁCORA
+                    </span>
+                    <span className="text-zinc-600">•</span>
+                    <span className="text-zinc-400">{latestPost.date}</span>
+                  </div>
+                  <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-[#FFE066] transition-colors leading-snug">
+                    {latestPost.title}
+                  </h3>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
+                <span className="text-xs font-mono text-[#C5A059] tracking-wider uppercase">
+                  Leer
+                </span>
+                <ChevronRight size={15} className="text-[#C5A059] group-hover:translate-x-1 transition-transform" />
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Acciones de pie: Explorar Bitácora y GitHub */}
+        <div className="flex flex-wrap justify-center items-center gap-4 my-6">
+          <button
+            onClick={handleOpenBlog}
+            onMouseEnter={() => sfx.playHover()}
+            className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-sm border border-[#C5A059]/50 hover:border-[#C5A059] bg-[#0e0e11]/85 hover:bg-[#C5A059]/15 backdrop-blur-md text-[#FFE066] hover:text-white shadow-[0_4px_24px_rgba(0,0,0,0.7)] hover:shadow-[0_0_20px_rgba(197,160,89,0.3)] transition-all duration-300 text-xs font-mono uppercase tracking-widest cursor-pointer font-semibold"
+          >
+            <BookOpen className="w-4 h-4 text-[#C5A059]" />
+            <span>Ver Toda la Bitácora</span>
+          </button>
+
           <a
             href="https://github.com/tavodf"
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => sfx.playClick()}
             onMouseEnter={() => sfx.playHover()}
-            className="group inline-flex items-center gap-3 px-6 py-3 rounded-sm border border-[#C5A059]/40 hover:border-[#C5A059] bg-[#0e0e11]/85 hover:bg-[#18181f]/95 backdrop-blur-md text-zinc-200 hover:text-[#FFE066] shadow-[0_4px_24px_rgba(0,0,0,0.7)] hover:shadow-[0_0_25px_rgba(197,160,89,0.35)] transition-all duration-300 text-sm font-mono tracking-wider cursor-pointer"
+            className="group inline-flex items-center gap-3 px-6 py-3 rounded-sm border border-zinc-800 hover:border-[#C5A059]/60 bg-[#0e0e11]/85 hover:bg-[#18181f]/95 backdrop-blur-md text-zinc-300 hover:text-[#FFE066] shadow-[0_4px_24px_rgba(0,0,0,0.7)] transition-all duration-300 text-xs font-mono tracking-wider cursor-pointer"
             title="Visitar perfil de GitHub de Gustavo De La Rosa (tavodf)"
           >
-            <Github className="w-5 h-5 text-[#C5A059] group-hover:scale-110 transition-transform duration-200" />
+            <Github className="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform duration-200" />
             <span className="font-semibold tracking-wide">github.com/tavodf</span>
           </a>
         </div>
