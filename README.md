@@ -1,20 +1,12 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Novux S.A.S. - Portafolio Digital B2B
 
-# Run and deploy your AI Studio app
+Plataforma web de alto rendimiento (Single Page Application) desarrollada para la exhibición de capacidades en Software Factory, Data Analytics e Integración de IA. La arquitectura está diseñada bajo principios de eficiencia computacional, experiencia de usuario (UX) inmersiva y captación automatizada de leads.
 
-This contains everything you need to run your app locally.
+## Arquitectura Técnica Aplicada
 
-View your app in AI Studio: https://ai.studio/apps/a9007a5b-f902-47c0-bc21-d8e5f461c9ef
-
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- **Core Stack:** React 19, TypeScript, Vite, Tailwind CSS v4.
+- **Data-Driven UI (Desacoplamiento):** Implementación de diccionarios estáticos (`src/data.ts`) para aislar la lógica de visualización del contenido estructural. Habilita la inyección condicional de Call to Actions (CTAs) interconectados con Google Forms para el embudo de conversión B2B.
+- **Renderizado Estocástico (HTML5 Canvas):** Ejecución de algoritmos matemáticos (`MatrixRain.tsx`) gestionados vía `requestAnimationFrame` para generar simulaciones visuales complejas a 60 FPS con un consumo optimizado de CPU/GPU.
+- **Síntesis de Audio Nativa (Web Audio API):** Clase de utilería `SoundEffectsEngine` que compila oscilaciones matemáticas en tiempo real para la retroalimentación auditiva del usuario, erradicando la latencia de red al no depender de assets externos.
+- **Transiciones Declarativas:** Orquestación de estados visuales asíncronos mediante `framer-motion`, sustituyendo manipulaciones directas del DOM y animaciones CSS tradicionales pesadas.
+- **Enrutamiento de Vista Condicional:** Control maestro de navegación centralizado en `App.tsx` para permitir saltos entre módulos sin requerir peticiones HTTP adicionales ni recargas del navegador.
