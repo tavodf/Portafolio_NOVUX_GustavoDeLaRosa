@@ -116,7 +116,7 @@ print(Esto_es_vida)`;
       </div>
 
       {/* Tarjeta / Caja sólida para lectura sin distracción de la lluvia Matrix */}
-      <div className="w-full bg-[#0c0c12] border border-[#C5A059]/35 rounded-xl p-6 sm:p-10 md:p-12 shadow-[0_16px_60px_rgba(0,0,0,0.95)] relative z-10">
+      <div className="w-full bg-[#0c0c12] border border-[#C5A059]/35 hover:border-[#C5A059] rounded-xl p-6 sm:p-10 md:p-12 shadow-[0_16px_60px_rgba(0,0,0,0.95)] hover:shadow-[0_0_45px_rgba(197,160,89,0.3)] transition-all duration-300 relative z-10">
         
         {/* Cabecera del Artículo */}
         <header className="mb-10 border-b border-[#C5A059]/20 pb-8">

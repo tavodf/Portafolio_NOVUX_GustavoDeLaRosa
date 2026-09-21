@@ -136,8 +136,11 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
               transition={{ delay: index * 0.1, duration: 0.35 }}
               onClick={() => handlePostClick(post)}
               onMouseEnter={() => sfx.playHover()}
-              className="group bg-[#0e0e13]/85 hover:bg-[#13131c] border border-zinc-800 hover:border-[#C5A059] rounded-lg p-6 sm:p-7 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-[0_0_30px_rgba(197,160,89,0.18)] flex flex-col md:flex-row gap-6 items-start"
+              className="group relative bg-[#0e0e13]/85 hover:bg-[#13131c] border border-zinc-800 hover:border-[#C5A059] rounded-lg p-6 sm:p-7 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-[0_0_35px_rgba(197,160,89,0.38)] flex flex-col md:flex-row gap-6 items-start overflow-hidden"
             >
+              {/* Corner accents */}
+              <div className="absolute top-0 right-0 w-2.5 h-2.5 border-t border-r border-[#C5A059]/40 group-hover:border-[#FFE066] transition-colors" />
+              <div className="absolute bottom-0 left-0 w-2.5 h-2.5 border-b border-l border-[#C5A059]/40 group-hover:border-[#FFE066] transition-colors" />
               {/* Imagen en miniatura si existe */}
               {post.image && (
                 <div className="w-full md:w-48 h-44 rounded overflow-hidden border border-zinc-800 shrink-0 bg-black/80">

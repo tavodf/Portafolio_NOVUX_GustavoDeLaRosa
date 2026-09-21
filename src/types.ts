@@ -49,3 +49,29 @@ export interface BlogPost {
   };
 }
 
+export type NewsCategory = 
+  | 'Todas'
+  | 'IA & Machine Learning'
+  | 'Apps & Herramientas'
+  | 'Avances Corporativos'
+  | 'Recursos & Open Source'
+  | 'Cloud & Datos';
+
+export interface TechNewsItem {
+  id: string;
+  title: string;
+  summary: string;
+  category: 'IA & Machine Learning' | 'Apps & Herramientas' | 'Avances Corporativos' | 'Recursos & Open Source' | 'Cloud & Datos';
+  date: string;
+  source: string;
+  impactBadge?: 'LANZAMIENTO' | 'TENDENCIA' | 'AVANCE' | 'RECURSO' | 'DISRUPCIÓN';
+  tags: string[];
+  externalUrl?: string;
+  details?: string;
+  content?: string[];
+  keyTakeaways?: string[];
+  architectureImpact?: string;
+  readTime?: string;
+  author?: string;
+}
+

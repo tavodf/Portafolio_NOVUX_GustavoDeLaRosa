@@ -57,7 +57,7 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
 
             {/* Key Services List */}
             {service.keyServices && service.keyServices.length > 0 && (
-              <div className="w-full mb-6 bg-black/40 backdrop-blur-md rounded-sm border border-[#C5A059]/25 p-4 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+              <div className="w-full mb-6 bg-black/40 backdrop-blur-md rounded-sm border border-[#C5A059]/25 hover:border-[#C5A059] p-4 shadow-[0_4px_20px_rgba(0,0,0,0.5)] hover:shadow-[0_0_30px_rgba(197,160,89,0.35)] transition-all duration-300">
                 <div className="text-[11px] font-mono uppercase tracking-widest text-[#C5A059] flex items-center gap-2 mb-2.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] inline-block" />
                   Servicios Clave
@@ -113,7 +113,7 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
             className="w-full flex flex-col items-center lg:items-end gap-6"
           >
             {/* Media Container */}
-            <div className="aspect-[16/9] w-full max-w-2xl rounded-md overflow-hidden shadow-2xl shadow-black/80 border border-[#C5A059]/30 bg-black relative">
+            <div className="aspect-[16/9] w-full max-w-2xl rounded-md overflow-hidden shadow-2xl shadow-black/80 border border-[#C5A059]/30 hover:border-[#C5A059] hover:shadow-[0_0_35px_rgba(197,160,89,0.35)] transition-all duration-300 bg-black relative">
               {service.videoSrc ? (
                 <video
                   src={service.videoSrc}
@@ -187,7 +187,7 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="w-full max-w-2xl bg-[#0e0e11]/85 backdrop-blur-md p-6 rounded-sm border border-[#C5A059]/30 shadow-[0_12px_40px_rgba(0,0,0,0.8)] relative overflow-hidden"
+                className="w-full max-w-2xl bg-[#0e0e11]/85 backdrop-blur-md p-6 rounded-sm border border-[#C5A059]/30 hover:border-[#C5A059] shadow-[0_12px_40px_rgba(0,0,0,0.8)] hover:shadow-[0_0_35px_rgba(197,160,89,0.38)] transition-all duration-300 relative overflow-hidden"
               >
                 {/* Decorative corner accents */}
                 <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-[#C5A059]/50" />

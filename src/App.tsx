@@ -9,6 +9,7 @@ import { Home } from './components/Home';
 import { ServiceDetail } from './components/ServiceDetail';
 import { BlogList } from './components/BlogList';
 import { BlogPostView } from './components/BlogPostView';
+import { Noticias } from './components/Noticias';
 import { MatrixRain } from './components/MatrixRain';
 import { AudioPlayer } from './components/AudioPlayer';
 import { services } from './data';
@@ -16,7 +17,7 @@ import { blogPosts } from './blogData';
 import { ServiceId, BlogPost } from './types';
 import { sfx } from './utils/soundEffects';
 
-type ViewMode = 'HOME' | 'BLOG' | 'BLOG_POST' | ServiceId;
+type ViewMode = 'HOME' | 'BLOG' | 'BLOG_POST' | 'NOTICIAS' | ServiceId;
 
 export default function App() {
   const [currentView, setCurrentView] = useState<ViewMode>('HOME');
@@ -30,6 +31,11 @@ export default function App() {
   const handleOpenBlog = () => {
     sfx.playWarp();
     setCurrentView('BLOG');
+  };
+
+  const handleOpenNoticias = () => {
+    sfx.playWarp();
+    setCurrentView('NOTICIAS');
   };
 
   const handleSelectPost = (post: BlogPost) => {
@@ -65,8 +71,21 @@ export default function App() {
               <Home 
                 onSelectService={handleSelectService}
                 onOpenBlog={handleOpenBlog}
+                onOpenNoticias={handleOpenNoticias}
                 onSelectBlogPost={handleSelectPost}
               />
+            </motion.div>
+          )}
+
+          {currentView === 'NOTICIAS' && (
+            <motion.div
+              key="noticias"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              className="w-full"
+            >
+              <Noticias onBackToHome={handleBackToHome} />
             </motion.div>
           )}
 
@@ -104,7 +123,7 @@ export default function App() {
             </motion.div>
           )}
 
-          {currentView !== 'HOME' && currentView !== 'BLOG' && currentView !== 'BLOG_POST' && (
+          {currentView !== 'HOME' && currentView !== 'BLOG' && currentView !== 'BLOG_POST' && currentView !== 'NOTICIAS' && (
             <motion.div
               key={currentView}
               initial={{ opacity: 0 }}
