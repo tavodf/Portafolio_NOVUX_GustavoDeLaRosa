@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { Home } from './components/Home';
 import { ServiceDetail } from './components/ServiceDetail';
@@ -23,18 +23,42 @@ export default function App() {
   const [currentView, setCurrentView] = useState<ViewMode>('HOME');
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(blogPosts[0] || null);
 
+  // Sincronización de rutas con deep-linking hash (#noticias, #blog, #servicio-...)
+  useEffect(() => {
+    const handleHashRouting = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#noticias')) {
+        setCurrentView('NOTICIAS');
+      } else if (hash.startsWith('#blog')) {
+        setCurrentView('BLOG');
+      } else if (hash.startsWith('#servicio-')) {
+        const sId = hash.replace('#servicio-', '');
+        if (services[sId as ServiceId]) {
+          setCurrentView(sId as ServiceId);
+        }
+      }
+    };
+
+    handleHashRouting();
+    window.addEventListener('hashchange', handleHashRouting);
+    return () => window.removeEventListener('hashchange', handleHashRouting);
+  }, []);
+
   const handleSelectService = (id: ServiceId) => {
     sfx.playWarp();
+    window.location.hash = `servicio-${id}`;
     setCurrentView(id);
   };
 
   const handleOpenBlog = () => {
     sfx.playWarp();
+    window.location.hash = 'blog';
     setCurrentView('BLOG');
   };
 
   const handleOpenNoticias = () => {
     sfx.playWarp();
+    window.location.hash = 'noticias';
     setCurrentView('NOTICIAS');
   };
 
@@ -46,11 +70,13 @@ export default function App() {
 
   const handleBackToHome = () => {
     sfx.playBack();
+    window.history.pushState(null, '', window.location.pathname);
     setCurrentView('HOME');
   };
 
   const handleBackToBlog = () => {
     sfx.playBack();
+    window.location.hash = 'blog';
     setCurrentView('BLOG');
   };
 

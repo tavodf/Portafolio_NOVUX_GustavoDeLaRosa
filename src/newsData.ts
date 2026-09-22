@@ -2,6 +2,122 @@ import { TechNewsItem } from './types';
 
 export const techNews: TechNewsItem[] = [
   {
+    id: 'news-vertex-ai',
+    title: 'Vertex AI: La Convergencia de MLOps e Inteligencia Artificial Generativa a Escala Empresarial',
+    summary: 'La adopción de inteligencia artificial a nivel corporativo supera las interfaces de chat aisladas: Vertex AI unifica MLOps, aislamiento perimetral sin reentrenamiento público y grounding directo sobre BigQuery y Cloud Storage para despliegues de misión crítica.',
+    category: 'Cloud & Datos',
+    date: '2026-09-22',
+    source: 'Google Cloud • Enterprise Architecture Whitepaper',
+    impactBadge: 'DESPACHO TÉCNICO / ARQUITECTURA',
+    readTime: '6 min de lectura profunda',
+    author: 'Redacción Técnica • Gustavo De La Rosa',
+    tags: ['vertex-ai', 'google-cloud', 'mlops', 'ia-generativa', 'bigquery', 'rag', 'grounding', 'gemini', 'seguridad-datos'],
+    externalUrl: 'https://cloud.google.com/vertex-ai',
+    details: 'Vertex AI estructura el ciclo de vida completo de ingeniería de datos, aprendizaje automático tradicional y modelos generativos bajo una sola consola y un SDK estandarizado, protegiendo la soberanía de la información corporativa mediante VPC Service Controls y llaves CMEK.',
+    content: [
+      'La adopción de inteligencia artificial a nivel corporativo ha dejado atrás la fase de fascinación por las interfaces de chat aisladas. Para las organizaciones que procesan volúmenes masivos de datos y operan bajo estrictos marcos normativos, el desafío real radica en la gobernanza, el aislamiento perimetral de la información y la capacidad de integrar modelos fundacionales directamente en sus almacenes de datos (Data Warehousing).',
+      'En este escenario, Google Cloud ha consolidado Vertex AI como una plataforma unificada de extremo a extremo. Su propuesta central no es solo proveer inferencia sobre modelos avanzados (como la familia Gemini), sino estructurar el ciclo de vida completo de ingeniería de datos, aprendizaje automático tradicional (MLOps) y sistemas generativos bajo una sola consola y un SDK estandarizado.',
+      'Aislamiento Perimetral y Cumplimiento: Ningún dato empresarial (prompts, embeddings, respuestas o documentos de grounding) se utiliza para el reentrenamiento de los modelos base de Google. La infraestructura soporta VPC Service Controls, llaves administradas por el cliente (CMEK) y certificaciones rigurosas (SOC 2, ISO 27001, HIPAA).',
+      'Grounding Nativo y Arquitectura RAG: La principal causa de alucinaciones en modelos de lenguaje es la falta de contexto contextualizado. Vertex AI permite aterrizar (grounding) las respuestas de los LLMs directamente en tablas de BigQuery, buckets de Google Cloud Storage o mediante Vertex AI Search & Vector Search, garantizando que el modelo cite fuentes internas auditables en tiempo real.',
+      'Model Garden Heterogéneo: No limita a la empresa al ecosistema propietario. Además de Gemini e Imagen, ofrece catálogo gestionado de modelos abiertos (Gemma, Llama, Mistral) desplegables en hardware administrado (NVIDIA GPUs / Google Cloud TPUs).'
+    ],
+    keyTakeaways: [
+      'Sinergia con el Ecosistema GCP: Si el Data Warehouse de la empresa reside en BigQuery, la distancia entre el dato analítico y el modelo de IA es prácticamente cero (consultas SQL que invocan modelos de inferencia directamente con BigQuery ML).',
+      'Previsibilidad de Costos vs. Mantenimiento: Para cargas de IA generativa, el cobro es granular por millón de tokens procesados; para modelos predictivos y MLOps continuo, la facturación responde al tiempo de cómputo en nodos dedicados y almacenamiento vectorial.',
+      'Reducción de Deuda Técnica: Elimina la dispersión de herramientas donde el equipo de analítica usa un entorno, el de desarrollo consume APIs no gobernadas y operaciones intenta desplegar microservicios en crudo.'
+    ],
+    architectureImpact: 'Criterio de Implementación: Vertex AI es la solución indicada cuando la organización requiere producción formal: flujos reproducibles (Vertex Pipelines / Kubeflow), observabilidad de deriva de datos (drift detection) y control de costos mediante presupuestos e IAM granular. Por el contrario, para pruebas de concepto iniciales (PoC) sin requerimientos de seguridad corporativa o arquitecturas ancladas en otros proveedores multi-cloud, el overhead de configuración inicial debe ponderarse frente a soluciones de consumo directo.',
+    videoDemo: {
+      youtubeId: '3U4Rp5nxE28',
+      title: 'Demostración Técnica: Creación y Despliegue de Agentes e Inferencia en Vertex AI',
+      caption: 'Inspección de consola en vivo: Configuración de Gemini con Grounding sobre Vector Search, orquestación de pipelines y despliegue de endpoints con cuotas perimetrales de baja latencia.'
+    },
+    codeSnippets: [
+      {
+        language: 'python',
+        title: 'Python SDK • Invocación Empresarial con Grounding en Almacén Corporativo',
+        description: 'Implementación del SDK oficial de Vertex AI invocando Gemini con anclaje (Grounding) a un Datastore privado, eliminando alucinaciones y auditando fuentes:',
+        code: `from google.cloud import aiplatform
+import vertexai
+from vertexai.generative_models import GenerativeModel, Tool, grounding
+
+# 1. Inicialización en perímetro seguro VPC-SC con llaves gestionadas
+vertexai.init(project="empresa-prod-core", location="us-central1")
+
+# 2. Configurar herramienta de Grounding sobre Vertex AI Search & Vector Search
+data_store_path = (
+    "projects/empresa-prod-core/locations/global/collections/"
+    "default_collection/dataStores/politicas-corporativas"
+)
+grounding_tool = Tool.from_retrieval(
+    grounding.Retrieval(grounding.VertexAISearch(datastore=data_store_path))
+)
+
+# 3. Instanciar modelo con temperatura estricta y herramientas corporativas
+model = GenerativeModel(
+    model_name="gemini-1.5-pro",
+    tools=[grounding_tool],
+    system_instruction=[
+        "Eres el agente de gobernanza corporativa. "
+        "Responde fundamentándote EXCLUSIVAMENTE en las fuentes internas citadas."
+    ]
+)
+
+# 4. Inferencia auditable: responde citando la procedencia del documento
+response = model.generate_content("¿Cuál es el SLA de recuperación ante desastres para la base de datos de producción?")
+print("Respuesta:", response.text)
+print("Metadatos de fuentes verificadas:", response.candidates[0].grounding_metadata)`
+      },
+      {
+        language: 'sql',
+        title: 'BigQuery ML • Inferencia de Gemini Directamente desde Consultas SQL',
+        description: 'Invocación de modelos fundacionales de Vertex AI sobre millones de registros analíticos en BigQuery sin exportar datos:',
+        code: `SELECT
+  ticket_id,
+  cliente_categoria,
+  descripcion_incidente,
+  ml_generate_text_llm_result AS clasificacion_ia
+FROM
+  ML.GENERATE_TEXT(
+    MODEL \`empresa-prod-core.analytics.vertex_gemini_remote_model\`,
+    TABLE \`empresa-prod-core.soporte.tickets_historicos\`,
+    STRUCT(
+      0.2 AS temperature,
+      100 AS max_output_tokens,
+      TRUE AS flatten_json_output
+    )
+  );`
+      }
+    ],
+    diagramSteps: [
+      {
+        step: '01',
+        title: 'Fuente de Verdad (Data Lake / Warehouse)',
+        desc: 'Tablas analíticas en BigQuery y depósitos de documentos en Cloud Storage bajo cifrado CMEK y políticas de retención.'
+      },
+      {
+        step: '02',
+        title: 'Indexación Semántica & Embeddings',
+        desc: 'Vertex AI Vector Search genera índices vectoriales en tiempo real con latencia sub-milisegundo para búsqueda híbrida.'
+      },
+      {
+        step: '03',
+        title: 'Grounding & Retrieval (RAG Nativo)',
+        desc: 'Vertex AI Search intercepta la consulta, recupera los fragmentos exactos del almacén y ancla el contexto con citas verificables.'
+      },
+      {
+        step: '04',
+        title: 'Inferencia Aislada en Clúster Seguro',
+        desc: 'Ejecución en Gemini / Model Garden sin fuga de datos ni entrenamiento público, protegido por VPC Service Controls.'
+      },
+      {
+        step: '05',
+        title: 'Consumo por Software Factory & APIs',
+        desc: 'Endpoints REST/gRPC protegidos por IAM con cuotas y observabilidad para ERPs, Dashboards BI y microservicios.'
+      }
+    ]
+  },
+  {
     id: 'news-1',
     title: 'Modelos de Razonamiento Profundo y Agentes Autónomos con Entornos Aislados de Ejecución',
     summary: 'La industria de inteligencia artificial gira drásticamente de los modelos probabilísticos de texto hacia sistemas con cadenas de pensamiento dinámicas (Tree of Thoughts) y validación matemática determinista mediante intérpretes Python en tiempo real.',

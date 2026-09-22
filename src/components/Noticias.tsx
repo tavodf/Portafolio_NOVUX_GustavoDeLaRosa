@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   ArrowLeft, 
@@ -20,7 +20,14 @@ import {
   BookOpen,
   CheckCircle2,
   Terminal,
-  Bookmark
+  Bookmark,
+  Play,
+  Copy,
+  Check,
+  Video,
+  Workflow,
+  FileCode,
+  Link as LinkIcon
 } from 'lucide-react';
 import { techNews } from '../newsData';
 import { TechNewsItem, NewsCategory } from '../types';
@@ -44,6 +51,32 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedId, setExpandedId] = useState<string | null>(techNews[0]?.id || null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [copiedCodeKey, setCopiedCodeKey] = useState<string | null>(null);
+
+  // Deep linking: detectar si la URL trae un parámetro de artículo específico
+  useEffect(() => {
+    const handleHashCheck = () => {
+      const hash = window.location.hash;
+      const match = hash.match(/id=([a-zA-Z0-9-_]+)/);
+      if (match && match[1]) {
+        const targetId = match[1];
+        const exists = techNews.some(n => n.id === targetId);
+        if (exists) {
+          setExpandedId(targetId);
+          setTimeout(() => {
+            const el = document.getElementById(`article-${targetId}`);
+            if (el) {
+              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 300);
+        }
+      }
+    };
+
+    handleHashCheck();
+    window.addEventListener('hashchange', handleHashCheck);
+    return () => window.removeEventListener('hashchange', handleHashCheck);
+  }, []);
 
   const filteredNews = techNews.filter((item) => {
     const matchesCategory = selectedCategory === 'Todas' || item.category === selectedCategory;
@@ -70,9 +103,21 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
   const handleShare = (item: TechNewsItem) => {
     sfx.playPowerUp();
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(`${item.title}\n\n${item.summary}\n\nPor: ${item.author || 'Gustavo De La Rosa'}`);
+      const directUrl = `${window.location.origin}${window.location.pathname}#noticias?id=${item.id}`;
+      navigator.clipboard.writeText(
+        `${item.title}\n\n${item.summary}\n\n🔗 Enlace directo al Despacho: ${directUrl}\n\nAutor: ${item.author || 'Gustavo De La Rosa'}`
+      );
       setCopiedId(item.id);
       setTimeout(() => setCopiedId(null), 2500);
+    }
+  };
+
+  const handleCopyCode = (key: string, code: string) => {
+    sfx.playPowerUp();
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(code);
+      setCopiedCodeKey(key);
+      setTimeout(() => setCopiedCodeKey(null), 2500);
     }
   };
 
@@ -95,6 +140,8 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
 
   const getImpactBadgeColor = (badge?: string) => {
     switch (badge) {
+      case 'DESPACHO TÉCNICO / ARQUITECTURA':
+        return 'bg-[#C5A059]/25 text-[#FFE066] border-[#C5A059] shadow-[0_0_15px_rgba(197,160,89,0.35)] font-bold';
       case 'DISRUPCIÓN':
         return 'bg-red-500/20 text-red-400 border-red-500/40';
       case 'LANZAMIENTO':
@@ -225,10 +272,11 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                 return (
                   <motion.article
                     key={item.id}
+                    id={`article-${item.id}`}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.05 }}
-                    className="group relative border border-zinc-800/90 hover:border-[#C5A059] bg-[#09090e]/95 rounded-sm p-5 sm:p-7 transition-all duration-300 shadow-md hover:shadow-[0_0_30px_rgba(197,160,89,0.35)]"
+                    className="group relative border border-zinc-800/90 hover:border-[#C5A059] bg-[#09090e]/95 rounded-sm p-5 sm:p-7 transition-all duration-300 shadow-md hover:shadow-[0_0_30px_rgba(197,160,89,0.35)] scroll-mt-6"
                   >
                     {/* Corner accents on hover */}
                     <div className="absolute top-0 right-0 w-2.5 h-2.5 border-t border-r border-[#C5A059]/40 group-hover:border-[#FFE066] transition-colors" />
@@ -328,6 +376,146 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                                 // IMPACTO EN ARQUITECTURA & SOFTWARE FACTORY:
                               </span>
                               {item.architectureImpact}
+                            </div>
+                          )}
+
+                          {/* Sub-sección: Diagrama de Arquitectura & Pipeline de Datos */}
+                          {item.diagramSteps && item.diagramSteps.length > 0 && (
+                            <div className="my-6 p-4 sm:p-6 rounded-sm bg-[#06060c] border border-[#C5A059]/30">
+                              <div className="flex items-center justify-between mb-4 pb-2 border-b border-zinc-800">
+                                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#FFE066] font-bold">
+                                  <Workflow size={15} className="text-[#C5A059]" />
+                                  <span>Topología & Flujo de Datos Corporativo (Vertex AI / RAG):</span>
+                                </div>
+                                <span className="text-[10px] font-mono text-zinc-500 bg-black/60 px-2 py-0.5 rounded border border-zinc-800">
+                                  Aislamiento Perimetral
+                                </span>
+                              </div>
+
+                              <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+                                {item.diagramSteps.map((step, sIdx) => (
+                                  <div 
+                                    key={sIdx}
+                                    className="p-3.5 rounded bg-[#0d0d16] border border-zinc-800 hover:border-[#C5A059]/60 transition-all flex flex-col justify-between relative group hover:shadow-[0_0_15px_rgba(197,160,89,0.18)]"
+                                  >
+                                    <div>
+                                      <div className="flex items-center justify-between mb-2">
+                                        <span className="text-[10px] font-mono font-bold text-[#C5A059] bg-[#C5A059]/10 px-1.5 py-0.5 rounded">
+                                          Paso {step.step}
+                                        </span>
+                                        {sIdx < item.diagramSteps!.length - 1 && (
+                                          <span className="text-zinc-600 text-xs hidden md:inline">→</span>
+                                        )}
+                                      </div>
+                                      <h4 className="text-xs font-bold text-white mb-1.5 leading-snug group-hover:text-[#FFE066] transition-colors">
+                                        {step.title}
+                                      </h4>
+                                    </div>
+                                    <p className="text-[11px] text-zinc-400 font-sans leading-relaxed mt-2 pt-2 border-t border-zinc-800/60">
+                                      {step.desc}
+                                    </p>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Sub-sección: Ejemplos de Funciones & Código de Implementación */}
+                          {item.codeSnippets && item.codeSnippets.length > 0 && (
+                            <div className="my-6 space-y-4">
+                              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#FFE066] font-bold">
+                                <FileCode size={15} className="text-[#C5A059]" />
+                                <span>Ejemplos de Función & Código de Implementación:</span>
+                              </div>
+
+                              {item.codeSnippets.map((snippet, snIdx) => {
+                                const snippetKey = `${item.id}-snippet-${snIdx}`;
+                                const isCopied = copiedCodeKey === snippetKey;
+
+                                return (
+                                  <div 
+                                    key={snIdx} 
+                                    className="rounded-sm bg-[#050509] border border-zinc-800 hover:border-[#C5A059]/50 transition-colors overflow-hidden"
+                                  >
+                                    {/* Cabecera del snippet */}
+                                    <div className="flex items-center justify-between px-3.5 py-2 bg-[#0c0c14] border-b border-zinc-800">
+                                      <div className="flex items-center gap-2">
+                                        <span className="text-[10px] uppercase font-mono font-bold px-2 py-0.5 rounded bg-[#C5A059]/20 text-[#FFE066] border border-[#C5A059]/30">
+                                          {snippet.language}
+                                        </span>
+                                        <span className="text-xs font-mono text-zinc-300 font-medium">
+                                          {snippet.title}
+                                        </span>
+                                      </div>
+                                      <button
+                                        onClick={() => handleCopyCode(snippetKey, snippet.code)}
+                                        className="inline-flex items-center gap-1 text-[11px] font-mono text-zinc-400 hover:text-white bg-black/60 hover:bg-zinc-800 px-2 py-1 rounded border border-zinc-800 transition-colors cursor-pointer"
+                                        title="Copiar código"
+                                      >
+                                        {isCopied ? (
+                                          <>
+                                            <Check size={12} className="text-emerald-400" />
+                                            <span className="text-emerald-400">¡Copiado!</span>
+                                          </>
+                                        ) : (
+                                          <>
+                                            <Copy size={12} />
+                                            <span>Copiar</span>
+                                          </>
+                                        )}
+                                      </button>
+                                    </div>
+
+                                    {snippet.description && (
+                                      <p className="px-4 pt-3 text-xs text-zinc-400 font-sans">
+                                        {snippet.description}
+                                      </p>
+                                    )}
+
+                                    {/* Bloque de código */}
+                                    <div className="p-4 overflow-x-auto">
+                                      <pre className="text-xs font-mono text-zinc-200 leading-relaxed whitespace-pre selection:bg-[#C5A059] selection:text-black">
+                                        <code>{snippet.code}</code>
+                                      </pre>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+
+                          {/* Sub-sección: Demostración en Video */}
+                          {item.videoDemo && (
+                            <div className="my-6 p-4 sm:p-6 rounded-sm bg-[#06060c] border border-[#C5A059]/35 shadow-lg">
+                              <div className="flex items-center justify-between mb-3 pb-2 border-b border-zinc-800">
+                                <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#FFE066] font-bold">
+                                  <Video size={15} className="text-[#C5A059]" />
+                                  <span>Demostración en Video & Recorrido de Consola:</span>
+                                </div>
+                                <span className="flex items-center gap-1 text-[10px] font-mono text-[#C5A059] bg-[#C5A059]/10 px-2 py-0.5 rounded border border-[#C5A059]/20">
+                                  <Play size={10} className="fill-[#C5A059]" />
+                                  YouTube Oficial
+                                </span>
+                              </div>
+
+                              <h4 className="text-sm sm:text-base font-bold text-white mb-2 font-serif">
+                                {item.videoDemo.title}
+                              </h4>
+                              
+                              <p className="text-xs text-zinc-400 font-sans mb-4 leading-relaxed">
+                                {item.videoDemo.caption}
+                              </p>
+
+                              {/* Iframe 16:9 con contenedor responsivo y borde cyberpunk */}
+                              <div className="relative aspect-video w-full rounded overflow-hidden border border-zinc-800 group-hover:border-[#C5A059]/60 shadow-[0_10px_30px_rgba(0,0,0,0.8)] bg-black">
+                                <iframe
+                                  src={`https://www.youtube.com/embed/${item.videoDemo.youtubeId}?rel=0`}
+                                  title={item.videoDemo.title}
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                  allowFullScreen
+                                  className="w-full h-full border-0"
+                                />
+                              </div>
                             </div>
                           )}
 

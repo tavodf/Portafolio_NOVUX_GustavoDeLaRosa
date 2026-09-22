@@ -57,6 +57,26 @@ export type NewsCategory =
   | 'Recursos & Open Source'
   | 'Cloud & Datos';
 
+export interface CodeSnippet {
+  language: string;
+  title: string;
+  code: string;
+  description?: string;
+}
+
+export interface ArchitectureDiagramStep {
+  step: string;
+  title: string;
+  desc: string;
+  highlight?: boolean;
+}
+
+export interface VideoDemo {
+  youtubeId: string;
+  title: string;
+  caption: string;
+}
+
 export interface TechNewsItem {
   id: string;
   title: string;
@@ -64,7 +84,7 @@ export interface TechNewsItem {
   category: 'IA & Machine Learning' | 'Apps & Herramientas' | 'Avances Corporativos' | 'Recursos & Open Source' | 'Cloud & Datos';
   date: string;
   source: string;
-  impactBadge?: 'LANZAMIENTO' | 'TENDENCIA' | 'AVANCE' | 'RECURSO' | 'DISRUPCIÓN';
+  impactBadge?: 'LANZAMIENTO' | 'TENDENCIA' | 'AVANCE' | 'RECURSO' | 'DISRUPCIÓN' | 'DESPACHO TÉCNICO / ARQUITECTURA';
   tags: string[];
   externalUrl?: string;
   details?: string;
@@ -73,5 +93,8 @@ export interface TechNewsItem {
   architectureImpact?: string;
   readTime?: string;
   author?: string;
+  videoDemo?: VideoDemo;
+  codeSnippets?: CodeSnippet[];
+  diagramSteps?: ArchitectureDiagramStep[];
 }
 
