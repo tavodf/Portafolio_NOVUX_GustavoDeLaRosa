@@ -14,7 +14,8 @@ import { MatrixRain } from './components/MatrixRain';
 import { AudioPlayer } from './components/AudioPlayer';
 import { services } from './data';
 import { blogPosts } from './blogData';
-import { ServiceId, BlogPost } from './types';
+import { techNews } from './newsData';
+import { ServiceId, BlogPost, TechNewsItem } from './types';
 import { sfx } from './utils/soundEffects';
 
 type ViewMode = 'HOME' | 'BLOG' | 'BLOG_POST' | 'NOTICIAS' | ServiceId;
@@ -30,6 +31,15 @@ export default function App() {
       if (hash.startsWith('#noticias')) {
         setCurrentView('NOTICIAS');
       } else if (hash.startsWith('#blog')) {
+        const match = hash.match(/id=([a-zA-Z0-9-_]+)/);
+        if (match && match[1]) {
+          const found = blogPosts.find(p => p.id === match[1] || p.slug === match[1]);
+          if (found) {
+            setSelectedPost(found);
+            setCurrentView('BLOG_POST');
+            return;
+          }
+        }
         setCurrentView('BLOG');
       } else if (hash.startsWith('#servicio-')) {
         const sId = hash.replace('#servicio-', '');
@@ -65,7 +75,14 @@ export default function App() {
   const handleSelectPost = (post: BlogPost) => {
     sfx.playSelect();
     setSelectedPost(post);
+    window.location.hash = `blog?id=${post.id}`;
     setCurrentView('BLOG_POST');
+  };
+
+  const handleSelectNewsItem = (item: TechNewsItem) => {
+    sfx.playSelect();
+    window.location.hash = `noticias?id=${item.id}`;
+    setCurrentView('NOTICIAS');
   };
 
   const handleBackToHome = () => {
@@ -99,6 +116,7 @@ export default function App() {
                 onOpenBlog={handleOpenBlog}
                 onOpenNoticias={handleOpenNoticias}
                 onSelectBlogPost={handleSelectPost}
+                onSelectNewsItem={handleSelectNewsItem}
               />
             </motion.div>
           )}
@@ -168,6 +186,3 @@ export default function App() {
     </div>
   );
 }
-
-
-

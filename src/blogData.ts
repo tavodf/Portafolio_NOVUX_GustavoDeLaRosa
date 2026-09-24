@@ -2,6 +2,73 @@ import { BlogPost } from './types';
 
 export const blogPosts: BlogPost[] = [
   {
+    id: '2',
+    slug: 'desmitificando-sql-del-cubo-al-algebra-relacional',
+    title: 'Desmitificando SQL: De la intuición del cubo al Álgebra Relacional',
+    description: 'A menudo se enseña SQL memorizando comandos sueltos. Formalizamos el modelo mental detrás de las consultas, conectando la intuición física de fichas y contenedores con la teoría de conjuntos y el procesamiento lógico de queries.',
+    date: '2026-09-24',
+    readingTime: '5 min de lectura',
+    tags: ['sql', 'algebra-relacional', 'data-engineering', 'data-analytics', 'databases', 'modelo-mental'],
+    image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1200&auto=format&fit=crop',
+    author: {
+      name: 'Gustavo De La Rosa',
+      role: 'Software Factory & Data Analytics • Bogotá, Colombia'
+    },
+    content: `A menudo se enseña SQL como si fuera simplemente memorizar comandos (\`SELECT\`, \`FROM\`, \`WHERE\`). Sin embargo, para dominar el análisis de datos hay que entender que SQL es un **lenguaje declarativo** fundamentado en la teoría de conjuntos y el álgebra relacional.
+
+Hoy formalizamos el modelo mental detrás de las consultas SQL, conectando la intuición cotidiana con la base matemática y técnica rigurosa.
+
+---
+
+### 1. Mapeo Mental: De la Intuición a la Teoría
+
+| Intuición (Modelo de Cubos) | Base Técnica (Álgebra Relacional & SQL) | Ejemplo Práctico |
+| :--- | :--- | :--- |
+| **Cubo / Fichero** (Contenedor global) | **Tabla / Relación / Conjunto** | Entidades como \`Clientes\` o \`Ventas\` |
+| **Cualidad del casillero** (Propiedad) | **Columna / Atributo / Campo** | \`ID\`, \`Nombre\`, \`Fecha\`, \`Salario\` |
+| **Ficha rellenada** (Dato concreto) | **Fila / Registro / Tupla** | Elemento individual: \`[45, Juan, 2024-03-12]\` |
+
+---
+
+### 2. El Viaje Lógico de una Consulta (*Logical Query Processing*)
+
+SQL **no procesa** las instrucciones en el orden en que las escribimos en el editor (\`SELECT\` al inicio), sino en un orden lógico que transforma los datos paso a paso:
+
+1. **CUBO INICIAL (\`FROM\`) & JUNTURA (\`JOIN\` / $\\bowtie$):** Identifica la tabla origen. Si se necesita cruzar información, conecta fichas de distintas tablas mediante un "cable" común (claves primarias y foráneas).
+2. **FILTRADO HORIZONTAL (\`WHERE\` / Selección $\\sigma$):** Evalúa fila por fila y descarta sin piedad las fichas que no cumplen la condición dada.
+3. **COLAPSO / AGRUPACIÓN (\`GROUP BY\` & \`HAVING\`):** Funde múltiples filas en resúmenes por categorías (ej. ventas por país) y aplica filtros a esos grupos consolidados.
+4. **CORTE VERTICAL (\`SELECT\` / Proyección $\\pi$):** Realiza un corte vertical, conservando solo las columnas/atributos de interés e ignorando el resto.
+5. **PRESENTACIÓN FINAL (\`ORDER BY\` & \`LIMIT\`):** Ordena las fichas resultantes y toma la muestra o paginación especificada.
+
+---
+
+### 💡 El Gran "Aha! Moment": La Propiedad de Clausura
+
+Lo más potente de este modelo es la **Propiedad de Clausura**: 
+
+> *La entrada de una consulta es una tabla (o conjunto de relaciones), y la salida **SIEMPRE** es otra tabla.*
+
+Gracias a esto, el resultado de una consulta no es un punto muerto: queda listo en memoria para alimentar subconsultas, expresiones de tabla comunes (**CTEs** con \`WITH\`), vistas o tableros de control ejecutivos (*dashboards* analíticos).
+
+---
+
+### 3. Diccionario Operativo: Comandos y Analogías
+
+| Palabra Clave | Función Técnica | Analogía (Cubos y Fichas / El Puntero) | Ejemplo Rápido |
+| :--- | :--- | :--- | :--- |
+| \`SELECT\` | Proyecta o extrae las columnas (cualidades) finales que deseas ver. | **El resaltador:** De todas las cualidades de la ficha, solo ilumina las que te interesan. | \`SELECT nombre, total\` |
+| \`FROM\` | Especifica la tabla o conjunto origen de los datos. | **El almacén:** Indica en qué estantería o archivador físico se encuentra el cubo a consultar. | \`FROM ventas_2024\` |
+| \`JOIN\` | Conecta dos o más tablas mediante una clave relacional compartida. | **El enlace magnético:** Junta dos fichas de distintos cubos uniendo sus extremos compatibles (FK $\\to$ PK). | \`INNER JOIN clientes ON ...\` |
+| \`WHERE\` | Filtra registros individuales antes de cualquier agregación o agrupamiento. | **El colador inicial:** Deja caer y descarta al instante las fichas que no cumplen la regla. | \`WHERE total > 1000\` |
+| \`GROUP BY\` | Colapsa y agrupa filas con valores idénticos en columnas clave. | **Los separadores:** Divide las fichas en montoncitos clasificados según una cualidad común. | \`GROUP BY region\` |
+| \`HAVING\` | Filtra los grupos resultantes tras una agregación (\`SUM\`, \`AVG\`, \`COUNT\`). | **El colador secundario:** Descarta montoncitos enteros que no alcancen la cota establecida. | \`HAVING SUM(total) >= 50000\` |
+| \`ORDER BY\` | Ordena las tuplas finales de forma ascendente o descendente. | **La clasificación manual:** Coloca las fichas de mayor a menor o por orden alfabético estricto. | \`ORDER BY fecha DESC\` |
+| \`LIMIT\` | Restringe el número total de filas devueltas al cliente. | **La muestra:** Toma únicamente las primeras $N$ fichas del tope de la pila. | \`LIMIT 10\` |
+
+#SQL #DataAnalytics #DataEngineering #RelationalAlgebra #Database #Novux #DataScience #LearningInPublic
+`
+  },
+  {
     id: '1',
     slug: 'el-teclado-como-piano-en-la-matriz',
     title: 'El Teclado como Piano en la Matriz: Cómo Aprendí Python desde el Álgebra Lineal',
@@ -67,7 +134,6 @@ def proyeccion_espacio_semantico():
 Esto_es_vida = f"{proyeccion_espacio_semantico()}"
 print(Esto_es_vida)
 \`\`\`
-
 `
   }
 ];

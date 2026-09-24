@@ -3,7 +3,7 @@ import { Github, BookOpen, ChevronRight, Sparkles, Radio } from 'lucide-react';
 import { serviceList } from '../data';
 import { blogPosts } from '../blogData';
 import { techNews } from '../newsData';
-import { ServiceId, BlogPost } from '../types';
+import { ServiceId, BlogPost, TechNewsItem } from '../types';
 import { sfx } from '../utils/soundEffects';
 import { CredentialsCarousel } from './CredentialsCarousel';
 
@@ -12,9 +12,16 @@ interface HomeProps {
   onOpenBlog?: () => void;
   onOpenNoticias?: () => void;
   onSelectBlogPost?: (post: BlogPost) => void;
+  onSelectNewsItem?: (item: TechNewsItem) => void;
 }
 
-export function Home({ onSelectService, onOpenBlog, onOpenNoticias, onSelectBlogPost }: HomeProps) {
+export function Home({ 
+  onSelectService, 
+  onOpenBlog, 
+  onOpenNoticias, 
+  onSelectBlogPost,
+  onSelectNewsItem 
+}: HomeProps) {
   const latestPost = blogPosts[0];
   const latestNews = techNews[0];
 
@@ -41,6 +48,16 @@ export function Home({ onSelectService, onOpenBlog, onOpenNoticias, onSelectBlog
       onOpenBlog();
     }
   };
+
+  const handleOpenLatestNews = () => {
+    sfx.playSelect();
+    if (onSelectNewsItem && latestNews) {
+      onSelectNewsItem(latestNews);
+    } else if (onOpenNoticias) {
+      onOpenNoticias();
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -127,57 +144,103 @@ export function Home({ onSelectService, onOpenBlog, onOpenNoticias, onSelectBlog
           ))}
         </div>
 
-        {/* Banner destacado: Bitácora & Radar Técnico con Resplandor */}
-        {latestPost && (
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25 }}
-            className="w-full max-w-4xl mb-4"
-          >
-            <div 
-              onClick={handleOpenLatestPost}
-              onMouseEnter={() => sfx.playHover()}
-              className="group relative bg-[#0e0e13]/90 hover:bg-[#151520] border border-[#C5A059]/40 hover:border-[#C5A059] rounded-sm p-4 sm:p-5 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.8)] hover:shadow-[0_0_30px_rgba(197,160,89,0.35)] transition-all duration-300 cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 overflow-hidden"
+        {/* Dos Secciones Novedades: NUEVO EN LA BITÁCORA & NUEVO EN NOTICIAS & RADAR TECH */}
+        <div className="w-full max-w-4xl flex flex-col gap-3.5 mb-6">
+          {/* 1. Sección: NUEVO EN LA BITÁCORA */}
+          {latestPost && (
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="w-full"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-[#C5A059]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-              <div className="flex items-start sm:items-center gap-3 z-10">
-                <div className="p-2.5 rounded bg-[#C5A059]/10 border border-[#C5A059]/30 text-[#C5A059] shrink-0 mt-0.5 sm:mt-0 group-hover:scale-105 transition-transform">
-                  <BookOpen size={18} />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 text-[11px] font-mono text-[#C5A059] mb-1">
-                    <span className="flex items-center gap-1">
-                      <Sparkles size={11} />
-                      NUEVO EN LA BITÁCORA
-                    </span>
-                    <span className="text-zinc-600">•</span>
-                    <span className="text-zinc-400">{latestPost.date}</span>
+              <div 
+                onClick={handleOpenLatestPost}
+                onMouseEnter={() => sfx.playHover()}
+                className="group relative bg-[#0e0e13]/90 hover:bg-[#151520] border border-[#C5A059]/40 hover:border-[#C5A059] rounded-sm p-4 sm:p-5 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.8)] hover:shadow-[0_0_30px_rgba(197,160,89,0.35)] transition-all duration-300 cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-[#C5A059]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <div className="flex items-start sm:items-center gap-3.5 z-10">
+                  <div className="p-2.5 rounded bg-[#C5A059]/10 border border-[#C5A059]/30 text-[#C5A059] shrink-0 mt-0.5 sm:mt-0 group-hover:scale-105 transition-transform">
+                    <BookOpen size={18} />
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-[#FFE066] transition-colors leading-snug">
-                    {latestPost.title}
-                  </h3>
+                  <div>
+                    <div className="flex items-center gap-2 text-[11px] font-mono text-[#C5A059] mb-1">
+                      <span className="flex items-center gap-1 font-bold">
+                        <Sparkles size={11} />
+                        NUEVO EN LA BITÁCORA
+                      </span>
+                      <span className="text-zinc-600">•</span>
+                      <span className="text-zinc-400">{latestPost.date}</span>
+                    </div>
+                    <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-[#FFE066] transition-colors leading-snug">
+                      {latestPost.title}
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 self-end sm:self-center shrink-0 z-10">
+                  <span className="text-xs font-mono text-[#C5A059] group-hover:text-[#FFE066] tracking-wider uppercase font-semibold">
+                    Leer Entrada
+                  </span>
+                  <ChevronRight size={15} className="text-[#C5A059] group-hover:translate-x-1 group-hover:text-[#FFE066] transition-transform" />
                 </div>
               </div>
+            </motion.div>
+          )}
 
-              <div className="flex items-center gap-2 self-end sm:self-center shrink-0 z-10">
-                <span className="text-xs font-mono text-[#C5A059] group-hover:text-[#FFE066] tracking-wider uppercase font-semibold">
-                  Leer
-                </span>
-                <ChevronRight size={15} className="text-[#C5A059] group-hover:translate-x-1 group-hover:text-[#FFE066] transition-transform" />
+          {/* 2. Sección: NUEVO EN NOTICIAS & RADAR TECH */}
+          {latestNews && (
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.28 }}
+              className="w-full"
+            >
+              <div 
+                onClick={handleOpenLatestNews}
+                onMouseEnter={() => sfx.playHover()}
+                className="group relative bg-[#0e0e13]/90 hover:bg-[#151520] border border-[#C5A059]/40 hover:border-[#C5A059] rounded-sm p-4 sm:p-5 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.8)] hover:shadow-[0_0_30px_rgba(197,160,89,0.35)] transition-all duration-300 cursor-pointer flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-[#C5A059]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <div className="flex items-start sm:items-center gap-3.5 z-10">
+                  <div className="p-2.5 rounded bg-[#C5A059]/10 border border-[#C5A059]/30 text-[#C5A059] shrink-0 mt-0.5 sm:mt-0 group-hover:scale-105 transition-transform">
+                    <Radio size={18} />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 text-[11px] font-mono text-[#C5A059] mb-1">
+                      <span className="flex items-center gap-1 font-bold">
+                        <Sparkles size={11} />
+                        NUEVO EN NOTICIAS & RADAR TECH
+                      </span>
+                      <span className="text-zinc-600">•</span>
+                      <span className="text-zinc-400">{latestNews.date}</span>
+                    </div>
+                    <h3 className="text-sm sm:text-base font-bold text-white group-hover:text-[#FFE066] transition-colors leading-snug">
+                      {latestNews.title}
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 self-end sm:self-center shrink-0 z-10">
+                  <span className="text-xs font-mono text-[#C5A059] group-hover:text-[#FFE066] tracking-wider uppercase font-semibold">
+                    Explorar
+                  </span>
+                  <ChevronRight size={15} className="text-[#C5A059] group-hover:translate-x-1 group-hover:text-[#FFE066] transition-transform" />
+                </div>
               </div>
-            </div>
-          </motion.div>
-        )}
+            </motion.div>
+          )}
+        </div>
 
-        {/* Acciones principales: Noticias, Bitácora y GitHub */}
+        {/* Acciones principales: Noticias, Bitácora y GitHub (Sin resplandor permanente) */}
         <div className="flex flex-wrap justify-center items-center gap-4 my-6">
           <button
             onClick={handleOpenNoticias}
             onMouseEnter={() => sfx.playHover()}
-            className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-sm border border-[#C5A059] hover:border-[#FFE066] bg-[#C5A059]/15 hover:bg-[#C5A059] text-[#FFE066] hover:text-black backdrop-blur-md shadow-[0_4px_24px_rgba(197,160,89,0.3)] hover:shadow-[0_0_25px_rgba(197,160,89,0.6)] transition-all duration-300 text-xs font-mono uppercase tracking-widest cursor-pointer font-bold"
+            className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-sm border border-zinc-700 hover:border-[#C5A059] bg-[#0e0e11]/85 hover:bg-[#C5A059]/15 backdrop-blur-md text-zinc-200 hover:text-white shadow-[0_4px_24px_rgba(0,0,0,0.7)] hover:shadow-[0_0_20px_rgba(197,160,89,0.3)] transition-all duration-300 text-xs font-mono uppercase tracking-widest cursor-pointer font-semibold"
           >
-            <Radio className="w-4 h-4 text-[#FFE066] group-hover:text-black animate-pulse" />
+            <Radio className="w-4 h-4 text-[#C5A059] group-hover:text-[#FFE066] transition-colors" />
             <span>Noticias & Radar Tech</span>
           </button>
 
@@ -186,7 +249,7 @@ export function Home({ onSelectService, onOpenBlog, onOpenNoticias, onSelectBlog
             onMouseEnter={() => sfx.playHover()}
             className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-sm border border-zinc-700 hover:border-[#C5A059] bg-[#0e0e11]/85 hover:bg-[#C5A059]/15 backdrop-blur-md text-zinc-200 hover:text-white shadow-[0_4px_24px_rgba(0,0,0,0.7)] hover:shadow-[0_0_20px_rgba(197,160,89,0.3)] transition-all duration-300 text-xs font-mono uppercase tracking-widest cursor-pointer font-semibold"
           >
-            <BookOpen className="w-4 h-4 text-[#C5A059]" />
+            <BookOpen className="w-4 h-4 text-[#C5A059] group-hover:text-[#FFE066] transition-colors" />
             <span>Bitácora & Ensayos</span>
           </button>
 
