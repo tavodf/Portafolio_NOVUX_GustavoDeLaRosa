@@ -166,6 +166,61 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
                     }
                   }}
                 />
+              ) : service.id === 'NOVUX_MARKETPULSE' ? (
+                <div className="w-full h-full bg-[#07090e] p-5 flex flex-col justify-between font-mono relative text-left select-none overflow-hidden">
+                  <div 
+                    className="absolute inset-0 opacity-10 pointer-events-none"
+                    style={{
+                      backgroundImage: 'radial-gradient(circle at 1px 1px, #10b981 1px, transparent 0)',
+                      backgroundSize: '16px 16px'
+                    }}
+                  />
+                  {/* Top Bar with Console Dots and Status */}
+                  <div className="flex items-center justify-between border-b border-zinc-800 pb-3 relative z-10">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80 inline-block" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
+                      <span className="text-xs text-zinc-400 ml-1.5">novux_marketpulse_engine.sh</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 bg-emerald-950/70 border border-emerald-500/50 px-2.5 py-1 rounded text-xs font-bold text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.35)]">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping inline-block" />
+                      <span>[STATUS: ACTIVE MONITORING]</span>
+                    </div>
+                  </div>
+
+                  {/* Body Details */}
+                  <div className="space-y-2.5 my-auto relative z-10 py-3">
+                    <div className="flex items-center gap-2 text-xs sm:text-sm">
+                      <span className="text-zinc-500">Target:</span>
+                      <span className="text-zinc-200 font-semibold">Competidor Alpha Retail</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-xs sm:text-sm">
+                      <span className="text-zinc-500">Item:</span>
+                      <span className="text-white font-medium">Laptop Pro 16" - Core Ultra</span>
+                    </div>
+                    <div className="text-[11px] text-zinc-500 flex items-center gap-3">
+                      <span>• Frecuencia: Cada 10 min</span>
+                      <span>• Proxy: Residencial Stealth</span>
+                      <span>• SKU: 94821-ALP</span>
+                    </div>
+                  </div>
+
+                  {/* Pricing and Variation Box */}
+                  <div className="bg-black/80 border border-zinc-800 rounded p-3 flex items-center justify-between relative z-10">
+                    <div>
+                      <span className="text-[10px] text-zinc-400 block uppercase">Precio Actual:</span>
+                      <span className="text-base sm:text-lg font-bold text-[#FFE066] tracking-tight">$4,607,500 COP</span>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-[10px] text-zinc-400 block uppercase">Variación Detectada:</span>
+                      <span className="text-xs sm:text-sm font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-1 rounded inline-flex items-center gap-1">
+                        <span>↓</span>
+                        <span>-5.0% (DESCUENTO DETECTADO)</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center p-6 bg-gradient-to-b from-[#121217] to-black text-center relative">
                   <div className="w-12 h-12 rounded-full border border-[#C5A059]/40 flex items-center justify-center mb-3 bg-[#C5A059]/10">

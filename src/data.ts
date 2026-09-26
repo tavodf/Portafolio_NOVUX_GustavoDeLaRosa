@@ -70,6 +70,39 @@ export const services: Record<Service['id'], Service> = {
       { name: 'Regex / NLP', iconName: 'regex' },
       { name: 'Looker Studio', iconName: 'looker' },
     ]
+  },
+  NOVUX_MARKETPULSE: {
+    id: 'NOVUX_MARKETPULSE',
+    categoryTitle: 'NOVUX MARKETPULSE',
+    shortDescription: 'Sistemas autónomos de vigilancia comercial y analítica de precios para e-commerce y distribución. Monitoreo diario de competidores, detección de quiebres de stock y reportes ejecutivos automatizados sin intervención manual.',
+    heading: 'NOVUX MARKETPULSE // VIGILANCIA COMERCIAL & ANALÍTICA DE PRECIOS',
+    description: 'Sistemas autónomos de vigilancia comercial y analítica de precios para e-commerce y distribución. Monitoreo diario de competidores, detección de quiebres de stock y reportes ejecutivos automatizados sin intervención manual.',
+    externalLink: 'https://docs.google.com/forms/d/e/1FAIpQLSfIf2E1nj-Q1fCWGq2xAQlVGhPRItPS2TjMIprrCq33PgweQw/viewform',
+    ctaText: 'SOLICITAR AUDITORÍA / DEMO',
+    keyServices: [
+      {
+        title: 'Monitoreo Continuo de Competidores',
+        detail: 'Rastreo programado de catálogos y variaciones de precio en e-commerce y marketplaces.'
+      },
+      {
+        title: 'Detección de Quiebres y Stock Rival',
+        detail: 'Alertas en tiempo real ante variaciones de catálogo y desabastecimiento de la competencia.'
+      },
+      {
+        title: 'Reportes Ejecutivos & BI Automatizados',
+        detail: 'Modelado analítico y consolidación de elasticidad de precios sin intervención manual.'
+      }
+    ],
+    caseStudy: {
+      title: 'CASO DE ÉXITO: MARKETPULSE EN RETAIL & DISTRIBUCIÓN',
+      description: 'Implementación de un motor de vigilancia asíncrono para auditar más de 15,000 referencias de competidores directos, detectando oscilaciones de precios en tiempo récord y optimizando el margen comercial dinámico.'
+    },
+    techStack: [
+      { name: 'Python', iconName: 'python' },
+      { name: 'Selenium (Stealth)', iconName: 'selenium' },
+      { name: 'Pandas', iconName: 'pandas' },
+      { name: 'Looker Studio', iconName: 'looker' },
+    ]
   }
 };
 

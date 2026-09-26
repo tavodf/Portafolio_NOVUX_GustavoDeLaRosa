@@ -1,4 +1,4 @@
-export type ServiceId = 'SOFTWARE_FACTORY' | 'DATA_ANALYTICS' | 'DIGITAL_MARKETING' | string;
+export type ServiceId = 'SOFTWARE_FACTORY' | 'DATA_ANALYTICS' | 'NOVUX_MARKETPULSE' | 'DIGITAL_MARKETING' | string;
 
 export interface TechItem {
   name: string;
