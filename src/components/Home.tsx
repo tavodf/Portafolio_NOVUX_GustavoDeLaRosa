@@ -6,6 +6,7 @@ import { techNews } from '../newsData';
 import { ServiceId, BlogPost, TechNewsItem } from '../types';
 import { sfx } from '../utils/soundEffects';
 import { CredentialsCarousel } from './CredentialsCarousel';
+import { Novux3DLogo } from './Novux3DLogo';
 
 interface HomeProps {
   onSelectService: (id: ServiceId) => void;
@@ -66,24 +67,12 @@ export function Home({
       className="min-h-screen bg-gradient-to-b from-black/50 via-transparent to-black/70 text-white py-12 px-4 md:px-12 font-sans flex flex-col items-center justify-between"
     >
       <div className="w-full max-w-6xl flex flex-col items-center">
-        {/* Cabecera Principal */}
+        {/* Cabecera Principal con Logo 3D */}
         <div className="text-center mb-6 flex flex-col items-center">
           <h1 className="flex justify-center items-center">
             <span className="sr-only">NOVUX</span>
-            <img 
-              src="https://lh3.googleusercontent.com/d/14YSecawix_ogB7wJocutwLOwSXtztcKU=w1000?v=2"
-              alt="NOVUX"
-              className="w-48 sm:w-56 md:w-64 h-auto object-contain mx-auto drop-shadow-[0_0_25px_rgba(197,160,89,0.35)]"
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                const target = e.currentTarget;
-                if (target.src.includes('googleusercontent.com/d/')) {
-                  const match = target.src.match(/googleusercontent\.com\/d\/([^=?&]+)/);
-                  if (match && match[1]) {
-                    target.src = `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000&v=2`;
-                  }
-                }
-              }}
+            <Novux3DLogo 
+              imageSrc="https://lh3.googleusercontent.com/d/14YSecawix_ogB7wJocutwLOwSXtztcKU=w1000?v=2"
             />
           </h1>
           <p className="mt-3 text-xs sm:text-sm font-mono tracking-widest text-zinc-400 uppercase">
