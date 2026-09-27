@@ -5,6 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Home } from './components/Home';
 import { ServiceDetail } from './components/ServiceDetail';
 import { BlogList } from './components/BlogList';
@@ -99,6 +100,7 @@ export default function App() {
 
   return (
     <div className="w-full min-h-screen bg-[#060608] overflow-hidden relative">
+      <SpeedInsights />
       <MatrixRain />
       <AudioPlayer videoId="Dy080SqIEMU" />
       <div className="relative z-10 w-full min-h-screen overflow-y-auto">
