@@ -6,7 +6,7 @@ export const services: Record<Service['id'], Service> = {
     categoryTitle: 'SOFTWARE FACTORY',
     shortDescription: 'Ecosistemas digitales a la medida de tu empresa. Desarrollamos soluciones de software que automatizan, optimizan y dominan tu sector con tecnología de punta y transferencia total de derechos.',
     image: 'https://lh3.googleusercontent.com/d/1i7909uMhrHTMKnu5WlJAf_rnmVWYubzJ=w1000',
-    iframeSrc: 'https://drive.google.com/file/d/10kYGZWx0Yp-_UE_a3PaXyjoo0O5lt0rW/preview',
+    videoSrc: '/AresGrid.mp4',
     heading: 'SOFTWARE FACTORY',
     description: 'Ingeniería de software diseñada para escalar. Construimos aplicaciones robustas, desde la arquitectura base hasta el despliegue en la nube, optimizando cada proceso de tu negocio.',
     externalLink: 'https://docs.google.com/forms/d/e/1FAIpQLSfIf2E1nj-Q1fCWGq2xAQlVGhPRItPS2TjMIprrCq33PgweQw/viewform',

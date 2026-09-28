@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ExternalLink, Play } from 'lucide-react';
 import { Service } from '../types';
 import { TechStack } from './TechStack';
 import { sfx } from '../utils/soundEffects';
@@ -115,16 +115,23 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
             {/* Media Container */}
             <div className="aspect-[16/9] w-full max-w-2xl rounded-md overflow-hidden shadow-2xl shadow-black/80 border border-[#C5A059]/30 hover:border-[#C5A059] hover:shadow-[0_0_35px_rgba(197,160,89,0.35)] transition-all duration-300 bg-black relative">
               {service.videoSrc ? (
-                <video
-                  src={service.videoSrc}
-                  controls
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
-              ) : service.iframeSrc ? (
+                <div className="w-full h-full relative group bg-black">
+                  <video
+                    src={service.videoSrc}
+                    poster={service.image}
+                    controls
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-md border border-[#C5A059]/40 rounded px-2.5 py-1 text-[11px] font-mono text-[#C5A059] flex items-center gap-1.5 shadow-lg pointer-events-none opacity-80 group-hover:opacity-0 transition-opacity duration-300">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-pulse" />
+                    <span>ARES GRID // DEMO EN PRODUCCIÓN</span>
+                  </div>
+                </div>
+              ) : (service.iframeSrc && !service.iframeSrc.includes('drive.google.com')) ? (
                 <div className="w-full h-full relative group">
                   <iframe
                     src={service.iframeSrc}
@@ -134,11 +141,7 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
                     allowFullScreen
                   ></iframe>
                   <a
-                    href={
-                      service.iframeSrc.includes('drive.google.com')
-                        ? service.iframeSrc.replace('/preview', '/view?usp=sharing')
-                        : service.iframeSrc.replace('/preview', '/play')
-                    }
+                    href={service.iframeSrc.replace('/preview', '/play')}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => sfx.playClick()}
@@ -151,21 +154,56 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
                   </a>
                 </div>
               ) : service.image ? (
-                <img 
-                  src={service.image} 
-                  alt={service.heading}
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (target.src.includes('googleusercontent.com/d/')) {
-                      const match = target.src.match(/googleusercontent\.com\/d\/([^=]+)/);
-                      if (match && match[1]) {
-                        target.src = `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
+                <div className="w-full h-full relative group overflow-hidden">
+                  <img 
+                    src={service.image} 
+                    alt={service.heading}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (target.src.includes('googleusercontent.com/d/')) {
+                        const match = target.src.match(/googleusercontent\.com\/d\/([^=?&]+)/);
+                        if (match && match[1]) {
+                          target.src = `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
+                        }
                       }
-                    }
-                  }}
-                />
+                    }}
+                  />
+                  {/* Subtle Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent pointer-events-none" />
+
+                  {/* Header / Caption on Top */}
+                  <div className="absolute top-3 left-3 bg-black/75 backdrop-blur-md border border-[#C5A059]/40 rounded px-2.5 py-1 text-[11px] font-mono text-[#C5A059] flex items-center gap-1.5 shadow-lg">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-pulse" />
+                    <span>INTERFAZ & ARQUITECTURA EN PRODUCCIÓN</span>
+                  </div>
+
+                  {/* Video Demo Link Button at the bottom if available */}
+                  {(service.videoDemoUrl || (service.iframeSrc && service.iframeSrc.includes('drive.google.com'))) && (
+                    <div className="absolute bottom-3 right-3 left-3 flex items-center justify-between gap-3">
+                      <span className="hidden sm:inline text-[11px] font-mono text-zinc-400 bg-black/80 px-2.5 py-1 rounded border border-zinc-800">
+                        // ARES GRID • DEMO DE EXTRACCIÓN
+                      </span>
+                      <a
+                        href={
+                          service.videoDemoUrl ||
+                          service.iframeSrc?.replace('/preview', '/view?usp=sharing') ||
+                          'https://drive.google.com/file/d/10kYGZWx0Yp-_UE_a3PaXyjoo0O5lt0rW/view?usp=sharing'
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => sfx.playPowerUp()}
+                        onMouseEnter={() => sfx.playHover()}
+                        className="ml-auto inline-flex items-center gap-2 bg-[#C5A059] hover:bg-[#FFE066] text-black font-mono font-bold text-xs px-3.5 py-2 rounded-sm shadow-[0_0_20px_rgba(197,160,89,0.5)] hover:shadow-[0_0_25px_rgba(255,224,102,0.8)] transition-all cursor-pointer"
+                        title="Abrir video demostrativo en Google Drive"
+                      >
+                        <Play size={12} className="fill-current" />
+                        <span>Ver Demo en Video (Drive) ↗</span>
+                      </a>
+                    </div>
+                  )}
+                </div>
               ) : service.id === 'NOVUX_MARKETPULSE' ? (
                 <div className="w-full h-full bg-[#07090e] p-5 flex flex-col justify-between font-mono relative text-left select-none overflow-hidden">
                   <div 
