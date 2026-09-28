@@ -24,6 +24,7 @@ export interface Service {
   image?: string;
   videoSrc?: string;
   iframeSrc?: string;
+  videoDemoUrl?: string;
   heading: string;
   description: string;
   keyServices?: KeyServiceItem[];
