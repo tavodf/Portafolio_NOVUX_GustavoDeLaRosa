@@ -116,7 +116,7 @@ export function Home({
                 
                 {/* Visual Content: Mock Terminal Dashboard for NOVUX MARKETPULSE or Image/Fallback for other services */}
                 {service.id === 'NOVUX_MARKETPULSE' ? (
-                  <div className="aspect-video w-full mb-6 overflow-hidden rounded-sm border border-emerald-500/40 group-hover:border-[#C5A059] bg-[#07090e] p-3 sm:p-3.5 flex flex-col justify-between font-mono relative shadow-inner text-left select-none">
+                  <div className="h-[185px] sm:h-[195px] w-full mb-6 overflow-hidden rounded-sm border border-emerald-500/40 group-hover:border-[#C5A059] bg-[#07090e] p-3 flex flex-col justify-between font-mono relative shadow-inner text-left select-none">
                     {/* Subtle Matrix grid background */}
                     <div 
                       className="absolute inset-0 opacity-10 pointer-events-none"
@@ -134,36 +134,35 @@ export function Home({
                         <span className="w-2 h-2 rounded-full bg-emerald-500/80 inline-block" />
                         <span className="text-[10px] text-zinc-500 ml-1 hidden sm:inline">marketpulse.sh</span>
                       </div>
-                      <div className="flex items-center gap-1.5 bg-emerald-950/60 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-bold text-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
+                      <div className="flex items-center gap-1 bg-emerald-950/60 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold text-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping inline-block" />
-                        <span>[STATUS: ACTIVE MONITORING]</span>
+                        <span>[ACTIVE MONITORING]</span>
                       </div>
                     </div>
 
                     {/* Target and Item Details */}
-                    <div className="space-y-1.5 my-auto relative z-10">
-                      <div className="flex items-center gap-2 text-xs">
-                        <span className="text-zinc-500 text-[11px]">Target:</span>
+                    <div className="space-y-1 my-1 relative z-10">
+                      <div className="flex items-center gap-1.5 text-[11px]">
+                        <span className="text-zinc-500">Target:</span>
                         <span className="text-zinc-200 font-semibold truncate">Competidor Alpha Retail</span>
                       </div>
 
-                      <div className="flex items-center gap-2 text-xs">
-                        <span className="text-zinc-500 text-[11px]">Item:</span>
+                      <div className="flex items-center gap-1.5 text-[11px]">
+                        <span className="text-zinc-500">Item:</span>
                         <span className="text-white font-medium truncate">Laptop Pro 16" - Core Ultra</span>
                       </div>
                     </div>
 
                     {/* Pricing and Variation Box */}
-                    <div className="bg-black/75 border border-zinc-800/90 rounded p-2 flex items-center justify-between relative z-10">
+                    <div className="bg-black/85 border border-zinc-800/90 rounded px-2.5 py-1.5 flex items-center justify-between relative z-10">
                       <div>
-                        <span className="text-[9px] text-zinc-400 block uppercase">Precio Actual:</span>
-                        <span className="text-xs sm:text-sm font-bold text-[#FFE066] tracking-tight">$4,607,500 COP</span>
+                        <span className="text-[9px] text-zinc-400 block uppercase leading-none mb-0.5">Precio Actual:</span>
+                        <span className="text-xs sm:text-sm font-bold text-[#FFE066] tracking-tight leading-none">$4,607,500 COP</span>
                       </div>
                       <div className="text-right">
-                        <span className="text-[9px] text-zinc-400 block uppercase">Variación:</span>
-                        <span className="text-[10px] sm:text-[11px] font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-1.5 py-0.5 rounded inline-flex items-center gap-1">
-                          <span>↓</span>
-                          <span>-5.0% (DESCUENTO DETECTADO)</span>
+                        <span className="text-[9px] text-zinc-400 block uppercase leading-none mb-0.5">Variación:</span>
+                        <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-1.5 py-0.5 rounded inline-flex items-center gap-0.5 leading-none">
+                          <span>↓ -5.0% (ALERTA)</span>
                         </span>
                       </div>
                     </div>

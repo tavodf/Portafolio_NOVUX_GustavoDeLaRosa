@@ -42,6 +42,7 @@ export interface BlogPost {
   date: string;
   tags: string[];
   image?: string;
+  videoUrl?: string;
   content: string;
   readingTime?: string;
   author?: {

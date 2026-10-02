@@ -3,12 +3,17 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   ArrowLeft, Calendar, Clock, Tag, User, Play, Check, Copy, 
   Terminal, Share2, Database, Table2, RotateCcw, Sparkles, 
-  Box, Lock, Layers, RefreshCw, Eye 
+  Box, Lock, Layers, RefreshCw, Eye, ExternalLink
 } from 'lucide-react';
 import { BlogPost } from '../types';
 import { sfx } from '../utils/soundEffects';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { L7PipelineFlowDiagram } from './L7PipelineFlowDiagram';
+import { NovuxEng001Interactive } from './NovuxEng001Interactive';
+import { NovuxRegistrationCard } from './NovuxRegistrationCard';
+import { CommentsSection } from './CommentsSection';
+import { PythonCodeBlock } from './PythonCodeBlock';
 
 interface BlogPostViewProps {
   post: BlogPost;
@@ -232,8 +237,10 @@ LIMIT 5;`;
           </div>
         </header>
 
-        {/* Imagen Principal o Visual Interactivo del Cubo 3D de Datos */}
-        {post.id === '2' ? (
+        {/* Imagen Principal o Visual Interactivo del Cubo 3D de Datos / Pipeline L7 */}
+        {post.id === '3' ? (
+          <L7PipelineFlowDiagram />
+        ) : post.id === '2' ? (
           <div className="mb-10 rounded-lg overflow-hidden border border-[#C5A059]/40 bg-[#07070b] shadow-[0_0_40px_rgba(197,160,89,0.2)] relative">
             {/* Header del Visual */}
             <div className="bg-[#12121c] px-4 py-2.5 flex flex-wrap items-center justify-between border-b border-[#C5A059]/30 gap-2">
@@ -629,6 +636,13 @@ LIMIT 5;`;
                 ),
                 code: ({ children, className }) => {
                   const isBlock = Boolean(className);
+                  const codeString = String(children).replace(/\n$/, '');
+
+                  // Si es bloque de Python, renderizamos con PythonCodeBlock con syntax highlighting
+                  if (isBlock && (className?.includes('python') || codeString.includes('CanonicalProduct') || codeString.includes('from typing') || codeString.includes('etree.HTMLParser'))) {
+                    return <PythonCodeBlock codeString={codeString} />;
+                  }
+
                   if (isBlock) {
                     return (
                       <code className="block bg-[#050508] p-4 rounded border border-zinc-800 font-mono text-xs sm:text-sm text-zinc-200 overflow-x-auto">
@@ -1143,6 +1157,58 @@ LIMIT 5;`;
               </div>
             )}
 
+            {/* Si es el paper de Scraping L7 (id === '3'), mostramos el Laboratorio Interactivo de Ingesta y MinHash */}
+            {post.id === '3' && (
+              <NovuxEng001Interactive />
+            )}
+
+            {/* Video Masterclass al final del artículo */}
+            {(post.videoUrl || post.id === '3') && (
+              <div className="my-10 rounded-xl overflow-hidden border border-[#C5A059]/40 bg-[#07070b] shadow-[0_0_50px_rgba(197,160,89,0.22)]">
+                <div className="bg-[#12121c] px-4 py-3 flex flex-wrap items-center justify-between border-b border-[#C5A059]/30 gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
+                    <span className="text-xs font-mono font-bold text-zinc-100 tracking-wider">
+                      DESPACHO AUDIOVISUAL // INGENIERÍA DE EXTRACCIÓN L7 & MODELOS COGNITIVOS
+                    </span>
+                  </div>
+                  <a
+                    href="https://youtu.be/bK3EwIMHm94?si=gLUkFODekjOz7jD1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => sfx.playClick()}
+                    className="text-[11px] font-mono text-[#C5A059] hover:text-[#FFE066] flex items-center gap-1.5 transition-colors cursor-pointer"
+                  >
+                    <span>Ver en YouTube</span>
+                    <ExternalLink size={12} />
+                  </a>
+                </div>
+                <div className="relative aspect-video w-full bg-black">
+                  <iframe
+                    src="https://www.youtube.com/embed/bK3EwIMHm94"
+                    title="NOVUX D&D Technical Masterclass"
+                    className="w-full h-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                </div>
+                {/* Crédito Oficial al Pingüino de Mario */}
+                <div className="bg-[#0c0c16] px-4 py-2.5 border-t border-zinc-800 flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono text-zinc-300">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[#FFE066] font-bold">// CRÉDITO AUDIOVISUAL:</span>
+                    <span>Masterclass y análisis por cortesía de <strong className="text-white underline decoration-[#C5A059]">El Pingüino de Mario</strong></span>
+                  </div>
+                  <span className="text-zinc-500 text-[10px]">YouTube Open-Knowledge Resource</span>
+                </div>
+              </div>
+            )}
+
+            {/* Módulo de Suscripción Oficial al Radar NOVUX */}
+            <NovuxRegistrationCard />
+
+            {/* Mesa de Debate Técnico / Comentarios */}
+            <CommentsSection postId={post.id} />
+
           </div>
         </div>
 
@@ -1153,9 +1219,11 @@ LIMIT 5;`;
               <span className="text-xs font-mono text-[#C5A059] uppercase tracking-wider block mb-1">
                 Autor
               </span>
-              <h4 className="text-lg font-bold text-white">Gustavo De La Rosa</h4>
+              <h4 className="text-lg font-bold text-white">
+                {post.author?.name || 'Gustavo De La Rosa'}
+              </h4>
               <p className="text-xs text-zinc-400 font-mono mt-0.5">
-                Software Factory & Data Analytics • Bogotá, Colombia
+                {post.author?.role || 'Software Factory & Data Analytics • Bogotá, Colombia'}
               </p>
             </div>
 
