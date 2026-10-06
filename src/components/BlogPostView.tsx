@@ -11,9 +11,12 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { L7PipelineFlowDiagram } from './L7PipelineFlowDiagram';
 import { NovuxEng001Interactive } from './NovuxEng001Interactive';
+import { NovuxEng002Interactive } from './NovuxEng002Interactive';
+import { AiArcadeCabinetsHero } from './AiArcadeCabinetsHero';
 import { NovuxRegistrationCard } from './NovuxRegistrationCard';
 import { CommentsSection } from './CommentsSection';
 import { PythonCodeBlock } from './PythonCodeBlock';
+import { ConceptualFlowDiagram } from './ConceptualFlowDiagram';
 
 interface BlogPostViewProps {
   post: BlogPost;
@@ -100,6 +103,12 @@ LIMIT 5;`;
       setShowTerminalOutput(true);
       sfx.playPowerUp();
     }, 450);
+  };
+
+  const handleClearTerminal = () => {
+    sfx.playBack();
+    setShowTerminalOutput(false);
+    setIsExecuting(false);
   };
 
   const handleRunSql = () => {
@@ -237,8 +246,10 @@ LIMIT 5;`;
           </div>
         </header>
 
-        {/* Imagen Principal o Visual Interactivo del Cubo 3D de Datos / Pipeline L7 */}
-        {post.id === '3' ? (
+        {/* Imagen Principal o Visual Interactivo del Cubo 3D de Datos / Pipeline L7 / Arcade AI */}
+        {post.id === '4' ? (
+          <AiArcadeCabinetsHero />
+        ) : post.id === '3' ? (
           <L7PipelineFlowDiagram />
         ) : post.id === '2' ? (
           <div className="mb-10 rounded-lg overflow-hidden border border-[#C5A059]/40 bg-[#07070b] shadow-[0_0_40px_rgba(197,160,89,0.2)] relative">
@@ -608,7 +619,9 @@ LIMIT 5;`;
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-3 left-4 text-xs font-mono text-zinc-400 bg-black/85 px-2.5 py-1 rounded backdrop-blur-sm border border-zinc-800">
-                // Archivo analítico • Álgebra Relacional & Bases de Datos
+                {post.id === '4'
+                  ? '// Archivo analítico • Mecánica de Tokenización BPE, Espacio Latente & Arcade de IA'
+                  : '// Archivo analítico • Álgebra Relacional & Bases de Datos'}
               </div>
             </div>
           )
@@ -634,22 +647,46 @@ LIMIT 5;`;
                 em: ({ children }) => (
                   <em className="text-[#FFE066] not-italic font-medium">{children}</em>
                 ),
+                pre: ({ children }) => <div className="my-2">{children}</div>,
                 code: ({ children, className }) => {
-                  const isBlock = Boolean(className);
                   const codeString = String(children).replace(/\n$/, '');
+                  const isBlock = Boolean(className) || codeString.includes('\n');
 
-                  // Si es bloque de Python, renderizamos con PythonCodeBlock con syntax highlighting
-                  if (isBlock && (className?.includes('python') || codeString.includes('CanonicalProduct') || codeString.includes('from typing') || codeString.includes('etree.HTMLParser'))) {
+                  // 1. Si es un mapa conceptual o diagrama de flujo
+                  if (
+                    codeString.includes('Servidor Web Remoto') ||
+                    codeString.includes('Texto Humano') ||
+                    codeString.includes('Caja de Cambio') ||
+                    codeString.includes('Taquilla / Caja de Cambio') ||
+                    codeString.includes('Presupuesto en Efectivo') ||
+                    codeString.includes('Token IDs') ||
+                    (codeString.includes('───►') && codeString.includes('['))
+                  ) {
+                    return <ConceptualFlowDiagram rawContent={codeString} />;
+                  }
+
+                  // 2. Si es bloque de Python, renderizamos con PythonCodeBlock con syntax highlighting
+                  if (
+                    isBlock &&
+                    (className?.includes('python') ||
+                      codeString.includes('CanonicalProduct') ||
+                      codeString.includes('ArcadeTokenAuditor') ||
+                      codeString.includes('from typing') ||
+                      codeString.includes('etree.HTMLParser'))
+                  ) {
                     return <PythonCodeBlock codeString={codeString} />;
                   }
 
+                  // 3. Si es cualquier otro bloque de código multilínea
                   if (isBlock) {
                     return (
-                      <code className="block bg-[#050508] p-4 rounded border border-zinc-800 font-mono text-xs sm:text-sm text-zinc-200 overflow-x-auto">
-                        {children}
-                      </code>
+                      <pre className="my-4 block bg-[#050508] p-4 sm:p-5 rounded-lg border border-zinc-800 font-mono text-xs sm:text-sm text-zinc-200 overflow-x-auto shadow-inner leading-relaxed">
+                        <code>{children}</code>
+                      </pre>
                     );
                   }
+
+                  // 4. Etiqueta inline simple
                   return (
                     <code className="px-1.5 py-0.5 rounded bg-[#151520] border border-[#C5A059]/30 text-[#FFE066] font-mono text-sm">
                       {children}
@@ -709,6 +746,18 @@ LIMIT 5;`;
                   </div>
 
                   <div className="flex items-center gap-2">
+                    {showTerminalOutput && (
+                      <button
+                        onClick={handleClearTerminal}
+                        onMouseEnter={() => sfx.playHover()}
+                        className="flex items-center gap-1 text-zinc-400 hover:text-[#FFE066] px-2.5 py-1 rounded text-xs font-mono bg-black/60 hover:bg-zinc-800 border border-zinc-800 transition-colors cursor-pointer"
+                        title="Limpiar salida y devolver proceso"
+                      >
+                        <RotateCcw size={11} />
+                        <span>Limpiar</span>
+                      </button>
+                    )}
+
                     <button
                       onClick={handleRunScript}
                       onMouseEnter={() => sfx.playHover()}
@@ -783,6 +832,18 @@ LIMIT 5;`;
     ▼
    Y (Cadencia / Semántica)`}
                       </pre>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-zinc-800 flex items-center justify-between text-[11px] font-mono">
+                      <span className="text-zinc-500">// Proyección de tensores finalizada</span>
+                      <button
+                        onClick={handleClearTerminal}
+                        onMouseEnter={() => sfx.playHover()}
+                        className="text-[#C5A059] hover:text-[#FFE066] inline-flex items-center gap-1.5 underline decoration-[#C5A059]/40 hover:decoration-[#FFE066] cursor-pointer"
+                      >
+                        <RotateCcw size={11} />
+                        Limpiar salida y devolver proceso
+                      </button>
                     </div>
                   </motion.div>
                 )}
@@ -1160,6 +1221,11 @@ LIMIT 5;`;
             {/* Si es el paper de Scraping L7 (id === '3'), mostramos el Laboratorio Interactivo de Ingesta y MinHash */}
             {post.id === '3' && (
               <NovuxEng001Interactive />
+            )}
+
+            {/* Si es el paper de Tokenización BPE (id === '4'), mostramos el Laboratorio Arcade & Auditor B2B */}
+            {post.id === '4' && (
+              <NovuxEng002Interactive />
             )}
 
             {/* Video Masterclass al final del artículo */}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Play, Copy, Check, Terminal, CheckCircle2, Code2 } from 'lucide-react';
+import { Play, Copy, Check, Terminal, CheckCircle2, Code2, RotateCcw } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
 
 interface PythonCodeBlockProps {
@@ -53,7 +53,7 @@ export function highlightPythonCode(code: string) {
 
     // Tokenización por expresiones regulares respetando espacios
     const tokens: React.ReactNode[] = [];
-    const regex = /(\s+)|(#.*$)|("""[\s\S]*?""")|('(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*")|(@\w+)|(\b(?:class|def|return|yield|for|in|try|except|continue|if|not|and|or|as|from|import|with|pass|raise|while|lambda|is)\b)|(\b(?:self|cls)\b)|(\b(?:CanonicalProduct|MinHashDeduplicator|ScopedDOMParser|BaseModel|Field|HttpUrl|Generator|List|Set|str|float|int|bytes|dict|bool|tuple)\b)|(\b\d+(?:\.\d+)?\b)|(\b[a-zA-Z_]\w*(?=\())|([a-zA-Z_]\w*)|([^\s\w])/g;
+    const regex = /(\s+)|(#.*$)|("""[\s\S]*?""")|('(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*")|(@\w+)|(\b(?:class|def|return|yield|for|in|try|except|continue|if|not|and|or|as|from|import|with|pass|raise|while|lambda|is)\b)|(\b(?:self|cls)\b)|(\b(?:CanonicalProduct|MinHashDeduplicator|ScopedDOMParser|ArcadeTokenAuditor|Dict|BaseModel|Field|HttpUrl|Generator|List|Set|str|float|int|bytes|dict|bool|tuple)\b)|(\b\d+(?:\.\d+)?\b)|(\b[a-zA-Z_]\w*(?=\())|([a-zA-Z_]\w*)|([^\s\w])/g;
 
     let match;
     let lastIdx = 0;
@@ -116,11 +116,19 @@ export function PythonCodeBlock({ codeString }: PythonCodeBlockProps) {
   const [isExecuting, setIsExecuting] = useState(false);
   const [output, setOutput] = useState<any | null>(null);
 
+  const isArcade = codeString.includes('ArcadeTokenAuditor');
+
   const handleCopy = () => {
     sfx.playClick();
     navigator.clipboard.writeText(codeString);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleClear = () => {
+    sfx.playBack();
+    setOutput(null);
+    setIsExecuting(false);
   };
 
   const handleExecute = () => {
@@ -130,28 +138,56 @@ export function PythonCodeBlock({ codeString }: PythonCodeBlockProps) {
 
     setTimeout(() => {
       setIsExecuting(false);
-      setOutput({
-        recordsExtracted: 2,
-        durationMs: 1.18,
-        ramUsedKb: 14.8,
-        ramSavedPercent: 96.2,
-        data: [
-          {
-            sku: 'MBP-M3M-36GB',
-            name: 'Apple MacBook Pro 16 M3 Max 36GB RAM 1TB SSD Space Black',
-            price: 3499.0,
-            url: 'https://catalog.novux.internal/catalog/MBP-M3M-36GB',
-            minhash_signature: [38912, 14209, 8812, 59124, 7120, 9421, 61092, 1284]
-          },
-          {
-            sku: 'DELL-XPS15-OLED',
-            name: 'Dell XPS 15 OLED Intel Core i9 32GB RAM 1TB SSD',
-            price: 2699.5,
-            url: 'https://catalog.novux.internal/catalog/DELL-XPS15-OLED',
-            minhash_signature: [4129, 90214, 5521, 19402, 3810, 48129, 7721, 54912]
-          }
-        ]
-      });
+      if (isArcade) {
+        setOutput({
+          auditor: 'ArcadeTokenAuditor v1.2',
+          pricingInputM: 2.50,
+          pricingOutputM: 10.00,
+          results: [
+            {
+              lang: 'en',
+              sample: 'understanding the computational architecture of deep learning models',
+              tokens: 10,
+              chars: 69,
+              char_per_token_ratio: 6.9,
+              estimated_cost_usd_1M_queries: 25.00
+            },
+            {
+              lang: 'es',
+              sample: 'entendimiento de la arquitectura computacional de modelos de aprendizaje profundo',
+              tokens: 24,
+              chars: 80,
+              char_per_token_ratio: 3.33,
+              estimated_cost_usd_1M_queries: 60.00
+            }
+          ],
+          linguistic_tax_surcharge: '+140% costo en llamadas equivalentes en español',
+          recommendation: 'Aplicar podado léxico y codificación densa en formato JSON minificado.'
+        });
+      } else {
+        setOutput({
+          recordsExtracted: 2,
+          durationMs: 1.18,
+          ramUsedKb: 14.8,
+          ramSavedPercent: 96.2,
+          data: [
+            {
+              sku: 'MBP-M3M-36GB',
+              name: 'Apple MacBook Pro 16 M3 Max 36GB RAM 1TB SSD Space Black',
+              price: 3499.0,
+              url: 'https://catalog.novux.internal/catalog/MBP-M3M-36GB',
+              minhash_signature: [38912, 14209, 8812, 59124, 7120, 9421, 61092, 1284]
+            },
+            {
+              sku: 'DELL-XPS15-OLED',
+              name: 'Dell XPS 15 OLED Intel Core i9 32GB RAM 1TB SSD',
+              price: 2699.5,
+              url: 'https://catalog.novux.internal/catalog/DELL-XPS15-OLED',
+              minhash_signature: [4129, 90214, 5521, 19402, 3810, 48129, 7721, 54912]
+            }
+          ]
+        });
+      }
       sfx.playPowerUp();
     }, 400);
   };
@@ -168,21 +204,38 @@ export function PythonCodeBlock({ codeString }: PythonCodeBlockProps) {
           </div>
           <span className="ml-2 text-xs font-mono font-bold text-zinc-200 flex items-center gap-1.5">
             <Code2 size={13} className="text-[#C5A059]" />
-            novux_l7_pipeline.py
+            {isArcade ? 'novux_arcade_token_auditor.py' : 'novux_l7_pipeline.py'}
           </span>
           <span className="text-[10px] text-zinc-500 hidden sm:inline">
-            // C-Python 3.12 • libxml2 v2.12 • Pydantic v2
+            {isArcade
+              ? '// Python 3.12 • Unicode NFKC • Auditoría de Costos LLM'
+              : '// C-Python 3.12 • libxml2 v2.12 • Pydantic v2'}
           </span>
         </div>
 
         <div className="flex items-center gap-2">
+          {output && (
+            <button
+              onClick={handleClear}
+              className="flex items-center gap-1 text-zinc-400 hover:text-[#FFE066] px-2.5 py-1 rounded bg-black/60 hover:bg-zinc-800 border border-zinc-800 transition-colors cursor-pointer text-xs"
+              title="Limpiar salida y devolver proceso"
+            >
+              <RotateCcw size={11} />
+              <span>Limpiar</span>
+            </button>
+          )}
+
           <button
             onClick={handleExecute}
             disabled={isExecuting}
             className="flex items-center gap-1.5 px-3 py-1 bg-[#C5A059] hover:bg-[#FFE066] text-black font-mono font-bold text-xs rounded transition-all cursor-pointer shadow-[0_0_15px_rgba(197,160,89,0.4)] animate-pulse"
           >
             <Play size={11} className="fill-current" />
-            <span>{isExecuting ? 'Compilando en C...' : '▶ Ejecutar Pipeline'}</span>
+            <span>
+              {isExecuting
+                ? (isArcade ? 'Calculando fichas...' : 'Compilando en C...')
+                : (isArcade ? '▶ Auditar Fichas & Costos' : '▶ Ejecutar Pipeline')}
+            </span>
           </button>
 
           <button
@@ -207,17 +260,38 @@ export function PythonCodeBlock({ codeString }: PythonCodeBlockProps) {
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-800/80 pb-1.5">
             <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-[11px]">
               <CheckCircle2 size={13} />
-              <span>STDOUT // 2 REGISTROS CANÓNICOS EXTRAÍDOS EN MEMORIA C CONTIGUA</span>
+              <span>
+                {isArcade
+                  ? 'STDOUT // AUDITORÍA BPE FINALIZADA: BALANCE ECONÓMICO PROYECTADO'
+                  : 'STDOUT // 2 REGISTROS CANÓNICOS EXTRAÍDOS EN MEMORIA C CONTIGUA'}
+              </span>
             </div>
             <div className="text-[10px] text-zinc-400 flex items-center gap-2">
-              <span>Tiempo: <strong className="text-[#FFE066]">{output.durationMs} ms</strong></span>
-              <span>•</span>
-              <span>Ahorro RAM vs Python puro: <strong className="text-emerald-400">{output.ramSavedPercent}%</strong></span>
+              {isArcade ? (
+                <span className="text-red-400 font-bold">{output.linguistic_tax_surcharge}</span>
+              ) : (
+                <>
+                  <span>Tiempo: <strong className="text-[#FFE066]">{output.durationMs} ms</strong></span>
+                  <span>•</span>
+                  <span>Ahorro RAM vs Python puro: <strong className="text-emerald-400">{output.ramSavedPercent}%</strong></span>
+                </>
+              )}
             </div>
           </div>
 
           <div className="bg-[#090912] p-2.5 rounded border border-zinc-900 overflow-x-auto text-[10.5px] text-zinc-300">
-            <pre>{JSON.stringify(output.data, null, 2)}</pre>
+            <pre>{JSON.stringify(isArcade ? output.results : output.data, null, 2)}</pre>
+          </div>
+
+          <div className="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-[11px]">
+            <span className="text-zinc-500">// Ejecución completada en tiempo real</span>
+            <button
+              onClick={handleClear}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-800 text-[#C5A059] hover:text-[#FFE066] border border-zinc-800 transition-colors cursor-pointer"
+            >
+              <RotateCcw size={11} />
+              <span>Limpiar salida y devolver proceso</span>
+            </button>
           </div>
         </div>
       )}

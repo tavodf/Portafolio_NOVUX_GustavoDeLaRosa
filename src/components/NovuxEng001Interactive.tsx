@@ -128,6 +128,26 @@ export function NovuxEng001Interactive() {
     }
   };
 
+  // Limpieza de ejecuciones y devolución de procesos
+  const handleClearPythonResult = () => {
+    sfx.playBack();
+    setPythonExecutionResult(null);
+    setIsRunningPython(false);
+  };
+
+  const handleClearParsedData = () => {
+    sfx.playBack();
+    setParsedData(null);
+    setIsParsing(false);
+  };
+
+  const handleResetMinHashTexts = () => {
+    sfx.playBack();
+    setTextA('Apple MacBook Pro 16 M3 Max 36GB RAM 1TB SSD Space Black');
+    setTextB('Apple MacBook Pro 16 M3 Max 36GB Memoria Unificada 1TB SSD Negro Espacial');
+    setNumPermutations(32);
+  };
+
   // Simulación de Parsing en C (libxml2)
   const handleRunParser = () => {
     sfx.playSelect();
@@ -346,6 +366,17 @@ class ScopedDOMParser:
               </div>
 
               <div className="flex items-center gap-2">
+                {pythonExecutionResult && (
+                  <button
+                    onClick={handleClearPythonResult}
+                    className="px-3 py-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-[#FFE066] border border-zinc-700 font-mono text-xs rounded transition-colors flex items-center gap-1 cursor-pointer"
+                    title="Limpiar salida y devolver proceso"
+                  >
+                    <RotateCcw size={12} />
+                    <span>Limpiar Salida</span>
+                  </button>
+                )}
+
                 <button
                   onClick={handleExecutePythonCode}
                   disabled={isRunningPython}
@@ -454,6 +485,17 @@ class ScopedDOMParser:
 {JSON.stringify(pythonExecutionResult.records, null, 2)}
                   </pre>
                 </div>
+
+                <div className="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-[11px]">
+                  <span className="text-zinc-500">// Pipeline completado satisfactoriamente</span>
+                  <button
+                    onClick={handleClearPythonResult}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-800 text-[#C5A059] hover:text-[#FFE066] border border-zinc-800 transition-colors cursor-pointer"
+                  >
+                    <RotateCcw size={11} />
+                    <span>Limpiar salida y devolver proceso</span>
+                  </button>
+                </div>
               </motion.div>
             )}
           </motion.div>
@@ -493,6 +535,14 @@ class ScopedDOMParser:
                     className="px-2 py-0.5 rounded bg-zinc-800 hover:bg-[#C5A059]/20 hover:text-[#FFE066] text-zinc-300 border border-zinc-700 cursor-pointer"
                   >
                     Distintos
+                  </button>
+                  <button
+                    onClick={handleResetMinHashTexts}
+                    className="px-2 py-0.5 rounded bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-[#FFE066] border border-zinc-800 cursor-pointer flex items-center gap-1"
+                    title="Devolver textos al estado original"
+                  >
+                    <RotateCcw size={10} />
+                    <span>Restablecer</span>
                   </button>
                 </div>
               </div>
@@ -716,6 +766,17 @@ class ScopedDOMParser:
                 <div className="p-2.5 rounded bg-[#0a0a14] border border-zinc-900 text-zinc-300 text-[11px] leading-relaxed">
                   <span className="text-zinc-500 block mb-1">Nombre Normalizado:</span>
                   {parsedData.name}
+                </div>
+
+                <div className="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-[11px]">
+                  <span className="text-zinc-500">// Objeto validado en tiempo real</span>
+                  <button
+                    onClick={handleClearParsedData}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-800 text-[#C5A059] hover:text-[#FFE066] border border-zinc-800 transition-colors cursor-pointer"
+                  >
+                    <RotateCcw size={11} />
+                    <span>Limpiar extracción y devolver proceso</span>
+                  </button>
                 </div>
               </motion.div>
             )}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft, Calendar, Clock, Tag, BookOpen, ChevronRight, Search } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Tag, BookOpen, ChevronRight, Search, X } from 'lucide-react';
 import { BlogPost } from '../types';
 import { sfx } from '../utils/soundEffects';
 
@@ -78,46 +78,71 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
       </div>
 
       {/* Barra de Búsqueda y Filtros de Tags */}
-      <div className="mb-8 flex flex-col md:flex-row items-center justify-between gap-4 bg-[#0e0e13]/70 border border-zinc-800 p-4 rounded-lg backdrop-blur-sm">
-        {/* Filtros de tags */}
-        <div className="flex flex-wrap items-center gap-1.5 w-full md:w-auto">
+      <div className="mb-10 space-y-4 bg-[#0e0e14]/90 border border-zinc-800 p-5 sm:p-6 rounded-xl backdrop-blur-md shadow-2xl">
+        {/* Barra de Búsqueda Prominente a Ancho Completo */}
+        <div className="relative w-full">
+          <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C5A059] pointer-events-none" />
+          <input
+            type="text"
+            placeholder="Buscar por título, temática, tecnología (ej: BPE, SQL, L7, Python, Arcade)..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full bg-black/85 border border-zinc-800 focus:border-[#C5A059] text-zinc-100 text-xs sm:text-sm font-mono rounded-lg pl-10 pr-10 py-3 outline-none transition-all shadow-inner placeholder:text-zinc-500 focus:shadow-[0_0_20px_rgba(197,160,89,0.25)]"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => {
+                sfx.playBack();
+                setSearchQuery('');
+              }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white p-1 rounded-md hover:bg-zinc-800 transition-colors cursor-pointer"
+              title="Borrar búsqueda"
+            >
+              <X size={15} />
+            </button>
+          )}
+        </div>
+
+        {/* Barra de Filtros de Etiquetas */}
+        <div className="pt-3 border-t border-zinc-800/80 flex flex-wrap items-center gap-1.5">
+          <span className="text-[11px] font-mono text-zinc-400 mr-1 uppercase tracking-wider flex items-center gap-1 font-semibold">
+            <Tag size={11} className="text-[#C5A059]" />
+            Etiquetas:
+          </span>
+
           <button
             onClick={() => handleTagFilter(null)}
             onMouseEnter={() => sfx.playHover()}
-            className={`px-3 py-1 rounded text-xs font-mono transition-colors cursor-pointer ${
+            className={`px-3 py-1 rounded text-xs font-mono transition-all cursor-pointer font-bold ${
               selectedTag === null
-                ? 'bg-[#C5A059] text-black font-bold'
-                : 'bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800'
+                ? 'bg-[#C5A059] text-black shadow-[0_0_12px_rgba(197,160,89,0.4)]'
+                : 'bg-zinc-900/90 text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700'
             }`}
           >
-            Todos
+            Todos ({posts.length})
           </button>
-          {allTags.map((tag) => (
-            <button
-              key={tag}
-              onClick={() => handleTagFilter(selectedTag === tag ? null : tag)}
-              onMouseEnter={() => sfx.playHover()}
-              className={`px-2.5 py-1 rounded text-xs font-mono transition-colors cursor-pointer ${
-                selectedTag === tag
-                  ? 'bg-[#C5A059] text-black font-bold shadow-[0_0_10px_rgba(197,160,89,0.3)]'
-                  : 'bg-zinc-900/80 text-zinc-400 hover:text-[#C5A059] border border-zinc-800'
-              }`}
-            >
-              #{tag}
-            </button>
-          ))}
-        </div>
 
-        {/* Input de Búsqueda */}
-        <div className="relative w-full md:w-64">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
-          <input
-            type="text"
-            placeholder="Buscar artículo..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-black/60 border border-zinc-800 focus:border-[#C5A059] text-zinc-200 text-xs font-mono rounded pl-9 pr-3 py-2 outline-none transition-colors"
-          />
+          {allTags.map((tag) => {
+            const count = posts.filter(p => p.tags.includes(tag)).length;
+            const isSelected = selectedTag === tag;
+            return (
+              <button
+                key={tag}
+                onClick={() => handleTagFilter(isSelected ? null : tag)}
+                onMouseEnter={() => sfx.playHover()}
+                className={`px-2.5 py-1 rounded text-xs font-mono transition-all cursor-pointer flex items-center gap-1 ${
+                  isSelected
+                    ? 'bg-[#C5A059] text-black font-bold shadow-[0_0_12px_rgba(197,160,89,0.4)]'
+                    : 'bg-zinc-900/80 text-zinc-400 hover:text-[#FFE066] border border-zinc-800 hover:border-[#C5A059]/40'
+                }`}
+              >
+                <span>#{tag}</span>
+                <span className={`text-[10px] ${isSelected ? 'text-black/70 font-semibold' : 'text-zinc-600'}`}>
+                  ({count})
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
