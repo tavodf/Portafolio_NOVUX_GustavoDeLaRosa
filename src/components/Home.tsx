@@ -1,11 +1,12 @@
 import { motion } from 'motion/react';
-import { Github, BookOpen, ChevronRight, Sparkles, Radio } from 'lucide-react';
-import { serviceList } from '../data';
+import { Github, BookOpen, ChevronRight, Sparkles, Radio, FlaskConical, Terminal, Cpu, Database, ShieldCheck, Layers, MessageCircle } from 'lucide-react';
+import { serviceList, getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
 import { blogPosts } from '../blogData';
 import { techNews } from '../newsData';
 import { ServiceId, BlogPost, TechNewsItem } from '../types';
 import { sfx } from '../utils/soundEffects';
 import { CredentialsCarousel } from './CredentialsCarousel';
+import { ServicesCarousel } from './ServicesCarousel';
 import { Novux3DLogo } from './Novux3DLogo';
 
 interface HomeProps {
@@ -25,6 +26,8 @@ export function Home({
 }: HomeProps) {
   const latestPost = blogPosts[0];
   const latestNews = techNews[0];
+  const b2bServices = serviceList.filter(s => !s.isLab && s.id !== 'LABORATORIO_INVESTIGACION');
+  const labService = serviceList.find(s => s.isLab || s.id === 'LABORATORIO_INVESTIGACION');
 
   const handleCardClick = (id: ServiceId) => {
     sfx.playSelect();
@@ -64,9 +67,9 @@ export function Home({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="min-h-screen bg-gradient-to-b from-black/50 via-transparent to-black/70 text-white py-12 px-4 md:px-12 font-sans flex flex-col items-center justify-between"
+      className="min-h-screen bg-gradient-to-b from-black/50 via-transparent to-black/70 text-white py-12 px-3 sm:px-6 md:px-8 xl:px-10 font-sans flex flex-col items-center justify-between"
     >
-      <div className="w-full max-w-6xl flex flex-col items-center">
+      <div className="w-full max-w-[1560px] 2xl:max-w-[1680px] flex flex-col items-center">
         {/* Cabecera Principal con Logo 3D */}
         <div className="text-center mb-6 flex flex-col items-center">
           <h1 className="flex justify-center items-center">
@@ -83,156 +86,61 @@ export function Home({
         {/* Carrusel de Credenciales en Herramientas (Estilo Stack Tecnológico) */}
         <CredentialsCarousel />
 
-        {/* Subtítulo de Sección Estilo Terminal */}
-        <div className="w-full text-center my-6 md:my-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-sm bg-[#0e0e13]/90 border border-[#C5A059]/40 text-[#C5A059] font-mono text-xs sm:text-sm tracking-widest uppercase shadow-[0_0_20px_rgba(197,160,89,0.18)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-pulse" />
-            <span>// PORTAFOLIO DE SERVICIOS / INFRAESTRUCTURA OPERATIVA</span>
-          </div>
-        </div>
-        
-        {/* Servicios Principales con Resplandor al Posicionar el Mouse (Cuadrícula Responsiva de 3 Columnas) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 w-full max-w-6xl mb-8">
-          {serviceList.map((service, index) => (
+        {/* Carrusel de los 6 Servicios B2B */}
+        <ServicesCarousel services={b2bServices} onSelectService={onSelectService} />
+
+        {/* Sección Independiente Centrada: LABORATORIO E INVESTIGACIÓN (Abajo en la mitad aparte de los servicios) */}
+        {labService && (
+          <div className="w-full max-w-xl mx-auto my-8 sm:my-10 flex flex-col items-center px-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm bg-[#0e0e13]/90 border border-[#C5A059]/40 text-[#C5A059] font-mono text-xs tracking-widest uppercase mb-4 shadow-[0_0_15px_rgba(197,160,89,0.15)]">
+              <FlaskConical size={13} className="text-[#FFE066] animate-pulse" />
+              <span>// R&D DIVISION • LABORATORIO E INVESTIGACIÓN</span>
+            </div>
+
             <motion.div
-              key={service.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              onClick={() => handleCardClick(service.id)}
-              className="group relative bg-[#0e0e11]/90 backdrop-blur-md border border-[#C5A059]/30 hover:border-[#C5A059] rounded-sm p-6 flex flex-col justify-between shadow-[0_12px_40px_rgba(0,0,0,0.85)] hover:shadow-[0_0_35px_rgba(197,160,89,0.38)] transition-all duration-300 overflow-hidden cursor-pointer"
+              onClick={() => handleCardClick(labService.id)}
+              className="group relative w-full bg-[#0a0a12]/95 backdrop-blur-md border border-[#C5A059]/40 hover:border-[#FFE066] rounded-sm p-6 sm:p-8 flex flex-col items-center justify-between shadow-[0_12px_45px_rgba(0,0,0,0.9)] hover:shadow-[0_0_40px_rgba(197,160,89,0.35)] transition-all duration-300 overflow-hidden cursor-pointer text-center select-none"
             >
               {/* Corner Cyber Brackets */}
-              <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#C5A059]/40 group-hover:border-[#FFE066] transition-colors" />
-              <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#C5A059]/40 group-hover:border-[#FFE066] transition-colors" />
+              <div className="absolute top-0 right-0 w-3.5 h-3.5 border-t-2 border-r-2 border-[#C5A059]/50 group-hover:border-[#FFE066] transition-colors" />
+              <div className="absolute bottom-0 left-0 w-3.5 h-3.5 border-b-2 border-l-2 border-[#C5A059]/50 group-hover:border-[#FFE066] transition-colors" />
 
               {/* Ambient Golden Glow on Hover */}
-              <div className="absolute inset-0 bg-gradient-to-b from-[#C5A059]/8 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-b from-[#C5A059]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-              <div>
-                <h2 className="text-center text-base sm:text-lg tracking-wider font-serif mb-5 h-8 flex items-center justify-center uppercase text-zinc-100 group-hover:text-[#FFE066] transition-colors">
-                  {service.categoryTitle}
-                </h2>
-                
-                {/* Visual Content: Mock Terminal Dashboard for NOVUX MARKETPULSE or Image/Fallback for other services */}
-                {service.id === 'NOVUX_MARKETPULSE' ? (
-                  <div className="h-[185px] sm:h-[195px] w-full mb-6 overflow-hidden rounded-sm border border-emerald-500/40 group-hover:border-[#C5A059] bg-[#07090e] p-3 flex flex-col justify-between font-mono relative shadow-inner text-left select-none">
-                    {/* Subtle Matrix grid background */}
-                    <div 
-                      className="absolute inset-0 opacity-10 pointer-events-none"
-                      style={{
-                        backgroundImage: 'radial-gradient(circle at 1px 1px, #10b981 1px, transparent 0)',
-                        backgroundSize: '16px 16px'
-                      }}
-                    />
+              <h2 className="text-lg sm:text-xl font-serif tracking-widest uppercase text-zinc-100 group-hover:text-[#FFE066] transition-colors mb-2">
+                {labService.categoryTitle}
+              </h2>
 
-                    {/* Terminal Top Bar with Console Dots and Status */}
-                    <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 relative z-10">
-                      <div className="flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-red-500/80 inline-block" />
-                        <span className="w-2 h-2 rounded-full bg-yellow-500/80 inline-block" />
-                        <span className="w-2 h-2 rounded-full bg-emerald-500/80 inline-block" />
-                        <span className="text-[10px] text-zinc-500 ml-1 hidden sm:inline">marketpulse.sh</span>
-                      </div>
-                      <div className="flex items-center gap-1 bg-emerald-950/60 border border-emerald-500/40 px-2 py-0.5 rounded text-[10px] font-bold text-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping inline-block" />
-                        <span>[ACTIVE MONITORING]</span>
-                      </div>
-                    </div>
-
-                    {/* Target and Item Details */}
-                    <div className="space-y-1 my-1 relative z-10">
-                      <div className="flex items-center gap-1.5 text-[11px]">
-                        <span className="text-zinc-500">Target:</span>
-                        <span className="text-zinc-200 font-semibold truncate">Competidor Alpha Retail</span>
-                      </div>
-
-                      <div className="flex items-center gap-1.5 text-[11px]">
-                        <span className="text-zinc-500">Item:</span>
-                        <span className="text-white font-medium truncate">Laptop Pro 16" - Core Ultra</span>
-                      </div>
-                    </div>
-
-                    {/* Pricing and Variation Box */}
-                    <div className="bg-black/85 border border-zinc-800/90 rounded px-2.5 py-1.5 flex items-center justify-between relative z-10">
-                      <div>
-                        <span className="text-[9px] text-zinc-400 block uppercase leading-none mb-0.5">Precio Actual:</span>
-                        <span className="text-xs sm:text-sm font-bold text-[#FFE066] tracking-tight leading-none">$4,607,500 COP</span>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-[9px] text-zinc-400 block uppercase leading-none mb-0.5">Variación:</span>
-                        <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/15 border border-emerald-500/30 px-1.5 py-0.5 rounded inline-flex items-center gap-0.5 leading-none">
-                          <span>↓ -5.0% (ALERTA)</span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="aspect-video w-full mb-6 overflow-hidden rounded-sm border border-zinc-700/60 group-hover:border-[#C5A059]/70 bg-black/60 transition-colors shadow-inner">
-                    {service.image ? (
-                      <img 
-                        src={service.image} 
-                        alt={service.categoryTitle}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        referrerPolicy="no-referrer"
-                        onError={(e) => {
-                          const target = e.currentTarget;
-                          if (target.src.includes('googleusercontent.com/d/')) {
-                            const match = target.src.match(/googleusercontent\.com\/d\/([^=]+)/);
-                            if (match && match[1]) {
-                              target.src = `https://drive.google.com/thumbnail?id=${match[1]}&sz=w1000`;
-                            }
-                          }
-                        }}
-                      />
-                    ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center p-4 bg-gradient-to-b from-[#18181f]/80 to-black/90 text-center">
-                        <span className="font-mono text-xs tracking-widest text-[#C5A059] uppercase font-semibold mb-1">
-                          {service.categoryTitle}
-                        </span>
-                        <span className="font-mono text-[10px] text-zinc-400">
-                          [ ARQUITECTURA DIGITAL ]
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                )}
-                
-                <p className="text-gray-300 text-sm text-center mb-8 leading-relaxed font-light">
-                  {service.shortDescription}
-                </p>
+              <div className="w-12 h-12 rounded-full bg-[#C5A059]/10 border border-[#C5A059]/40 flex items-center justify-center my-3 text-[#FFE066] group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(197,160,89,0.25)]">
+                <FlaskConical size={22} />
               </div>
-              
-              {/* Botón de Acción */}
-              {service.id === 'NOVUX_MARKETPULSE' ? (
-                <a
-                  href={service.externalLink || 'https://docs.google.com/forms/d/e/1FAIpQLSfIf2E1nj-Q1fCWGq2xAQlVGhPRItPS2TjMIprrCq33PgweQw/viewform'}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    sfx.playPowerUp();
-                  }}
-                  onMouseEnter={() => sfx.playHover()}
-                  className="w-full border border-[#C5A059] bg-[#C5A059]/15 text-[#FFE066] hover:bg-[#C5A059] hover:text-black py-3 text-xs sm:text-sm tracking-widest transition-all duration-300 rounded-sm uppercase font-bold shadow-md hover:shadow-[0_0_20px_rgba(197,160,89,0.5)] cursor-pointer text-center block"
-                >
-                  SOLICITAR AUDITORÍA / DEMO
-                </a>
-              ) : (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleCardClick(service.id);
-                  }}
-                  onMouseEnter={() => sfx.playHover()}
-                  className="w-full border border-[#C5A059] text-[#C5A059] py-3 text-xs sm:text-sm tracking-widest hover:bg-[#C5A059] hover:text-black transition-all duration-300 rounded-sm uppercase font-bold shadow-md hover:shadow-[0_0_20px_rgba(197,160,89,0.5)] cursor-pointer"
-                >
-                  Abrir Servicio
-                </button>
-              )}
+
+              {/* Texto exacto solicitado por el usuario */}
+              <p className="text-sm sm:text-base font-serif text-zinc-200 tracking-wide max-w-md leading-relaxed my-2 font-normal">
+                investigación técnica y desarrollo de productos y conceptos.
+              </p>
+
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/80 border border-zinc-800 text-[10.5px] font-mono text-zinc-400 my-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                <span>ESPACIO DE PROTOTIPADO Y CONCEPTUALIZACIÓN TÉCNICA</span>
+              </div>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleCardClick(labService.id);
+                }}
+                onMouseEnter={() => sfx.playHover()}
+                className="mt-3 w-full sm:w-auto px-8 border border-[#C5A059] bg-[#C5A059]/10 hover:bg-[#C5A059] text-[#FFE066] hover:text-black py-2.5 text-xs font-mono uppercase tracking-widest font-bold rounded-sm transition-all duration-300 shadow-md hover:shadow-[0_0_20px_rgba(197,160,89,0.5)] cursor-pointer"
+              >
+                EXPLORAR LABORATORIO
+              </button>
             </motion.div>
-          ))}
-        </div>
+          </div>
+        )}
 
         {/* Dos Secciones Novedades: NUEVO EN LA BITÁCORA & NUEVO EN NOTICIAS & RADAR TECH */}
         <div className="w-full max-w-4xl flex flex-col gap-3.5 mb-6">
@@ -359,9 +267,24 @@ export function Home({
       </div>
 
       {/* Footer info */}
-      <footer className="w-full max-w-6xl pt-8 border-t border-[#C5A059]/15 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 font-mono gap-4">
+      <footer className="w-full max-w-[1560px] 2xl:max-w-[1680px] pt-8 border-t border-[#C5A059]/15 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 font-mono gap-4">
         <span>© {new Date().getFullYear()} Gustavo De La Rosa. Todos los derechos reservados.</span>
-        <span className="text-zinc-500">Arquitectura de Software & Datos</span>
+
+        {/* Enlace Oficial a WhatsApp Corporativo */}
+        <a
+          href={getWhatsAppUrl('Hola NOVUX S.A.S., me comunico desde la plataforma oficial.')}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => sfx.playSelect()}
+          onMouseEnter={() => sfx.playHover()}
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/50 hover:border-emerald-400 text-emerald-300 hover:text-white transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)] font-bold cursor-pointer"
+        >
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <MessageCircle size={13} />
+          <span>ATENCIÓN WHATSAPP B2B</span>
+        </a>
+
+        <span className="text-zinc-500">Arquitectura de Software & Datos • Bogotá D.C.</span>
       </footer>
     </motion.div>
   );

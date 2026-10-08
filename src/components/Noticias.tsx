@@ -32,6 +32,7 @@ import {
 import { techNews } from '../newsData';
 import { TechNewsItem, NewsCategory } from '../types';
 import { sfx } from '../utils/soundEffects';
+import { getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
 
 interface NoticiasProps {
   onBackToHome: () => void;
@@ -207,24 +208,45 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
           {/* Controles de Búsqueda y Categorías */}
           <div className="space-y-4 mb-8">
             {/* Buscador */}
-            <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
-              <input
-                type="text"
-                placeholder="Buscar por tecnología, impacto o concepto (ej: Python, Rust, WebGPU, Agentes)..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 rounded-sm bg-[#111118] border border-zinc-800 focus:border-[#C5A059] focus:outline-none focus:ring-1 focus:ring-[#C5A059] text-sm text-zinc-200 placeholder-zinc-500 font-mono transition-all shadow-inner"
-              />
-              {searchQuery && (
-                <button 
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-400 hover:text-white font-mono cursor-pointer"
-                >
-                  [ Limpiar ]
-                </button>
-              )}
-            </div>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                sfx.playSelect();
+              }}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2"
+            >
+              <div className="relative flex-1">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C5A059]" />
+                <input
+                  type="text"
+                  placeholder="Buscar por tecnología, impacto o concepto (ej: Python, Rust, WebGPU, Agentes)..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-20 py-2.5 rounded-sm bg-[#111118] border border-zinc-800 focus:border-[#C5A059] focus:outline-none focus:ring-1 focus:ring-[#C5A059] text-sm text-zinc-200 placeholder-zinc-500 font-mono transition-all shadow-inner"
+                />
+                {searchQuery && (
+                  <button 
+                    type="button"
+                    onClick={() => {
+                      sfx.playBack();
+                      setSearchQuery('');
+                    }}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-400 hover:text-white font-mono cursor-pointer"
+                  >
+                    [ Limpiar ]
+                  </button>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                onClick={() => sfx.playSelect()}
+                className="px-4 py-2.5 bg-[#C5A059] hover:bg-[#FFE066] text-black font-mono font-bold text-xs rounded-sm transition-all cursor-pointer shadow-md flex items-center justify-center gap-1.5 shrink-0"
+              >
+                <Search size={13} className="stroke-[2.5]" />
+                <span>Buscar</span>
+              </button>
+            </form>
 
             {/* Filtros de Categoría */}
             <div className="flex flex-wrap gap-2 pt-1">
@@ -592,11 +614,24 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
           )}
 
           {/* Pie informativo de la sección */}
-          <div className="mt-10 pt-6 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-zinc-500 gap-3">
+          <div className="mt-10 pt-6 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-zinc-500 gap-4">
             <span>// Despachos & Radar de Vanguardia • Curaduría por Gustavo De La Rosa</span>
+
+            <a
+              href={getWhatsAppUrl('Hola Gustavo / NOVUX S.A.S., vi el radar de noticias y deseo contactar para consultoría tecnológica.')}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => sfx.playSelect()}
+              onMouseEnter={() => sfx.playHover()}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/50 hover:border-emerald-400 text-emerald-300 hover:text-white transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)] font-bold cursor-pointer"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>ATENCIÓN WHATSAPP B2B</span>
+            </a>
+
             <span className="text-[#C5A059] flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-ping" />
-              Nuevos artículos y análisis en preparación
+              Nuevos despachos en preparación
             </span>
           </div>
 

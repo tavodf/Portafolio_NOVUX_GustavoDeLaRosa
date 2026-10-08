@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft, Calendar, Clock, Tag, BookOpen, ChevronRight, Search, X } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Tag, BookOpen, ChevronRight, Search, X, MessageCircle } from 'lucide-react';
 import { BlogPost } from '../types';
 import { sfx } from '../utils/soundEffects';
+import { getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
 
 interface BlogListProps {
   posts: BlogPost[];
@@ -79,29 +80,54 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
 
       {/* Barra de Búsqueda y Filtros de Tags */}
       <div className="mb-10 space-y-4 bg-[#0e0e14]/90 border border-zinc-800 p-5 sm:p-6 rounded-xl backdrop-blur-md shadow-2xl">
-        {/* Barra de Búsqueda Prominente a Ancho Completo */}
-        <div className="relative w-full">
-          <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C5A059] pointer-events-none" />
-          <input
-            type="text"
-            placeholder="Buscar por título, temática, tecnología (ej: BPE, SQL, L7, Python, Arcade)..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-black/85 border border-zinc-800 focus:border-[#C5A059] text-zinc-100 text-xs sm:text-sm font-mono rounded-lg pl-10 pr-10 py-3 outline-none transition-all shadow-inner placeholder:text-zinc-500 focus:shadow-[0_0_20px_rgba(197,160,89,0.25)]"
-          />
-          {searchQuery && (
+        {/* Barra de Búsqueda Prominente con Botón de Búsqueda Interactivo */}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            sfx.playSelect();
+          }}
+          className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full"
+        >
+          <div className="relative flex-1">
             <button
-              onClick={() => {
-                sfx.playBack();
-                setSearchQuery('');
-              }}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white p-1 rounded-md hover:bg-zinc-800 transition-colors cursor-pointer"
-              title="Borrar búsqueda"
+              type="button"
+              onClick={() => sfx.playClick()}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C5A059] hover:text-[#FFE066] transition-colors cursor-pointer"
+              title="Buscar en la bitácora"
             >
-              <X size={15} />
+              <Search size={16} />
             </button>
-          )}
-        </div>
+            <input
+              type="text"
+              placeholder="Buscar por título, temática, tecnología (ej: BPE, SQL, L7, Python, Arcade)..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-black/85 border border-zinc-800 focus:border-[#C5A059] text-zinc-100 text-xs sm:text-sm font-mono rounded-lg pl-10 pr-10 py-3 outline-none transition-all shadow-inner placeholder:text-zinc-500 focus:shadow-[0_0_20px_rgba(197,160,89,0.25)]"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => {
+                  sfx.playBack();
+                  setSearchQuery('');
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white p-1 rounded-md hover:bg-zinc-800 transition-colors cursor-pointer"
+                title="Borrar búsqueda"
+              >
+                <X size={15} />
+              </button>
+            )}
+          </div>
+
+          <button
+            type="submit"
+            onClick={() => sfx.playSelect()}
+            className="px-5 py-3 bg-[#C5A059] hover:bg-[#FFE066] text-black font-mono font-bold text-xs sm:text-sm rounded-lg transition-all cursor-pointer shadow-[0_0_15px_rgba(197,160,89,0.4)] flex items-center justify-center gap-2 hover:shadow-[0_0_25px_rgba(197,160,89,0.7)] shrink-0"
+          >
+            <Search size={14} className="stroke-[2.5]" />
+            <span>Buscar</span>
+          </button>
+        </form>
 
         {/* Barra de Filtros de Etiquetas */}
         <div className="pt-3 border-t border-zinc-800/80 flex flex-wrap items-center gap-1.5">
@@ -233,6 +259,25 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
             </motion.article>
           ))
         )}
+      </div>
+
+      {/* Barra de Contacto Directo WhatsApp Oficial en Bitácora */}
+      <div className="mt-12 pt-6 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-400">
+        <div className="flex items-center gap-2 text-zinc-500">
+          <span>// Bitácora Técnica & Ensayos • NOVUX D&D</span>
+        </div>
+        <a
+          href={getWhatsAppUrl('Hola Gustavo / NOVUX S.A.S., estuve leyendo la Bitácora técnica y deseo consultar sobre un proyecto.')}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => sfx.playSelect()}
+          onMouseEnter={() => sfx.playHover()}
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/50 hover:border-emerald-400 text-emerald-300 hover:text-white transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)] font-bold cursor-pointer"
+        >
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <MessageCircle size={13} />
+          <span>CANAL OFICIAL DE ATENCIÓN WHATSAPP</span>
+        </a>
       </div>
     </motion.div>
   );

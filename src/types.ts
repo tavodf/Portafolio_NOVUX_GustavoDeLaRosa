@@ -20,6 +20,9 @@ export interface CaseStudy {
 export interface Service {
   id: ServiceId;
   categoryTitle: string;
+  statusTag?: string;
+  caseBadge?: string;
+  technicalArgument?: string;
   shortDescription: string;
   image?: string;
   videoSrc?: string;
@@ -32,6 +35,8 @@ export interface Service {
   techStack?: TechItem[];
   externalLink?: string;
   ctaText?: string;
+  secondaryCtaText?: string;
+  isLab?: boolean;
 }
 
 export interface BlogPost {

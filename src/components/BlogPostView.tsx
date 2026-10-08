@@ -3,10 +3,11 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   ArrowLeft, Calendar, Clock, Tag, User, Play, Check, Copy, 
   Terminal, Share2, Database, Table2, RotateCcw, Sparkles, 
-  Box, Lock, Layers, RefreshCw, Eye, ExternalLink
+  Box, Lock, Layers, RefreshCw, Eye, ExternalLink, MessageCircle
 } from 'lucide-react';
 import { BlogPost } from '../types';
 import { sfx } from '../utils/soundEffects';
+import { getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { L7PipelineFlowDiagram } from './L7PipelineFlowDiagram';
@@ -596,6 +597,9 @@ LIMIT 5;`;
               </div>
             )}
           </div>
+        ) : post.id === '4' ? (
+          /* Cabecera Interactiva: Salón Arcade con Gabinetes de Empresas Líderes de IA y Costos por Token en Pantalla CRT */
+          <AiArcadeCabinetsHero />
         ) : (
           /* Imagen Principal para otros posts */
           post.image && !imageError && (
@@ -660,6 +664,9 @@ LIMIT 5;`;
                     codeString.includes('Taquilla / Caja de Cambio') ||
                     codeString.includes('Presupuesto en Efectivo') ||
                     codeString.includes('Token IDs') ||
+                    codeString.includes('Web Abierta Heterogénea') ||
+                    codeString.includes('Corpus Crudo Textual') ||
+                    (codeString.includes('▼') && codeString.includes('[')) ||
                     (codeString.includes('───►') && codeString.includes('['))
                   ) {
                     return <ConceptualFlowDiagram rawContent={codeString} />;
@@ -750,11 +757,11 @@ LIMIT 5;`;
                       <button
                         onClick={handleClearTerminal}
                         onMouseEnter={() => sfx.playHover()}
-                        className="flex items-center gap-1 text-zinc-400 hover:text-[#FFE066] px-2.5 py-1 rounded text-xs font-mono bg-black/60 hover:bg-zinc-800 border border-zinc-800 transition-colors cursor-pointer"
+                        className="flex items-center gap-1.5 text-zinc-300 hover:text-[#FFE066] px-2.5 py-1 rounded text-xs font-mono bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-700/80 hover:border-[#C5A059] transition-all cursor-pointer shadow-sm"
                         title="Limpiar salida y devolver proceso"
                       >
-                        <RotateCcw size={11} />
-                        <span>Limpiar</span>
+                        <RotateCcw size={11} className="text-[#FFE066]" />
+                        <span>Limpiar / Devolver proceso</span>
                       </button>
                     )}
 
@@ -900,7 +907,7 @@ LIMIT 5;`;
                       title="Limpiar y restaurar al estado inicial"
                     >
                       <RotateCcw size={12} className={sqlExecuted ? 'text-[#C5A059]' : 'text-zinc-600'} />
-                      <span>Limpiar</span>
+                      <span>Limpiar / Devolver proceso</span>
                     </button>
 
                     {/* Botón Copiar Query */}
@@ -1280,7 +1287,7 @@ LIMIT 5;`;
 
         {/* Pie de Página / Autor & Siguiente Acción */}
         <footer className="mt-12 pt-8 border-t border-[#C5A059]/30">
-          <div className="bg-[#08080c] border border-zinc-800 rounded-lg p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="bg-[#08080c] border border-zinc-800 rounded-lg p-6 flex flex-col lg:flex-row items-center justify-between gap-6">
             <div>
               <span className="text-xs font-mono text-[#C5A059] uppercase tracking-wider block mb-1">
                 Autor
@@ -1293,16 +1300,31 @@ LIMIT 5;`;
               </p>
             </div>
 
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSfIf2E1nj-Q1fCWGq2xAQlVGhPRItPS2TjMIprrCq33PgweQw/viewform"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => sfx.playPowerUp()}
-              onMouseEnter={() => sfx.playHover()}
-              className="w-full sm:w-auto inline-flex items-center justify-center border border-[#C5A059] bg-[#C5A059]/10 hover:bg-[#C5A059] text-[#FFE066] hover:text-black px-6 py-3 rounded-sm font-mono text-xs tracking-widest uppercase transition-all duration-300 shadow-md cursor-pointer font-bold"
-            >
-              Iniciar Proyecto
-            </a>
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
+              <a
+                href={getWhatsAppUrl(`Hola Gustavo / NOVUX S.A.S., leí el artículo "${post.title}" y deseo consultar sobre su implementación técnica.`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => sfx.playPowerUp()}
+                onMouseEnter={() => sfx.playHover()}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-emerald-500/60 bg-emerald-950/50 hover:bg-emerald-900/70 text-emerald-300 hover:text-white px-5 py-3 rounded-sm font-mono text-xs tracking-wider transition-all duration-300 shadow-md cursor-pointer font-bold"
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <MessageCircle size={14} />
+                <span>ATENCIÓN WHATSAPP B2B</span>
+              </a>
+
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfIf2E1nj-Q1fCWGq2xAQlVGhPRItPS2TjMIprrCq33PgweQw/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => sfx.playPowerUp()}
+                onMouseEnter={() => sfx.playHover()}
+                className="w-full sm:w-auto inline-flex items-center justify-center border border-[#C5A059] bg-[#C5A059]/10 hover:bg-[#C5A059] text-[#FFE066] hover:text-black px-6 py-3 rounded-sm font-mono text-xs tracking-widest uppercase transition-all duration-300 shadow-md cursor-pointer font-bold"
+              >
+                Iniciar Proyecto
+              </a>
+            </div>
           </div>
         </footer>
       </div>

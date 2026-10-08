@@ -525,3 +525,5 @@ export function L7PipelineFlowDiagram() {
     </div>
   );
 }
+
+export default L7PipelineFlowDiagram;
