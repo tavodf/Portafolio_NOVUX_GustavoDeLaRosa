@@ -1,88 +1,97 @@
 import { Service } from './types';
 
-export const services: Record<Service['id'], Service> = {
-  NOVUX_MARKETPULSE: {
-    id: 'NOVUX_MARKETPULSE',
-    categoryTitle: 'NOVUX MARKETPULSE',
-    caseBadge: 'CASE-MARKETPULSE',
-    technicalArgument: 'Ya tenemos el motor algorítmico desplegado; no comenzamos desde cero, solo parametrizamos su catálogo objetivo.',
-    shortDescription: 'Auditoría de 15,000 SKUs con detección de variaciones de precio en tiempo récord. Sistemas autónomos de vigilancia comercial y analítica de precios para e-commerce y distribución.',
-    heading: 'NOVUX MARKETPULSE // VIGILANCIA COMERCIAL & ANALÍTICA DE PRECIOS',
-    description: 'Sistemas autónomos de vigilancia comercial y analítica de precios para e-commerce y distribución. Monitoreo diario de competidores, detección de quiebres de stock y reportes ejecutivos automatizados sin intervención manual.',
-    externalLink: 'https://docs.google.com/forms/d/e/1FAIpQLSfIf2E1nj-Q1fCWGq2xAQlVGhPRItPS2TjMIprrCq33PgweQw/viewform',
-    ctaText: 'SOLICITAR AUDITORÍA / DEMO',
+export const services: Record<string, Service> = {
+  'CASE-SANTAFE-BI': {
+    id: 'CASE-SANTAFE-BI',
+    categoryTitle: '[ SANTA FE BI ]',
+    shortIdentifier: '[ SANTA FE BI ]',
+    tag: '[ SANTA FE BI ]',
+    caseBadge: 'CASE-SANTAFE-BI',
+    statusTag: '[TABLERO EN VIVO // LOOKER STUDIO AUDITADO]',
+    keyMetric: '+131,000 interacciones territoriales auditadas | 245,000 m² recuperados',
+    metrics: [
+      { label: 'INTERACCIONES AUDITADAS', value: '+131,000' },
+      { label: 'ESPACIO PÚBLICO RECUPERADO', value: '245,000 m²' },
+      { label: 'PRECISIÓN GEOESPACIAL', value: '100% PostGIS' },
+      { label: 'LATENCIA DE CONSULTA', value: '< 250 ms' },
+    ],
+    technicalArgument: 'El cliente interactúa directamente con un tablero real de escala gubernamental y territorial sin intermediarios ni mockups.',
+    shortDescription: 'Comando Central Operativo Bogotá: +131,000 interacciones territoriales auditadas, 245,000 m² recuperados y dashboard Looker Studio embebido en vivo con persistencia en PostgreSQL/PostGIS.',
+    heading: 'CASE-SANTAFE-BI // COMANDO CENTRAL OPERATIVO BOGOTÁ',
+    description: 'Ingeniería de datos geoespaciales y Business Intelligence gubernamental para la Localidad de Santa Fe (Bogotá). Resolvemos la dispersión de datos operativos de campo consolidando más de 131,000 registros e interacciones en PostgreSQL/PostGIS con pipelines analíticos en Python y cuadros de mando ejecutivos en Looker Studio embebidos directamente en la web.',
+    derivedServiceTitle: 'Business Intelligence Gubernamental, Analítica Territorial y Cuadros de Mando',
+    derivedServiceDescription: 'Desplegamos centros de comando analíticos y cuadros de mando territoriales replicando esta arquitectura: ETLs automatizados, normalización geoespacial, bases de datos relacionales optimizadas y tableros interactivos para toma de decisiones ejecutivas en tiempo real.',
+    derivedServices: [
+      'Cuadros de Mando y Dashboards Ejecutivos (Looker Studio / D3.js)',
+      'Data Warehousing Geoespacial con PostgreSQL / PostGIS',
+      'ETLs Automatizados de Ingesta y Limpieza en Python Analytics',
+      'Auditoría y Trazabilidad de Operaciones Territoriales Masivas'
+    ],
+    image: 'https://lh3.googleusercontent.com/d/1y11CauG0RR2qr3UaOx3VfsAGmjeIkvzp=w1000',
+    iframeSrc: 'https://lookerstudio.google.com/embed/reporting/8c0ef96a-6947-42aa-8ac0-b210ba6863d1/page/qsv7F',
+    externalLink: 'https://lookerstudio.google.com/reporting/8c0ef96a-6947-42aa-8ac0-b210ba6863d1/page/qsv7F',
+    demoUrl: 'https://lookerstudio.google.com/reporting/8c0ef96a-6947-42aa-8ac0-b210ba6863d1/page/qsv7F',
+    ctaText: 'LANZAR DEMO INTERACTIVO // DEMO ACTIVA ↗',
+    secondaryCtaText: 'SOLICITAR DESARROLLO A MEDIDA',
     keyServices: [
       {
-        title: 'Monitoreo Continuo de Competidores',
-        detail: 'Rastreo programado de más de 15,000 referencias y variaciones en marketplaces.'
+        title: 'Comando Central Operativo Bogotá',
+        detail: 'Trazabilidad en tiempo real de más de 131,000 registros territoriales normalizados.'
       },
       {
-        title: 'Detección de Quiebres y Stock Rival',
-        detail: 'Alertas inmediatas ante desabastecimiento de competidores para captura de margen.'
+        title: 'Modelado Espacial & PostGIS',
+        detail: 'Georreferenciación estricta y cubicación de 245,000 m² de espacio público recuperado.'
       },
       {
-        title: 'Reportes Ejecutivos & BI Automatizados',
-        detail: 'Modelado analítico y consolidación de elasticidad de precios sin intervención manual.'
+        title: 'Tableros Looker Studio Embebidos',
+        detail: 'Dashboards analíticos de acceso instantáneo sin costo por asiento de usuario.'
       }
     ],
     caseStudy: {
-      title: 'CASO DE ÉXITO: CASE-MARKETPULSE',
-      description: 'Auditoría de 15,000 SKUs con detección de variaciones de precio en tiempo récord. Motor algorítmico parametrizado que opera 24/7 sin bloqueos.'
+      title: 'CASO DE ÉXITO: CASE-SANTAFE-BI // COMANDO CENTRAL BOGOTÁ',
+      description: 'Auditoría territorial a gran escala: ingesta masiva en Python, persistencia geodésica en PostgreSQL/PostGIS y analítica ejecutiva en Looker Studio para control institucional continuo.'
     },
     techStack: [
-      { name: 'Python', iconName: 'python' },
-      { name: 'Selenium (Stealth)', iconName: 'selenium' },
-      { name: 'Pandas', iconName: 'pandas' },
+      { name: 'PostgreSQL / PostGIS', iconName: 'database' },
+      { name: 'React', iconName: 'code' },
+      { name: 'Python Analytics', iconName: 'python' },
+      { name: 'D3.js', iconName: 'chart' },
       { name: 'Looker Studio', iconName: 'looker' },
     ]
   },
-  DATAOPS_RPA: {
-    id: 'DATAOPS_RPA',
-    categoryTitle: 'DATAOPS & RPA',
-    caseBadge: 'CASE-GESTOR-OPS',
-    technicalArgument: 'Sustituya horas-hombre de digitación manual por scripts en Python con 0% de margen de error y ejecución 24/7.',
-    shortDescription: 'Arquitectura de conciliación de datos y balanceo territorial (CST Art. 23). Automatización robótica de procesos y pipelines deterministas para sustituir horas-hombre de digitación.',
-    heading: 'DATAOPS & RPA // CONCILIACIÓN DE DATOS & AUTOMATIZACIÓN DETERMINISTA',
-    description: 'Eliminamos el error humano y la fatiga operativa mediante scripts deterministas en Python. Diseñamos pipelines que concilian millones de registros, auditan nómina y balancean cargas territoriales con ejecución desatendida 24/7.',
-    externalLink: 'https://docs.google.com/forms/d/e/1FAIpQLSfIf2E1nj-Q1fCWGq2xAQlVGhPRItPS2TjMIprrCq33PgweQw/viewform',
-    ctaText: 'SOLICITAR AUTOMATIZACIÓN',
-    keyServices: [
-      {
-        title: 'Conciliación y Auditoría Laboral (CST Art. 23)',
-        detail: 'Verificación matemática de contratos, turnos y liquidaciones con 0% margen de error.'
-      },
-      {
-        title: 'Balanceo Territorial Automatizado',
-        detail: 'Algoritmos de asignación óptima de carga operativa y recursos en campo.'
-      },
-      {
-        title: 'Robotic Process Automation (RPA)',
-        detail: 'Extracción, formateo y carga desatendida de planillas sin digitación manual.'
-      }
-    ],
-    caseStudy: {
-      title: 'CASO DE ÉXITO: CASE-GESTOR-OPS',
-      description: 'Arquitectura de conciliación de datos y balanceo territorial con estricto apego normativo (CST Art. 23). Automatización de flujos masivos reduciendo tiempos de horas a segundos con 0% de error.'
-    },
-    techStack: [
-      { name: 'Python', iconName: 'python' },
-      { name: 'Pandas', iconName: 'pandas' },
-      { name: 'Regex', iconName: 'regex' },
-      { name: 'SQL', iconName: 'database' },
-    ]
-  },
-  WEB_DATA_HARVESTING: {
-    id: 'WEB_DATA_HARVESTING',
-    categoryTitle: 'WEB DATA HARVESTING',
+
+  'CASE-ARES-GRID': {
+    id: 'CASE-ARES-GRID',
+    categoryTitle: '[ ARES SCRAPER ]',
+    shortIdentifier: '[ ARES SCRAPER ]',
+    tag: '[ ARES SCRAPER ]',
     caseBadge: 'CASE-ARES-GRID',
-    technicalArgument: 'Mostramos en vivo la evasión perimetral y la extracción en memoria continua C sin comprometer IP corporativa.',
-    shortDescription: 'Ares Scraper con bypass antibot WAF (Selenium Stealth + libxml2 en C) demostrado en video y código vivo. Extracción masiva en Capa 7 sin comprometer IP corporativa.',
-    heading: 'WEB DATA HARVESTING // MINERÍA L7 & EVASIÓN PERIMETRAL',
-    description: 'Ingeniería de extracción masiva en Capa 7 (HTTP/HTTPS) con evasión antibot de última generación. Prescindimos de capas gráficas innecesarias para procesar el DOM en memoria C continua, entregando datos limpios y tipados directamente a su Data Lake.',
+    statusTag: '[L7 PIPELINE // WAF BYPASS ACTIVE]',
+    keyMetric: 'Extracción concurrente de alta disponibilidad en memoria C sin bloqueos perimetrales.',
+    metrics: [
+      { label: 'DISPONIBILIDAD PERIMETRAL', value: '99.98%' },
+      { label: 'MEMORIA DE PARSING', value: 'RAM C Nativa' },
+      { label: 'BYPASS DE PERÍMETROS', value: 'Cloudflare / WAF' },
+      { label: 'LATENCIA DE EXTRACCIÓN', value: '< 180 ms' },
+    ],
+    technicalArgument: 'Demostramos en vivo la evasión perimetral de WAFs y la extracción en memoria continua C sin comprometer la IP corporativa.',
+    shortDescription: 'Motor de Extracción L7 y Evasión WAF (Ares Scraper): bypass de Cloudflare/DataDome con Selenium Stealth, parsing ultrarrápido en memoria C con libxml2 y entrega canónica a Data Lake.',
+    heading: 'CASE-ARES-GRID // MOTOR DE EXTRACCIÓN L7 & EVASIÓN WAF (ARES SCRAPER)',
+    description: 'Ingeniería de extracción masiva en Capa 7 (HTTP/HTTPS) con evasión antibot de última generación. Prescindimos de capas gráficas innecesarias para procesar el DOM en memoria C continua, neutralizando bloqueos de Cloudflare, Akamai y DataDome para poblar Data Lakes corporativos con esquemas fuertemente tipados.',
+    derivedServiceTitle: 'Web Data Harvesting, Extracción Masiva de Datos y Data Lakes',
+    derivedServiceDescription: 'Implementamos infraestructuras de minería de datos y recolección web a gran escala adaptando este motor: orquestación de proxies residenciales rotativos, evasión de barreras antibot, extracción asíncrona concurrente y pipelines canónicos hacia su base de datos o almacenamiento en nube.',
+    derivedServices: [
+      'Infraestructuras de Extracción Masiva Web (Web Data Harvesting)',
+      'Bypass Avanzado de Firewalls de Aplicación Web (WAF & Antibot)',
+      'Construcción y Alimentación Continua de Data Lakes Corporativos',
+      'Pipelines ETL Asíncronos Tipados en Pydantic y Pandas Core'
+    ],
     videoSrc: '/AresGrid.mp4',
     videoDemoUrl: 'https://drive.google.com/file/d/10kYGZWx0Yp-_UE_a3PaXyjoo0O5lt0rW/view?usp=sharing',
-    externalLink: 'https://docs.google.com/forms/d/e/1FAIpQLSfIf2E1nj-Q1fCWGq2xAQlVGhPRItPS2TjMIprrCq33PgweQw/viewform',
-    ctaText: 'INICIAR EXTRACCIÓN',
+    externalLink: 'https://drive.google.com/file/d/10kYGZWx0Yp-_UE_a3PaXyjoo0O5lt0rW/view?usp=sharing',
+    demoUrl: 'https://drive.google.com/file/d/10kYGZWx0Yp-_UE_a3PaXyjoo0O5lt0rW/view?usp=sharing',
+    ctaText: 'LANZAR DEMO INTERACTIVO // DEMO ACTIVA ↗',
+    secondaryCtaText: 'SOLICITAR DESARROLLO A MEDIDA',
     keyServices: [
       {
         title: 'Evasión Antibot WAF (Selenium Stealth)',
@@ -94,146 +103,152 @@ export const services: Record<Service['id'], Service> = {
       },
       {
         title: 'Pipeline ETL & Data Lake Canónico',
-        detail: 'Esquemas fuertemente tipados en Pydantic y almacenamiento estructurado.'
+        detail: 'Esquemas fuertemente tipados en Pydantic y almacenamiento estructurado multiformato.'
       }
     ],
     caseStudy: {
-      title: 'CASO DE ÉXITO: CASE-ARES-GRID // ARES SCRAPER',
-      description: 'Ares Scraper con bypass antibot WAF (Selenium Stealth + libxml2 en C) demostrado en video y código vivo. Evasión perimetral y extracción en memoria continua C sin comprometer IP corporativa.'
+      title: 'CASO DE ÉXITO: CASE-ARES-GRID // ARES SCRAPER L7',
+      description: 'Motor industrial de extracción de alta concurrencia con evasión WAF verificada en video y código fuente: 0 bloqueos perimetrales y descarga masiva directa a Data Lake.'
     },
     techStack: [
-      { name: 'Python', iconName: 'python' },
-      { name: 'Selenium (Stealth)', iconName: 'selenium' },
-      { name: 'libxml2 en C', iconName: 'cpu' },
-      { name: 'Pandas', iconName: 'pandas' },
+      { name: 'Python Asíncrono', iconName: 'python' },
+      { name: 'Proxies Distribuidos', iconName: 'shield' },
+      { name: 'Selenium Headless', iconName: 'selenium' },
+      { name: 'Cloudflare Bypass', iconName: 'cpu' },
+      { name: 'libxml2 en RAM', iconName: 'code' },
     ]
   },
-  DATA_ANALYTICS: {
-    id: 'DATA_ANALYTICS',
-    categoryTitle: 'DATA ANALYTICS & INTELIGENCIA BI',
-    caseBadge: 'CASE-SANTAFE-BI',
-    technicalArgument: 'El cliente interactúa directamente en la web con un tablero real de escala gubernamental/empresarial.',
-    shortDescription: 'Comando Central Operativo Bogotá: +131,000 interacciones, 245,000 m² recuperados y dashboard Looker Studio embebido en vivo.',
-    image: 'https://lh3.googleusercontent.com/d/1y11CauG0RR2qr3UaOx3VfsAGmjeIkvzp=w1000',
-    iframeSrc: 'https://lookerstudio.google.com/embed/reporting/8c0ef96a-6947-42aa-8ac0-b210ba6863d1/page/qsv7F',
-    heading: 'DATA ANALYTICS & INTELIGENCIA BI // COMANDO CENTRAL OPERATIVO BOGOTÁ',
-    description: 'Transformamos datos dispersos y operaciones territoriales en centros de comando analíticos de misión crítica. Conectamos bases transaccionales, aplicamos enriquecimiento geoespacial y desplegamos tableros ejecutivos interactivos en Looker Studio embebidos directamente en la web.',
-    externalLink: 'https://docs.google.com/forms/d/e/1FAIpQLSfIf2E1nj-Q1fCWGq2xAQlVGhPRItPS2TjMIprrCq33PgweQw/viewform',
-    ctaText: 'EXPLORAR PROYECTO BI',
-    keyServices: [
-      {
-        title: 'Comando Central Operativo Bogotá',
-        detail: 'Trazabilidad en tiempo real de más de 131,000 registros e interacciones territoriales.'
-      },
-      {
-        title: 'Análisis Geoespacial & Enriquecimiento GIS',
-        detail: 'Normalización de direcciones, coordenadas y métricas de espacio público recuperado (245,000 m²).'
-      },
-      {
-        title: 'Tableros Looker Studio Embebidos',
-        detail: 'Dashboards interactivos embebidos en vivo con actualización continua de KPIs.'
-      }
+
+  'CASE-COT-OPS': {
+    id: 'CASE-COT-OPS',
+    categoryTitle: '[ NOVUX COT ]',
+    shortIdentifier: '[ NOVUX COT ]',
+    tag: '[ NOVUX COT ]',
+    caseBadge: 'CASE-COT-OPS',
+    statusTag: '[ENGINE ONLINE // 60 FPS CONSTANTES]',
+    keyMetric: 'Renderizado 3D a 60 FPS constantes | Precisión métrica sub-metro | Cadena de custodia con Hash georreferenciado.',
+    metrics: [
+      { label: 'RENDIMIENTO DE RENDER', value: '60 FPS // GPU' },
+      { label: 'PRECISIÓN ESPACIAL', value: 'Sub-métrica WGS84' },
+      { label: 'CADENA DE CUSTODIA', value: 'Hash SHA-256' },
+      { label: 'LATENCIA DE TELEMETRÍA', value: '< 50 ms C2' },
     ],
-    caseStudy: {
-      title: 'CASO DE ÉXITO: CASE-SANTAFE-BI // COMANDO CENTRAL OPERATIVO BOGOTÁ',
-      description: 'Comando Central Bogotá: +131,000 interacciones, 245,000 m² recuperados y dashboard Looker Studio embebido en vivo. Integración de ETL en Python y analítica geoespacial para la Localidad de Santa Fe.'
-    },
-    techStack: [
-      { name: 'Python', iconName: 'python' },
-      { name: 'Pandas', iconName: 'pandas' },
-      { name: 'Regex / NLP', iconName: 'regex' },
-      { name: 'Looker Studio', iconName: 'looker' },
-    ]
-  },
-  AI_DOCUMENT_NLP: {
-    id: 'AI_DOCUMENT_NLP',
-    categoryTitle: 'AI DOCUMENT & NLP',
-    caseBadge: 'CASE-L7-PIPELINE',
-    technicalArgument: 'Auditoría matemática de costos LLM y extracción estructurada con esquemas Pydantic inquebrantables.',
-    shortDescription: 'Normalización NFKC, deduplicación MinHash/LSH y tokenizador BPE del Laboratorio L7. Control de costos en APIs de IA y extracción documental estructurada.',
-    heading: 'AI DOCUMENT & NLP // INGENIERÍA DE TOKENS & MODELOS COGNITIVOS',
-    description: 'Optimizamos la interacción con Modelos de Lenguaje (LLMs) gobernando la física del token. Aplicamos normalización Unicode NFKC, deduplicación probabilística MinHash/LSH y esquemas Pydantic para eliminar el impuesto lingüístico y garantizar salidas deterministas.',
-    externalLink: 'https://docs.google.com/forms/d/e/1FAIpQLSfIf2E1nj-Q1fCWGq2xAQlVGhPRItPS2TjMIprrCq33PgweQw/viewform',
-    ctaText: 'AUDITAR PROYECTO IA',
-    keyServices: [
-      {
-        title: 'Auditoría Económica de Tokenización BPE',
-        detail: 'Detección de fragmentación excesiva en español y optimización de costos de inferencia.'
-      },
-      {
-        title: 'Deduplicación MinHash / LSH',
-        detail: 'Purga de textos redundantes a escala antes de alimentar la ventana de contexto.'
-      },
-      {
-        title: 'Extracción Canónica con Pydantic',
-        detail: 'Garantía de salida en JSON tipado sin alucinaciones de esquema.'
-      }
+    technicalArgument: 'No desarrollamos software genérico ni plantillas corporativas estándar: construimos centros de comando tácticos 3D con aceleración por hardware y precisión geodésica.',
+    shortDescription: 'Control Operativo en Territorio (NOVUX COT // Digital Twin Ops): gemelos digitales 3D en WebGL 2.0 / Three.js a 60 FPS constantes, cálculo geodésico Gauss-Haversine submétrico y cadena de custodia fotográfica con hash.',
+    heading: 'CASE-COT-OPS // CONTROL OPERATIVO EN TERRITORIO (NOVUX COT // DIGITAL TWIN OPS)',
+    description: 'Plataforma táctica de Comando y Control (C2) y Gemelos Digitales 3D para operaciones críticas en terreno. Permite renderizado 3D interactivo a 60 FPS constantes, delimitación perimetral con cálculo geodésico submétrico Gauss-Haversine en tiempo real, despacho táctico drag-and-drop y cadena de custodia inmutable con hash SHA-256 georreferenciado.',
+    derivedServiceTitle: 'Gemelos Digitales 3D, Sistemas de Comando y Control (C2) y Telemetría Táctica',
+    derivedServiceDescription: 'Implementamos plataformas a medida de gemelos digitales, centros de monitoreo táctico y consolas C2 sobre esta base probada: renderizado 3D en navegador sin plugins, telemetría bidireccional en tiempo real y gobernanza espacial de flotas o personal en terreno.',
+    derivedServices: [
+      'Gemelos Digitales 3D Interactivos (WebGL 2.0 / Three.js acelerados por GPU)',
+      'Sistemas de Comando y Control (C2) y Despacho Táctico de Personal',
+      'Motores Geodésicos de Alta Precisión (Gauss-Haversine / MapLibre)',
+      'Auditoría Forense de Campo con Cadena de Custodia Criptográfica'
     ],
-    caseStudy: {
-      title: 'CASO DE ÉXITO: CASE-L7-PIPELINE // AUDITORÍA BPE & MINHASH',
-      description: 'Normalización NFKC, deduplicación MinHash/LSH y tokenizador BPE del Laboratorio L7. Reducción de hasta un 30% en costos de API y aceleración drástica de latencia en sistemas RAG.'
-    },
-    techStack: [
-      { name: 'Python', iconName: 'python' },
-      { name: 'Pydantic v2', iconName: 'code' },
-      { name: 'MinHash / LSH', iconName: 'cpu' },
-      { name: 'Unicode NFKC', iconName: 'regex' },
-    ]
-  },
-  SOFTWARE_FACTORY: {
-    id: 'SOFTWARE_FACTORY',
-    categoryTitle: 'SOFTWARE FACTORY',
-    caseBadge: 'CASE-TACTICAL-TWIN',
-    statusTag: '[ENGINE ONLINE // 60 FPS]',
-    technicalArgument: 'No desarrollamos software corporativo estándar ni plantillas genéricas. Construimos plataformas de Comando y Control de grado táctico: procesamiento espacial geodésico en tiempo real, gemelos digitales en 3D acelerados por GPU y cero latencia operativa para entornos de alta exigencia.',
-    shortDescription: 'Ingeniería de software a la medida para operaciones complejas de campo y misión crítica. Centro de Comando y Control (C2) con renderizado tridimensional interactivo, trazado de perímetros poligonales con cálculo dinámico de áreas y distancias geodésicas en tiempo real, despacho táctico de personal con drag-and-drop, captura estricta de incidentes con evidencia fotográfica obligatoria y auditoría integral exportable sin dependencias de terceros.',
     image: '/novux-cot-platform.png',
-    videoSrc: '/AresGrid.mp4',
-    videoDemoUrl: 'https://drive.google.com/file/d/10kYGZWx0Yp-_UE_a3PaXyjoo0O5lt0rW/view?usp=sharing',
-    heading: 'SOFTWARE FACTORY // NOVUX TACTICAL C2 & DIGITAL TWIN OPS',
-    description: 'Ingeniería de software a la medida para operaciones complejas de campo y misión crítica. Centro de Comando y Control (C2) con renderizado tridimensional interactivo, trazado de perímetros poligonales con cálculo dinámico de áreas y distancias geodésicas en tiempo real, despacho táctico de personal con drag-and-drop, captura estricta de incidentes con evidencia fotográfica obligatoria y auditoría integral exportable sin dependencias de terceros.',
     externalLink: 'https://demo-c2.novuxops.com',
-    ctaText: 'LANZAR DEMO INTERACTIVO // COT',
+    demoUrl: 'https://demo-c2.novuxops.com',
+    ctaText: 'LANZAR DEMO INTERACTIVO // DEMO ACTIVA ↗',
     secondaryCtaText: 'SOLICITAR DESARROLLO A MEDIDA',
     keyServices: [
       {
-        title: 'WebGL 2.0 & Three.js 3D (60 FPS GPU-Accelerated)',
-        detail: 'Renderizado tridimensional interactivo de precisión espacial, gemelos digitales y control orbital de cámara.'
+        title: 'WebGL 2.0 & Three.js 3D (60 FPS GPU)',
+        detail: 'Renderizado tridimensional y gemelos digitales con control orbital e iluminación dinámica.'
       },
       {
-        title: 'Motor Geodésico Gauss-Haversine en Tiempo Real',
-        detail: 'Cálculo dinámico submétrico de distancias, polígonos perimetrales y superficies territoriales (m / m² / km²).'
+        title: 'Motor Geodésico Gauss-Haversine',
+        detail: 'Cálculo dinámico submétrico de distancias, perímetros poligonales y áreas en tiempo real.'
       },
       {
-        title: 'Despacho Táctico Drag-and-Drop & Telemetría Radar 360°',
-        detail: 'Avatares 3D interactivos, asignación espacial de personal en campo y telemetría Push C2 bidireccional.'
+        title: 'Despacho Táctico Drag-and-Drop',
+        detail: 'Telemetría radar 360°, avatares tridimensionales y asignación espacial de recursos.'
       },
       {
-        title: 'Cadena de Custodia Fotográfica & Hash Georreferenciado',
-        detail: 'Captura estricta de incidentes con evidencia visual obligatoria, sellado inmutable y auditoría exportable.'
-      },
-      {
-        title: 'Ares Scraper // Extracción Masiva & Bypass WAF',
-        detail: 'Ingeniería de datos, orquestación híbrida HTTP/WebDriver, evasión perimetral de WAFs e ingesta Data Lake.'
+        title: 'Cadena de Custodia con Hash',
+        detail: 'Captura estricta de incidentes georreferenciados con sellado inmutable SHA-256.'
       }
     ],
     caseStudy: {
-      title: 'CASE-TACTICAL-TWIN // NOVUX TACTICAL C2 & NOVUX COT',
-      description: 'Centro de Comando y Control Geodésico y Gemelo Digital 3D (WebGL 2.0 + Three.js + MapLibre GL Engine). Procesamiento espacial métrico submétrico Gauss-Haversine, telemetría radar 360°, despacho interactivo de personal y cadena de custodia fotográfica con hash georreferenciado sin dependencias de terceros, complementado con el motor de extracción Ares Scraper.'
+      title: 'CASO DE ÉXITO: CASE-COT-OPS // NOVUX COT DIGITAL TWIN',
+      description: 'Centro de Comando y Control Geodésico y Gemelo Digital 3D (WebGL 2.0 + Three.js + MapLibre GL Engine). 60 FPS constantes, cálculo espacial submétrico y telemetría táctica sin dependencias propietarias.'
     },
     techStack: [
-      { name: 'WebGL 2.0 / Three.js', iconName: 'window' },
-      { name: 'MapLibre GL Engine', iconName: 'database' },
-      { name: 'WASM Geodésico', iconName: 'cpu' },
-      { name: 'Gauss-Haversine Math', iconName: 'regex' },
+      { name: 'WebGL 2.0', iconName: 'window' },
+      { name: 'Three.js 3D', iconName: 'code' },
+      { name: 'MapLibre GL', iconName: 'database' },
+      { name: 'Motor Gauss-Haversine', iconName: 'cpu' },
       { name: 'React 19 / TypeScript', iconName: 'code' },
-      { name: 'Ares Core (C / libxml2)', iconName: 'cpu' },
-      { name: 'Selenium Stealth WAF', iconName: 'selenium' },
     ]
   },
-  LABORATORIO_INVESTIGACION: {
+
+  'CASE-CPC-PULSE': {
+    id: 'CASE-CPC-PULSE',
+    categoryTitle: '[ CPC PULSE ]',
+    shortIdentifier: '[ CPC PULSE ]',
+    tag: '[ CPC PULSE ]',
+    caseBadge: 'CASE-CPC-PULSE',
+    statusTag: '[LIVE HUD // 45/45 CURULES REAL-TIME]',
+    keyMetric: '45/45 Curules monitoreadas en tiempo real | 3.86M seguidores auditados | Motor Kahn DAG y cruce de actas E-14/E-24.',
+    metrics: [
+      { label: 'CURULES MONITOREADAS', value: '45/45 Curules' },
+      { label: 'AUDIENCIA AUDITADA', value: '3.86M Seguidores' },
+      { label: 'TOPOLOGÍA NORMATIVA', value: 'Kahn DAG Engine' },
+      { label: 'AUDITORÍA ELECTORAL', value: 'Cruce E-14 / E-24' },
+    ],
+    technicalArgument: 'Auditoría matemática de decisiones legislativas y electorales: transformamos opacidad parlamentaria en un grafo acíclico dirigido y un hemiciclo 3D interactivo.',
+    shortDescription: 'Control Político Colombiano (Electoral Cube & Hemiciclo 3D): 45/45 Curules monitoreadas en tiempo real, 3.86M seguidores auditados, motor Kahn DAG y cruce de actas E-14/E-24.',
+    heading: 'CASE-CPC-PULSE // CONTROL POLÍTICO COLOMBIANO & ELECTORAL CUBE',
+    description: 'Plataforma de inteligencia política, auditoría regulatoria y correlación electoral. Integra la visualización tridimensional del Hemiciclo Legislativo (45 curules con telemetría en vivo), resolución de dependencias normativas mediante ordenamiento topológico DAG de Kahn, cruce algorítmico de actas E-14 frente a E-24 y HUD en vivo impulsado por FastAPI y Selenium.',
+    derivedServiceTitle: 'Plataformas de Inteligencia Política, Auditoría Regulatoria y Modelos de Correlación Electoral',
+    derivedServiceDescription: 'Diseñamos e implementamos sistemas de fiscalización regulatoria, monitoreo de cuerpos colegiados y auditoría electoral: motores DAG de dependencias legales, analítica de votaciones y tableros interactivos para compliance institucional y consultoras de asuntos públicos.',
+    derivedServices: [
+      'Visualizadores Legislativos y Hemiciclos 3D Interactivos (Three.js / React 19)',
+      'Motores de Trazabilidad Regulatoria y Grafos de Dependencia (Kahn DAG)',
+      'Auditoría Algorítmica y Conciliación Forense Electoral (Actas E-14 vs E-24)',
+      'Sistemas de Monitoreo de Opinión y Análisis de Redes a Escala (+3.86M)'
+    ],
+    image: '/novux-cop-platform.png',
+    externalLink: '/novux-cop-platform.png',
+    demoUrl: '/novux-cop-platform.png',
+    ctaText: 'LANZAR DEMO INTERACTIVO // DEMO ACTIVA ↗',
+    secondaryCtaText: 'SOLICITAR DESARROLLO A MEDIDA',
+    keyServices: [
+      {
+        title: 'Hemiciclo 3D Interactivo (45/45 Curules)',
+        detail: 'Telemetría de votaciones, perfiles partidistas y mapas de calor en Three.js.'
+      },
+      {
+        title: 'Motor Topológico Kahn DAG',
+        detail: 'Resolución de dependencias y tiempos de trámite de proyectos de ley sin ciclos.'
+      },
+      {
+        title: 'Cruce Algorítmico E-14 / E-24',
+        detail: 'Detección automática de discrepancias y anomalías en actas de escrutinio.'
+      },
+      {
+        title: 'Minería Social de 3.86M Seguidores',
+        detail: 'Rastreo y ponderación del impacto digital de figuras públicas en tiempo real.'
+      }
+    ],
+    caseStudy: {
+      title: 'CASO DE ÉXITO: CASE-CPC-PULSE // ELECTORAL CUBE & HEMICICLO 3D',
+      description: 'Supervisión en tiempo real de 45 curules legislativas, correlación electoral con actas E-14 y motor de ordenación DAG para proyectos de ley con arquitectura FastAPI y React 19.'
+    },
+    techStack: [
+      { name: 'React 19', iconName: 'code' },
+      { name: 'Three.js 3D', iconName: 'window' },
+      { name: 'FastAPI', iconName: 'cpu' },
+      { name: 'Topología DAG Kahn', iconName: 'database' },
+      { name: 'Selenium Live HUD', iconName: 'selenium' },
+      { name: 'Python Analytics', iconName: 'python' },
+    ]
+  },
+
+  'LABORATORIO_INVESTIGACION': {
     id: 'LABORATORIO_INVESTIGACION',
     categoryTitle: 'LABORATORIO E INVESTIGACIÓN',
+    shortIdentifier: '[ R&D LAB ]',
+    tag: '[ R&D LAB ]',
     isLab: true,
     shortDescription: 'Investigación técnica y desarrollo de productos y conceptos.',
     heading: 'LABORATORIO E INVESTIGACIÓN',
@@ -250,7 +265,21 @@ export const services: Record<Service['id'], Service> = {
   }
 };
 
-export const serviceList = Object.values(services);
+// Aliases for backwards compatibility with any legacy routes or components
+services['SOFTWARE_FACTORY'] = services['CASE-COT-OPS'];
+services['DATA_ANALYTICS'] = services['CASE-SANTAFE-BI'];
+services['WEB_DATA_HARVESTING'] = services['CASE-ARES-GRID'];
+services['NOVUX_MARKETPULSE'] = services['CASE-ARES-GRID'];
+services['DATAOPS_RPA'] = services['CASE-SANTAFE-BI'];
+services['AI_DOCUMENT_NLP'] = services['CASE-CPC-PULSE'];
+
+export const serviceList: Service[] = [
+  services['CASE-SANTAFE-BI'],
+  services['CASE-ARES-GRID'],
+  services['CASE-COT-OPS'],
+  services['CASE-CPC-PULSE'],
+  services['LABORATORIO_INVESTIGACION']
+];
 
 export const WHATSAPP_CORPORATE_NUMBER = '+573196300410';
 export const WHATSAPP_DISPLAY_NUMBER = '+57 319 630 0410';
@@ -259,4 +288,3 @@ export const getWhatsAppUrl = (message: string) => {
   const cleanNumber = WHATSAPP_CORPORATE_NUMBER.replace(/[^0-9]/g, '');
   return `https://wa.me/${cleanNumber}?text=${encodeURIComponent(message)}`;
 };
-

@@ -27,6 +27,7 @@ import {
   Video,
   Workflow,
   FileCode,
+  Linkedin,
   Link as LinkIcon
 } from 'lucide-react';
 import { techNews } from '../newsData';
@@ -176,9 +177,24 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
             <span>Volver al Menú Principal</span>
           </button>
 
-          <div className="flex items-center gap-2 text-xs font-mono text-[#C5A059]">
-            <Radio size={14} className="animate-pulse text-[#FFE066]" />
-            <span className="hidden sm:inline tracking-wider font-semibold">RADAR TÉCNICO & DESPACHOS</span>
+          <div className="flex items-center gap-3">
+            <a
+              href="https://www.linkedin.com/in/tavodelarosaf/?isSelfProfile=true"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => sfx.playClick()}
+              onMouseEnter={() => sfx.playHover()}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#0077b5]/15 hover:bg-[#0077b5]/30 border border-[#0077b5]/50 hover:border-[#0077b5] text-cyan-200 hover:text-white font-mono text-xs font-bold transition-all shadow-sm cursor-pointer"
+              title="Perfil Oficial de LinkedIn de Gustavo De La Rosa"
+            >
+              <Linkedin size={13} className="text-[#0077b5]" />
+              <span className="hidden sm:inline">LINKEDIN</span>
+            </a>
+
+            <div className="flex items-center gap-2 text-xs font-mono text-[#C5A059]">
+              <Radio size={14} className="animate-pulse text-[#FFE066]" />
+              <span className="hidden sm:inline tracking-wider font-semibold">RADAR TÉCNICO & DESPACHOS</span>
+            </div>
           </div>
         </div>
 

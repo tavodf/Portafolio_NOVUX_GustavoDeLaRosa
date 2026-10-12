@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MessageCircle, X, ArrowUpRight, Sparkles, Send, Phone } from 'lucide-react';
+import { MessageCircle, X, ArrowUpRight, Send } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
 import { getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
 
@@ -13,34 +13,29 @@ export function FloatingWhatsApp({ currentContext }: FloatingWhatsAppProps) {
 
   const quickOptions = [
     {
-      title: 'MarketPulse',
-      desc: 'Monitoreo de precios y quiebres',
-      message: 'Hola NOVUX S.A.S., me interesa cotizar el servicio de Monitoreo de Precios y Detección de Quiebres (MarketPulse) para mi e-commerce/empresa.'
+      title: 'CASE-SANTAFE-BI',
+      desc: 'Comando Central Bogotá (+131k interacciones)',
+      message: 'Hola NOVUX S.A.S., me interesa cotizar una plataforma de Business Intelligence Gubernamental y Analítica Territorial basada en CASE-SANTAFE-BI.'
     },
     {
-      title: 'DataOps & RPA',
-      desc: 'Conciliación y automatización Python',
-      message: 'Hola NOVUX S.A.S., busco automatizar procesos operativos y conciliación de reportes con scripts en Python (DataOps).'
+      title: 'CASE-ARES-GRID',
+      desc: 'Extracción L7 y Evasión WAF (Ares Scraper)',
+      message: 'Hola NOVUX S.A.S., requiero cotizar infraestructura de Web Data Harvesting y bypass antibot WAF con Ares Scraper.'
     },
     {
-      title: 'Web Data Harvesting',
-      desc: 'Extracción Ares Scraper con bypass WAF',
-      message: 'Hola NOVUX S.A.S., requiero cotizar la extracción de un dataset estructurado con Ares Scraper.'
+      title: 'CASE-COT-OPS',
+      desc: 'Gemelos Digitales 3D & Telemetría C2 (60 FPS)',
+      message: 'Hola NOVUX S.A.S., deseo cotizar la plataforma de Control Operativo en Territorio NOVUX COT (Gemelo Digital 3D / C2).'
     },
     {
-      title: 'Data Analytics & BI',
-      desc: 'Tableros Looker Studio y Data Warehouse',
-      message: 'Hola NOVUX S.A.S., vi el caso de éxito de BI y deseo estructurar un Data Warehouse / Tablero para mi compañía.'
+      title: 'CASE-CPC-PULSE',
+      desc: 'Hemiciclo 3D & Kahn DAG (45 Curules en Vivo)',
+      message: 'Hola NOVUX S.A.S., busco cotizar la plataforma de Inteligencia Política y Auditoría Electoral CPC PULSE.'
     },
     {
-      title: 'AI Document & NLP',
-      desc: 'Auditoría BPE y pipelines Pydantic',
-      message: 'Hola NOVUX S.A.S., me interesa cotizar la solución de AI Document & NLP y auditoría de costos de tokens para mi empresa.'
-    },
-    {
-      title: 'Software Factory',
-      desc: 'Sprints React / Python con 100% IP',
-      message: 'Hola NOVUX S.A.S., requiero cotizar un Sprint de desarrollo de software a medida o microservicio.'
+      title: 'Desarrollo a Medida // Sprints B2B',
+      desc: '100% Cesión de Código y Control Propietario',
+      message: 'Hola NOVUX S.A.S., deseo cotizar un desarrollo de software a medida o ingeniería de datos para mi empresa.'
     }
   ];
 
@@ -49,79 +44,86 @@ export function FloatingWhatsApp({ currentContext }: FloatingWhatsAppProps) {
     setIsOpen(!isOpen);
   };
 
-  const handleSelectOption = (msg: string) => {
-    sfx.playPowerUp();
-    window.open(getWhatsAppUrl(msg), '_blank');
-    setIsOpen(false);
-  };
-
   return (
-    <div className="fixed bottom-6 right-6 z-[9999] pointer-events-auto font-sans">
+    <div className="fixed bottom-3 sm:bottom-6 right-3 sm:right-6 z-[9999] pointer-events-auto font-sans max-w-[calc(100vw-1.5rem)] select-none">
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={{ opacity: 0, y: 15, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="mb-3 w-80 sm:w-96 rounded-2xl bg-[#0b0b14]/95 border border-[#C5A059]/60 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.9)] overflow-hidden text-white"
+            exit={{ opacity: 0, y: 15, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="mb-3 w-[calc(100vw-2rem)] sm:w-96 rounded-xl bg-[#0b0b14]/98 border border-[#C5A059]/40 p-4 shadow-[0_12px_45px_rgba(0,0,0,0.95)] backdrop-blur-xl text-left relative overflow-hidden"
           >
-            {/* Header del Modal */}
-            <div className="bg-gradient-to-r from-[#181824] to-[#0d0d16] p-4 border-b border-zinc-800 flex items-center justify-between">
+            {/* Cabecera del Widget */}
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center text-emerald-400">
                   <MessageCircle size={16} />
                 </div>
                 <div>
-                  <h4 className="text-xs font-mono font-bold text-white uppercase tracking-wider">
-                    NOVUX S.A.S. • WhatsApp B2B
-                  </h4>
-                  <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 font-mono font-bold mt-0.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping inline-block" />
-                    <span>Canal Oficial de Atención B2B</span>
+                  <div className="text-xs font-mono font-bold text-white flex items-center gap-1.5">
+                    <span>NOVUX B2B DIRECT</span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  </div>
+                  <div className="text-[10px] text-zinc-400 font-mono">
+                    Línea Oficial: {WHATSAPP_DISPLAY_NUMBER}
                   </div>
                 </div>
               </div>
-
               <button
                 onClick={handleToggle}
-                className="text-zinc-400 hover:text-white p-1 rounded hover:bg-zinc-800 transition-colors cursor-pointer"
+                className="text-zinc-400 hover:text-white p-1 rounded hover:bg-zinc-800/60 transition-colors cursor-pointer"
+                aria-label="Cerrar modal de WhatsApp"
               >
                 <X size={16} />
               </button>
             </div>
 
-            {/* Opciones Pre-Estructuradas */}
-            <div className="p-3.5 space-y-1.5 max-h-[340px] overflow-y-auto">
-              <p className="text-[11px] text-zinc-400 font-mono mb-2">
-                Selecciona tu requerimiento para abrir chat de atención:
-              </p>
+            <p className="text-[11px] text-zinc-300 font-sans my-3 leading-snug">
+              Seleccione la arquitectura o caso de éxito que desea adaptar a las necesidades operativas de su organización:
+            </p>
 
+            {/* Opciones directas por anclaje <a> para evitar bloqueos de popup locales */}
+            <div className="space-y-1.5 max-h-[55vh] overflow-y-auto pr-1">
               {quickOptions.map((opt, idx) => (
-                <button
+                <a
                   key={idx}
-                  onClick={() => handleSelectOption(opt.message)}
+                  href={getWhatsAppUrl(opt.message)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => {
+                    sfx.playPowerUp();
+                    setIsOpen(false);
+                  }}
                   onMouseEnter={() => sfx.playHover()}
-                  className="w-full text-left p-2.5 rounded-lg bg-black/60 hover:bg-[#151522] border border-zinc-800/80 hover:border-[#C5A059]/50 transition-all cursor-pointer group flex items-center justify-between"
+                  className="w-full text-left p-2.5 rounded-lg bg-black/60 hover:bg-[#151522] border border-zinc-800/80 hover:border-[#C5A059]/50 transition-all cursor-pointer group flex items-center justify-between block no-underline"
                 >
-                  <div>
-                    <div className="text-xs font-mono font-bold text-zinc-100 group-hover:text-[#FFE066] transition-colors">
+                  <div className="min-w-0 pr-2">
+                    <div className="text-xs font-mono font-bold text-zinc-100 group-hover:text-[#FFE066] transition-colors truncate">
                       {opt.title}
                     </div>
-                    <div className="text-[10px] text-zinc-400 font-sans">
+                    <div className="text-[10.5px] text-zinc-400 font-sans truncate">
                       {opt.desc}
                     </div>
                   </div>
                   <ArrowUpRight size={14} className="text-zinc-500 group-hover:text-[#FFE066] transition-colors shrink-0" />
-                </button>
+                </a>
               ))}
 
-              <button
-                onClick={() => handleSelectOption('Hola NOVUX S.A.S., deseo una consulta técnica general sobre sus servicios de Data & Tech Factory.')}
-                className="w-full mt-2 py-2 px-3 rounded-lg bg-[#C5A059] hover:bg-[#FFE066] text-black font-mono font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
+              <a
+                href={getWhatsAppUrl('Hola NOVUX S.A.S., deseo una consulta técnica general sobre sus arquitecturas desplegadas y casos de éxito.')}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  sfx.playPowerUp();
+                  setIsOpen(false);
+                }}
+                className="w-full mt-2 py-2 px-3 rounded-lg bg-[#C5A059] hover:bg-[#FFE066] text-black font-mono font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 no-underline shadow-md"
               >
                 <Send size={12} />
                 <span>Consulta General por WhatsApp</span>
-              </button>
+              </a>
             </div>
           </motion.div>
         )}
@@ -146,11 +148,12 @@ export function FloatingWhatsApp({ currentContext }: FloatingWhatsAppProps) {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleToggle}
-          className="w-14 h-14 rounded-full bg-gradient-to-tr from-emerald-600 to-emerald-400 text-white shadow-[0_0_25px_rgba(16,185,129,0.5)] flex items-center justify-center cursor-pointer border-2 border-emerald-300/40 relative group shrink-0"
+          className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-emerald-600 to-emerald-400 text-white shadow-[0_0_25px_rgba(16,185,129,0.5)] flex items-center justify-center cursor-pointer border-2 border-emerald-300/40 relative group shrink-0"
           title="WhatsApp Corporativo NOVUX"
+          aria-label="Abrir WhatsApp B2B"
         >
           <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-[#FFE066] border-2 border-black animate-pulse" />
-          <MessageCircle size={26} className="fill-current" />
+          <MessageCircle size={24} className="fill-current sm:scale-110" />
         </motion.button>
       </div>
     </div>

@@ -12,6 +12,7 @@ import { BlogPostView } from './components/BlogPostView';
 import { Noticias } from './components/Noticias';
 import { MatrixRain } from './components/MatrixRain';
 import { AudioPlayer } from './components/AudioPlayer';
+import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { services } from './data';
 import { blogPosts } from './blogData';
 import { techNews } from './newsData';
@@ -24,10 +25,18 @@ export default function App() {
   const [currentView, setCurrentView] = useState<ViewMode>('HOME');
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(blogPosts[0] || null);
 
-  // Sincronización de rutas con deep-linking hash (#noticias, #blog, #servicio-...)
+  // Sincronización de rutas con deep-linking hash (#noticias, #blog, #servicio-...) y soporte nativo para botón ATRÁS
   useEffect(() => {
     const handleHashRouting = () => {
       const hash = window.location.hash;
+      
+      // Si el hash está vacío o es raíz, volver a HOME
+      if (!hash || hash === '#' || hash === '#/' || hash === '#home') {
+        setCurrentView('HOME');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
       if (hash.startsWith('#noticias')) {
         setCurrentView('NOTICIAS');
       } else if (hash.startsWith('#blog')) {
@@ -45,31 +54,42 @@ export default function App() {
         const sId = hash.replace('#servicio-', '');
         if (services[sId as ServiceId]) {
           setCurrentView(sId as ServiceId);
+          return;
         }
+        setCurrentView('HOME');
+      } else {
+        setCurrentView('HOME');
       }
     };
 
     handleHashRouting();
     window.addEventListener('hashchange', handleHashRouting);
-    return () => window.removeEventListener('hashchange', handleHashRouting);
+    window.addEventListener('popstate', handleHashRouting);
+    return () => {
+      window.removeEventListener('hashchange', handleHashRouting);
+      window.removeEventListener('popstate', handleHashRouting);
+    };
   }, []);
 
   const handleSelectService = (id: ServiceId) => {
     sfx.playWarp();
     window.location.hash = `servicio-${id}`;
     setCurrentView(id);
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleOpenBlog = () => {
     sfx.playWarp();
     window.location.hash = 'blog';
     setCurrentView('BLOG');
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleOpenNoticias = () => {
     sfx.playWarp();
     window.location.hash = 'noticias';
     setCurrentView('NOTICIAS');
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleSelectPost = (post: BlogPost) => {
@@ -77,31 +97,45 @@ export default function App() {
     setSelectedPost(post);
     window.location.hash = `blog?id=${post.id}`;
     setCurrentView('BLOG_POST');
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleSelectNewsItem = (item: TechNewsItem) => {
     sfx.playSelect();
     window.location.hash = `noticias?id=${item.id}`;
     setCurrentView('NOTICIAS');
+    window.scrollTo({ top: 0, behavior: 'instant' });
   };
 
   const handleBackToHome = () => {
     sfx.playBack();
-    window.history.pushState(null, '', window.location.pathname);
     setCurrentView('HOME');
+    if (window.location.hash) {
+      try {
+        window.history.pushState(null, '', window.location.pathname + window.location.search);
+      } catch {
+        window.location.hash = '';
+      }
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBackToBlog = () => {
     sfx.playBack();
-    window.location.hash = 'blog';
     setCurrentView('BLOG');
+    try {
+      window.location.hash = 'blog';
+    } catch {
+      // fallback
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#060608] overflow-hidden relative">
+    <div className="w-full min-h-screen bg-[#060608] overflow-x-hidden relative">
       <MatrixRain />
       <AudioPlayer videoId="Dy080SqIEMU" />
-      <div className="relative z-10 w-full min-h-screen overflow-y-auto">
+      <div className="relative z-10 w-full min-h-screen overflow-y-auto overflow-x-hidden">
         <AnimatePresence mode="wait">
           {currentView === 'HOME' && (
             <motion.div
@@ -183,6 +217,9 @@ export default function App() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Botón de Conversión Omnipresente WhatsApp B2B */}
+      <FloatingWhatsApp />
     </div>
   );
 }

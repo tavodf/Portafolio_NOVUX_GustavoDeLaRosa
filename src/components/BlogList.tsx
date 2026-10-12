@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowLeft, Calendar, Clock, Tag, BookOpen, ChevronRight, Search, X, MessageCircle } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Tag, BookOpen, ChevronRight, Search, X, MessageCircle, Linkedin } from 'lucide-react';
 import { BlogPost } from '../types';
 import { sfx } from '../utils/soundEffects';
 import { getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
@@ -49,8 +49,8 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
       transition={{ duration: 0.35 }}
       className="w-full max-w-5xl mx-auto px-4 sm:px-6 py-8 md:py-12"
     >
-      {/* Botón de Regreso al Home */}
-      <div className="mb-8">
+      {/* Barra de Regreso al Home y Enlace LinkedIn */}
+      <div className="mb-8 flex items-center justify-between gap-4">
         <button
           onClick={() => {
             sfx.playBack();
@@ -62,6 +62,19 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
           <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
           <span>Volver al Inicio</span>
         </button>
+
+        <a
+          href="https://www.linkedin.com/in/tavodelarosaf/?isSelfProfile=true"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => sfx.playClick()}
+          onMouseEnter={() => sfx.playHover()}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#0077b5]/15 hover:bg-[#0077b5]/30 border border-[#0077b5]/50 hover:border-[#0077b5] text-cyan-200 hover:text-white font-mono text-xs font-bold transition-all shadow-sm cursor-pointer"
+          title="Perfil Oficial de LinkedIn de Gustavo De La Rosa"
+        >
+          <Linkedin size={13} className="text-[#0077b5]" />
+          <span className="hidden sm:inline">LINKEDIN</span>
+        </a>
       </div>
 
       {/* Cabecera del Blog / Radar */}

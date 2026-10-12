@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Github, BookOpen, ChevronRight, Sparkles, Radio, FlaskConical, Terminal, Cpu, Database, ShieldCheck, Layers, MessageCircle } from 'lucide-react';
+import { Github, Linkedin, BookOpen, ChevronRight, Sparkles, Radio, FlaskConical, Terminal, Cpu, Database, ShieldCheck, Layers, MessageCircle } from 'lucide-react';
 import { serviceList, getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
 import { blogPosts } from '../blogData';
 import { techNews } from '../newsData';
@@ -70,23 +70,72 @@ export function Home({
       className="min-h-screen bg-gradient-to-b from-black/50 via-transparent to-black/70 text-white py-12 px-3 sm:px-6 md:px-8 xl:px-10 font-sans flex flex-col items-center justify-between"
     >
       <div className="w-full max-w-[1560px] 2xl:max-w-[1680px] flex flex-col items-center">
+        {/* Barra Superior Táctica de Enlaces Oficiales */}
+        <div className="w-full max-w-[1560px] 2xl:max-w-[1680px] px-3 sm:px-6 mb-6 flex items-center justify-between gap-4">
+          <div className="inline-flex items-center gap-2 text-[11px] font-mono text-zinc-400">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="hidden sm:inline uppercase tracking-widest text-[#C5A059]/90 font-semibold">
+              NOVUX D&D // OPERACIONES EN PRODUCCIÓN
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2.5">
+            <a
+              href="https://www.linkedin.com/in/tavodelarosaf/?isSelfProfile=true"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => sfx.playClick()}
+              onMouseEnter={() => sfx.playHover()}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[#0077b5]/15 hover:bg-[#0077b5]/30 border border-[#0077b5]/50 hover:border-[#0077b5] text-cyan-200 hover:text-white font-mono text-xs font-bold transition-all shadow-[0_0_15px_rgba(0,119,181,0.25)] cursor-pointer"
+              title="Perfil Oficial de LinkedIn de Gustavo De La Rosa"
+            >
+              <Linkedin size={13} className="text-[#0077b5]" />
+              <span>LINKEDIN</span>
+            </a>
+
+            <a
+              href={getWhatsAppUrl('Hola NOVUX S.A.S., me comunico desde la plataforma oficial.')}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => sfx.playSelect()}
+              onMouseEnter={() => sfx.playHover()}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/50 hover:border-emerald-400 text-emerald-300 hover:text-white font-mono text-xs font-bold transition-all shadow-sm cursor-pointer"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <MessageCircle size={13} />
+              <span className="hidden sm:inline">WHATSAPP</span>
+            </a>
+          </div>
+        </div>
+
         {/* Cabecera Principal con Logo 3D */}
-        <div className="text-center mb-6 flex flex-col items-center">
+        <div className="text-center mb-8 sm:mb-10 flex flex-col items-center">
           <h1 className="flex justify-center items-center">
             <span className="sr-only">NOVUX</span>
             <Novux3DLogo 
               imageSrc="https://lh3.googleusercontent.com/d/14YSecawix_ogB7wJocutwLOwSXtztcKU=w1000?v=2"
             />
           </h1>
-          <p className="mt-3 text-xs sm:text-sm font-mono tracking-widest text-zinc-400 uppercase">
-            SOFTWARE FACTORY • ARQUITECTURA BI • MARKET INTELLIGENCE
+          <p className="mt-4 text-xs sm:text-sm md:text-[15px] font-mono tracking-widest text-zinc-300 uppercase font-semibold">
+            ARQUITECTURAS DESPLEGADAS • CASOS DE ÉXITO • MOTORES EN PRODUCCIÓN
           </p>
         </div>
 
         {/* Carrusel de Credenciales en Herramientas (Estilo Stack Tecnológico) */}
         <CredentialsCarousel />
 
-        {/* Carrusel de los 6 Servicios B2B */}
+        {/* Marcador Principal Estilo Terminal */}
+        <div className="w-full max-w-[1560px] 2xl:max-w-[1680px] px-3 sm:px-6 mt-4 -mb-1 flex items-center justify-between">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm bg-[#0e0e13]/90 border border-[#C5A059]/40 text-[#C5A059] font-mono text-xs tracking-widest uppercase shadow-[0_0_15px_rgba(197,160,89,0.15)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FFE066] animate-pulse" />
+            <span>// ARQUITECTURAS DESPLEGADAS & CASOS DE ÉXITO</span>
+          </div>
+          <span className="hidden sm:inline text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
+            [ PORTAFOLIO CASE-FIRST // NOVUX OPS ]
+          </span>
+        </div>
+
+        {/* Carrusel de los 4 Programas Insignia Desplegados */}
         <ServicesCarousel services={b2bServices} onSelectService={onSelectService} />
 
         {/* Sección Independiente Centrada: LABORATORIO E INVESTIGACIÓN (Abajo en la mitad aparte de los servicios) */}
@@ -263,6 +312,19 @@ export function Home({
             <Github className="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform duration-200" />
             <span className="font-semibold tracking-wide">github.com/tavodf</span>
           </a>
+
+          <a
+            href="https://www.linkedin.com/in/tavodelarosaf/?isSelfProfile=true"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => sfx.playClick()}
+            onMouseEnter={() => sfx.playHover()}
+            className="group inline-flex items-center gap-3 px-6 py-3 rounded-sm border border-zinc-800 hover:border-[#0077b5]/80 bg-[#0e0e11]/85 hover:bg-[#0077b5]/15 backdrop-blur-md text-zinc-300 hover:text-white shadow-[0_4px_24px_rgba(0,0,0,0.7)] hover:shadow-[0_0_20px_rgba(0,119,181,0.35)] transition-all duration-300 text-xs font-mono tracking-wider cursor-pointer"
+            title="Visitar perfil de LinkedIn de Gustavo De La Rosa"
+          >
+            <Linkedin className="w-4 h-4 text-[#0077b5] group-hover:scale-110 transition-transform duration-200" />
+            <span className="font-semibold tracking-wide">linkedin.com/in/tavodelarosaf</span>
+          </a>
         </div>
       </div>
 
@@ -270,19 +332,33 @@ export function Home({
       <footer className="w-full max-w-[1560px] 2xl:max-w-[1680px] pt-8 border-t border-[#C5A059]/15 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 font-mono gap-4">
         <span>© {new Date().getFullYear()} Gustavo De La Rosa. Todos los derechos reservados.</span>
 
-        {/* Enlace Oficial a WhatsApp Corporativo */}
-        <a
-          href={getWhatsAppUrl('Hola NOVUX S.A.S., me comunico desde la plataforma oficial.')}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => sfx.playSelect()}
-          onMouseEnter={() => sfx.playHover()}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/50 hover:border-emerald-400 text-emerald-300 hover:text-white transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)] font-bold cursor-pointer"
-        >
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <MessageCircle size={13} />
-          <span>ATENCIÓN WHATSAPP B2B</span>
-        </a>
+        <div className="flex items-center gap-4 flex-wrap justify-center">
+          <a
+            href="https://www.linkedin.com/in/tavodelarosaf/?isSelfProfile=true"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => sfx.playClick()}
+            onMouseEnter={() => sfx.playHover()}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[#0077b5]/15 hover:bg-[#0077b5]/30 border border-[#0077b5]/50 hover:border-[#0077b5] text-cyan-200 hover:text-white transition-all shadow-[0_0_12px_rgba(0,119,181,0.2)] font-bold cursor-pointer"
+          >
+            <Linkedin size={13} className="text-[#0077b5]" />
+            <span>LINKEDIN OFICIAL</span>
+          </a>
+
+          {/* Enlace Oficial a WhatsApp Corporativo */}
+          <a
+            href={getWhatsAppUrl('Hola NOVUX S.A.S., me comunico desde la plataforma oficial.')}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => sfx.playSelect()}
+            onMouseEnter={() => sfx.playHover()}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/50 hover:border-emerald-400 text-emerald-300 hover:text-white transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)] font-bold cursor-pointer"
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <MessageCircle size={13} />
+            <span>ATENCIÓN WHATSAPP B2B</span>
+          </a>
+        </div>
 
         <span className="text-zinc-500">Arquitectura de Software & Datos • Bogotá D.C.</span>
       </footer>

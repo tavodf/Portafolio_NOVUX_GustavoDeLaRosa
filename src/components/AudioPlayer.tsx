@@ -234,31 +234,31 @@ export function AudioPlayer({ videoId = 'Dy080SqIEMU' }: AudioPlayerProps) {
 
       {/* Control Flotante Cyberpunk / Arcade HUD */}
       <div 
-        className="fixed top-4 right-4 z-50 flex items-center gap-2 select-none"
+        className="fixed top-2 sm:top-4 right-2 sm:right-4 z-50 flex items-center gap-1.5 sm:gap-2 select-none max-w-[calc(100vw-1rem)]"
         onMouseEnter={() => sfx.playHover()}
       >
-        <div className="bg-[#0e0e13]/90 backdrop-blur-md border border-[#C5A059]/40 hover:border-[#C5A059] rounded px-3 py-2 shadow-[0_4px_25px_rgba(0,0,0,0.85)] flex items-center gap-3 transition-all duration-300">
+        <div className="bg-[#0e0e13]/90 backdrop-blur-md border border-[#C5A059]/40 hover:border-[#C5A059] rounded px-2 sm:px-3 py-1.5 sm:py-2 shadow-[0_4px_25px_rgba(0,0,0,0.85)] flex items-center gap-1.5 sm:gap-3 transition-all duration-300">
           
           {/* Indicador de Sintetizador / Equalizador Animado */}
-          <div className="flex items-center gap-1.5 pr-2 border-r border-[#C5A059]/20">
+          <div className="flex items-center gap-1 sm:gap-1.5 pr-1.5 sm:pr-2 border-r border-[#C5A059]/20">
             <Radio 
-              size={14} 
+              size={13} 
               className={isPlaying ? "text-[#C5A059] animate-pulse" : "text-zinc-600"} 
             />
-            <div className="flex items-end gap-[2px] h-3.5 w-4">
+            <div className="flex items-end gap-[2px] h-3 sm:h-3.5 w-3.5 sm:w-4">
               <span 
                 className={`w-[2px] rounded-xs transition-all ${
-                  isPlaying ? "bg-[#FFE066] animate-[bounce_0.6s_infinite_alternate] h-3.5" : "h-1 bg-zinc-600"
+                  isPlaying ? "bg-[#FFE066] animate-[bounce_0.6s_infinite_alternate] h-3 sm:h-3.5" : "h-1 bg-zinc-600"
                 }`} 
               />
               <span 
                 className={`w-[2px] rounded-xs transition-all ${
-                  isPlaying ? "bg-[#C5A059] animate-[bounce_0.4s_infinite_0.1s_alternate] h-2.5" : "h-1 bg-zinc-600"
+                  isPlaying ? "bg-[#C5A059] animate-[bounce_0.4s_infinite_0.1s_alternate] h-2 sm:h-2.5" : "h-1 bg-zinc-600"
                 }`} 
               />
               <span 
                 className={`w-[2px] rounded-xs transition-all ${
-                  isPlaying ? "bg-[#FFE066] animate-[bounce_0.7s_infinite_0.2s_alternate] h-3" : "h-1 bg-zinc-600"
+                  isPlaying ? "bg-[#FFE066] animate-[bounce_0.7s_infinite_0.2s_alternate] h-2.5 sm:h-3" : "h-1 bg-zinc-600"
                 }`} 
               />
             </div>
@@ -267,7 +267,7 @@ export function AudioPlayer({ videoId = 'Dy080SqIEMU' }: AudioPlayerProps) {
           {/* Botón Play / Pausa MÚSICA */}
           <button
             onClick={handleTogglePlay}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono font-bold tracking-wider transition-all duration-200 cursor-pointer ${
+            className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded text-[11px] sm:text-xs font-mono font-bold tracking-wider transition-all duration-200 cursor-pointer ${
               isPlaying 
                 ? 'bg-[#C5A059]/25 text-[#FFE066] border border-[#C5A059]/60 shadow-[0_0_12px_rgba(197,160,89,0.35)]' 
                 : 'bg-zinc-800/80 hover:bg-[#C5A059]/15 text-zinc-300 hover:text-[#C5A059] border border-zinc-700'
@@ -276,13 +276,13 @@ export function AudioPlayer({ videoId = 'Dy080SqIEMU' }: AudioPlayerProps) {
           >
             {isPlaying ? (
               <>
-                <Pause size={12} className="fill-current" />
-                <span className="text-[11px]">BGM: ON</span>
+                <Pause size={11} className="fill-current" />
+                <span className="text-[10px] sm:text-[11px]">BGM: ON</span>
               </>
             ) : (
               <>
-                <Play size={12} className="fill-current" />
-                <span className="text-[11px]">MÚSICA</span>
+                <Play size={11} className="fill-current" />
+                <span className="text-[10px] sm:text-[11px]">MÚSICA</span>
               </>
             )}
           </button>
@@ -294,21 +294,21 @@ export function AudioPlayer({ videoId = 'Dy080SqIEMU' }: AudioPlayerProps) {
               className="p-1 text-zinc-400 hover:text-[#C5A059] transition-colors cursor-pointer"
               title={isMuted ? "Activar sonido" : "Silenciar música"}
             >
-              {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+              {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
             </button>
           )}
 
           {/* Botón SFX (Efectos Arcade) */}
           <button
             onClick={handleToggleSfx}
-            className={`flex items-center gap-1 px-2 py-1 rounded text-[10px] font-mono tracking-wider transition-all duration-200 cursor-pointer border ${
+            className={`flex items-center gap-1 px-1.5 sm:px-2 py-1 rounded text-[9.5px] sm:text-[10px] font-mono tracking-wider transition-all duration-200 cursor-pointer border ${
               sfxActive 
                 ? 'border-[#C5A059]/40 bg-black/40 text-[#C5A059] hover:bg-[#C5A059]/20' 
                 : 'border-zinc-800 bg-black/20 text-zinc-600 hover:text-zinc-400'
             }`}
             title="Efectos de sonido retro de videojuegos para clics y botones"
           >
-            <Zap size={11} className={sfxActive ? "fill-[#C5A059]" : "opacity-40"} />
+            <Zap size={10} className={sfxActive ? "fill-[#C5A059]" : "opacity-40"} />
             <span className="font-bold">SFX</span>
             <span>{sfxActive ? 'ON' : 'OFF'}</span>
           </button>

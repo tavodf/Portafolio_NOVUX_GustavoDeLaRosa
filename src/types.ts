@@ -1,4 +1,16 @@
-export type ServiceId = 'SOFTWARE_FACTORY' | 'DATA_ANALYTICS' | 'NOVUX_MARKETPULSE' | 'DIGITAL_MARKETING' | string;
+export type ServiceId = 
+  | 'CASE-SANTAFE-BI' 
+  | 'CASE-ARES-GRID' 
+  | 'CASE-COT-OPS' 
+  | 'CASE-CPC-PULSE' 
+  | 'LABORATORIO_INVESTIGACION'
+  | 'SOFTWARE_FACTORY' 
+  | 'DATA_ANALYTICS' 
+  | 'NOVUX_MARKETPULSE' 
+  | 'DATAOPS_RPA'
+  | 'AI_DOCUMENT_NLP'
+  | 'WEB_DATA_HARVESTING'
+  | string;
 
 export interface TechItem {
   name: string;
@@ -17,9 +29,17 @@ export interface CaseStudy {
   keyServices?: KeyServiceItem[];
 }
 
+export interface MetricItem {
+  label: string;
+  value: string;
+  detail?: string;
+}
+
 export interface Service {
   id: ServiceId;
   categoryTitle: string;
+  shortIdentifier?: string;
+  tag?: string;
   statusTag?: string;
   caseBadge?: string;
   technicalArgument?: string;
@@ -28,8 +48,14 @@ export interface Service {
   videoSrc?: string;
   iframeSrc?: string;
   videoDemoUrl?: string;
+  demoUrl?: string;
   heading: string;
   description: string;
+  keyMetric?: string;
+  metrics?: MetricItem[];
+  derivedServiceTitle?: string;
+  derivedServiceDescription?: string;
+  derivedServices?: string[];
   keyServices?: KeyServiceItem[];
   caseStudy?: CaseStudy;
   techStack?: TechItem[];

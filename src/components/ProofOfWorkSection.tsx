@@ -61,7 +61,7 @@ export function ProofOfWorkSection() {
       {/* Contenedor con Pestañas de Casos */}
       <div className="bg-[#0b0b10] border border-zinc-800 rounded-xl overflow-hidden shadow-2xl">
         {/* Selector de Pestañas */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 bg-[#12121a] border-b border-zinc-800 p-2 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 bg-[#12121a] border-b border-zinc-800 p-2 gap-2">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
@@ -71,7 +71,7 @@ export function ProofOfWorkSection() {
                   sfx.playClick();
                   setActiveTab(tab.id);
                 }}
-                className={`p-3 rounded-lg text-left transition-all cursor-pointer relative ${
+                className={`p-2.5 sm:p-3 rounded-lg text-left transition-all cursor-pointer relative ${
                   isActive
                     ? 'bg-[#1b1b26] border border-[#C5A059]/60 shadow-[0_0_15px_rgba(197,160,89,0.2)]'
                     : 'bg-black/40 hover:bg-[#161622] border border-transparent text-zinc-400 hover:text-white'
@@ -95,7 +95,7 @@ export function ProofOfWorkSection() {
         </div>
 
         {/* Contenido Dinámico de la Pestaña Activa */}
-        <div className="p-6 sm:p-8">
+        <div className="p-4 sm:p-6 md:p-8">
           <AnimatePresence mode="wait">
             {/* CASO 1: ARES GRID */}
             {activeTab === 'ARES' && (
@@ -202,7 +202,7 @@ export function ProofOfWorkSection() {
                 </div>
 
                 {/* Dashboard Looker Studio Interactivo Embebido */}
-                <div className="w-full h-[520px] rounded-lg overflow-hidden border border-zinc-800 bg-black relative shadow-2xl">
+                <div className="w-full h-[360px] sm:h-[460px] md:h-[520px] rounded-lg overflow-hidden border border-zinc-800 bg-black relative shadow-2xl">
                   <iframe
                     src="https://lookerstudio.google.com/embed/reporting/8c0ef96a-6947-42aa-8ac0-b210ba6863d1/page/qsv7F"
                     title="Tablero Looker Studio en Vivo"

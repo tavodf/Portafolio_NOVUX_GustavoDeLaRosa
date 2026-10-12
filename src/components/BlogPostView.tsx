@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   ArrowLeft, Calendar, Clock, Tag, User, Play, Check, Copy, 
   Terminal, Share2, Database, Table2, RotateCcw, Sparkles, 
-  Box, Lock, Layers, RefreshCw, Eye, ExternalLink, MessageCircle
+  Box, Lock, Layers, RefreshCw, Eye, ExternalLink, MessageCircle, Linkedin
 } from 'lucide-react';
 import { BlogPost } from '../types';
 import { sfx } from '../utils/soundEffects';
@@ -180,15 +180,30 @@ LIMIT 5;`;
           <span>Volver a la Bitácora</span>
         </button>
 
-        <button
-          onClick={handleShare}
-          onMouseEnter={() => sfx.playHover()}
-          className="inline-flex items-center gap-2 text-zinc-400 hover:text-[#FFE066] text-xs font-mono border border-zinc-800 hover:border-[#C5A059]/50 bg-black/40 px-3 py-2 rounded-sm transition-colors cursor-pointer"
-          title="Compartir publicación"
-        >
-          <Share2 size={13} />
-          <span className="hidden sm:inline">Compartir</span>
-        </button>
+        <div className="flex items-center gap-2.5">
+          <a
+            href="https://www.linkedin.com/in/tavodelarosaf/?isSelfProfile=true"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => sfx.playClick()}
+            onMouseEnter={() => sfx.playHover()}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#0077b5]/15 hover:bg-[#0077b5]/30 border border-[#0077b5]/50 hover:border-[#0077b5] text-cyan-200 hover:text-white font-mono text-xs font-bold transition-all shadow-sm cursor-pointer"
+            title="Perfil Oficial de LinkedIn de Gustavo De La Rosa"
+          >
+            <Linkedin size={13} className="text-[#0077b5]" />
+            <span className="hidden sm:inline">LINKEDIN</span>
+          </a>
+
+          <button
+            onClick={handleShare}
+            onMouseEnter={() => sfx.playHover()}
+            className="inline-flex items-center gap-2 text-zinc-400 hover:text-[#FFE066] text-xs font-mono border border-zinc-800 hover:border-[#C5A059]/50 bg-black/40 px-3 py-2 rounded-sm transition-colors cursor-pointer"
+            title="Compartir publicación"
+          >
+            <Share2 size={13} />
+            <span className="hidden sm:inline">Compartir</span>
+          </button>
+        </div>
       </div>
 
       {/* Tarjeta / Caja sólida para lectura sin distracción */}
