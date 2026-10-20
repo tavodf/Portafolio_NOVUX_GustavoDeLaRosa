@@ -340,11 +340,50 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
           {/* Grilla de 2 Columnas: Izquierda Problema & Evidencia | Derecha Terminal Telemetría & Media */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start my-6">
             
-            {/* Columna Izquierda: El Problema Técnico Resuelto y la Arquitectura */}
+            {/* Columna Izquierda: El Valor de Negocio, el Problema Resuelto y la Arquitectura */}
             <div className="lg:col-span-6 flex flex-col gap-4 text-left">
+              
+              {/* Valor Comercial y ROI */}
+              {service.businessValue && (
+                <div className="p-4 rounded-sm bg-emerald-950/30 border border-emerald-500/40 text-left shadow-sm">
+                  <span className="text-[11px] font-mono text-emerald-400 uppercase tracking-wider block mb-1.5 font-bold flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    // IMPACTO EN EL NEGOCIO & RETORNO DE INVERSIÓN (ROI):
+                  </span>
+                  <p className="text-sm sm:text-[15px] text-zinc-100 font-sans leading-relaxed font-medium">
+                    {service.businessValue}
+                  </p>
+                </div>
+              )}
+
+              {/* El Problema de Negocio que Elimina */}
+              {service.businessProblem && (
+                <div className="p-3.5 rounded-sm bg-black/70 border-l-2 border-l-amber-500 border-y border-r border-zinc-800 text-left">
+                  <span className="text-[10.5px] font-mono text-amber-400 uppercase tracking-wider block mb-1 font-bold">
+                    EL DOLOR OPERATIVO QUE ELIMINA:
+                  </span>
+                  <p className="text-xs sm:text-sm text-zinc-300 font-sans leading-relaxed">
+                    {service.businessProblem}
+                  </p>
+                </div>
+              )}
+
+              {/* Sectores y Organizaciones Objetivo */}
+              {service.targetAudience && (
+                <div className="p-3 rounded-sm bg-[#0e0e16]/70 border border-[#C5A059]/30 text-left">
+                  <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider block mb-1 font-bold">
+                    DIRIGIDO A:
+                  </span>
+                  <p className="text-xs text-zinc-200 font-sans">
+                    {service.targetAudience}
+                  </p>
+                </div>
+              )}
+
+              {/* Arquitectura Técnica */}
               <div className="p-4 rounded-sm bg-[#0e0e16]/80 border border-zinc-800 text-left">
-                <span className="text-[11px] font-mono text-[#C5A059] uppercase tracking-wider block mb-1.5 font-bold">
-                  // EL PROBLEMA RESUELTO & LA ARQUITECTURA:
+                <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider block mb-1.5 font-bold">
+                  // LA SOLUCIÓN TÉCNICA & ARQUITECTURA:
                 </span>
                 <p className="text-sm sm:text-[15px] text-gray-200 leading-relaxed font-sans">
                   {service.description}
@@ -354,7 +393,7 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
               {service.technicalArgument && (
                 <div className="p-3.5 rounded-sm bg-black/70 border-l-2 border-l-[#C5A059] border-y border-r border-zinc-800 text-left">
                   <span className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">
-                    ARGUMENTO TÉCNICO OPERATIVO:
+                    ARGUMENTO DE INGENIERÍA:
                   </span>
                   <p className="text-xs sm:text-sm font-mono text-zinc-200 italic leading-relaxed">
                     "{service.technicalArgument}"
@@ -566,6 +605,34 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
                 </span>
               </div>
             ))}
+          </div>
+
+          {/* Ventajas Comerciales Clave para el Cliente */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+            <div className="p-3.5 rounded-sm bg-black/80 border border-zinc-800 text-left">
+              <span className="text-[10px] font-mono text-emerald-400 uppercase font-bold block mb-1">
+                AHORRO DE COSTES & TIME-TO-MARKET:
+              </span>
+              <p className="text-xs text-zinc-300 font-sans leading-relaxed">
+                Despliegue hasta 5x más rápido adaptando motores ya probados en producción con cero riesgo de arranque.
+              </p>
+            </div>
+            <div className="p-3.5 rounded-sm bg-black/80 border border-zinc-800 text-left">
+              <span className="text-[10px] font-mono text-[#FFE066] uppercase font-bold block mb-1">
+                CERO COSTOS POR USUARIO (NO SAAS):
+              </span>
+              <p className="text-xs text-zinc-300 font-sans leading-relaxed">
+                Infraestructura propia y escalable: no pague suscripciones mensuales crecientes por asiento de usuario.
+              </p>
+            </div>
+            <div className="p-3.5 rounded-sm bg-black/80 border border-zinc-800 text-left">
+              <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold block mb-1">
+                100% CESIÓN DE CÓDIGO E IP:
+              </span>
+              <p className="text-xs text-zinc-300 font-sans leading-relaxed">
+                Control absoluto de su propiedad intelectual y código fuente sin dependencia de terceros (vendor lock-in).
+              </p>
+            </div>
           </div>
 
           <div className="p-3.5 rounded bg-black/70 border border-zinc-800 text-xs font-mono text-zinc-400 flex flex-col sm:flex-row sm:items-center justify-between gap-2">

@@ -51,6 +51,9 @@ export interface Service {
   demoUrl?: string;
   heading: string;
   description: string;
+  businessProblem?: string;
+  businessValue?: string;
+  targetAudience?: string;
   keyMetric?: string;
   metrics?: MetricItem[];
   derivedServiceTitle?: string;

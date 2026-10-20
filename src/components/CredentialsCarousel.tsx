@@ -234,18 +234,18 @@ export function CredentialsCarousel() {
   };
 
   return (
-    <div className="w-full max-w-6xl mb-12 flex flex-col items-center">
+    <div className="w-full max-w-6xl mb-8 flex flex-col items-center">
       {/* Barra superior de Credenciales */}
       <div className="w-full flex flex-col sm:flex-row sm:items-center justify-between px-2 mb-3 gap-2">
         <div className="flex items-center gap-2">
           <Award className="w-4 h-4 text-[#C5A059]" />
           <span className="text-xs font-mono uppercase tracking-widest text-[#C5A059] font-bold flex items-center gap-1.5">
-            Credenciales Oficiales Verificadas
+            Acreditaciones de Ingeniería Verificadas
             <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           </span>
           <span className="hidden sm:inline-flex text-zinc-600 font-mono text-xs">//</span>
           <span className="hidden sm:inline-flex text-[11px] font-mono text-zinc-400">
-            Orden Cronológico • IBM & Coursera
+            Respaldo Técnico • IBM & Coursera
           </span>
         </div>
 
@@ -302,7 +302,7 @@ export function CredentialsCarousel() {
                 className="group relative flex-shrink-0 w-[245px] sm:w-[270px] min-h-[160px] rounded-sm p-4 flex flex-col justify-between
                   bg-[#0a0a10]/95 backdrop-blur-md border border-[#C5A059]/30 hover:border-[#C5A059]
                   shadow-[0_6px_25px_rgba(0,0,0,0.7)] hover:shadow-[0_0_30px_rgba(197,160,89,0.45)]
-                  transition-all duration-300 cursor-pointer overflow-hidden"
+                  transition-[border-color,background-color,box-shadow] duration-200 cursor-pointer overflow-hidden"
               >
                 {/* Esquinas Cibernéticas */}
                 <div className="absolute top-0 right-0 w-2.5 h-2.5 border-t border-r border-[#C5A059]/40 group-hover:border-[#FFE066] transition-colors duration-300" />

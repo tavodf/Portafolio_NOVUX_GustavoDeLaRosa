@@ -335,10 +335,35 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                     </div>
                   )}
 
+                  {/* Valor Comercial y ROI */}
+                  {service.businessValue && (
+                    <div className="my-2 p-2.5 rounded bg-emerald-950/20 border border-emerald-500/30 text-left">
+                      <span className="text-[9.5px] font-mono uppercase font-bold text-emerald-400 block mb-0.5 flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        VALOR PARA SU NEGOCIO & ROI:
+                      </span>
+                      <p className="text-xs text-zinc-100 font-sans font-medium leading-snug">
+                        {service.businessValue}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Reto Operativo que Elimina */}
+                  {service.businessProblem && (
+                    <div className="mb-2 p-2 rounded bg-black/60 border-l-2 border-l-amber-500/80 border-y border-r border-zinc-900 text-left text-xs font-sans text-zinc-300">
+                      <span className="text-[9px] font-mono uppercase font-bold text-amber-400 block mb-0.5">
+                        EL RETO OPERATIVO QUE ELIMINA:
+                      </span>
+                      <p className="leading-snug text-zinc-300">
+                        {service.businessProblem}
+                      </p>
+                    </div>
+                  )}
+
                   {/* Bloque Destacado: Métrica Clave Comprobada */}
-                  <div className="my-2.5 p-2 rounded bg-black/80 border-l-2 border-y border-r border-zinc-800 text-[11px] font-mono leading-snug text-left shadow-sm border-l-[#FFE066]">
+                  <div className="my-2 p-2 rounded bg-black/80 border-l-2 border-y border-r border-zinc-800 text-[11px] font-mono leading-snug text-left shadow-sm border-l-[#FFE066]">
                     <span className="text-[9px] uppercase font-bold text-[#FFE066] block mb-0.5">
-                      MÉTRICA CLAVE COMPROBADA:
+                      MÉTRICA COMPROBADA EN PRODUCCIÓN:
                     </span>
                     <p className="text-zinc-200 italic font-medium">
                       {service.keyMetric || service.technicalArgument}
@@ -347,21 +372,16 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
 
                   {/* Oferta de Servicio Derivado */}
                   {service.derivedServiceTitle && (
-                    <div className="mb-3 p-2 rounded bg-[#0b0c14] border border-[#C5A059]/20 text-left">
+                    <div className="mb-3 p-2 rounded bg-[#0b0c14] border border-[#C5A059]/25 text-left">
                       <div className="text-[9px] font-mono text-[#C5A059] uppercase tracking-wider font-bold mb-0.5 flex items-center gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#FFE066]" />
-                        <span>SERVICIO DERIVADO DISPONIBLE:</span>
+                        <span>INFRAESTRUCTURA REPLICABLE A MEDIDA:</span>
                       </div>
                       <p className="text-xs text-zinc-200 font-sans font-semibold line-clamp-2">
                         {service.derivedServiceTitle}
                       </p>
                     </div>
                   )}
-
-                  {/* Resumen Técnico */}
-                  <p className="text-xs text-gray-300 leading-relaxed font-light text-left line-clamp-3 mb-3">
-                    {service.shortDescription}
-                  </p>
 
                   {/* Tech Stack Pills */}
                   {service.techStack && (

@@ -109,33 +109,33 @@ export function Home({
         </div>
 
         {/* Cabecera Principal con Logo 3D */}
-        <div className="text-center mb-8 sm:mb-10 flex flex-col items-center">
+        <div className="text-center mb-6 sm:mb-8 flex flex-col items-center">
           <h1 className="flex justify-center items-center">
             <span className="sr-only">NOVUX</span>
             <Novux3DLogo 
               imageSrc="https://lh3.googleusercontent.com/d/14YSecawix_ogB7wJocutwLOwSXtztcKU=w1000?v=2"
             />
           </h1>
-          <p className="mt-4 text-xs sm:text-sm md:text-[15px] font-mono tracking-widest text-zinc-300 uppercase font-semibold">
+          <p className="mt-4 text-xs sm:text-sm md:text-[15px] font-mono tracking-widest text-[#FFE066] uppercase font-bold">
             ARQUITECTURAS DESPLEGADAS • CASOS DE ÉXITO • MOTORES EN PRODUCCIÓN
+          </p>
+          <p className="mt-2.5 text-xs sm:text-sm text-zinc-300 max-w-2xl text-center font-sans font-normal leading-relaxed px-4">
+            Ingeniería de software avanzada y plataformas de datos para empresas y entidades de gobierno. Convertimos operaciones complejas en sistemas automatizados de alto impacto que reducen costos y aceleran la toma de decisiones.
           </p>
         </div>
 
-        {/* Carrusel de Credenciales en Herramientas (Estilo Stack Tecnológico) */}
-        <CredentialsCarousel />
-
         {/* Marcador Principal Estilo Terminal */}
-        <div className="w-full max-w-[1560px] 2xl:max-w-[1680px] px-3 sm:px-6 mt-4 -mb-1 flex items-center justify-between">
+        <div className="w-full max-w-[1560px] 2xl:max-w-[1680px] px-3 sm:px-6 mt-2 -mb-1 flex items-center justify-between">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm bg-[#0e0e13]/90 border border-[#C5A059]/40 text-[#C5A059] font-mono text-xs tracking-widest uppercase shadow-[0_0_15px_rgba(197,160,89,0.15)]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FFE066] animate-pulse" />
             <span>// ARQUITECTURAS DESPLEGADAS & CASOS DE ÉXITO</span>
           </div>
-          <span className="hidden sm:inline text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
-            [ PORTAFOLIO CASE-FIRST // NOVUX OPS ]
+          <span className="hidden sm:inline text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
+            [ SOLUCIONES DE SOFTWARE INDUSTRIAL // EN PRODUCCIÓN ]
           </span>
         </div>
 
-        {/* Carrusel de los 4 Programas Insignia Desplegados */}
+        {/* Carrusel de los 4 Programas Insignia Desplegados (Primera Cara) */}
         <ServicesCarousel services={b2bServices} onSelectService={onSelectService} />
 
         {/* Sección Independiente Centrada: LABORATORIO E INVESTIGACIÓN (Abajo en la mitad aparte de los servicios) */}
@@ -190,6 +190,23 @@ export function Home({
             </motion.div>
           </div>
         )}
+
+        {/* Sección de Respaldo Institucional: Acreditaciones & Estándares de Ingeniería */}
+        <div className="w-full max-w-5xl px-3 sm:px-6 mt-8 mb-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-t border-[#C5A059]/20 pt-8">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm bg-[#0e0e13]/90 border border-[#C5A059]/40 text-[#C5A059] font-mono text-xs tracking-widest uppercase shadow-[0_0_15px_rgba(197,160,89,0.15)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FFE066] animate-pulse" />
+            <span>// ESTÁNDARES DE INGENIERÍA & ACREDITACIONES INSTITUCIONALES</span>
+          </div>
+          <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
+            [ CERTIFICACIONES INTERNACIONALES // IBM • COURSERA ]
+          </span>
+        </div>
+        <p className="w-full max-w-5xl px-3 sm:px-6 mb-4 text-xs sm:text-sm text-zinc-400 font-sans text-left leading-relaxed">
+          Rigor técnico comprobado: nuestras arquitecturas de backend, modelos de analítica, ciberseguridad y metodologías de entrega están avaladas bajo estándares globales de la industria.
+        </p>
+
+        {/* Carrusel de Credenciales como Respaldo Institucional */}
+        <CredentialsCarousel />
 
         {/* Dos Secciones Novedades: NUEVO EN LA BITÁCORA & NUEVO EN NOTICIAS & RADAR TECH */}
         <div className="w-full max-w-4xl flex flex-col gap-3.5 mb-6">
