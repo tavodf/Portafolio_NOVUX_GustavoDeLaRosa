@@ -256,6 +256,66 @@ export const services: Record<string, Service> = {
     ]
   },
 
+  'CASE-PCD-PRICING': {
+    id: 'CASE-PCD-PRICING',
+    categoryTitle: '[ NOVUX PCD ]',
+    shortIdentifier: '[ NOVUX PCD ]',
+    tag: '[ NOVUX PCD ]',
+    caseBadge: 'CASE-PCD-PRICING',
+    statusTag: '[MACRO TRADING // ARBITRAJE REAL-TIME]',
+    keyMetric: 'Normalización métrica unitaria ($/g, $/ml, $/ud) | Auditoría multi-competidor paralela | Algoritmo de margen óptimo.',
+    businessProblem: 'Pérdida de margen bruto y pérdida de Buy-Box por fijación de precios a ciegas, cambios manuales en Excel y comparaciones métricas erróneas entre presentaciones de diferente gramaje.',
+    businessValue: 'Normalización matemática automática a precio base unitario con recomendación dinámica de precio óptimo y auditoría multi-e-commerce en tiempo real para liderar el mercado sin regalar margen.',
+    targetAudience: 'E-commerce, Retailers, Distribuidores Masivos, Supermercados, CPG Brands y Equipos de Pricing.',
+    metrics: [
+      { label: 'COMPETIDORES PARALELOS', value: 'Hasta 5 Nodos' },
+      { label: 'NORMALIZACIÓN MÉTRICA', value: '$/g, $/ml, $/ud' },
+      { label: 'RECUPERACIÓN MARGEN', value: '+18.4% Bruto' },
+      { label: 'LATENCIA DE CÁLCULO', value: '< 250ms Reactivo' },
+    ],
+    technicalArgument: 'Arquitectura de arbitraje financiero adaptada al retail: normalización dimensional estricta de SKU y recomendación de elasticidad de precios en tiempo real.',
+    shortDescription: 'Mesa de Arbitraje de Precios y Análisis Macro de Competencia: comparación justa de productos por gramo/mililitro, monitoreo paralelo multi-tienda y optimización de márgenes.',
+    heading: 'CASE-PCD-PRICING // MOTOR DE ARBITRAJE DE PRECIOS & ANÁLISIS MACRO (NOVUX PCD)',
+    description: 'Motor reactivo de fijación dinámica de precios y arbitraje de mercado. Audita en paralelo hasta 5 competidores simultáneos (MercadoLibre, Éxito, Alkosto, etc.), normaliza cantidades y sugiere el precio óptimo para maximizar el margen bruto.',
+    derivedServiceTitle: 'Sistemas de Pricing Dinámico, Arbitraje de Mercado y Motores de Elasticidad',
+    derivedServiceDescription: 'Desarrollamos e integramos plataformas de arbitraje de precios a medida sobre esta infraestructura: conexión con Shopify/WooCommerce/SAP, alertas automáticas de guerra de precios y normalización métrica.',
+    derivedServices: [
+      'Normalizadores Métricos Multidimensionales ($/kg, $/ml, $/pack)',
+      'Motores de Arbitraje y Recomendación de Precios en Tiempo Real',
+      'Dashboards Ejecutivos de Dispersión y Buy-Box con Recharts',
+      'Integración con ERPs, CRMs y Canales de Venta E-commerce'
+    ],
+    image: '/thumbnails/thumbnail-pcd.png',
+    externalLink: 'https://market-pricing-engine-pcd-zeta.vercel.app',
+    demoUrl: 'https://market-pricing-engine-pcd-zeta.vercel.app',
+    ctaText: 'PROBAR DEMO EN VIVO // VER EN VERCEL ↗',
+    secondaryCtaText: 'SOLICITAR DESARROLLO A MEDIDA',
+    keyServices: [
+      {
+        title: 'Normalización Métrica Automática',
+        detail: 'Conversión instantánea a precio base por unidad ($/g, $/ml, $/ud) para comparaciones 100% justas.'
+      },
+      {
+        title: 'Auditoría Multi-Competidor Paralela',
+        detail: 'Rastreo simultáneo de hasta 5 competidores con detección de precios de lista y descuentos reales.'
+      },
+      {
+        title: 'Simulador Dinámico de Elasticidad',
+        detail: 'Algoritmo de sugerencia de precio óptimo para liderar la categoría sin sacrificar rentabilidad.'
+      }
+    ],
+    caseStudy: {
+      title: 'CASO DE ÉXITO: CASE-PCD-PRICING // NOVUX PCD TRADING ENGINE',
+      description: 'Plataforma reactiva de arbitraje de precios y análisis macro de competencia en React 19 y TypeScript. Normalización dimensional en tiempo real y visualización de bandas de mercado con Recharts.'
+    },
+    techStack: [
+      { name: 'React 19', iconName: 'code' },
+      { name: 'TypeScript', iconName: 'code' },
+      { name: 'Vite 8', iconName: 'window' },
+      { name: 'Tailwind CSS', iconName: 'window' },
+      { name: 'Recharts', iconName: 'chart' },
+    ]
+  },
   'LABORATORIO_INVESTIGACION': {
     id: 'LABORATORIO_INVESTIGACION',
     categoryTitle: 'LABORATORIO E INVESTIGACIÓN',
@@ -290,6 +350,7 @@ export const serviceList: Service[] = [
   services['CASE-ARES-GRID'],
   services['CASE-COT-OPS'],
   services['CASE-CPC-PULSE'],
+  services['CASE-PCD-PRICING'],
   services['LABORATORIO_INVESTIGACION']
 ];
 

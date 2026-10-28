@@ -144,6 +144,7 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
             const isAres = service.id === 'CASE-ARES-GRID' || service.id === 'WEB_DATA_HARVESTING';
             const isCot = service.id === 'CASE-COT-OPS' || service.id === 'SOFTWARE_FACTORY';
             const isCpc = service.id === 'CASE-CPC-PULSE' || service.id === 'AI_DOCUMENT_NLP';
+            const isPcd = service.id === 'CASE-PCD-PRICING';
 
             return (
               <motion.div
@@ -294,6 +295,45 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                         </div>
                       </div>
                     </div>
+                  ) : isPcd ? (
+                    <div className="h-[200px] w-full mb-3 overflow-hidden rounded-sm border border-purple-500/40 group-hover:border-[#FFE066] bg-[#07090e] p-3 flex flex-col justify-between font-mono relative shadow-inner text-left select-none">
+                      <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 relative z-10 gap-2">
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <span className="w-2 h-2 rounded-full bg-red-500/80 shrink-0" />
+                          <span className="w-2 h-2 rounded-full bg-yellow-500/80 shrink-0" />
+                          <span className="w-2 h-2 rounded-full bg-purple-400 shrink-0" />
+                          <span className="text-[10px] text-zinc-400 ml-1 truncate">novux_pricing_engine.tsx</span>
+                        </div>
+                        <div className="flex items-center gap-1 bg-purple-950/70 border border-purple-500/40 px-2 py-0.5 rounded text-[9.5px] font-bold text-purple-300 shrink-0 whitespace-nowrap shadow-[0_0_10px_rgba(168,85,247,0.25)]">
+                          <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-ping shrink-0" />
+                          <span>[LIVE TICKER // ARBITRAJE]</span>
+                        </div>
+                      </div>
+                      <div className="space-y-1 my-1 relative z-10 text-[10.5px]">
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-zinc-500 shrink-0">Normalización:</span>
+                          <span className="text-emerald-400 font-bold truncate">$/g, $/ml, $/ud Dinámico</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-zinc-500 shrink-0">Multi-Tienda:</span>
+                          <span className="text-cyan-300 font-medium truncate">Éxito, ML, Alkosto, D1 en Paralelo</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-zinc-500 shrink-0">Algoritmo:</span>
+                          <span className="text-[#FFE066] font-mono truncate">Optimización Buy-Box & Margen</span>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-1.5 relative z-10">
+                        <div className="bg-black/85 border border-zinc-800 rounded px-2 py-1">
+                          <span className="text-[8px] text-zinc-400 block uppercase">DISPERSIÓN PRECIOS</span>
+                          <span className="text-xs font-bold text-purple-300">±18.4% DETECTADA</span>
+                        </div>
+                        <div className="bg-black/85 border border-zinc-800 rounded px-2 py-1 text-right">
+                          <span className="text-[8px] text-zinc-400 block uppercase">STACK MOTOR</span>
+                          <span className="text-xs font-bold text-emerald-400">REACT 19 + RECHARTS</span>
+                        </div>
+                      </div>
+                    </div>
                   ) : (
                     <div className="h-[200px] w-full mb-3 overflow-hidden rounded-sm border border-emerald-500/40 group-hover:border-[#C5A059] bg-[#07090e] p-3 flex flex-col justify-between font-mono relative shadow-inner text-left select-none">
                       <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 relative z-10 gap-2">
@@ -400,16 +440,32 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
 
                 {/* Botones de Acción Directos (Inversión del Embudo) */}
                 <div className="flex flex-col gap-2 w-full mt-auto pt-2 border-t border-zinc-800/80">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleCardClick(service.id);
-                    }}
-                    onMouseEnter={() => sfx.playHover()}
-                    className="w-full bg-gradient-to-r from-[#C5A059] via-[#FFE066] to-[#C5A059] hover:from-[#FFE066] hover:to-[#C5A059] text-black py-2.5 text-xs tracking-wider transition-all duration-300 rounded-sm uppercase font-bold shadow-[0_0_20px_rgba(197,160,89,0.4)] cursor-pointer text-center block font-mono"
-                  >
-                    {service.ctaText || 'LANZAR DEMO INTERACTIVO // DEMO ACTIVA ↗'}
-                  </button>
+                  {service.demoUrl ? (
+                    <a
+                      href={service.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        sfx.playSelect();
+                      }}
+                      onMouseEnter={() => sfx.playHover()}
+                      className="w-full bg-gradient-to-r from-[#C5A059] via-[#FFE066] to-[#C5A059] hover:from-[#FFE066] hover:to-[#C5A059] text-black py-2.5 text-xs tracking-wider transition-all duration-300 rounded-sm uppercase font-bold shadow-[0_0_20px_rgba(197,160,89,0.4)] cursor-pointer text-center flex items-center justify-center gap-1.5 font-mono"
+                    >
+                      <span>{service.ctaText || 'PROBAR DEMO EN VIVO ↗'}</span>
+                    </a>
+                  ) : (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleCardClick(service.id);
+                      }}
+                      onMouseEnter={() => sfx.playHover()}
+                      className="w-full bg-gradient-to-r from-[#C5A059] via-[#FFE066] to-[#C5A059] hover:from-[#FFE066] hover:to-[#C5A059] text-black py-2.5 text-xs tracking-wider transition-all duration-300 rounded-sm uppercase font-bold shadow-[0_0_20px_rgba(197,160,89,0.4)] cursor-pointer text-center block font-mono"
+                    >
+                      {service.ctaText || 'LANZAR DEMO INTERACTIVO // DEMO ACTIVA ↗'}
+                    </button>
+                  )}
 
                   <a
                     href={getWhatsAppUrl(`Hola NOVUX S.A.S., me interesa solicitar desarrollo a la medida basado en la arquitectura de ${service.shortIdentifier || service.categoryTitle}.`)}
