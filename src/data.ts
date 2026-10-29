@@ -65,9 +65,9 @@ export const services: Record<string, Service> = {
 
   'CASE-ARES-GRID': {
     id: 'CASE-ARES-GRID',
-    categoryTitle: '[ ARES SCRAPER ]',
-    shortIdentifier: '[ ARES SCRAPER ]',
-    tag: '[ ARES SCRAPER ]',
+    categoryTitle: '[ Novux ARES SCRAP ]',
+    shortIdentifier: '[ Novux ARES SCRAP ]',
+    tag: '[ Novux ARES SCRAP ]',
     caseBadge: 'CASE-ARES-GRID',
     statusTag: '[L7 PIPELINE // CONCURRENCIA ACTIVA]',
     keyMetric: 'Extracción concurrente de alta disponibilidad en memoria C con persistencia de sesión.',
@@ -82,7 +82,7 @@ export const services: Record<string, Service> = {
     ],
     technicalArgument: 'Demostramos en vivo la extracción continua en memoria C y la canalización directa a Data Lake optimizando latencia.',
     shortDescription: 'Motor de Inteligencia de Mercado y Extracción Masiva Web: recolecta precios, inventarios y catálogos comerciales de forma continua, automatizada y de alta fidelidad.',
-    heading: 'CASE-ARES-GRID // MOTOR DE EXTRACCIÓN L7 & DATA HARVESTING (ARES SCRAPER)',
+    heading: 'CASE-ARES-GRID // RESILIENT L7 DATA HARVESTING & LEAD ENGINE (Novux ARES SCRAP)',
     description: 'Infraestructura automatizada de extracción y recolección masiva de datos en la web (Web Data Harvesting Industrial). Arquitectura de alta concurrencia diseñada para recolectar información comercial crítica de mercado sin interrupciones y alimentar directamente sus sistemas de toma de decisiones.',
     derivedServiceTitle: 'Web Data Harvesting, Extracción Masiva de Datos y Data Lakes',
     derivedServiceDescription: 'Implementamos infraestructuras de minería de datos y recolección web a gran escala adaptando este motor: orquestación distribuida, extracción asíncrona concurrente, normalización en memoria y pipelines canónicos hacia su base de datos o almacenamiento en nube.',
@@ -114,7 +114,7 @@ export const services: Record<string, Service> = {
       }
     ],
     caseStudy: {
-      title: 'CASO DE ÉXITO: CASE-ARES-GRID // ARES SCRAPER L7',
+      title: 'CASO DE ÉXITO: CASE-ARES-GRID // Novux ARES SCRAP L7',
       description: 'Motor industrial de extracción de alta concurrencia verificado en producción: descarga masiva continua y alimentación directa a Data Lake.'
     },
     techStack: [
@@ -128,9 +128,9 @@ export const services: Record<string, Service> = {
 
   'CASE-COT-OPS': {
     id: 'CASE-COT-OPS',
-    categoryTitle: '[ NOVUX COT ]',
-    shortIdentifier: '[ NOVUX COT ]',
-    tag: '[ NOVUX COT ]',
+    categoryTitle: '[ Novux COT ]',
+    shortIdentifier: '[ Novux COT ]',
+    tag: '[ Novux COT ]',
     caseBadge: 'CASE-COT-OPS',
     statusTag: '[ENGINE ONLINE // 60 FPS CONSTANTES]',
     keyMetric: 'Renderizado 3D a 60 FPS constantes | Precisión métrica sub-metro | Cadena de custodia con Hash georreferenciado.',
@@ -145,7 +145,7 @@ export const services: Record<string, Service> = {
     ],
     technicalArgument: 'No desarrollamos software genérico ni plantillas corporativas estándar: construimos centros de comando tácticos 3D con aceleración por hardware y precisión geodésica.',
     shortDescription: 'Plataforma de Control Operativo en Territorio y Gemelos Digitales 3D: supervisión en vivo a 60 FPS de personal y activos con cálculo submétrico y cadena de custodia fotográfica blindada legalmente.',
-    heading: 'CASE-COT-OPS // CONTROL OPERATIVO EN TERRITORIO (NOVUX COT // DIGITAL TWIN OPS)',
+    heading: 'CASE-COT-OPS // TACTICAL DIGITAL TWIN C2 // WEBGL 2.0 (Novux COT)',
     description: 'Plataforma táctica de Comando y Control (C2) y Gemelos Digitales 3D para operaciones de alto riesgo en terreno. Permite a los directores de operaciones visualizar en 3D la posición exacta de cada elemento a 60 FPS, coordinar despachos en tiempo real y blindar legalmente cada intervención con fotos selladas criptográficamente.',
     derivedServiceTitle: 'Gemelos Digitales 3D, Sistemas de Comando y Control (C2) y Telemetría Táctica',
     derivedServiceDescription: 'Implementamos plataformas a medida de gemelos digitales, centros de monitoreo táctico y consolas C2 sobre esta base probada: renderizado 3D en navegador sin plugins, telemetría bidireccional en tiempo real y gobernanza espacial de flotas o personal en terreno.',
@@ -179,7 +179,7 @@ export const services: Record<string, Service> = {
       }
     ],
     caseStudy: {
-      title: 'CASO DE ÉXITO: CASE-COT-OPS // NOVUX COT DIGITAL TWIN',
+      title: 'CASO DE ÉXITO: CASE-COT-OPS // Novux COT DIGITAL TWIN',
       description: 'Centro de Comando y Control Geodésico y Gemelo Digital 3D (WebGL 2.0 + Three.js + MapLibre GL Engine). 60 FPS constantes, cálculo espacial submétrico y telemetría táctica sin dependencias propietarias.'
     },
     techStack: [
@@ -193,9 +193,9 @@ export const services: Record<string, Service> = {
 
   'CASE-CPC-PULSE': {
     id: 'CASE-CPC-PULSE',
-    categoryTitle: '[ CPC PULSE ]',
-    shortIdentifier: '[ CPC PULSE ]',
-    tag: '[ CPC PULSE ]',
+    categoryTitle: '[ Novux CPC ]',
+    shortIdentifier: '[ Novux CPC ]',
+    tag: '[ Novux CPC ]',
     caseBadge: 'CASE-CPC-PULSE',
     statusTag: '[LIVE HUD // 45/45 CURULES REAL-TIME]',
     keyMetric: '45/45 Curules monitoreadas en tiempo real | 3.86M seguidores auditados | Motor Kahn DAG y cruce de actas E-14/E-24.',
@@ -210,7 +210,7 @@ export const services: Record<string, Service> = {
     ],
     technicalArgument: 'Auditoría matemática de decisiones legislativas y electorales: transformamos opacidad parlamentaria en un grafo acíclico dirigido y un hemiciclo 3D interactivo.',
     shortDescription: 'Plataforma de Inteligencia Regulatoria y Auditoría Electoral: monitoreo segundo a segundo de 45 curules y 3.86M de ciudadanos para anticipar riesgos normativos antes de que impacten a su organización.',
-    heading: 'CASE-CPC-PULSE // CONTROL POLÍTICO COLOMBIANO & ELECTORAL CUBE',
+    heading: 'CASE-CPC-PULSE // POLITICAL & LEGALTECH INTELLIGENCE / VEEDURÍA (Novux CPC)',
     description: 'Sistema integral de inteligencia política y monitoreo regulatorio. Permite a directores legales y corporativos adelantarse a decisiones gubernamentales críticas mediante el monitoreo de 45 curules en un hemiciclo 3D en vivo, análisis de 3.86M de seguidores y verificación algorítmica de actas electorales E-14 vs E-24.',
     derivedServiceTitle: 'Plataformas de Inteligencia Política, Auditoría Regulatoria y Modelos de Correlación Electoral',
     derivedServiceDescription: 'Diseñamos e implementamos sistemas de fiscalización regulatoria, monitoreo de cuerpos colegiados y auditoría electoral: motores DAG de dependencias legales, analítica de votaciones y tableros interactivos para compliance institucional y consultoras de asuntos públicos.',
@@ -244,7 +244,7 @@ export const services: Record<string, Service> = {
       }
     ],
     caseStudy: {
-      title: 'CASO DE ÉXITO: CASE-CPC-PULSE // ELECTORAL CUBE & HEMICICLO 3D',
+      title: 'CASO DE ÉXITO: CASE-CPC-PULSE // Novux CPC POLITICAL INTELLIGENCE',
       description: 'Supervisión en tiempo real de 45 curules legislativas, correlación electoral con actas E-14 y motor de ordenación DAG para proyectos de ley con arquitectura FastAPI y React 19.'
     },
     techStack: [
@@ -259,9 +259,9 @@ export const services: Record<string, Service> = {
 
   'CASE-PCD-PRICING': {
     id: 'CASE-PCD-PRICING',
-    categoryTitle: '[ NOVUX PCD ]',
-    shortIdentifier: '[ NOVUX PCD ]',
-    tag: '[ NOVUX PCD ]',
+    categoryTitle: '[ Novux PCD ]',
+    shortIdentifier: '[ Novux PCD ]',
+    tag: '[ Novux PCD ]',
     caseBadge: 'CASE-PCD-PRICING',
     statusTag: '[MACRO TRADING // ARBITRAJE REAL-TIME]',
     keyMetric: 'Normalización métrica unitaria ($/g, $/ml, $/ud) | Auditoría multi-competidor paralela | Algoritmo de margen óptimo.',
@@ -276,7 +276,7 @@ export const services: Record<string, Service> = {
     ],
     technicalArgument: 'Arquitectura de arbitraje financiero adaptada al retail: normalización dimensional estricta de SKU y recomendación de elasticidad de precios en tiempo real.',
     shortDescription: 'Mesa de Arbitraje de Precios y Análisis Macro de Competencia: comparación justa de productos por gramo/mililitro, monitoreo paralelo multi-tienda y optimización de márgenes.',
-    heading: 'CASE-PCD-PRICING // MOTOR DE ARBITRAJE DE PRECIOS & ANÁLISIS MACRO (NOVUX PCD)',
+    heading: 'CASE-PCD-PRICING // MARKET PRICING & TRADING TERMINAL DE PRECIOS, COMPARACIONES Y DATOS (Novux PCD)',
     description: 'Motor reactivo de fijación dinámica de precios y arbitraje de mercado. Audita en paralelo hasta 5 competidores simultáneos (MercadoLibre, Éxito, Alkosto, etc.), normaliza cantidades y sugiere el precio óptimo para maximizar el margen bruto.',
     derivedServiceTitle: 'Sistemas de Pricing Dinámico, Arbitraje de Mercado y Motores de Elasticidad',
     derivedServiceDescription: 'Desarrollamos e integramos plataformas de arbitraje de precios a medida sobre esta infraestructura: conexión con Shopify/WooCommerce/SAP, alertas automáticas de guerra de precios y normalización métrica.',
@@ -306,7 +306,7 @@ export const services: Record<string, Service> = {
       }
     ],
     caseStudy: {
-      title: 'CASO DE ÉXITO: CASE-PCD-PRICING // NOVUX PCD TRADING ENGINE',
+      title: 'CASO DE ÉXITO: CASE-PCD-PRICING // Novux PCD TRADING ENGINE',
       description: 'Plataforma reactiva de arbitraje de precios y análisis macro de competencia en React 19 y TypeScript. Normalización dimensional en tiempo real y visualización de bandas de mercado con Recharts.'
     },
     techStack: [

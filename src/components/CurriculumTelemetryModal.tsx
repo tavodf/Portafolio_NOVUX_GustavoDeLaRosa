@@ -34,14 +34,14 @@ const PROJECTS_TELEMETRY: ProjectTelemetryData[] = [
   {
     id: 'COT',
     tag: 'COT',
-    shortName: 'NOVUX COT',
+    shortName: 'Novux COT',
     fullName: 'Tactical Digital Twin C2 // WebGL 2.0 (demo-c2.novuxops.com)',
     primaryColor: '#00F0FF',
     secondaryColor: '#38BDF8',
     conceptHours: 68,
     materializeHours: 182,
     totalHours: 250,
-    badgeEfficiency: '+66% Entrega Ágil (1.09M Tokens)',
+    badgeEfficiency: '+66% Entrega Ágil',
     conceptDetails: 'Modelado geodésico submétrico Gauss-Haversine, cálculo de dispersión orbital y protocolos C2.',
     materializeDetails: 'Motor 3D WebGL 2.0 con Three.js Engine a 60 FPS GPU continuos, MapLibre GL y sellado criptográfico SHA-256.',
     techStack: ['WebGL 2.0', 'Three.js 3D', 'Gauss-Haversine', 'MapLibre GL', 'Hash SHA-256'],
@@ -50,7 +50,7 @@ const PROJECTS_TELEMETRY: ProjectTelemetryData[] = [
   {
     id: 'PCD',
     tag: 'PCD',
-    shortName: 'NOVUX PCD',
+    shortName: 'Novux PCD',
     fullName: 'Market Pricing & Trading Terminal (Adidas, Dafiti, Falabella, Éxito)',
     primaryColor: '#F59E0B',
     secondaryColor: '#D97706',
@@ -66,66 +66,66 @@ const PROJECTS_TELEMETRY: ProjectTelemetryData[] = [
   {
     id: 'ARES',
     tag: 'ARES',
-    shortName: 'ARES SCRAPER',
+    shortName: 'Novux ARES SCRAP',
     fullName: 'Resilient L7 Data Harvesting // Paper NOVUX-ENG-001',
     primaryColor: '#EF4444',
     secondaryColor: '#DC2626',
     conceptHours: 58,
     materializeHours: 152,
     totalHours: 210,
-    badgeEfficiency: '+63% Aceleración Pipeline',
+    badgeEfficiency: '+63% Aceleración de Pipeline',
     conceptDetails: 'Topología de recolección distribuida, contratos Pydantic fuertemente tipados y mitigación SSRF.',
     materializeDetails: 'Parser nativo en lenguaje C (libxml2) en RAM, evasión WAF L7 y FastAPI concurrente.',
     techStack: ['Python Asíncrono', 'libxml2 en RAM', 'Pydantic', 'FastAPI', 'SLA 99.98%'],
     deliverable: 'Infraestructura de extracción masiva de alta disponibilidad 24/7 y canalización a Data Lakes sin bloqueos WAF.'
   },
   {
-    id: 'IDEALISTA',
-    tag: 'IDEALISTA',
-    shortName: 'IDEALISTA RADAR',
-    fullName: 'IDEALISTA REAL ESTATE RADAR — Arbitraje Inmobiliario & Yield Analyzer',
+    id: 'CPC',
+    tag: 'CPC',
+    shortName: 'Novux CPC',
+    fullName: 'Political & LegalTech Intelligence // IDL-RADAR',
     primaryColor: '#E5A93C',
     secondaryColor: '#B45309',
     conceptHours: 62,
     materializeHours: 148,
     totalHours: 210,
-    badgeEfficiency: '+62% Eficiencia Inmobiliaria',
-    conceptDetails: 'Modelado de rentabilidad por m², análisis de dispersión geoespacial de activos e índices CAP-rate.',
-    materializeDetails: 'Pipeline ETL de absorción continua, clustering de polígonos urbanos y alertas de subvaloración en tiempo real.',
-    techStack: ['Scraping Distribuido', 'PostGIS', 'CAP-Rate Algorítmico', 'Clustering Urbano'],
-    deliverable: 'Radar de arbitraje inmobiliario para identificación instantánea de activos con descuento de mercado >15%.'
+    badgeEfficiency: '+62% Automatización Auditoría',
+    conceptDetails: 'Modelado matemático de ordenación topológica Kahn DAG para resolución de dependencias legislativas y cruce E-14 / E-24.',
+    materializeDetails: 'Hemiciclo legislativo 3D (45 curules) en Three.js, radar normativo IDL-RADAR y auditoría forense electoral automatizada.',
+    techStack: ['Kahn DAG', 'Three.js 3D', 'FastAPI', 'Auditoría E-14/E-24'],
+    deliverable: 'Plataforma de inteligencia política, trazabilidad legislativa sin ciclos y veeduría técnica en tiempo real.'
   },
   {
     id: 'TAZARTE',
     tag: 'TAZARTE',
-    shortName: 'TAZARTE ESTIMATOR',
-    fullName: 'TAZARTE ESTIMATOR — Valuador Automático de Arte & Activos Singulares',
+    shortName: 'TazArte',
+    fullName: 'E-Commerce Interactivo, Galería & Reservas Toberín',
     primaryColor: '#10B981',
     secondaryColor: '#059669',
     conceptHours: 34,
     materializeHours: 96,
     totalHours: 130,
-    badgeEfficiency: '+68% Velocidad de Avalúo',
-    conceptDetails: "Ontología taxonómica de casas de subasta (Christie's, Sotheby's) y análisis de series temporales de martillo.",
-    materializeDetails: 'Vectorización de fichas de catálogo, correlación hedónica de precios y tasación paramétrica automatizada.',
-    techStack: ['Modelado Hedónico', 'Taxonomía de Arte', 'Series Temporales', 'Pandas Engine'],
-    deliverable: 'Motor de tasación algorítmica para coleccionismo y galerías con intervalo de confianza del 94.2%.'
+    badgeEfficiency: '+68% Conversión Sin Fricción',
+    conceptDetails: 'Arquitectura de experiencia de usuario interactiva para comercialización de arte, catálogo curado y motor de agendamiento en Toberín.',
+    materializeDetails: 'Frontend reactivo de alta velocidad, galería inmersiva de alta resolución, carrito de conversión directa y flujo de reservas automatizado.',
+    techStack: ['React 19', 'Tailwind CSS', 'Booking Engine', 'UX Conversión'],
+    deliverable: 'Plataforma integral de comercio electrónico, exhibición digital y gestión de reservas comerciales en producción.'
   },
   {
     id: 'IA-LOCAL',
     tag: 'IA-LOCAL',
-    shortName: 'IA LOCAL SEGURA',
-    fullName: 'IA LOCAL SEGURA — Servidor Privado Llama/DeepSeek (Cero Fuga Cloud)',
+    shortName: 'Qwen 3.8-9B Local Engine',
+    fullName: 'Inferencia Híbrida Vulkan (:1234 // 10.03 tok/s)',
     primaryColor: '#8B5CF6',
     secondaryColor: '#6D28D9',
     conceptHours: 44,
     materializeHours: 106,
     totalHours: 150,
-    badgeEfficiency: '100% Privacidad & Cero Costo API',
-    conceptDetails: 'Especificación de seguridad perimetral sin salida a internet (air-gapped) y cuantización INT4/GGUF en GPU local.',
-    materializeDetails: 'Orquestación mediante Ollama / vLLM, API compatible con OpenAI para el ecosistema NOVUX y reducción del 100% en facturación recurrente de LLM Cloud.',
-    techStack: ['Ollama / vLLM', 'Cuantización GGUF', 'Air-Gapped Local', 'FastAPI Proxy'],
-    deliverable: 'Arquitectura de Inteligencia Artificial local privada, soberana y de costo operativo $0 recurrente.'
+    badgeEfficiency: '100% Ahorro Tokens API ($0 COP)',
+    conceptDetails: 'Especificación de inferencia soberana local sin fuga de datos a nubes externas y aceleración híbrida sobre GPU/Vulkan.',
+    materializeDetails: 'Servidor de inferencia local en puerto :1234 sosteniendo 10.03 tok/s, integración RAG local y eliminación del 100% en facturación de APIs externas.',
+    techStack: ['Qwen 3.8-9B', 'Vulkan GPU', 'Local Server :1234', 'Zero Cloud Cost'],
+    deliverable: 'Motor de Inteligencia Artificial local soberano operando a 10.03 tok/s con privacidad absoluta y costo $0 COP por token.'
   }
 ];
 
@@ -173,7 +173,7 @@ const INVESTMENT_MODES: InvestmentMode[] = [
       '2 años de trayectoria real demostrable en Santa Fe (Bogotá)',
       'Interlocución con entidades públicas y comités directivos',
       'Arquitectura de datos y ciberseguridad con entrega por hitos',
-      'Cumplimiento contractual bajo normas ICONTEC NTC 1486'
+      'Cumplimiento estricto de estándares técnicos y Ley 1581/2012'
     ],
     operationalImpact: 'Agilidad de contratación inmediata, facturación directa como persona natural o jurídica, auditoría técnica estricta y entregables verificables sin generar pasivos laborales ni contingencias.',
     whatsappMessage: 'Hola Gustavo, me pongo en contacto desde novuxops.com para explorar una contratación por Prestación de Servicios / Consultoría Técnica para un sprint estratégico en nuestra entidad/empresa.'
@@ -183,7 +183,7 @@ const INVESTMENT_MODES: InvestmentMode[] = [
     title: '03. SOCIO TECNOLÓGICO / CONSULTOR B2B',
     badge: 'ALIANZA ESTRATÉGICA & REVENUE SHARE',
     targetCompensation: '$2.800.000 – $6.500.000 COP por Sprint',
-    usdEquivalent: 'O Alianza Revenue Share sobre PCD, COT y Ares Scraper',
+    usdEquivalent: 'O Revenue Share sobre Novux PCD, Novux COT y Novux ARES SCRAP',
     savingsOrAdvantage: 'Acceso inmediato a $68.4M COP en código pre-construido',
     color: '#10B981',
     keyHighlights: [
@@ -192,7 +192,7 @@ const INVESTMENT_MODES: InvestmentMode[] = [
       'Soporte técnico y hardening perimetral L7 continuo',
       'Ecosistema activo con más de 1.140 horas de I+D lista'
     ],
-    operationalImpact: 'Lanzamiento rápido de productos de software propios o integración comercial de los motores NOVUX (PCD, Ares, COT) para licitar con entidades del estado o competir en mercados privados.',
+    operationalImpact: 'Lanzamiento rápido de productos de software propios o integración comercial de los motores NOVUX (Novux PCD, Novux COT y Novux ARES SCRAP) para licitar con entidades del estado o competir en mercados privados.',
     whatsappMessage: 'Hola Gustavo, me interesa coordinar una reunión ejecutiva para evaluar una alianza como Socio Tecnológico / Consultor B2B sobre las tecnologías del ecosistema NOVUX.'
   }
 ];
@@ -353,7 +353,7 @@ export function CurriculumTelemetryModal() {
                   {/* Avatar Ejecutivo HUD 88x88px */}
                   <div className="relative shrink-0 w-20 h-20 sm:w-[88px] sm:h-[88px] rounded-lg p-0.5 bg-black/90 border-2 border-[#00F0FF] shadow-[0_0_18px_rgba(0,240,255,0.35)] overflow-hidden group">
                     <img
-                      src="/assets/gustavo-avatar-nerv.jpg"
+                      src="/assets/gustavo-congreso.jpg"
                       alt="Gustavo Alberto De La Rosa Flórez"
                       onError={(e) => {
                         const target = e.currentTarget;
@@ -410,66 +410,71 @@ export function CurriculumTelemetryModal() {
                 </button>
               </div>
 
-              {/* Barra de Navegación Canónica de las 5 Pestañas */}
-              <div className="flex border-b border-zinc-800 bg-[#05060b] px-2 sm:px-4 overflow-x-auto scrollbar-none gap-1 sm:gap-2">
+              {/* Barra de Navegación Canónica de las 5 Pestañas — SIGLAS TÁCTICAS COMPACTAS */}
+              <div className="grid grid-cols-5 border-b border-zinc-800 bg-[#05060b] px-2 sm:px-6 gap-1 sm:gap-2">
                 <button
                   onClick={() => handleTabChange('TELEMETRY')}
-                  className={`py-2.5 px-2.5 sm:px-3 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                  title="Stack Técnico y Competencias"
+                  className={`py-2.5 px-2 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap ${
                     activeTab === 'TELEMETRY'
                       ? 'border-[#00f0ff] text-[#00f0ff] bg-[#00f0ff]/10'
-                      : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                      : 'border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-white/5'
                   }`}
                 >
-                  <Cpu size={14} className="shrink-0" />
-                  <span>⚙️ 1. <span className="hidden md:inline">Telemetría &amp; </span>Stack</span>
+                  <Cpu size={13} className="shrink-0" />
+                  <span>1 SKILLS</span>
                 </button>
 
                 <button
                   onClick={() => handleTabChange('PROJECTS_DASHBOARD')}
-                  className={`py-2.5 px-2.5 sm:px-3 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                  title="Dashboard de Proyectos y Telemetría Temporal"
+                  className={`py-2.5 px-2 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap ${
                     activeTab === 'PROJECTS_DASHBOARD'
                       ? 'border-[#38bdf8] text-[#38bdf8] bg-[#38bdf8]/10'
-                      : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                      : 'border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-white/5'
                   }`}
                 >
-                  <BarChart3 size={14} className="shrink-0" />
-                  <span>📊 2. <span className="hidden md:inline">Dashboard </span>Proyectos</span>
+                  <BarChart3 size={13} className="shrink-0" />
+                  <span>2 DB</span>
                 </button>
 
                 <button
                   onClick={() => handleTabChange('EXPERIENCE')}
-                  className={`py-2.5 px-2.5 sm:px-3 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                  title="Experiencia Territorial — Alcaldía Santa Fe"
+                  className={`py-2.5 px-2 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap ${
                     activeTab === 'EXPERIENCE'
                       ? 'border-[#FFE066] text-[#FFE066] bg-[#FFE066]/10'
-                      : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                      : 'border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-white/5'
                   }`}
                 >
-                  <Briefcase size={14} className="shrink-0" />
-                  <span>🏛️ 3. <span className="hidden md:inline">Exp. </span>Santa Fe</span>
+                  <Briefcase size={13} className="shrink-0" />
+                  <span>3 EX</span>
                 </button>
 
                 <button
                   onClick={() => handleTabChange('BADGES')}
-                  className={`py-2.5 px-2.5 sm:px-3 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                  title="Certificaciones Internacionales"
+                  className={`py-2.5 px-2 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap ${
                     activeTab === 'BADGES'
                       ? 'border-[#a855f7] text-[#a855f7] bg-[#a855f7]/10'
-                      : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                      : 'border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-white/5'
                   }`}
                 >
-                  <Award size={14} className="shrink-0" />
-                  <span>🎖️ 4. Certificaciones</span>
+                  <Award size={13} className="shrink-0" />
+                  <span>4 CERT</span>
                 </button>
 
                 <button
                   onClick={() => handleTabChange('CALCULATOR')}
-                  className={`py-2.5 px-2.5 sm:px-3 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                  title="Valoración Real, ROI & Simulador de Contratación"
+                  className={`py-2.5 px-2 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap ${
                     activeTab === 'CALCULATOR'
                       ? 'border-[#10b981] text-[#10b981] bg-[#10b981]/10'
-                      : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                      : 'border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-white/5'
                   }`}
                 >
-                  <Calculator size={14} className="shrink-0" />
-                  <span>🧮 5. <span className="hidden md:inline">Valor Real &amp; </span>ROI</span>
+                  <Calculator size={13} className="shrink-0" />
+                  <span>5 VAL</span>
                 </button>
               </div>
 

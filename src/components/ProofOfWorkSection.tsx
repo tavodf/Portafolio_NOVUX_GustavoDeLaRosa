@@ -14,7 +14,7 @@ export function ProofOfWorkSection() {
   const tabs = [
     {
       id: 'ARES' as const,
-      label: 'Caso 01: Ares Grid',
+      label: 'Caso 01: Novux ARES SCRAP',
       subtitle: 'Extracción L7 & Data Harvesting',
       tag: 'Scraping Industrial',
       accent: '#38bdf8'
@@ -35,7 +35,7 @@ export function ProofOfWorkSection() {
     },
     {
       id: 'RETAIL' as const,
-      label: 'Caso 04: MarketPulse',
+      label: 'Caso 04: Novux PCD',
       subtitle: 'Auditoría 15,000 SKUs',
       tag: 'Vigilancia Comercial',
       accent: '#c084fc'
@@ -112,7 +112,7 @@ export function ProofOfWorkSection() {
                     <span>CASE-ARES-GRID // EXTRACCIÓN L7 EN VIVO</span>
                   </div>
                   <h3 className="text-xl sm:text-2xl font-bold font-serif text-white">
-                    Ares Scraper: Minería de Datos & Extracción Masiva Continua
+                    Novux ARES SCRAP: Resilient L7 Data Harvesting & Lead Engine
                   </h3>
                   <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans">
                     Demostración práctica de canalización de datos a escala industrial mediante automatización headless y un motor de parsing ultrarrápido compilado en lenguaje C (<code className="text-[#FFE066]">libxml2</code>).
@@ -138,7 +138,7 @@ export function ProofOfWorkSection() {
 
                   <div className="pt-2 flex flex-wrap gap-3">
                     <a
-                      href={getWhatsAppUrl('Hola NOVUX S.A.S., requiero cotizar la extracción de un dataset estructurado con Ares Scraper.')}
+                      href={getWhatsAppUrl('Hola NOVUX S.A.S., requiero cotizar la extracción de un dataset estructurado con Novux ARES SCRAP.')}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-4 py-2.5 bg-[#C5A059] hover:bg-[#FFE066] text-black font-mono font-bold text-xs rounded transition-all cursor-pointer flex items-center gap-2 shadow-[0_0_15px_rgba(197,160,89,0.3)]"
@@ -312,7 +312,7 @@ export function ProofOfWorkSection() {
                     <span>CASE-MARKETPULSE // VIGILANCIA DE 15,000 SKUs</span>
                   </div>
                   <h3 className="text-xl sm:text-2xl font-bold font-serif text-white">
-                    MarketPulse: Detección de Quiebres y Variaciones de Precio
+                    Novux PCD: Market Pricing & Trading Terminal
                   </h3>
                   <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans">
                     Auditoría algorítmica diaria sobre marketplaces y catálogos de distribuidores competidores. Dispara alertas inmediatas cuando un rival quiebra stock o altera su lista de precios para capturar cuota de mercado.
@@ -338,12 +338,12 @@ export function ProofOfWorkSection() {
 
                   <div className="pt-2">
                     <a
-                      href={getWhatsAppUrl('Hola NOVUX S.A.S., me interesa cotizar el servicio de Monitoreo de Precios y Detección de Quiebres (MarketPulse) para mi e-commerce/empresa.')}
+                      href={getWhatsAppUrl('Hola NOVUX S.A.S., me interesa cotizar el servicio de Monitoreo de Precios y Detección de Quiebres (Novux PCD) para mi e-commerce/empresa.')}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-4 py-2.5 bg-[#C5A059] hover:bg-[#FFE066] text-black font-mono font-bold text-xs rounded transition-all cursor-pointer inline-flex items-center gap-2"
                     >
-                      <span>Cotizar MarketPulse ($450 Setup + $350/mes)</span>
+                      <span>Cotizar Novux PCD ($450 Setup + $350/mes)</span>
                       <ArrowUpRight size={14} />
                     </a>
                   </div>

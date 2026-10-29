@@ -18,19 +18,19 @@ export function FloatingWhatsApp({ currentContext }: FloatingWhatsAppProps) {
       message: 'Hola NOVUX S.A.S., me interesa cotizar una plataforma de Business Intelligence Gubernamental y Analítica Territorial basada en CASE-SANTAFE-BI.'
     },
     {
-      title: 'CASE-ARES-GRID',
-      desc: 'Extracción L7 y Data Harvesting (Ares Scraper)',
-      message: 'Hola NOVUX S.A.S., requiero cotizar infraestructura de Web Data Harvesting y canalización a Data Lakes con Ares Scraper.'
+      title: 'Novux ARES SCRAP',
+      desc: 'Resilient L7 Data Harvesting & Lead Engine',
+      message: 'Hola NOVUX S.A.S., requiero cotizar infraestructura de Web Data Harvesting y canalización a Data Lakes con Novux ARES SCRAP.'
     },
     {
-      title: 'CASE-COT-OPS',
+      title: 'Novux COT',
       desc: 'Gemelos Digitales 3D & Telemetría C2 (60 FPS)',
-      message: 'Hola NOVUX S.A.S., deseo cotizar la plataforma de Control Operativo en Territorio NOVUX COT (Gemelo Digital 3D / C2).'
+      message: 'Hola NOVUX S.A.S., deseo cotizar la plataforma de Control Operativo en Territorio Novux COT (Tactical Digital Twin C2 // WebGL 2.0).'
     },
     {
-      title: 'CASE-CPC-PULSE',
+      title: 'Novux CPC',
       desc: 'Hemiciclo 3D & Kahn DAG (45 Curules en Vivo)',
-      message: 'Hola NOVUX S.A.S., busco cotizar la plataforma de Inteligencia Política y Auditoría Electoral CPC PULSE.'
+      message: 'Hola NOVUX S.A.S., busco cotizar la plataforma de Inteligencia Política y Auditoría Electoral Novux CPC.'
     },
     {
       title: 'Desarrollo a Medida // Sprints B2B',

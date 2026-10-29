@@ -461,14 +461,14 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
                     />
                     <div className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-md border border-purple-500/50 rounded px-2.5 py-1 text-[10.5px] font-mono text-purple-300 flex items-center gap-1.5 shadow">
                       <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
-                      <span>ARES SCRAPER // DEMO EN EJECUCIÓN</span>
+                      <span>Novux ARES SCRAP // DEMO EN EJECUCIÓN</span>
                     </div>
                   </div>
                 ) : isCot && service.image ? (
                   <div className="w-full h-full relative group bg-black">
                     <img
                       src={service.image}
-                      alt="NOVUX COT // Plataforma de Comando y Gemelo Digital 3D"
+                      alt="Novux COT // Tactical Digital Twin C2 // WebGL 2.0"
                       className="w-full h-full object-cover rounded transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none" />
@@ -490,7 +490,7 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none" />
                     <div className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-md border border-emerald-500/50 rounded px-2.5 py-1 text-[10.5px] font-mono text-emerald-300 flex items-center gap-1.5 shadow">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      <span>CPC PULSE // CONTROL POLÍTICO & HEMICICLO 3D</span>
+                      <span>Novux CPC // POLITICAL & LEGALTECH INTELLIGENCE</span>
                     </div>
                     <div className="absolute bottom-2.5 right-2.5 bg-emerald-950/90 border border-emerald-500/50 rounded px-2 py-0.5 text-[10px] font-mono text-emerald-300 font-bold">
                       45/45 CURULES // LIVE HUD
