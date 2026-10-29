@@ -8,6 +8,7 @@ import { sfx } from '../utils/soundEffects';
 import { CredentialsCarousel } from './CredentialsCarousel';
 import { ServicesCarousel } from './ServicesCarousel';
 import { Novux3DLogo } from './Novux3DLogo';
+import { TechnicalBookshelf } from './TechnicalBookshelf';
 
 interface HomeProps {
   onSelectService: (id: ServiceId) => void;
@@ -207,6 +208,9 @@ export function Home({
 
         {/* Carrusel de Credenciales como Respaldo Institucional */}
         <CredentialsCarousel />
+
+        {/* Estantería Editorial: Biblioteca Digital de 5 Libros Ilustrados NTC 1486 */}
+        <TechnicalBookshelf />
 
         {/* Dos Secciones Novedades: NUEVO EN LA BITÁCORA & NUEVO EN NOTICIAS & RADAR TECH */}
         <div className="w-full max-w-4xl flex flex-col gap-3.5 mb-6">

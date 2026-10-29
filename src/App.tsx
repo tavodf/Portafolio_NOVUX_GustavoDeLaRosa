@@ -13,6 +13,7 @@ import { Noticias } from './components/Noticias';
 import { MatrixRain } from './components/MatrixRain';
 import { AudioPlayer } from './components/AudioPlayer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { CurriculumTelemetryModal } from './components/CurriculumTelemetryModal';
 import { services } from './data';
 import { blogPosts } from './blogData';
 import { techNews } from './newsData';
@@ -217,6 +218,9 @@ export default function App() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Disparador 3D Flotante de Telemetría Profesional & Hoja de Vida */}
+      <CurriculumTelemetryModal />
 
       {/* Botón de Conversión Omnipresente WhatsApp B2B */}
       <FloatingWhatsApp />
