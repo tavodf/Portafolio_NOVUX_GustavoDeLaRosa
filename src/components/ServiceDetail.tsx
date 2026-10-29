@@ -156,7 +156,9 @@ function TechStackGrid({ items }: { items?: { name: string; iconName: string }[]
   );
 }
 
-export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
+export function ServiceDetail({ service: initialService, onBack }: ServiceDetailProps) {
+  const { lang, t } = useLanguage();
+  const service = getLocalizedServices(lang)[initialService.id] || initialService;
   const handleBack = () => {
     sfx.playBack();
     onBack();
@@ -257,7 +259,7 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
             className="group flex items-center gap-2 border border-[#C5A059]/50 text-[#C5A059] px-4 py-2 rounded-sm hover:bg-[#C5A059]/10 transition-all font-mono text-xs uppercase cursor-pointer"
           >
             <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-            <span>Volver al Menú</span>
+            <span>{t('backToHome')}</span>
           </button>
           <span className="font-mono text-xs text-[#FFE066] font-bold bg-[#C5A059]/15 border border-[#C5A059]/40 px-3 py-1 rounded">
             {service.shortIdentifier || service.categoryTitle}
@@ -265,6 +267,8 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
         </div>
 
         <div className="flex items-center gap-2.5 flex-wrap">
+          <LanguageSwitcher />
+
           <a
             href="https://www.linkedin.com/in/tavodelarosaf/?isSelfProfile=true"
             target="_blank"
@@ -288,7 +292,7 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <MessageCircle size={13} />
-            <span>ATENCIÓN WHATSAPP B2B</span>
+            <span>{t('whatsappCorporate')}</span>
           </a>
         </div>
       </header>
@@ -297,7 +301,7 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
       <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-10 lg:px-12 py-6 sm:py-8 flex flex-col gap-8">
         
         {/* ========================================================================= */}
-        {/* FASE 1: EL CASO DE ÉXITO (EL PROBLEMA Y LA EVIDENCIA TÉCNICA DEMOSTRADA) */}
+        {/* FASE 1: EL {t('caseBadge')} (EL PROBLEMA Y LA EVIDENCIA TÉCNICA DEMOSTRADA) */}
         {/* ========================================================================= */}
         <section className="w-full bg-[#0a0a10]/90 backdrop-blur-md border border-[#C5A059]/30 rounded-sm p-5 sm:p-8 shadow-[0_12px_45px_rgba(0,0,0,0.85)] relative overflow-hidden">
           {/* Cyber Brackets */}
@@ -308,7 +312,7 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-4 border-b border-zinc-800">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-xs font-mono font-bold text-[#FFE066] bg-[#C5A059]/15 border border-[#C5A059]/50 px-3 py-1 rounded uppercase tracking-wider">
-                CASO DE ÉXITO
+                {t('caseBadge')}
               </span>
               <span className="text-xs font-mono text-emerald-400 bg-emerald-950/70 border border-emerald-500/40 px-3 py-1 rounded inline-flex items-center gap-1.5 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -316,7 +320,7 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
               </span>
             </div>
             <span className="text-xs font-mono text-zinc-400 uppercase tracking-widest">
-              // PROGRAMA INSIGNIA DESPLEGADO POR NOVUX
+              {t('flagshipArchitecture')}
             </span>
           </div>
 
@@ -329,7 +333,7 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
             <div className="my-4 p-3 sm:p-4 rounded-sm bg-black/80 border-l-4 border-l-[#FFE066] border-y border-r border-zinc-800 shadow-inner">
               <div className="text-[10px] font-mono text-[#FFE066] uppercase tracking-wider font-bold mb-1 flex items-center gap-1.5">
                 <Sparkles size={12} className="text-[#FFE066]" />
-                <span>MÉTRICA CLAVE COMPROBADA EN PRODUCCIÓN:</span>
+                <span>{t('provenMetricTitle')}</span>
               </div>
               <p className="text-sm sm:text-base font-mono text-zinc-100 font-semibold leading-snug">
                 {service.keyMetric}

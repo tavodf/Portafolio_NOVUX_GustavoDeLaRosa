@@ -1,6 +1,8 @@
 import { motion } from 'motion/react';
 import { Github, Linkedin, BookOpen, ChevronRight, Sparkles, Radio, FlaskConical, Terminal, Cpu, Database, ShieldCheck, Layers, MessageCircle } from 'lucide-react';
-import { serviceList, getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
+import { getLocalizedServiceList, getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
+import { useLanguage } from '../context/LanguageContext';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import { blogPosts } from '../blogData';
 import { techNews } from '../newsData';
 import { ServiceId, BlogPost, TechNewsItem } from '../types';
@@ -24,10 +26,12 @@ export function Home({
   onSelectBlogPost,
   onSelectNewsItem 
 }: HomeProps) {
+  const { lang, t } = useLanguage();
   const latestPost = blogPosts[0];
   const latestNews = techNews[0];
-  const b2bServices = serviceList.filter(s => !s.isLab && s.id !== 'LABORATORIO_INVESTIGACION');
-  const labService = serviceList.find(s => s.isLab || s.id === 'LABORATORIO_INVESTIGACION');
+  const localizedServices = getLocalizedServiceList(lang);
+  const b2bServices = localizedServices.filter(s => !s.isLab && s.id !== 'LABORATORIO_INVESTIGACION');
+  const labService = localizedServices.find(s => s.isLab || s.id === 'LABORATORIO_INVESTIGACION');
 
   const handleCardClick = (id: ServiceId) => {
     sfx.playSelect();
@@ -75,11 +79,13 @@ export function Home({
           <div className="inline-flex items-center gap-2 text-[11px] font-mono text-zinc-400">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="hidden sm:inline uppercase tracking-widest text-[#C5A059]/90 font-semibold">
-              NOVUX D&D // OPERACIONES EN PRODUCCIÓN
+              {t('topStatus')}
             </span>
           </div>
 
           <div className="flex items-center gap-2.5">
+            <LanguageSwitcher />
+
             <a
               href="https://www.linkedin.com/in/tavodelarosaf/?isSelfProfile=true"
               target="_blank"
@@ -117,10 +123,10 @@ export function Home({
             />
           </h1>
           <p className="mt-4 text-xs sm:text-sm md:text-[15px] font-mono tracking-widest text-[#FFE066] uppercase font-bold">
-            ARQUITECTURAS DESPLEGADAS • CASOS DE ÉXITO • MOTORES EN PRODUCCIÓN
+            {t('heroTitleBadge')}
           </p>
           <p className="mt-2.5 text-xs sm:text-sm text-zinc-300 max-w-2xl text-center font-sans font-normal leading-relaxed px-4">
-            Ingeniería de software avanzada y plataformas de datos para empresas y entidades de gobierno. Convertimos operaciones complejas en sistemas automatizados de alto impacto que reducen costos y aceleran la toma de decisiones.
+            {t('heroDescription')}
           </p>
         </div>
 
@@ -128,10 +134,10 @@ export function Home({
         <div className="w-full max-w-[1560px] 2xl:max-w-[1680px] px-3 sm:px-6 mt-2 -mb-1 flex items-center justify-between">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm bg-[#0e0e13]/90 border border-[#C5A059]/40 text-[#C5A059] font-mono text-xs tracking-widest uppercase shadow-[0_0_15px_rgba(197,160,89,0.15)]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FFE066] animate-pulse" />
-            <span>// ARQUITECTURAS DESPLEGADAS & CASOS DE ÉXITO</span>
+            <span>{t('heroBannerLeft')}</span>
           </div>
           <span className="hidden sm:inline text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
-            [ SOLUCIONES DE SOFTWARE INDUSTRIAL // EN PRODUCCIÓN ]
+            {t('heroBannerRight')}
           </span>
         </div>
 
@@ -143,7 +149,7 @@ export function Home({
           <div className="w-full max-w-xl mx-auto my-8 sm:my-10 flex flex-col items-center px-4">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm bg-[#0e0e13]/90 border border-[#C5A059]/40 text-[#C5A059] font-mono text-xs tracking-widest uppercase mb-4 shadow-[0_0_15px_rgba(197,160,89,0.15)]">
               <FlaskConical size={13} className="text-[#FFE066] animate-pulse" />
-              <span>// R&D DIVISION • LABORATORIO E INVESTIGACIÓN</span>
+              <span>{t('labBanner')}</span>
             </div>
 
             <motion.div
@@ -167,14 +173,13 @@ export function Home({
                 <FlaskConical size={22} />
               </div>
 
-              {/* Texto exacto solicitado por el usuario */}
               <p className="text-sm sm:text-base font-serif text-zinc-200 tracking-wide max-w-md leading-relaxed my-2 font-normal">
-                investigación técnica y desarrollo de productos y conceptos.
+                {labService.shortDescription || t('labDescription')}
               </p>
 
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/80 border border-zinc-800 text-[10.5px] font-mono text-zinc-400 my-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                <span>ESPACIO DE PROTOTIPADO Y CONCEPTUALIZACIÓN TÉCNICA</span>
+                <span>{t('labBadge')}</span>
               </div>
 
               <button
@@ -185,7 +190,7 @@ export function Home({
                 onMouseEnter={() => sfx.playHover()}
                 className="mt-3 w-full sm:w-auto px-8 border border-[#C5A059] bg-[#C5A059]/10 hover:bg-[#C5A059] text-[#FFE066] hover:text-black py-2.5 text-xs font-mono uppercase tracking-widest font-bold rounded-sm transition-all duration-300 shadow-md hover:shadow-[0_0_20px_rgba(197,160,89,0.5)] cursor-pointer"
               >
-                EXPLORAR LABORATORIO
+                {t('exploreLabBtn')}
               </button>
             </motion.div>
           </div>
@@ -195,22 +200,22 @@ export function Home({
         <div className="w-full max-w-5xl px-3 sm:px-6 mt-8 mb-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-t border-[#C5A059]/20 pt-8">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm bg-[#0e0e13]/90 border border-[#C5A059]/40 text-[#C5A059] font-mono text-xs tracking-widest uppercase shadow-[0_0_15px_rgba(197,160,89,0.15)]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#FFE066] animate-pulse" />
-            <span>// ESTÁNDARES DE INGENIERÍA & ACREDITACIONES INSTITUCIONALES</span>
+            <span>{t('standardsBanner')}</span>
           </div>
           <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
-            [ CERTIFICACIONES INTERNACIONALES // IBM • COURSERA ]
+            {t('standardsBadge')}
           </span>
         </div>
         <p className="w-full max-w-5xl px-3 sm:px-6 mb-4 text-xs sm:text-sm text-zinc-400 font-sans text-left leading-relaxed">
-          Rigor técnico comprobado: nuestras arquitecturas de backend, modelos de analítica, ciberseguridad y metodologías de entrega están avaladas bajo estándares globales de la industria.
+          {t('standardsDescription')}
         </p>
 
         {/* Carrusel de Credenciales como Respaldo Institucional */}
         <CredentialsCarousel />
 
-        {/* Dos Secciones Novedades: NUEVO EN LA BITÁCORA & NUEVO EN NOTICIAS & RADAR TECH */}
+        {/* Dos Secciones Novedades: {t('newInBlogBadge')} & {t('newInNewsBadge')} */}
         <div className="w-full max-w-4xl flex flex-col gap-3.5 mb-6">
-          {/* 1. Sección: NUEVO EN LA BITÁCORA */}
+          {/* 1. Sección: {t('newInBlogBadge')} */}
           {latestPost && (
             <motion.div
               initial={{ opacity: 0, y: 15 }}
@@ -232,7 +237,7 @@ export function Home({
                     <div className="flex items-center gap-2 text-[11px] font-mono text-[#C5A059] mb-1">
                       <span className="flex items-center gap-1 font-bold">
                         <Sparkles size={11} />
-                        NUEVO EN LA BITÁCORA
+                        {t('newInBlogBadge')}
                       </span>
                       <span className="text-zinc-600">•</span>
                       <span className="text-zinc-400">{latestPost.date}</span>
@@ -245,7 +250,7 @@ export function Home({
 
                 <div className="flex items-center gap-2 self-end sm:self-center shrink-0 z-10">
                   <span className="text-xs font-mono text-[#C5A059] group-hover:text-[#FFE066] tracking-wider uppercase font-semibold">
-                    Leer Entrada
+                    {t('readEntryBtn')}
                   </span>
                   <ChevronRight size={15} className="text-[#C5A059] group-hover:translate-x-1 group-hover:text-[#FFE066] transition-transform" />
                 </div>
@@ -253,7 +258,7 @@ export function Home({
             </motion.div>
           )}
 
-          {/* 2. Sección: NUEVO EN NOTICIAS & RADAR TECH */}
+          {/* 2. Sección: {t('newInNewsBadge')} */}
           {latestNews && (
             <motion.div
               initial={{ opacity: 0, y: 15 }}
@@ -275,7 +280,7 @@ export function Home({
                     <div className="flex items-center gap-2 text-[11px] font-mono text-[#C5A059] mb-1">
                       <span className="flex items-center gap-1 font-bold">
                         <Sparkles size={11} />
-                        NUEVO EN NOTICIAS & RADAR TECH
+                        {t('newInNewsBadge')}
                       </span>
                       <span className="text-zinc-600">•</span>
                       <span className="text-zinc-400">{latestNews.date}</span>
@@ -305,7 +310,7 @@ export function Home({
             className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-sm border border-zinc-700 hover:border-[#C5A059] bg-[#0e0e11]/85 hover:bg-[#C5A059]/15 backdrop-blur-md text-zinc-200 hover:text-white shadow-[0_4px_24px_rgba(0,0,0,0.7)] hover:shadow-[0_0_20px_rgba(197,160,89,0.3)] transition-all duration-300 text-xs font-mono uppercase tracking-widest cursor-pointer font-semibold"
           >
             <Radio className="w-4 h-4 text-[#C5A059] group-hover:text-[#FFE066] transition-colors" />
-            <span>Noticias & Radar Tech</span>
+            <span>{t('newsSectionBtn')}</span>
           </button>
 
           <button
@@ -314,7 +319,7 @@ export function Home({
             className="group inline-flex items-center gap-2.5 px-6 py-3 rounded-sm border border-zinc-700 hover:border-[#C5A059] bg-[#0e0e11]/85 hover:bg-[#C5A059]/15 backdrop-blur-md text-zinc-200 hover:text-white shadow-[0_4px_24px_rgba(0,0,0,0.7)] hover:shadow-[0_0_20px_rgba(197,160,89,0.3)] transition-all duration-300 text-xs font-mono uppercase tracking-widest cursor-pointer font-semibold"
           >
             <BookOpen className="w-4 h-4 text-[#C5A059] group-hover:text-[#FFE066] transition-colors" />
-            <span>Bitácora & Ensayos</span>
+            <span>{t('blogSectionBtn')}</span>
           </button>
 
           <a
@@ -347,7 +352,7 @@ export function Home({
 
       {/* Footer info */}
       <footer className="w-full max-w-[1560px] 2xl:max-w-[1680px] pt-8 border-t border-[#C5A059]/15 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 font-mono gap-4">
-        <span>© {new Date().getFullYear()} Gustavo De La Rosa. Todos los derechos reservados.</span>
+        <span>© {new Date().getFullYear()} {t('footerRights')}</span>
 
         <div className="flex items-center gap-4 flex-wrap justify-center">
           <a
@@ -373,11 +378,11 @@ export function Home({
           >
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             <MessageCircle size={13} />
-            <span>ATENCIÓN WHATSAPP B2B</span>
+            <span>{t('whatsappCorporate')}</span>
           </a>
         </div>
 
-        <span className="text-zinc-500">Arquitectura de Software & Datos • Bogotá D.C.</span>
+        <span className="text-zinc-500">{t('footerLocation')}</span>
       </footer>
     </motion.div>
   );

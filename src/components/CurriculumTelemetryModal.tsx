@@ -8,6 +8,8 @@ import {
   Users, Target, Zap, ArrowRight, ShieldAlert
 } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
+import { useLanguage } from '../context/LanguageContext';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import { getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
 import { VERIFIED_CREDENTIALS, CREDLY_PROFILE_URL, VerifiedCredential } from './CredentialsCarousel';
 
@@ -198,6 +200,7 @@ const INVESTMENT_MODES: InvestmentMode[] = [
 ];
 
 export function CurriculumTelemetryModal() {
+  const { lang, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabKey>('TELEMETRY');
   const [selectedProjectId, setSelectedProjectId] = useState<string>('COT');
@@ -302,7 +305,7 @@ export function CurriculumTelemetryModal() {
             <div className="bg-[#070914]/95 border border-[#00f0ff]/50 text-white text-xs font-mono px-3 py-1.5 rounded shadow-[0_0_25px_rgba(0,240,255,0.35)] backdrop-blur-md flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#00f0ff] animate-ping" />
               <span className="font-bold text-[#00f0ff]">CV //</span>
-              <span>Hoja de Vida &amp; Telemetría Laboral</span>
+              <span>{t('cvTooltip')}</span>
             </div>
           </div>
 
@@ -378,11 +381,11 @@ export function CurriculumTelemetryModal() {
                   <div>
                     <div className="flex items-center gap-2 mb-1.5 flex-wrap">
                       <span className="px-2 py-0.5 rounded bg-[#00f0ff]/15 border border-[#00f0ff]/50 font-mono text-[10px] font-bold text-[#00f0ff] uppercase tracking-wider">
-                        AUTOR &amp; DESARROLLADOR PRINCIPAL
+                        {t('authorBadge')}
                       </span>
                       <span className="px-2 py-0.5 rounded bg-emerald-950/70 border border-emerald-500/40 font-mono text-[10px] text-emerald-400 font-bold flex items-center gap-1 shadow-sm">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        DISPONIBLE // BOGOTÁ D.C.
+                        {lang === 'en' ? 'AVAILABLE // BOGOTA & REMOTE' : 'DISPONIBLE // BOGOTÁ & REMOTO'}
                       </span>
                       <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 font-mono text-[10px] text-zinc-400">
                         MAGI SYNC RATE: 100%
@@ -396,18 +399,23 @@ export function CurriculumTelemetryModal() {
                       Data &amp; Automation Analyst | Python Developer | AI Solutions Builder
                     </p>
                     <p className="text-[11px] text-zinc-400 font-sans italic mt-1">
-                      * Perfil validado mediante certificaciones técnicas internacionales y experiencia contractual demostrable en el sector público.
+                      {lang === 'en' 
+                        ? '* Profile verified via international technical certifications and verifiable public sector track record.'
+                        : '* Perfil validado mediante certificaciones técnicas internacionales y experiencia contractual demostrable en el sector público.'}
                     </p>
                   </div>
                 </div>
 
-                <button
-                  onClick={handleClose}
-                  className="self-end sm:self-center p-2 rounded-lg bg-zinc-900 border border-zinc-700 hover:border-red-400 text-zinc-400 hover:text-white transition-colors cursor-pointer"
-                  title="Cerrar Consola Táctica"
-                >
-                  <X size={18} />
-                </button>
+                <div className="flex items-center gap-2 self-end sm:self-center">
+                  <LanguageSwitcher />
+                  <button
+                    onClick={handleClose}
+                    className="p-2 rounded-lg bg-zinc-900 border border-zinc-700 hover:border-red-400 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                    title={lang === 'en' ? 'Close Modal' : 'Cerrar Consola'}
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
               </div>
 
               {/* Barra de Navegación Canónica de las 5 Pestañas — SIGLAS TÁCTICAS COMPACTAS */}
@@ -422,7 +430,7 @@ export function CurriculumTelemetryModal() {
                   }`}
                 >
                   <Cpu size={13} className="shrink-0" />
-                  <span>1 SKILLS</span>
+                  <span>{lang === 'en' ? '1 SKILLS' : '1 SKILLS'}</span>
                 </button>
 
                 <button
@@ -435,7 +443,7 @@ export function CurriculumTelemetryModal() {
                   }`}
                 >
                   <BarChart3 size={13} className="shrink-0" />
-                  <span>2 DB</span>
+                  <span>{lang === 'en' ? '2 DB' : '2 DB'}</span>
                 </button>
 
                 <button
@@ -448,7 +456,7 @@ export function CurriculumTelemetryModal() {
                   }`}
                 >
                   <Briefcase size={13} className="shrink-0" />
-                  <span>3 EX</span>
+                  <span>{lang === 'en' ? '3 EXP' : '3 EXP'}</span>
                 </button>
 
                 <button
@@ -461,7 +469,7 @@ export function CurriculumTelemetryModal() {
                   }`}
                 >
                   <Award size={13} className="shrink-0" />
-                  <span>4 CERT</span>
+                  <span>{lang === 'en' ? '4 CERT' : '4 CERT'}</span>
                 </button>
 
                 <button
@@ -474,7 +482,7 @@ export function CurriculumTelemetryModal() {
                   }`}
                 >
                   <Calculator size={13} className="shrink-0" />
-                  <span>5 VAL</span>
+                  <span>{lang === 'en' ? '5 VAL' : '5 VAL'}</span>
                 </button>
               </div>
 
@@ -491,10 +499,10 @@ export function CurriculumTelemetryModal() {
                       <div className="flex items-center justify-between border-b border-zinc-800 pb-2 mb-3">
                         <span className="font-mono text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
                           <Clock size={14} className="text-[#00f0ff]" />
-                          <span>RITMO DE PRODUCCIÓN Y CAPACIDAD LABORAL (TELEMETRÍA REAL)</span>
+                          <span>{lang === 'en' ? 'WORK CADENCE & OPERATIONAL CAPACITY (LOGGED TELEMETRY)' : 'RITMO DE PRODUCCIÓN Y CAPACIDAD LABORAL (TELEMETRÍA REAL)'}</span>
                         </span>
                         <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/70 border border-emerald-500/40 px-2 py-0.5 rounded">
-                          DISPONIBILIDAD INMEDIATA
+                          {lang === 'en' ? 'IMMEDIATE AVAILABILITY' : 'DISPONIBILIDAD INMEDIATA'}
                         </span>
                       </div>
 
@@ -502,51 +510,59 @@ export function CurriculumTelemetryModal() {
                         {/* Semanal */}
                         <div className="p-3.5 rounded-lg bg-[#0a0d18] border border-[#00f0ff]/40">
                           <span className="text-[9.5px] text-zinc-400 uppercase block mb-1">
-                            RITMO SEMANAL SOSTENIDO:
+                            {lang === 'en' ? 'SUSTAINED WEEKLY CADENCE:' : 'RITMO SEMANAL SOSTENIDO:'}
                           </span>
                           <div className="text-2xl font-bold text-[#00f0ff]">
-                            44h – 48h <span className="text-xs text-zinc-400 font-normal">/ sem</span>
+                            44h – 48h <span className="text-xs text-zinc-400 font-normal">/ {lang === 'en' ? 'wk' : 'sem'}</span>
                           </div>
                           <p className="text-[11px] text-zinc-300 font-sans mt-1.5 leading-snug">
-                            Desarrollo intensivo de pipelines ETL, lógica de backend, scripting automatizado y monitoreo de campo.
+                            {lang === 'en'
+                              ? 'Intensive engineering of ETL pipelines, backend architecture, automated scripting, and field telemetry.'
+                              : 'Desarrollo intensivo de pipelines ETL, lógica de backend, scripting automatizado y monitoreo de campo.'}
                           </p>
                         </div>
 
                         {/* Mensual */}
                         <div className="p-3.5 rounded-lg bg-[#0a0d18] border border-[#FFE066]/40">
                           <span className="text-[9.5px] text-zinc-400 uppercase block mb-1">
-                            PRODUCCIÓN TÉCNICA MENSUAL:
+                            {lang === 'en' ? 'MONTHLY TECHNICAL OUTPUT:' : 'PRODUCCIÓN TÉCNICA MENSUAL:'}
                           </span>
                           <div className="text-2xl font-bold text-[#FFE066]">
-                            ~180h – 195h <span className="text-xs text-zinc-400 font-normal">/ mes</span>
+                            ~180h – 195h <span className="text-xs text-zinc-400 font-normal">/ {lang === 'en' ? 'mo' : 'mes'}</span>
                           </div>
                           <p className="text-[11px] text-zinc-300 font-sans mt-1.5 leading-snug">
-                            Entrega de features críticas, resolución de incidencias en bases de datos y despliegue de soluciones.
+                            {lang === 'en'
+                              ? 'Delivery of critical features, database incident resolution, and continuous solution deployment.'
+                              : 'Entrega de features críticas, resolución de incidencias en bases de datos y despliegue de soluciones.'}
                           </p>
                         </div>
 
                         {/* Anual */}
                         <div className="p-3.5 rounded-lg bg-[#0a0d18] border border-[#10b981]/40">
                           <span className="text-[9.5px] text-zinc-400 uppercase block mb-1">
-                            CAPACIDAD OPERATIVA ANUAL:
+                            {lang === 'en' ? 'ANNUAL OPERATING VOLUME:' : 'CAPACIDAD OPERATIVA ANUAL:'}
                           </span>
                           <div className="text-2xl font-bold text-[#10b981]">
-                            +2,160h <span className="text-xs text-zinc-400 font-normal">/ año</span>
+                            +2,160h <span className="text-xs text-zinc-400 font-normal">/ {lang === 'en' ? 'yr' : 'año'}</span>
                           </div>
                           <p className="text-[11px] text-zinc-300 font-sans mt-1.5 leading-snug">
-                            Trayectoria contractual demostrable en el sector público (Santa Fe) y desarrollo continuo de software propio.
+                            {lang === 'en'
+                              ? 'Demonstrable contractual track record in the public sector and ongoing proprietary software development.'
+                              : 'Trayectoria contractual demostrable en el sector público (Santa Fe) y desarrollo continuo de software propio.'}
                           </p>
                         </div>
                       </div>
 
                       {/* Banner de Impacto de Automatización */}
-                      <div className="mt-3 p-2.5 rounded bg-emerald-950/20 border border-emerald-500/30 flex items-center justify-between text-xs font-mono">
+                      <div className="mt-3 p-2.5 rounded bg-emerald-950/20 border border-emerald-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs font-mono">
                         <span className="text-zinc-300 flex items-center gap-1.5">
                           <Zap size={13} className="text-emerald-400" />
-                          <span>IMPACTO EN EFICIENCIA DE PROCESOS:</span>
+                          <span>{lang === 'en' ? 'PROCESS EFFICIENCY IMPACT:' : 'IMPACTO EN EFICIENCIA DE PROCESOS:'}</span>
                         </span>
                         <span className="text-emerald-400 font-bold">
-                          &gt;70% Reducción en tiempos de reporte manual mediante scripts en Python
+                          {lang === 'en'
+                            ? '>70% Reduction in report consolidation time through automated Python pipelines'
+                            : '>70% Reducción en tiempos de reporte manual mediante scripts en Python'}
                         </span>
                       </div>
                     </div>
@@ -565,14 +581,16 @@ export function CurriculumTelemetryModal() {
                         <div className="p-4 rounded-lg bg-black/60 border border-zinc-800 hover:border-[#00f0ff]/50 transition-colors">
                           <div className="flex items-center justify-between mb-1.5">
                             <span className="font-mono text-xs font-bold text-[#00f0ff]">
-                              INGENIERÍA DE DATOS &amp; PIPELINES ETL
+                              {lang === 'en' ? 'DATA ENGINEERING & ETL PIPELINES' : 'INGENIERÍA DE DATOS & PIPELINES ETL'}
                             </span>
                             <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-500/30">
-                              +131K REGISTROS
+                              {lang === 'en' ? '+131K RECORDS' : '+131K REGISTROS'}
                             </span>
                           </div>
                           <p className="text-xs text-zinc-300 leading-relaxed mb-2.5">
-                            Diseño y ejecución de pipelines de absorción, limpieza y depuración de datos territoriales y comerciales. Latencia de consulta optimizada a &lt;180ms mediante indexación espacial en PostgreSQL/PostGIS.
+                            {lang === 'en'
+                              ? 'Design and deployment of ingestion, cleaning, and sanitization pipelines for territorial and commercial data. Query latency optimized to <180ms via spatial indexing in PostgreSQL/PostGIS.'
+                              : 'Diseño y ejecución de pipelines de absorción, limpieza y depuración de datos territoriales y comerciales. Latencia de consulta optimizada a <180ms mediante indexación espacial en PostgreSQL/PostGIS.'}
                           </p>
                           <div className="flex flex-wrap gap-1">
                             {['Python Core', 'PostgreSQL / PostGIS', 'Pandas', 'Pydantic', 'Asyncio', 'ETL Automatizado'].map((t, idx) => (
@@ -587,14 +605,16 @@ export function CurriculumTelemetryModal() {
                         <div className="p-4 rounded-lg bg-black/60 border border-zinc-800 hover:border-red-400/50 transition-colors">
                           <div className="flex items-center justify-between mb-1.5">
                             <span className="font-mono text-xs font-bold text-red-400">
-                              WEB SCRAPING &amp; MINERÍA DE MERCADO
+                              {lang === 'en' ? 'WEB SCRAPING & MARKET INTELLIGENCE' : 'WEB SCRAPING & MINERÍA DE MERCADO'}
                             </span>
                             <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-500/30">
                               99.98% UPTIME
                             </span>
                           </div>
                           <p className="text-xs text-zinc-300 leading-relaxed mb-2.5">
-                            Infraestructura de recolección continua de datos comerciales sobre sitios protegidos por Cloudflare/DataDome. Parser nativo en C (libxml2) en memoria RAM para consumo mínimo de recursos y 0 bloqueos.
+                            {lang === 'en'
+                              ? 'Continuous commercial data collection infrastructure across domains shielded by Cloudflare and anti-bot systems. Native C parser (libxml2) in RAM for minimal resource footprint and zero blocks.'
+                              : 'Infraestructura de recolección continua de datos comerciales sobre sitios protegidos por Cloudflare/DataDome. Parser nativo en C (libxml2) en memoria RAM para consumo mínimo de recursos y 0 bloqueos.'}
                           </p>
                           <div className="flex flex-wrap gap-1">
                             {['libxml2 en RAM', 'Selenium Headless', 'FastAPI', 'Stealth Proxies', 'Data Lake L7'].map((t, idx) => (
@@ -631,14 +651,16 @@ export function CurriculumTelemetryModal() {
                         <div className="p-4 rounded-lg bg-black/60 border border-zinc-800 hover:border-emerald-400/50 transition-colors">
                           <div className="flex items-center justify-between mb-1.5">
                             <span className="font-mono text-xs font-bold text-emerald-400">
-                              BUSINESS INTELLIGENCE &amp; ANALÍTICA TERRITORIAL
+                              {lang === 'en' ? 'BUSINESS INTELLIGENCE & TERRITORIAL ANALYTICS' : 'BUSINESS INTELLIGENCE & ANALÍTICA TERRITORIAL'}
                             </span>
                             <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-500/30">
-                              245K m² AUDITADOS
+                              {lang === 'en' ? '245K m² AUDITED' : '245K m² AUDITADOS'}
                             </span>
                           </div>
                           <p className="text-xs text-zinc-300 leading-relaxed mb-2.5">
-                            Experiencia real en campo coordinando equipos y centralizando más de 131.000 reportes en cuadros de mando de Looker Studio con georreferenciación sub-métrica para decisiones gerenciales.
+                            {lang === 'en'
+                              ? 'Hands-on field experience coordinating operational crews and centralizing +131,000 logs in Looker Studio dashboards with sub-meter geocoding for leadership decision-making.'
+                              : 'Experiencia real en campo coordinando equipos y centralizando más de 131.000 reportes en cuadros de mando de Looker Studio con georreferenciación sub-métrica para decisiones gerenciales.'}
                           </p>
                           <div className="flex flex-wrap gap-1">
                             {['Looker Studio', 'Analítica Territorial', 'Georreferenciación', 'Auditoría Institucional'].map((t, idx) => (
@@ -656,7 +678,7 @@ export function CurriculumTelemetryModal() {
                       <div className="border-b border-zinc-800 pb-2">
                         <span className="font-mono text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
                           <Terminal size={14} className="text-[#a855f7]" />
-                          <span>STACK TECNOLÓGICO DE PRODUCCIÓN (HERRAMIENTAS &amp; ENTORNO)</span>
+                          <span>{lang === 'en' ? 'PRODUCTION TECH STACK (TOOLS & ENVIRONMENT)' : 'STACK TECNOLÓGICO DE PRODUCCIÓN (HERRAMIENTAS & ENTORNO)'}</span>
                         </span>
                       </div>
 
@@ -717,11 +739,13 @@ export function CurriculumTelemetryModal() {
                         <div className="flex items-center gap-2 mb-1">
                           <BarChart3 size={15} className="text-[#38bdf8]" />
                           <h3 className="font-mono text-xs font-bold text-[#38bdf8] uppercase tracking-wider">
-                            DASHBOARD DE TELEMETRÍA TEMPORAL // 6 PROYECTOS & ARQUITECTURAS EN PRODUCCIÓN
+                            {lang === 'en' ? 'PROJECT TELEMETRY DASHBOARD // 6 PRODUCTION ARCHITECTURES' : 'DASHBOARD DE TELEMETRÍA TEMPORAL // 6 PROYECTOS & ARQUITECTURAS EN PRODUCCIÓN'}
                           </h3>
                         </div>
                         <p className="text-xs text-zinc-300 font-sans leading-relaxed">
-                          Registro de horas reales de <b>Arquitectura &amp; Diseño Lógico</b> vs. <b>Escritura de Código &amp; Despliegue</b> en las 6 soluciones de software desarrolladas.
+                          {lang === 'en'
+                            ? <span>Logged hours of <b>Logical Architecture &amp; Design</b> vs. <b>Code Writing &amp; Deployment</b> across the 6 developed software solutions.</span>
+                            : <span>Registro de horas reales de <b>Arquitectura &amp; Diseño Lógico</b> vs. <b>Escritura de Código &amp; Despliegue</b> en las 6 soluciones de software desarrolladas.</span>}
                         </p>
                       </div>
 

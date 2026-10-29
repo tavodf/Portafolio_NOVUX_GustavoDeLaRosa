@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { ChevronLeft, ChevronRight, ExternalLink, Play, Database, Cpu, ShieldCheck, Terminal, Layers } from 'lucide-react';
 import { Service, ServiceId } from '../types';
 import { sfx } from '../utils/soundEffects';
+import { useLanguage } from '../context/LanguageContext';
 import { getWhatsAppUrl } from '../data';
 
 interface ServicesCarouselProps {
@@ -11,6 +12,7 @@ interface ServicesCarouselProps {
 }
 
 export function ServicesCarousel({ services, onSelectService }: ServicesCarouselProps) {
+  const { t } = useLanguage();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -105,7 +107,7 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
         {/* Indicador de posición y flechas de navegación */}
         <div className="flex items-center gap-3 ml-auto sm:ml-0">
           <span className="text-[11px] font-mono text-zinc-400 bg-black/60 px-2.5 py-1 rounded border border-zinc-800">
-            CASO <span className="text-[#FFE066] font-bold">0{activeIndex + 1}</span> / 0{services.length}
+            {t('caseCounterLabel')} <span className="text-[#FFE066] font-bold">0{activeIndex + 1}</span> / 0{services.length}
           </span>
 
           <div className="flex items-center gap-1.5">
@@ -169,7 +171,7 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                       {service.shortIdentifier || service.categoryTitle}
                     </span>
                     <span className="text-[10px] font-mono text-emerald-400 font-semibold bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded uppercase tracking-wider">
-                      CASO DE ÉXITO
+                      {t('caseBadge')}
                     </span>
                   </div>
 
@@ -204,7 +206,7 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                       </div>
                       <div className="flex items-center gap-1 bg-black/85 backdrop-blur-md border border-emerald-500/60 px-2 py-0.5 rounded text-[9.5px] font-mono font-bold text-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-                        <span>[DEMO ACTIVA ↗]</span>
+                        <span>{t('demoActiveBadge')}</span>
                       </div>
                     </div>
 
@@ -212,7 +214,7 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                     <div className="absolute inset-x-0 bottom-0 py-2 px-3 bg-gradient-to-t from-black/95 via-black/80 to-transparent flex items-center justify-between text-[10px] font-mono text-zinc-300 group-hover/preview:text-[#FFE066] transition-colors pointer-events-none border-t border-white/5">
                       <span className="truncate">{service.statusTag || '[PRODUCCIÓN // 100% ONLINE]'}</span>
                       <span className="shrink-0 font-bold flex items-center gap-1 text-[#FFE066]">
-                        ABRIR APP ↗
+                        {t('openAppHover')}
                       </span>
                     </div>
                   </div>
@@ -234,7 +236,7 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                     <div className="my-2 p-2.5 rounded bg-emerald-950/20 border border-emerald-500/30 text-left">
                       <span className="text-[9.5px] font-mono uppercase font-bold text-emerald-400 block mb-0.5 flex items-center gap-1.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        VALOR PARA SU NEGOCIO & ROI:
+                        {t('businessValueTitle')}
                       </span>
                       <p className="text-xs text-zinc-100 font-sans font-medium leading-snug">
                         {service.businessValue}
@@ -246,7 +248,7 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                   {service.businessProblem && (
                     <div className="mb-2 p-2 rounded bg-black/60 border-l-2 border-l-amber-500/80 border-y border-r border-zinc-900 text-left text-xs font-sans text-zinc-300">
                       <span className="text-[9px] font-mono uppercase font-bold text-amber-400 block mb-0.5">
-                        EL RETO OPERATIVO QUE ELIMINA:
+                        {t('operationalBottleneckTitle')}
                       </span>
                       <p className="leading-snug text-zinc-300">
                         {service.businessProblem}
@@ -257,7 +259,7 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                   {/* Bloque Destacado: Métrica Clave Comprobada */}
                   <div className="my-2 p-2 rounded bg-black/80 border-l-2 border-y border-r border-zinc-800 text-[11px] font-mono leading-snug text-left shadow-sm border-l-[#FFE066]">
                     <span className="text-[9px] uppercase font-bold text-[#FFE066] block mb-0.5">
-                      MÉTRICA COMPROBADA EN PRODUCCIÓN:
+                      {t('provenMetricTitle')}
                     </span>
                     <p className="text-zinc-200 italic font-medium">
                       {service.keyMetric || service.technicalArgument}
@@ -269,7 +271,7 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                     <div className="mb-3 p-2 rounded bg-[#0b0c14] border border-[#C5A059]/25 text-left">
                       <div className="text-[9px] font-mono text-[#C5A059] uppercase tracking-wider font-bold mb-0.5 flex items-center gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-[#FFE066]" />
-                        <span>INFRAESTRUCTURA REPLICABLE A MEDIDA:</span>
+                        <span>{t('replicableInfraTitle')}</span>
                       </div>
                       <p className="text-xs text-zinc-200 font-sans font-semibold line-clamp-2">
                         {service.derivedServiceTitle}
@@ -306,7 +308,7 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                       onMouseEnter={() => sfx.playHover()}
                       className="w-full bg-gradient-to-r from-[#C5A059] via-[#FFE066] to-[#C5A059] hover:from-[#FFE066] hover:to-[#C5A059] text-black py-2.5 text-xs tracking-wider transition-all duration-300 rounded-sm uppercase font-bold shadow-[0_0_20px_rgba(197,160,89,0.4)] cursor-pointer text-center flex items-center justify-center gap-1.5 font-mono"
                     >
-                      <span>{service.ctaText || 'PROBAR DEMO EN VIVO ↗'}</span>
+                      <span>{service.ctaText || t('tryLiveDemoBtn')}</span>
                     </a>
                   ) : (
                     <button
@@ -332,7 +334,7 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                     onMouseEnter={() => sfx.playHover()}
                     className="w-full border border-zinc-700 hover:border-[#C5A059] bg-transparent hover:bg-[#C5A059]/10 text-zinc-300 hover:text-white py-2 text-xs tracking-wider transition-all duration-300 rounded-sm uppercase font-bold text-center block font-mono"
                   >
-                    {service.secondaryCtaText || 'SOLICITAR DESARROLLO A MEDIDA'}
+                    {service.secondaryCtaText || t('requestCustomDevBtn')}
                   </a>
                 </div>
               </motion.div>

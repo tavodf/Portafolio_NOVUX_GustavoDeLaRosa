@@ -1,6 +1,6 @@
 import { Service } from './types';
 
-export const services: Record<string, Service> = {
+export const servicesEs: Record<string, Service> = {
   'CASE-SANTAFE-BI': {
     id: 'CASE-SANTAFE-BI',
     categoryTitle: '[ SANTA FE BI ]',
@@ -338,21 +338,385 @@ export const services: Record<string, Service> = {
   }
 };
 
-// Aliases for backwards compatibility with any legacy routes or components
-services['SOFTWARE_FACTORY'] = services['CASE-COT-OPS'];
-services['DATA_ANALYTICS'] = services['CASE-SANTAFE-BI'];
-services['WEB_DATA_HARVESTING'] = services['CASE-ARES-GRID'];
-services['NOVUX_MARKETPULSE'] = services['CASE-CPC-PULSE'];
-services['DATAOPS_RPA'] = services['CASE-SANTAFE-BI'];
-services['AI_DOCUMENT_NLP'] = services['CASE-CPC-PULSE'];
+export const servicesEn: Record<string, Service> = {
+  'CASE-SANTAFE-BI': {
+    id: 'CASE-SANTAFE-BI',
+    categoryTitle: '[ SANTA FE BI ]',
+    shortIdentifier: '[ SANTA FE BI ]',
+    tag: '[ SANTA FE BI ]',
+    caseBadge: 'CASE-SANTAFE-BI',
+    statusTag: '[LIVE DASHBOARD // AUDITED LOOKER STUDIO]',
+    keyMetric: '+131,000 territorial interactions audited | 245,000 m² recovered',
+    businessProblem: 'Operational disorganization and data scattered across hundreds of manual spreadsheets, delaying reports by weeks and leaving leadership blind to field ground operations.',
+    businessValue: 'Consolidation of +131,000 records into a single real-time interactive Command Center, slashing reporting times by 95% and eliminating per-seat user licensing costs.',
+    targetAudience: 'City Halls, Regional Governments, Logistics Operators, and Field Utility Service Providers.',
+    metrics: [
+      { label: 'AUDITED INTERACTIONS', value: '+131,000' },
+      { label: 'PUBLIC SPACE RECOVERED', value: '245,000 m²' },
+      { label: 'GEOSPATIAL ACCURACY', value: '100% PostGIS' },
+      { label: 'QUERY LATENCY', value: '< 250 ms' },
+    ],
+    technicalArgument: 'Clients interact directly with a production-grade governmental and territorial dashboard—no mockups, zero third-party lock-in.',
+    shortDescription: 'Business Intelligence & Operational Command Center: consolidates over 131,000 territorial records in real time within an embedded executive dashboard, eliminating weeks of manual reporting.',
+    heading: 'SANTA FE BI — Governmental Business Intelligence & Territorial Analytics',
+    description: 'Comprehensive territorial data transformation for regional operations. Replaced manual processes with a centralized Command Center processing +131,000 records in PostgreSQL/PostGIS, delivering real-time executive dashboards in Looker Studio for immediate leadership decisions.',
+    derivedServiceTitle: 'Governmental Business Intelligence, Territorial Analytics & Executive Dashboards',
+    derivedServiceDescription: 'We deploy custom analytics command centers and territorial dashboards replicating this architecture: automated ETLs, geospatial normalization, optimized relational databases, and interactive dashboards.',
+    derivedServices: [
+      'Executive Dashboards & Reporting (Looker Studio / D3.js)',
+      'Geospatial Data Warehousing (PostgreSQL / PostGIS)',
+      'Automated Python Analytics ETL Ingestion & Cleaning Pipelines',
+      'Massive Territorial Operations Audit & Traceability'
+    ],
+    image: '/thumbnails/thumbnail-santafe.png',
+    iframeSrc: 'https://lookerstudio.google.com/embed/reporting/8c0ef96a-6947-42aa-8ac0-b210ba6863d1/page/qsv7F',
+    externalLink: 'https://lookerstudio.google.com/reporting/8c0ef96a-6947-42aa-8ac0-b210ba6863d1/page/qsv7F',
+    demoUrl: 'https://lookerstudio.google.com/reporting/8c0ef96a-6947-42aa-8ac0-b210ba6863d1/page/qsv7F',
+    ctaText: 'TRY LIVE DEMO ↗',
+    secondaryCtaText: 'REQUEST CUSTOM DEVELOPMENT',
+    keyServices: [
+      {
+        title: 'Central Operational Command Center',
+        detail: 'Real-time traceability of more than 131,000 normalized field records.'
+      },
+      {
+        title: 'Spatial Modeling & PostGIS',
+        detail: 'Strict georeferencing and volumetric calculation of 245,000 m² of recovered public space.'
+      },
+      {
+        title: 'Embedded Looker Studio Dashboards',
+        detail: 'Zero per-seat licensing fees with high-throughput executive visual access.'
+      }
+    ],
+    caseStudy: {
+      title: 'CASE STUDY: CASE-SANTAFE-BI // CENTRAL OPERATIONAL COMMAND',
+      description: 'Large-scale territorial auditing: massive Python ingestion, geodesic persistence in PostgreSQL/PostGIS, and executive analytics in Looker Studio.'
+    },
+    techStack: [
+      { name: 'PostgreSQL / PostGIS', iconName: 'database' },
+      { name: 'React', iconName: 'code' },
+      { name: 'Python Analytics', iconName: 'python' },
+      { name: 'D3.js', iconName: 'chart' },
+      { name: 'Looker Studio', iconName: 'looker' },
+    ]
+  },
 
-export const serviceList: Service[] = [
-  services['CASE-SANTAFE-BI'],
-  services['CASE-ARES-GRID'],
-  services['CASE-COT-OPS'],
-  services['CASE-CPC-PULSE'],
-  services['CASE-PCD-PRICING'],
-  services['LABORATORIO_INVESTIGACION']
+  'CASE-ARES-GRID': {
+    id: 'CASE-ARES-GRID',
+    categoryTitle: '[ Novux ARES SCRAP ]',
+    shortIdentifier: '[ Novux ARES SCRAP ]',
+    tag: '[ Novux ARES SCRAP ]',
+    caseBadge: 'CASE-ARES-GRID',
+    statusTag: '[L7 PIPELINE // ACTIVE CONCURRENCY]',
+    keyMetric: 'High-availability concurrent extraction in native C RAM with persistent session handling.',
+    businessProblem: 'Losing millions in commercial opportunities due to unmonitored competitor prices and catalogs, continuously blocked by Cloudflare, firewalls, and anti-bot systems.',
+    businessValue: 'Uninterrupted 24/7 market intelligence capture with 99.98% uptime, bypassing Cloudflare anti-bot barriers and feeding your data lakes automatically.',
+    targetAudience: 'E-commerce brands, Retailers, Wholesalers, Pricing Consultancies, and Competitive Intelligence firms.',
+    metrics: [
+      { label: 'OPERATIONAL UPTIME', value: '99.98%' },
+      { label: 'PARSING ENGINE', value: 'Native C RAM' },
+      { label: 'DATA PIPELINE', value: 'L7 Data Lake' },
+      { label: 'EXTRACTION LATENCY', value: '< 180 ms' },
+    ],
+    technicalArgument: 'Live demonstration of high-throughput extraction in native C memory and direct streaming to Data Lake optimizing latency.',
+    shortDescription: 'Market Intelligence & High-Scale Web Scraping Engine: continuously extracts competitor pricing, inventories, and commercial catalogs with automated, enterprise-grade fidelity.',
+    heading: 'Novux ARES SCRAP — Industrial Web Data Harvesting & Data Lakes',
+    description: 'Automated industrial web data harvesting infrastructure. High-concurrency architecture engineered to gather critical market data continuously without disruption, feeding enterprise decision-making pipelines directly.',
+    derivedServiceTitle: 'Industrial Web Data Harvesting, High-Scale Scraping & Enterprise Data Lakes',
+    derivedServiceDescription: 'We build large-scale data harvesting and web extraction pipelines: distributed orchestration, concurrent async scraping, in-memory normalization, and canonical exports to your cloud data warehouse.',
+    derivedServices: [
+      'Industrial Web Data Harvesting Infrastructures',
+      'High-Resilience Distributed Extraction Pipelines',
+      'Continuous Feeding of Corporate Data Lakes',
+      'Typed Async ETL Pipelines with Pydantic and Pandas Core'
+    ],
+    image: '/thumbnails/thumbnail-ares.png',
+    videoSrc: '/AresGrid.mp4',
+    videoDemoUrl: 'https://ares-scraper.vercel.app/',
+    externalLink: 'https://ares-scraper.vercel.app/',
+    demoUrl: 'https://ares-scraper.vercel.app/',
+    ctaText: 'TRY LIVE DEMO ↗',
+    secondaryCtaText: 'REQUEST CUSTOM DEVELOPMENT',
+    keyServices: [
+      {
+        title: 'Optimized Headless Browsing (Selenium)',
+        detail: 'Anti-detect session persistence and automated resilient navigation.'
+      },
+      {
+        title: 'High-Performance C Parsing (libxml2)',
+        detail: 'Native memory extraction with sub-millisecond overhead and minimal footprint.'
+      },
+      {
+        title: 'ETL Pipeline & Canonical Data Lake',
+        detail: 'Strongly-typed Pydantic schemas and structured multiformat storage.'
+      }
+    ],
+    caseStudy: {
+      title: 'CASE STUDY: CASE-ARES-GRID // Novux ARES SCRAP L7',
+      description: 'Industrial high-concurrency extraction engine verified in production: continuous massive scraping with direct pipeline to Data Lake.'
+    },
+    techStack: [
+      { name: 'Python Asyncio', iconName: 'python' },
+      { name: 'Distributed Proxies', iconName: 'shield' },
+      { name: 'Selenium Headless', iconName: 'selenium' },
+      { name: 'Async Extraction', iconName: 'cpu' },
+      { name: 'libxml2 in RAM', iconName: 'code' },
+    ]
+  },
+
+  'CASE-COT-OPS': {
+    id: 'CASE-COT-OPS',
+    categoryTitle: '[ Novux COT ]',
+    shortIdentifier: '[ Novux COT ]',
+    tag: '[ Novux COT ]',
+    caseBadge: 'CASE-COT-OPS',
+    statusTag: '[ENGINE ONLINE // CONSTANT 60 FPS]',
+    keyMetric: 'Constant 60 FPS 3D rendering | Sub-meter geodesic precision | Cryptographic SHA-256 chain of custody.',
+    businessProblem: 'Loss of operational control over field crews, leading to contractual penalties, disputes, and lack of irrefutable evidence of on-site tasks.',
+    businessValue: 'Full real-time 3D visibility (60 FPS) over field operations and crews, backed by geo-tagged photos with immutable hashes preventing fraud and disputes.',
+    targetAudience: 'Private Security Companies, General Contractors, Highway Concessions, Ports, Mining, and Telecom Crews.',
+    metrics: [
+      { label: 'RENDER PERFORMANCE', value: '60 FPS // GPU' },
+      { label: 'SPATIAL PRECISION', value: 'Sub-metric WGS84' },
+      { label: 'CHAIN OF CUSTODY', value: 'SHA-256 Hash' },
+      { label: 'TELEMETRY LATENCY', value: '< 50 ms C2' },
+    ],
+    technicalArgument: 'No generic web templates: we engineer tactical 3D command centers with hardware-accelerated WebGL and geodesic precision.',
+    shortDescription: 'Territorial Operations Control & 3D Digital Twin Platform: real-time 60 FPS workforce and asset monitoring with sub-meter geodesics and legally-sealed cryptographic photo chain of custody.',
+    heading: 'Novux COT — 3D Digital Twins & Command & Control (C2)',
+    description: 'Tactical Command and Control (C2) and 3D Digital Twin platform for high-risk field operations. Enables operations directors to track asset positioning in 3D at 60 FPS, coordinate dispatches in real time, and seal interventions cryptographically.',
+    derivedServiceTitle: '3D Digital Twins, Command & Control (C2) Systems & Tactical Telemetry',
+    derivedServiceDescription: 'We deploy custom digital twin platforms, tactical monitoring centers, and C2 consoles: plugin-free browser 3D rendering, two-way real-time telemetry, and spatial governance over field fleets.',
+    derivedServices: [
+      'Interactive 3D Digital Twins (GPU-accelerated WebGL 2.0 / Three.js)',
+      'Command & Control (C2) & Tactical Personnel Dispatch Systems',
+      'High-Precision Geodesic Engines (Gauss-Haversine / MapLibre)',
+      'Forensic Field Audits with Cryptographic Chain of Custody'
+    ],
+    image: '/thumbnails/thumbnail-cot.png',
+    externalLink: 'https://demo-c2.novuxops.com/',
+    demoUrl: 'https://demo-c2.novuxops.com/',
+    ctaText: 'TRY LIVE DEMO ↗',
+    secondaryCtaText: 'REQUEST CUSTOM DEVELOPMENT',
+    keyServices: [
+      {
+        title: 'WebGL 2.0 & Three.js 3D (60 FPS GPU)',
+        detail: '3D rendering and interactive digital twins with orbital controls and dynamic lighting.'
+      },
+      {
+        title: 'Gauss-Haversine Geodesic Engine',
+        detail: 'Real-time sub-meter dynamic calculation of distances, polygon perimeters, and areas.'
+      },
+      {
+        title: 'Drag-and-Drop Tactical Dispatch',
+        detail: '360° radar telemetry, 3D avatars, and spatial resource allocation.'
+      },
+      {
+        title: 'Cryptographic Chain of Custody',
+        detail: 'Immutable SHA-256 incident logging with verifiable geospatial integrity.'
+      }
+    ],
+    caseStudy: {
+      title: 'CASE STUDY: CASE-COT-OPS // Novux COT DIGITAL TWIN',
+      description: 'Geodesic Command and Control Center with 3D Digital Twin (WebGL 2.0 + Three.js + MapLibre GL Engine). 60 FPS constant render, sub-meter spatial computation, and tactical telemetry.'
+    },
+    techStack: [
+      { name: 'WebGL 2.0', iconName: 'window' },
+      { name: 'Three.js 3D', iconName: 'code' },
+      { name: 'MapLibre GL', iconName: 'database' },
+      { name: 'Gauss-Haversine Engine', iconName: 'cpu' },
+      { name: 'React 19 / TypeScript', iconName: 'code' },
+    ]
+  },
+
+  'CASE-CPC-PULSE': {
+    id: 'CASE-CPC-PULSE',
+    categoryTitle: '[ Novux CPC ]',
+    shortIdentifier: '[ Novux CPC ]',
+    tag: '[ Novux CPC ]',
+    caseBadge: 'CASE-CPC-PULSE',
+    statusTag: '[LIVE HUD // 45/45 SEATS REAL-TIME]',
+    keyMetric: '45/45 Legislative seats tracked in real time | 3.86M followers audited | Kahn DAG engine & ballot reconciliation.',
+    businessProblem: 'Financial and regulatory risk from surprise bill approvals, combined with electoral opacity and social media disinformation.',
+    businessValue: 'Early warning system and live legislative tracking: real-time monitoring of 45 seats, legislative timeline forecasting, and algorithmic reconciliation against vote-tally fraud.',
+    targetAudience: 'Public Affairs Consultancies, Economic Guilds, Investment Banks, and Political Organizations.',
+    metrics: [
+      { label: 'SEATS MONITORED', value: '45/45 Seats' },
+      { label: 'AUDITED AUDIENCE', value: '3.86M Followers' },
+      { label: 'REGULATORY TOPOLOGY', value: 'Kahn DAG Engine' },
+      { label: 'ELECTORAL AUDIT', value: 'E-14 / E-24 Cross' },
+    ],
+    technicalArgument: 'Mathematical audit of legislative votes and electoral returns: we turn parliamentary opacity into a directed acyclic graph and an interactive 3D hemicycle.',
+    shortDescription: 'Regulatory Intelligence & Electoral Audit Suite: real-time monitoring of 45 legislative seats and 3.86M citizen interactions to anticipate legislative and public policy risks.',
+    heading: 'Novux CPC — Political Intelligence & Regulatory Audit',
+    description: 'Comprehensive political intelligence and regulatory monitoring system. Enables corporate and legal directors to anticipate policy decisions via live 3D hemicycle tracking, 3.86M follower analytics, and algorithmic ballot reconciliation.',
+    derivedServiceTitle: 'Political Intelligence Platforms, Regulatory Auditing & Electoral Correlation Models',
+    derivedServiceDescription: 'We design and deploy regulatory monitoring suites, parliamentary tracking engines, and electoral audits: dependency DAGs, vote analytics, and interactive dashboards for institutional compliance.',
+    derivedServices: [
+      'Interactive 3D Legislative Hemicycles (Three.js / React 19)',
+      'Regulatory Dependency & Workflow Engines (Kahn DAG)',
+      'Algorithmic Electoral Auditing & Forensic Ballot Reconciliation',
+      'Large-Scale Digital Sentiment & Influence Tracking (+3.86M)'
+    ],
+    image: '/thumbnails/thumbnail-cpc.png',
+    externalLink: 'https://novux-market-pulse.vercel.app/',
+    demoUrl: 'https://novux-market-pulse.vercel.app/',
+    ctaText: 'TRY LIVE DEMO ↗',
+    secondaryCtaText: 'REQUEST CUSTOM DEVELOPMENT',
+    keyServices: [
+      {
+        title: 'Interactive 3D Hemicycle (45/45 Seats)',
+        detail: 'Live vote telemetry, political party profiles, and Three.js heatmaps.'
+      },
+      {
+        title: 'Kahn DAG Topological Engine',
+        detail: 'Cycle-free dependency resolution and legislative timeline estimation.'
+      },
+      {
+        title: 'Algorithmic E-14 / E-24 Verification',
+        detail: 'Automated discrepancy detection and forensic anomaly reporting on official tallies.'
+      },
+      {
+        title: '3.86M Social Footprint Mining',
+        detail: 'Real-time impact weighting and digital reach tracking of key stakeholders.'
+      }
+    ],
+    caseStudy: {
+      title: 'CASE STUDY: CASE-CPC-PULSE // Novux CPC POLITICAL INTELLIGENCE',
+      description: 'Real-time oversight of legislative bodies, electoral correlation with official returns, and DAG engine for legislative bills built with FastAPI and React 19.'
+    },
+    techStack: [
+      { name: 'React 19', iconName: 'code' },
+      { name: 'Three.js 3D', iconName: 'window' },
+      { name: 'FastAPI', iconName: 'cpu' },
+      { name: 'Kahn DAG Engine', iconName: 'database' },
+      { name: 'Selenium Live HUD', iconName: 'selenium' },
+      { name: 'Python Analytics', iconName: 'python' },
+    ]
+  },
+
+  'CASE-PCD-PRICING': {
+    id: 'CASE-PCD-PRICING',
+    categoryTitle: '[ Novux PCD ]',
+    shortIdentifier: '[ Novux PCD ]',
+    tag: '[ Novux PCD ]',
+    caseBadge: 'CASE-PCD-PRICING',
+    statusTag: '[MACRO TRADING // REAL-TIME ARBITRAGE]',
+    keyMetric: 'Unit metric normalization ($/g, $/ml, $/unit) | Parallel 5-competitor audit | Optimal margin algorithm.',
+    businessProblem: 'Gross margin erosion and lost Buy-Box share due to blind pricing, manual spreadsheets, and skewed comparisons across varying package sizes.',
+    businessValue: 'Automatic mathematical normalization to base unit price with dynamic optimal price recommendations and multi-retailer real-time auditing to lead the market profitably.',
+    targetAudience: 'E-commerce brands, Retailers, Wholesale Distributors, Supermarkets, and CPG Pricing Teams.',
+    metrics: [
+      { label: 'PARALLEL COMPETITORS', value: 'Up to 5 Nodes' },
+      { label: 'METRIC NORMALIZATION', value: '$/g, $/ml, $/unit' },
+      { label: 'MARGIN RECOVERY', value: '+18.4% Gross' },
+      { label: 'CALCULATION LATENCY', value: '< 250ms Reactive' },
+    ],
+    technicalArgument: 'Financial arbitrage architecture adapted to retail: strict dimensional SKU normalization and dynamic real-time price elasticity recommendations.',
+    shortDescription: 'Pricing Arbitrage Desk & Macro Competitive Analysis: fair unit-price comparison by gram/milliliter, parallel multi-store monitoring, and margin optimization.',
+    heading: 'Novux PCD — Dynamic Pricing & Market Arbitrage',
+    description: 'Reactive dynamic pricing and market arbitrage engine. Simultaneously audits up to 5 competitors, normalizes packaging quantities, and computes optimal prices to maximize gross margins.',
+    derivedServiceTitle: 'Dynamic Pricing Systems, Market Arbitrage & Elasticity Engines',
+    derivedServiceDescription: 'We build custom pricing arbitrage platforms on this infrastructure: seamless ERP/e-commerce integrations, price war alerts, and unit-level normalization.',
+    derivedServices: [
+      'Multidimensional Metric Normalizers ($/kg, $/ml, $/pack)',
+      'Real-Time Arbitrage & Price Recommendation Engines',
+      'Executive Price-Dispersion & Buy-Box Dashboards with Recharts',
+      'Direct ERP, CRM, and E-commerce Channel Integrations'
+    ],
+    image: '/thumbnails/thumbnail-pcd.png',
+    externalLink: 'https://market-pricing-engine-pcd-zeta.vercel.app/',
+    demoUrl: 'https://market-pricing-engine-pcd-zeta.vercel.app/',
+    ctaText: 'TRY LIVE DEMO ↗',
+    secondaryCtaText: 'REQUEST CUSTOM DEVELOPMENT',
+    keyServices: [
+      {
+        title: 'Automatic Unit Normalization',
+        detail: 'Instant conversion to base price per unit ($/g, $/ml, $/item) for 100% fair comparisons.'
+      },
+      {
+        title: 'Parallel Multi-Competitor Audit',
+        detail: 'Simultaneous tracking of 5 retailers with detection of listed prices and real promos.'
+      },
+      {
+        title: 'Dynamic Elasticity Simulator',
+        detail: 'Algorithmic optimal pricing recommendations to lead categories without sacrificing profit.'
+      }
+    ],
+    caseStudy: {
+      title: 'CASE STUDY: CASE-PCD-PRICING // Novux PCD TRADING ENGINE',
+      description: 'Reactive pricing arbitrage and macro competitive analysis platform in React 19 and TypeScript. Real-time dimensional normalization and market band visualization with Recharts.'
+    },
+    techStack: [
+      { name: 'React 19', iconName: 'code' },
+      { name: 'TypeScript', iconName: 'code' },
+      { name: 'Vite 8', iconName: 'window' },
+      { name: 'Tailwind CSS', iconName: 'window' },
+      { name: 'Recharts', iconName: 'chart' },
+    ]
+  },
+
+  'LABORATORIO_INVESTIGACION': {
+    id: 'LABORATORIO_INVESTIGACION',
+    categoryTitle: 'RESEARCH & DEVELOPMENT LAB',
+    shortIdentifier: '[ R&D LAB ]',
+    tag: '[ R&D LAB ]',
+    isLab: true,
+    shortDescription: 'Applied technical research, product engineering, and conceptual development.',
+    heading: 'RESEARCH & DEVELOPMENT LAB',
+    description: 'Applied technical research, product engineering, and conceptual development.',
+    ctaText: 'EXPLORE LAB',
+    caseBadge: 'NOVUX R&D LAB',
+    technicalArgument: 'Applied technical research, product engineering, and conceptual development.',
+    techStack: [
+      { name: 'Python', iconName: 'python' },
+      { name: 'AI & LLMs', iconName: 'cpu' },
+      { name: 'C & libxml2', iconName: 'code' },
+      { name: 'BPE Algorithms', iconName: 'regex' },
+    ]
+  }
+};
+
+// Aliases for backwards compatibility with any legacy routes or components
+servicesEs['SOFTWARE_FACTORY'] = servicesEs['CASE-COT-OPS'];
+servicesEs['DATA_ANALYTICS'] = servicesEs['CASE-SANTAFE-BI'];
+servicesEs['WEB_DATA_HARVESTING'] = servicesEs['CASE-ARES-GRID'];
+servicesEs['NOVUX_MARKETPULSE'] = servicesEs['CASE-CPC-PULSE'];
+servicesEs['DATAOPS_RPA'] = servicesEs['CASE-SANTAFE-BI'];
+servicesEs['AI_DOCUMENT_NLP'] = servicesEs['CASE-CPC-PULSE'];
+
+servicesEn['SOFTWARE_FACTORY'] = servicesEn['CASE-COT-OPS'];
+servicesEn['DATA_ANALYTICS'] = servicesEn['CASE-SANTAFE-BI'];
+servicesEn['WEB_DATA_HARVESTING'] = servicesEn['CASE-ARES-GRID'];
+servicesEn['NOVUX_MARKETPULSE'] = servicesEn['CASE-CPC-PULSE'];
+servicesEn['DATAOPS_RPA'] = servicesEn['CASE-SANTAFE-BI'];
+servicesEn['AI_DOCUMENT_NLP'] = servicesEn['CASE-CPC-PULSE'];
+
+export const getLocalizedServices = (lang: 'es' | 'en' = 'es'): Record<string, Service> => {
+  return lang === 'en' ? servicesEn : servicesEs;
+};
+
+export const getLocalizedServiceList = (lang: 'es' | 'en' = 'es'): Service[] => {
+  const current = getLocalizedServices(lang);
+  return [
+    current['CASE-SANTAFE-BI'],
+    current['CASE-ARES-GRID'],
+    current['CASE-COT-OPS'],
+    current['CASE-CPC-PULSE'],
+    current['CASE-PCD-PRICING'],
+    current['LABORATORIO_INVESTIGACION']
+  ];
+};
+
+// Default exports for backward compatibility
+export const services = servicesEs;
+export const serviceList = [
+  servicesEs['CASE-SANTAFE-BI'],
+  servicesEs['CASE-ARES-GRID'],
+  servicesEs['CASE-COT-OPS'],
+  servicesEs['CASE-CPC-PULSE'],
+  servicesEs['CASE-PCD-PRICING'],
+  servicesEs['LABORATORIO_INVESTIGACION']
 ];
 
 export const WHATSAPP_CORPORATE_NUMBER = '+573196300410';
