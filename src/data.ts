@@ -30,11 +30,11 @@ export const services: Record<string, Service> = {
       'ETLs Automatizados de Ingesta y Limpieza en Python Analytics',
       'Auditoría y Trazabilidad de Operaciones Territoriales Masivas'
     ],
-    image: 'https://lh3.googleusercontent.com/d/1y11CauG0RR2qr3UaOx3VfsAGmjeIkvzp=w1000',
+    image: '/thumbnails/thumbnail-santafe.png',
     iframeSrc: 'https://lookerstudio.google.com/embed/reporting/8c0ef96a-6947-42aa-8ac0-b210ba6863d1/page/qsv7F',
     externalLink: 'https://lookerstudio.google.com/reporting/8c0ef96a-6947-42aa-8ac0-b210ba6863d1/page/qsv7F',
     demoUrl: 'https://lookerstudio.google.com/reporting/8c0ef96a-6947-42aa-8ac0-b210ba6863d1/page/qsv7F',
-    ctaText: 'LANZAR DEMO INTERACTIVO // DEMO ACTIVA ↗',
+    ctaText: 'PROBAR DEMO EN VIVO ↗',
     secondaryCtaText: 'SOLICITAR DESARROLLO A MEDIDA',
     keyServices: [
       {
@@ -92,11 +92,12 @@ export const services: Record<string, Service> = {
       'Construcción y Alimentación Continua de Data Lakes Corporativos',
       'Pipelines ETL Asíncronos Tipados en Pydantic y Pandas Core'
     ],
+    image: '/thumbnails/thumbnail-ares.png',
     videoSrc: '/AresGrid.mp4',
-    videoDemoUrl: 'https://drive.google.com/file/d/10kYGZWx0Yp-_UE_a3PaXyjoo0O5lt0rW/view?usp=sharing',
-    externalLink: 'https://drive.google.com/file/d/10kYGZWx0Yp-_UE_a3PaXyjoo0O5lt0rW/view?usp=sharing',
-    demoUrl: 'https://drive.google.com/file/d/10kYGZWx0Yp-_UE_a3PaXyjoo0O5lt0rW/view?usp=sharing',
-    ctaText: 'LANZAR DEMO INTERACTIVO // DEMO ACTIVA ↗',
+    videoDemoUrl: 'https://ares-scraper.vercel.app/',
+    externalLink: 'https://ares-scraper.vercel.app/',
+    demoUrl: 'https://ares-scraper.vercel.app/',
+    ctaText: 'PROBAR DEMO EN VIVO ↗',
     secondaryCtaText: 'SOLICITAR DESARROLLO A MEDIDA',
     keyServices: [
       {
@@ -154,10 +155,10 @@ export const services: Record<string, Service> = {
       'Motores Geodésicos de Alta Precisión (Gauss-Haversine / MapLibre)',
       'Auditoría Forense de Campo con Cadena de Custodia Criptográfica'
     ],
-    image: '/novux-cot-platform.png',
-    externalLink: 'https://demo-c2.novuxops.com',
-    demoUrl: 'https://demo-c2.novuxops.com',
-    ctaText: 'LANZAR DEMO INTERACTIVO // DEMO ACTIVA ↗',
+    image: '/thumbnails/thumbnail-cot.png',
+    externalLink: 'https://demo-c2.novuxops.com/',
+    demoUrl: 'https://demo-c2.novuxops.com/',
+    ctaText: 'PROBAR DEMO EN VIVO ↗',
     secondaryCtaText: 'SOLICITAR DESARROLLO A MEDIDA',
     keyServices: [
       {
@@ -219,10 +220,10 @@ export const services: Record<string, Service> = {
       'Auditoría Algorítmica y Conciliación Forense Electoral (Actas E-14 vs E-24)',
       'Sistemas de Monitoreo de Opinión y Análisis de Redes a Escala (+3.86M)'
     ],
-    image: '/novux-cop-platform.png',
-    externalLink: '/novux-cop-platform.png',
-    demoUrl: '/novux-cop-platform.png',
-    ctaText: 'LANZAR DEMO INTERACTIVO // DEMO ACTIVA ↗',
+    image: '/thumbnails/thumbnail-cpc.png',
+    externalLink: 'https://novux-market-pulse.vercel.app/',
+    demoUrl: 'https://novux-market-pulse.vercel.app/',
+    ctaText: 'PROBAR DEMO EN VIVO ↗',
     secondaryCtaText: 'SOLICITAR DESARROLLO A MEDIDA',
     keyServices: [
       {
@@ -286,9 +287,9 @@ export const services: Record<string, Service> = {
       'Integración con ERPs, CRMs y Canales de Venta E-commerce'
     ],
     image: '/thumbnails/thumbnail-pcd.png',
-    externalLink: 'https://market-pricing-engine-pcd-zeta.vercel.app',
-    demoUrl: 'https://market-pricing-engine-pcd-zeta.vercel.app',
-    ctaText: 'PROBAR DEMO EN VIVO // VER EN VERCEL ↗',
+    externalLink: 'https://market-pricing-engine-pcd-zeta.vercel.app/',
+    demoUrl: 'https://market-pricing-engine-pcd-zeta.vercel.app/',
+    ctaText: 'PROBAR DEMO EN VIVO ↗',
     secondaryCtaText: 'SOLICITAR DESARROLLO A MEDIDA',
     keyServices: [
       {
@@ -341,7 +342,7 @@ export const services: Record<string, Service> = {
 services['SOFTWARE_FACTORY'] = services['CASE-COT-OPS'];
 services['DATA_ANALYTICS'] = services['CASE-SANTAFE-BI'];
 services['WEB_DATA_HARVESTING'] = services['CASE-ARES-GRID'];
-services['NOVUX_MARKETPULSE'] = services['CASE-ARES-GRID'];
+services['NOVUX_MARKETPULSE'] = services['CASE-CPC-PULSE'];
 services['DATAOPS_RPA'] = services['CASE-SANTAFE-BI'];
 services['AI_DOCUMENT_NLP'] = services['CASE-CPC-PULSE'];
 

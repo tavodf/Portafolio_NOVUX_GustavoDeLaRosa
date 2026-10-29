@@ -140,11 +140,11 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {services.map((service, index) => {
-            const isSantaFe = service.id === 'CASE-SANTAFE-BI' || service.id === 'DATA_ANALYTICS';
-            const isAres = service.id === 'CASE-ARES-GRID' || service.id === 'WEB_DATA_HARVESTING';
-            const isCot = service.id === 'CASE-COT-OPS' || service.id === 'SOFTWARE_FACTORY';
-            const isCpc = service.id === 'CASE-CPC-PULSE' || service.id === 'AI_DOCUMENT_NLP';
-            const isPcd = service.id === 'CASE-PCD-PRICING';
+
+
+
+
+
 
             return (
               <motion.div
@@ -177,201 +177,59 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                     {service.heading.replace(/^CASE-[^/]+\/\/\s*/, '')}
                   </h2>
 
-                  {/* Terminal con Telemetría en Vivo Específica de Cada Caso */}
-                  {isSantaFe ? (
-                    <div className="h-[200px] w-full mb-3 overflow-hidden rounded-sm border border-amber-500/40 group-hover:border-[#C5A059] bg-[#07090e] p-3 flex flex-col justify-between font-mono relative shadow-inner text-left select-none">
-                      <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 relative z-10 gap-2">
-                        <div className="flex items-center gap-1.5 min-w-0">
-                          <span className="w-2 h-2 rounded-full bg-red-500/80 shrink-0" />
-                          <span className="w-2 h-2 rounded-full bg-yellow-500/80 shrink-0" />
-                          <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
-                          <span className="text-[10px] text-zinc-400 ml-1 truncate">santafe_bi_pipeline.py</span>
-                        </div>
-                        <div className="flex items-center gap-1 bg-amber-950/70 border border-amber-500/40 px-2 py-0.5 rounded text-[9.5px] font-bold text-amber-300 shrink-0 whitespace-nowrap shadow-[0_0_10px_rgba(245,158,11,0.25)]">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#FFE066] animate-ping shrink-0" />
-                          <span>[LOOKER STUDIO LIVE]</span>
-                        </div>
+                  {/* Vista Previa Visual Real de la Aplicación */}
+                  <div
+                    onClick={(e) => {
+                      if (service.demoUrl) {
+                        e.stopPropagation();
+                        sfx.playSelect();
+                        window.open(service.demoUrl, '_blank', 'noopener,noreferrer');
+                      }
+                    }}
+                    className="h-[210px] w-full mb-3 overflow-hidden rounded-sm border border-[#C5A059]/40 group-hover:border-[#FFE066] bg-black relative shadow-inner group/preview cursor-pointer"
+                    title={`Lanzar ${service.shortIdentifier || service.categoryTitle} en vivo`}
+                  >
+                    {service.image ? (
+                      <img
+                        src={service.image}
+                        alt={service.shortIdentifier || service.categoryTitle}
+                        className="w-full h-full object-cover object-top transition-transform duration-500 group-hover/preview:scale-105 opacity-90 group-hover/preview:opacity-100"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-[#0a0c14] flex items-center justify-center font-mono text-zinc-500 text-xs">
+                        [VISTA PREVIA NO DISPONIBLE]
                       </div>
-                      <div className="space-y-1 my-1 relative z-10 text-[10.5px]">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-zinc-500 shrink-0">Métrica Clave:</span>
-                          <span className="text-white font-bold truncate">+131,000 Interacciones</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-zinc-500 shrink-0">Área Auditada:</span>
-                          <span className="text-emerald-400 font-medium truncate">245,000 m² Espacio Público</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-zinc-500 shrink-0">Base de Datos:</span>
-                          <span className="text-zinc-300 font-mono truncate">PostgreSQL + PostGIS</span>
-                        </div>
+                    )}
+
+                    {/* Badge Superior: Tag de Aplicación + Status Live */}
+                    <div className="absolute top-2 left-2 right-2 flex items-center justify-between pointer-events-none">
+                      <div className="flex items-center gap-1.5 bg-black/85 backdrop-blur-md border border-[#C5A059]/50 px-2 py-0.5 rounded text-[10px] font-mono text-[#FFE066] font-bold shadow-md">
+                        <span>{service.shortIdentifier || service.categoryTitle}</span>
                       </div>
-                      <div className="grid grid-cols-2 gap-1.5 relative z-10">
-                        <div className="bg-black/85 border border-zinc-800 rounded px-2 py-1">
-                          <span className="text-[8px] text-zinc-400 block uppercase">REGISTROS</span>
-                          <span className="text-xs font-bold text-[#FFE066]">+131k AUDITADOS</span>
-                        </div>
-                        <div className="bg-black/85 border border-zinc-800 rounded px-2 py-1 text-right">
-                          <span className="text-[8px] text-zinc-400 block uppercase">VISUALIZACIÓN</span>
-                          <span className="text-xs font-bold text-emerald-400">EMBEBIDO REAL</span>
-                        </div>
+                      <div className="flex items-center gap-1 bg-black/85 backdrop-blur-md border border-emerald-500/60 px-2 py-0.5 rounded text-[9.5px] font-mono font-bold text-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.3)]">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                        <span>[DEMO ACTIVA ↗]</span>
                       </div>
                     </div>
-                  ) : isAres ? (
-                    <div className="h-[200px] w-full mb-3 overflow-hidden rounded-sm border border-purple-500/40 group-hover:border-[#C5A059] bg-[#07090e] p-3 flex flex-col justify-between font-mono relative shadow-inner text-left select-none">
-                      <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 relative z-10 gap-2">
-                        <div className="flex items-center gap-1.5 min-w-0">
-                          <span className="w-2 h-2 rounded-full bg-red-500/80 shrink-0" />
-                          <span className="w-2 h-2 rounded-full bg-yellow-500/80 shrink-0" />
-                          <span className="w-2 h-2 rounded-full bg-purple-400 shrink-0" />
-                          <span className="text-[10px] text-zinc-400 ml-1 truncate">ares_scraper_l7.py</span>
-                        </div>
-                        <div className="flex items-center gap-1 bg-purple-950/70 border border-purple-500/40 px-2 py-0.5 rounded text-[9.5px] font-bold text-purple-300 shrink-0 whitespace-nowrap shadow-[0_0_10px_rgba(168,85,247,0.25)]">
-                          <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-ping shrink-0" />
-                          <span>[WAF BYPASS ACTIVE]</span>
-                        </div>
-                      </div>
-                      <div className="space-y-1 my-1 relative z-10 text-[10.5px]">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-zinc-500 shrink-0">Evasión WAF:</span>
-                          <span className="text-emerald-400 font-bold truncate">Cloudflare / DataDome 0 Bloqueos</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-zinc-500 shrink-0">Rendimiento C:</span>
-                          <span className="text-cyan-300 font-medium truncate">DOM Parser nativo en RAM (libxml2)</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-zinc-500 shrink-0">Pipeline:</span>
-                          <span className="text-zinc-300 font-mono truncate">Extracción concurrente Data Lake</span>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-2 gap-1.5 relative z-10">
-                        <div className="bg-black/85 border border-zinc-800 rounded px-2 py-1">
-                          <span className="text-[8px] text-zinc-400 block uppercase">DISPONIBILIDAD</span>
-                          <span className="text-xs font-bold text-purple-300">99.98% CONTINUA</span>
-                        </div>
-                        <div className="bg-black/85 border border-zinc-800 rounded px-2 py-1 text-right">
-                          <span className="text-[8px] text-zinc-400 block uppercase">PROXIES</span>
-                          <span className="text-xs font-bold text-emerald-400">STEALTH ROTATIVO</span>
-                        </div>
-                      </div>
+
+                    {/* Overlay Inferior en Hover: Clic para Lanzar Demo */}
+                    <div className="absolute inset-x-0 bottom-0 py-2 px-3 bg-gradient-to-t from-black/95 via-black/80 to-transparent flex items-center justify-between text-[10px] font-mono text-zinc-300 group-hover/preview:text-[#FFE066] transition-colors pointer-events-none border-t border-white/5">
+                      <span className="truncate">{service.statusTag || '[PRODUCCIÓN // 100% ONLINE]'}</span>
+                      <span className="shrink-0 font-bold flex items-center gap-1 text-[#FFE066]">
+                        ABRIR APP ↗
+                      </span>
                     </div>
-                  ) : isCot ? (
-                    <div className="h-[200px] w-full mb-3 overflow-hidden rounded-sm border border-cyan-500/40 group-hover:border-[#C5A059] bg-[#07090e] p-3 flex flex-col justify-between font-mono relative shadow-inner text-left select-none">
-                      <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 relative z-10 gap-2">
-                        <div className="flex items-center gap-1.5 min-w-0">
-                          <span className="w-2 h-2 rounded-full bg-red-500/80 shrink-0" />
-                          <span className="w-2 h-2 rounded-full bg-yellow-500/80 shrink-0" />
-                          <span className="w-2 h-2 rounded-full bg-cyan-400 shrink-0" />
-                          <span className="text-[10px] text-zinc-400 ml-1 truncate">novux_cot_engine.wasm</span>
+                  </div>
+
+                  {/* Telemetría Métrica Destacada del Caso */}
+                  {service.metrics && service.metrics.length > 0 && (
+                    <div className="grid grid-cols-2 gap-1.5 mb-3 font-mono text-left">
+                      {service.metrics.slice(0, 2).map((metric, mIdx) => (
+                        <div key={mIdx} className="bg-black/85 border border-zinc-800/80 rounded px-2 py-1">
+                          <span className="text-[8px] text-zinc-400 block uppercase truncate">{metric.label}</span>
+                          <span className="text-xs font-bold text-[#FFE066] truncate block">{metric.value}</span>
                         </div>
-                        <div className="flex items-center gap-1 bg-cyan-950/70 border border-cyan-500/40 px-2 py-0.5 rounded text-[9.5px] font-bold text-cyan-300 shrink-0 whitespace-nowrap shadow-[0_0_10px_rgba(6,182,212,0.25)]">
-                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping shrink-0" />
-                          <span>[60 FPS GPU // C2]</span>
-                        </div>
-                      </div>
-                      <div className="space-y-1 my-1 relative z-10 text-[10.5px]">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-zinc-500 shrink-0">Precisión:</span>
-                          <span className="text-emerald-400 font-bold truncate">Métrica Sub-metro Gauss-Haversine</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-zinc-500 shrink-0">Motor 3D:</span>
-                          <span className="text-cyan-300 font-medium truncate">WebGL 2.0 + Three.js + MapLibre</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-zinc-500 shrink-0">Auditoría:</span>
-                          <span className="text-zinc-300 font-mono truncate">Cadena Custodia Hash Georreferenciado</span>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-2 gap-1.5 relative z-10">
-                        <div className="bg-black/85 border border-zinc-800 rounded px-2 py-1">
-                          <span className="text-[8px] text-zinc-400 block uppercase">RENDIMIENTO</span>
-                          <span className="text-xs font-bold text-cyan-300">60 FPS CONSTANTES</span>
-                        </div>
-                        <div className="bg-black/85 border border-zinc-800 rounded px-2 py-1 text-right">
-                          <span className="text-[8px] text-zinc-400 block uppercase">DESPACHO</span>
-                          <span className="text-xs font-bold text-emerald-400">RADAR 360° DRAG</span>
-                        </div>
-                      </div>
-                    </div>
-                  ) : isPcd ? (
-                    <div className="h-[200px] w-full mb-3 overflow-hidden rounded-sm border border-purple-500/40 group-hover:border-[#FFE066] bg-[#07090e] p-3 flex flex-col justify-between font-mono relative shadow-inner text-left select-none">
-                      <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 relative z-10 gap-2">
-                        <div className="flex items-center gap-1.5 min-w-0">
-                          <span className="w-2 h-2 rounded-full bg-red-500/80 shrink-0" />
-                          <span className="w-2 h-2 rounded-full bg-yellow-500/80 shrink-0" />
-                          <span className="w-2 h-2 rounded-full bg-purple-400 shrink-0" />
-                          <span className="text-[10px] text-zinc-400 ml-1 truncate">novux_pricing_engine.tsx</span>
-                        </div>
-                        <div className="flex items-center gap-1 bg-purple-950/70 border border-purple-500/40 px-2 py-0.5 rounded text-[9.5px] font-bold text-purple-300 shrink-0 whitespace-nowrap shadow-[0_0_10px_rgba(168,85,247,0.25)]">
-                          <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-ping shrink-0" />
-                          <span>[LIVE TICKER // ARBITRAJE]</span>
-                        </div>
-                      </div>
-                      <div className="space-y-1 my-1 relative z-10 text-[10.5px]">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-zinc-500 shrink-0">Normalización:</span>
-                          <span className="text-emerald-400 font-bold truncate">$/g, $/ml, $/ud Dinámico</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-zinc-500 shrink-0">Multi-Tienda:</span>
-                          <span className="text-cyan-300 font-medium truncate">Éxito, ML, Alkosto, D1 en Paralelo</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-zinc-500 shrink-0">Algoritmo:</span>
-                          <span className="text-[#FFE066] font-mono truncate">Optimización Buy-Box & Margen</span>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-2 gap-1.5 relative z-10">
-                        <div className="bg-black/85 border border-zinc-800 rounded px-2 py-1">
-                          <span className="text-[8px] text-zinc-400 block uppercase">DISPERSIÓN PRECIOS</span>
-                          <span className="text-xs font-bold text-purple-300">±18.4% DETECTADA</span>
-                        </div>
-                        <div className="bg-black/85 border border-zinc-800 rounded px-2 py-1 text-right">
-                          <span className="text-[8px] text-zinc-400 block uppercase">STACK MOTOR</span>
-                          <span className="text-xs font-bold text-emerald-400">REACT 19 + RECHARTS</span>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="h-[200px] w-full mb-3 overflow-hidden rounded-sm border border-emerald-500/40 group-hover:border-[#C5A059] bg-[#07090e] p-3 flex flex-col justify-between font-mono relative shadow-inner text-left select-none">
-                      <div className="flex items-center justify-between border-b border-zinc-800/80 pb-2 relative z-10 gap-2">
-                        <div className="flex items-center gap-1.5 min-w-0">
-                          <span className="w-2 h-2 rounded-full bg-red-500/80 shrink-0" />
-                          <span className="w-2 h-2 rounded-full bg-yellow-500/80 shrink-0" />
-                          <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
-                          <span className="text-[10px] text-zinc-400 ml-1 truncate">cpc_pulse_dag.py</span>
-                        </div>
-                        <div className="flex items-center gap-1 bg-emerald-950/70 border border-emerald-500/40 px-2 py-0.5 rounded text-[9.5px] font-bold text-emerald-300 shrink-0 whitespace-nowrap shadow-[0_0_10px_rgba(16,185,129,0.25)]">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping shrink-0" />
-                          <span>[45 CURULES // LIVE HUD]</span>
-                        </div>
-                      </div>
-                      <div className="space-y-1 my-1 relative z-10 text-[10.5px]">
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-zinc-500 shrink-0">Hemiciclo 3D:</span>
-                          <span className="text-white font-bold truncate">45/45 Curules Monitoreadas en Vivo</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-zinc-500 shrink-0">Algoritmo DAG:</span>
-                          <span className="text-cyan-300 font-medium truncate">Topología Kahn de Proyectos de Ley</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <span className="text-zinc-500 shrink-0">Electoral:</span>
-                          <span className="text-emerald-400 font-mono truncate">Cruce de Actas E-14 vs E-24</span>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-2 gap-1.5 relative z-10">
-                        <div className="bg-black/85 border border-zinc-800 rounded px-2 py-1">
-                          <span className="text-[8px] text-zinc-400 block uppercase">SEGUIDORES AUDITADOS</span>
-                          <span className="text-xs font-bold text-[#FFE066]">3.86M EN TIEMPO REAL</span>
-                        </div>
-                        <div className="bg-black/85 border border-zinc-800 rounded px-2 py-1 text-right">
-                          <span className="text-[8px] text-zinc-400 block uppercase">STACK MOTOR</span>
-                          <span className="text-xs font-bold text-zinc-300">FASTAPI + REACT 19</span>
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   )}
 
