@@ -14,26 +14,29 @@ import {
   BarChart,
   FileSpreadsheet,
   PieChart,
-  Code
+  Code,
+  GraduationCap,
+  Sparkles,
+  Table2,
+  LayoutGrid
 } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
 
 export interface VerifiedCredential {
   id: string;
   name: string;
-  issuer: 'IBM SkillsBuild' | 'Coursera • IBM';
+  issuer: 'IBM SkillsBuild' | 'Coursera • IBM' | 'MinTIC / Univ. Distrital' | 'Google / Coursera';
   issueDate: string;
-  issueTimestamp: string; // Para ordenamiento cronológico preciso (más reciente a más antigua)
+  issueTimestamp: string;
   category: string;
-  type: 'IBM SkillsBuild' | 'Coursera';
+  type: 'IBM SkillsBuild' | 'Coursera' | 'MinTIC' | 'Google';
   skills: string[];
   credlyUrl: string;
-  iconType: 'python-web' | 'deep-learning' | 'ml-python' | 'cybersecurity' | 'agile' | 'emerging-tech' | 'python-ai' | 'data-viz' | 'excel-analytics' | 'analytics-essentials';
+  iconType: 'python-web' | 'deep-learning' | 'ml-python' | 'cybersecurity' | 'agile' | 'emerging-tech' | 'python-ai' | 'data-viz' | 'excel-analytics' | 'analytics-essentials' | 'academic' | 'google-ai';
 }
 
-export const CREDLY_PROFILE_URL = 'https://www.credly.com/users/gustavo-de-la-rosa.abf5f564';
+export const CREDLY_PROFILE_URL = 'https://www.credly.com/users/gustavo-de-la-rosa.abf5f564/badges';
 
-// Lista de credenciales ordenadas cronológicamente (de la más reciente a la más antigua) con sus URLs directas en Credly
 export const VERIFIED_CREDENTIALS: VerifiedCredential[] = [
   {
     id: 'web-dev-python',
@@ -89,7 +92,7 @@ export const VERIFIED_CREDENTIALS: VerifiedCredential[] = [
     issuer: 'IBM SkillsBuild',
     issueDate: '9 Oct, 2024',
     issueTimestamp: '2024-10-09',
-    category: 'GESTIÓN & PROYECTOS',
+    category: 'GESTIÓN & AGILE',
     type: 'IBM SkillsBuild',
     skills: ['Metodología Scrum', 'Sprint Planning', 'Iterative Delivery', 'CI/CD Flow'],
     credlyUrl: 'https://www.credly.com/badges/602c8139-5374-4119-b51f-6a494403f64e',
@@ -127,9 +130,33 @@ export const VERIFIED_CREDENTIALS: VerifiedCredential[] = [
     issueTimestamp: '2024-06-18',
     category: 'BI & ANALÍTICA',
     type: 'Coursera',
-    skills: ['Dashboards Ejecutivos', 'Narrativa de Datos', 'KPI Design', 'Looker/Plotly'],
-    credlyUrl: 'https://www.credly.com/users/gustavo-de-la-rosa.abf5f564',
+    skills: ['Dashboards Ejecutivos', 'Narrativa de Datos', 'KPI Design', 'IBM Cognos Analytics'],
+    credlyUrl: 'https://www.credly.com/users/gustavo-de-la-rosa.abf5f564/badges',
     iconType: 'data-viz'
+  },
+  {
+    id: 'python-mintic-50h',
+    name: 'Programación en Python (50 Horas)',
+    issuer: 'MinTIC / Univ. Distrital',
+    issueDate: 'May, 2024',
+    issueTimestamp: '2024-05-15',
+    category: 'CERTIFICACIÓN ACADÉMICA',
+    type: 'MinTIC',
+    skills: ['Algoritmia', 'Estructuras de Datos', 'Python Standard Library', 'Programación Modular'],
+    credlyUrl: 'https://www.credly.com/users/gustavo-de-la-rosa.abf5f564/badges',
+    iconType: 'academic'
+  },
+  {
+    id: 'google-ai-essentials',
+    name: 'Google AI Essentials',
+    issuer: 'Google / Coursera',
+    issueDate: 'Abr, 2024',
+    issueTimestamp: '2024-04-10',
+    category: 'IA APLICADA',
+    type: 'Google',
+    skills: ['Generative AI', 'Prompt Engineering', 'Automatización de Tareas', 'Ética en IA'],
+    credlyUrl: 'https://www.credly.com/users/gustavo-de-la-rosa.abf5f564/badges',
+    iconType: 'google-ai'
   },
   {
     id: 'excel-essentials-analytics',
@@ -152,7 +179,7 @@ export const VERIFIED_CREDENTIALS: VerifiedCredential[] = [
     category: 'ANALÍTICA DE DATOS',
     type: 'Coursera',
     skills: ['Ciclo de Vida del Dato', 'Minería de Datos', 'Toma de Decisiones', 'Reportes de Negocio'],
-    credlyUrl: 'https://www.credly.com/badges/7ca4a1f0-15f2-4381-a754-c452c09b7583',
+    credlyUrl: 'https://www.credly.com/users/gustavo-de-la-rosa.abf5f564/badges',
     iconType: 'analytics-essentials'
   }
 ];
@@ -180,6 +207,10 @@ function getCredentialIcon(iconType: string) {
       return <Terminal {...iconProps} />;
     case 'data-viz':
       return <BarChart {...iconProps} />;
+    case 'academic':
+      return <GraduationCap {...iconProps} />;
+    case 'google-ai':
+      return <Sparkles {...iconProps} />;
     case 'excel-analytics':
       return <FileSpreadsheet {...iconProps} />;
     case 'analytics-essentials':
@@ -190,11 +221,11 @@ function getCredentialIcon(iconType: string) {
 }
 
 export function CredentialsCarousel() {
+  const [viewMode, setViewMode] = useState<'CAROUSEL' | 'TABLE'>('CAROUSEL');
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  // Actualiza los estados de las flechas izquierda/derecha al hacer scroll
   const updateScrollButtons = () => {
     const el = scrollContainerRef.current;
     if (!el) return;
@@ -240,17 +271,51 @@ export function CredentialsCarousel() {
         <div className="flex items-center gap-2">
           <Award className="w-4 h-4 text-[#C5A059]" />
           <span className="text-xs font-mono uppercase tracking-widest text-[#C5A059] font-bold flex items-center gap-1.5">
-            Acreditaciones de Ingeniería Verificadas
+            Acreditaciones Técnicas &amp; Certificaciones Verificadas
             <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           </span>
           <span className="hidden sm:inline-flex text-zinc-600 font-mono text-xs">//</span>
           <span className="hidden sm:inline-flex text-[11px] font-mono text-zinc-400">
-            Respaldo Técnico • IBM & Coursera
+            IBM • Coursera • MinTIC • Google
           </span>
         </div>
 
-        {/* Acceso a Credly */}
+        {/* Acceso a Credly y Toggle de Vista */}
         <div className="flex items-center justify-between sm:justify-end gap-2">
+          {/* Selector de Modo: Carrusel vs Tabla */}
+          <div className="flex rounded bg-black/80 border border-zinc-800 p-0.5 font-mono text-[10.5px]">
+            <button
+              type="button"
+              onClick={() => {
+                sfx.playSelect();
+                setViewMode('CAROUSEL');
+              }}
+              className={`px-2 py-0.5 rounded flex items-center gap-1 transition-colors cursor-pointer ${
+                viewMode === 'CAROUSEL'
+                  ? 'bg-[#C5A059] text-black font-bold shadow-sm'
+                  : 'text-zinc-400 hover:text-white'
+              }`}
+            >
+              <LayoutGrid size={11} />
+              <span>Carrusel</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                sfx.playSelect();
+                setViewMode('TABLE');
+              }}
+              className={`px-2 py-0.5 rounded flex items-center gap-1 transition-colors cursor-pointer ${
+                viewMode === 'TABLE'
+                  ? 'bg-[#C5A059] text-black font-bold shadow-sm'
+                  : 'text-zinc-400 hover:text-white'
+              }`}
+            >
+              <Table2 size={11} />
+              <span>Tabla</span>
+            </button>
+          </div>
+
           <a
             href={CREDLY_PROFILE_URL}
             target="_blank"
@@ -266,9 +331,74 @@ export function CredentialsCarousel() {
         </div>
       </div>
 
-      {/* Contenedor del Carrusel con Flechas Grandes en los Costados Izquierda y Derecha */}
-      <div className="w-full relative py-1 px-1 sm:px-2 flex items-center">
-        
+      {viewMode === 'TABLE' ? (
+        /* Vista de Tabla Detallada */
+        <div className="w-full overflow-x-auto rounded border border-[#C5A059]/30 bg-[#070912] shadow-xl my-2">
+          <table className="w-full text-left font-mono text-xs">
+            <thead className="bg-[#0e0e16] border-b border-[#C5A059]/30 text-[10px] text-[#C5A059] uppercase tracking-wider">
+              <tr>
+                <th className="py-2.5 px-3 w-12 text-center">#</th>
+                <th className="py-2.5 px-3 min-w-[210px]">Acreditación Oficial</th>
+                <th className="py-2.5 px-3 min-w-[130px]">Institución Emisora</th>
+                <th className="py-2.5 px-3 min-w-[130px]">Especialidad</th>
+                <th className="py-2.5 px-3 min-w-[85px]">Fecha</th>
+                <th className="py-2.5 px-3 text-right min-w-[100px]">Validación</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-zinc-800/60">
+              {VERIFIED_CREDENTIALS.map((item, idx) => (
+                <tr key={item.id} className="hover:bg-white/[0.03] transition-colors group">
+                  <td className="py-2.5 px-3 text-center text-zinc-500 text-[11px]">
+                    {String(idx + 1).padStart(2, '0')}
+                  </td>
+                  <td className="py-2.5 px-3">
+                    <div className="font-bold text-white group-hover:text-[#FFE066] transition-colors flex items-center gap-1.5">
+                      {getCredentialIcon(item.iconType)}
+                      <span>{item.name}</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {item.skills.slice(0, 3).map((s, sIdx) => (
+                        <span key={sIdx} className="text-[9px] px-1.5 py-0.2 rounded bg-black/60 border border-zinc-800 text-zinc-400">
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
+                  <td className="py-2.5 px-3">
+                    <span className="text-[11px] font-medium text-zinc-300">
+                      {item.issuer}
+                    </span>
+                  </td>
+                  <td className="py-2.5 px-3">
+                    <span className="text-[9.5px] font-bold px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">
+                      {item.category}
+                    </span>
+                  </td>
+                  <td className="py-2.5 px-3 text-zinc-400 text-[11px] whitespace-nowrap">
+                    {item.issueDate}
+                  </td>
+                  <td className="py-2.5 px-3 text-right whitespace-nowrap">
+                    <a
+                      href={item.credlyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => sfx.playClick()}
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#C5A059]/10 hover:bg-[#C5A059]/30 border border-[#C5A059]/40 text-[#FFE066] text-[10px] font-bold transition-all cursor-pointer no-underline"
+                    >
+                      <CheckCircle size={11} className="text-emerald-400" />
+                      <span>Verificar</span>
+                      <ExternalLink size={9} />
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <>
+          {/* Contenedor del Carrusel con Flechas Grandes en los Costados Izquierda y Derecha */}
+          <div className="w-full relative py-1 px-1 sm:px-2 flex items-center">
         {/* Flecha Flotante Izquierda */}
         <button
           onClick={() => handleManualScroll('left')}
@@ -385,9 +515,11 @@ export function CredentialsCarousel() {
       {/* Indicador de ayuda y navegación en el pie */}
       <div className="text-center mt-1 flex items-center justify-center gap-2">
         <span className="text-[10px] font-mono text-zinc-500 tracking-wider">
-          // Usa las flechas laterales <kbd className="px-1 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-zinc-400">◀</kbd> <kbd className="px-1 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-zinc-400">▶</kbd> para explorar las 10 credenciales en orden cronológico
+          // Usa las flechas laterales <kbd className="px-1 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-zinc-400">◀</kbd> <kbd className="px-1 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-zinc-400">▶</kbd> para explorar las 12 credenciales oficiales en orden cronológico
         </span>
       </div>
-    </div>
+    </>
+  )}
+</div>
   );
 }

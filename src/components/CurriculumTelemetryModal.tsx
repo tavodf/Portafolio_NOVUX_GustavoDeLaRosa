@@ -4,12 +4,125 @@ import {
   Activity, Award, Briefcase, Calculator, CheckCircle2, ChevronRight, 
   Clock, Cpu, Download, ExternalLink, FileText, Layers, ShieldCheck, 
   Sparkles, Terminal, TrendingUp, User, X, DollarSign, Send, MapPin, 
-  Database, RefreshCw, Gauge, PlaySquare, Video, ShieldAlert
+  Database, RefreshCw, Gauge, BarChart3, Layers2, Table2, LayoutGrid, CheckCircle
 } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
 import { getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
+import { VERIFIED_CREDENTIALS, CREDLY_PROFILE_URL, VerifiedCredential } from './CredentialsCarousel';
 
-type TabKey = 'TELEMETRY' | 'EXPERIENCE' | 'BADGES' | 'CALCULATOR';
+type TabKey = 'TELEMETRY' | 'PROJECTS_DASHBOARD' | 'EXPERIENCE' | 'BADGES' | 'CALCULATOR';
+
+interface ProjectTelemetryData {
+  id: string;
+  shortName: string;
+  fullName: string;
+  unitCode: string;
+  unitModel: string;
+  primaryColor: string;
+  secondaryColor: string;
+  conceptHours: number;
+  materializeHours: number;
+  totalHours: number;
+  efficiency: string;
+  efficiencyPct: number;
+  conceptDetails: string;
+  materializeDetails: string;
+  techStack: string[];
+  deliverable: string;
+}
+
+const PROJECTS_TELEMETRY: ProjectTelemetryData[] = [
+  {
+    id: 'COT',
+    shortName: 'NOVUX COT',
+    fullName: 'Tactical Digital Twin C2 // WebGL 2.0',
+    unitCode: 'EVA-00',
+    unitModel: 'PROTO-TYPE',
+    primaryColor: '#06B6D4',
+    secondaryColor: '#EAB308',
+    conceptHours: 64,
+    materializeHours: 176,
+    totalHours: 240,
+    efficiency: '+65% Entrega Ágil',
+    efficiencyPct: 65,
+    conceptDetails: 'Modelado geodésico submétrico Gauss-Haversine, cálculo de dispersión orbital y especificación de protocolos C2.',
+    materializeDetails: 'Motor 3D WebGL 2.0 con Three.js Engine a 60 FPS continuos, MapLibre GL y sellado criptográfico SHA-256.',
+    techStack: ['WebGL 2.0', 'Three.js 3D', 'Gauss-Haversine', 'MapLibre GL', 'Hash SHA-256'],
+    deliverable: 'Gemelo Digital 3D de comando en terreno con radar 360° y cadena de custodia incontestable.'
+  },
+  {
+    id: 'PCD',
+    shortName: 'NOVUX PCD',
+    fullName: 'Market Pricing Engine // Arbitraje de Precios',
+    unitCode: 'EVA-04',
+    unitModel: 'PRICING CORE',
+    primaryColor: '#D97706',
+    secondaryColor: '#94A3B8',
+    conceptHours: 42,
+    materializeHours: 118,
+    totalHours: 160,
+    efficiency: '+58% Reducción Time-to-Market',
+    efficiencyPct: 58,
+    conceptDetails: 'Formulación matemática de elasticidad de demanda, normalización dimensional unitaria ($/g, $/ml) y matching difuso.',
+    materializeDetails: 'Normalizador regex dimensional, auditoría paralela multi-nodo, simulador Buy-Box y ticker dinámico.',
+    techStack: ['Python Core', 'Regex Dimensional', 'Elasticidad Dinámica', 'Recharts Ticker'],
+    deliverable: 'Motor de arbitraje comercial B2B con optimización algorítmica de márgenes y Buy-Box.'
+  },
+  {
+    id: 'ARES',
+    shortName: 'ARES SCRAPER',
+    fullName: 'Resilient L7 Data Harvesting // Data Lakes',
+    unitCode: 'EVA-02',
+    unitModel: 'PRODUCTION MODEL',
+    primaryColor: '#EF4444',
+    secondaryColor: '#F59E0B',
+    conceptHours: 56,
+    materializeHours: 144,
+    totalHours: 200,
+    efficiency: '+61% Aceleración de Pipeline',
+    efficiencyPct: 61,
+    conceptDetails: 'Topología de recolección distribuida, contratos de datos fuertemente tipados en Pydantic y mitigación SSRF.',
+    materializeDetails: 'Parser nativo en lenguaje C (libxml2) en memoria RAM, Selenium Headless, Asyncio y FastAPI.',
+    techStack: ['Python Asíncrono', 'libxml2 en RAM', 'Pydantic', 'FastAPI', 'SLA 99.98%'],
+    deliverable: 'Infraestructura de extracción masiva de alta disponibilidad 24/7 y canalización a Data Lakes.'
+  },
+  {
+    id: 'CPC',
+    shortName: 'NOVUX CPC',
+    fullName: 'Political Intelligence // Kahn DAG',
+    unitCode: 'EVA-01',
+    unitModel: 'TEST TYPE',
+    primaryColor: '#7C3AED',
+    secondaryColor: '#10B981',
+    conceptHours: 52,
+    materializeHours: 128,
+    totalHours: 180,
+    efficiency: '+59% Eficiencia de Entrega',
+    efficiencyPct: 59,
+    conceptDetails: 'Modelado matemático de ordenación topológica Kahn DAG para resolución de dependencias legislativas.',
+    materializeDetails: 'Hemiciclo legislativo 3D (45 curules) en Three.js, conciliador algorítmico E-14 vs E-24 y FastAPI.',
+    techStack: ['Kahn DAG', 'Three.js 3D', 'FastAPI', 'Pandas Core', 'Forense E-14/E-24'],
+    deliverable: 'Plataforma de inteligencia regulatoria con hemiciclo tridimensional y trazabilidad de leyes.'
+  },
+  {
+    id: 'SANTAFE',
+    shortName: 'SANTA FE BI',
+    fullName: 'Comando Central Bogotá // Analítica Territorial',
+    unitCode: 'MAGI',
+    unitModel: 'TRI-SUPERCOMPUTER',
+    primaryColor: '#059669',
+    secondaryColor: '#3B82F6',
+    conceptHours: 78,
+    materializeHours: 202,
+    totalHours: 280,
+    efficiency: '+72% Ahorro de Tiempos',
+    efficiencyPct: 72,
+    conceptDetails: 'Arquitectura de entidad-relación geoespacial, polígonos UPZ de alta concurrencia y matrices de reporte territorial.',
+    materializeDetails: 'Pipelines ETL en Python para +131k registros territoriales, PostgreSQL/PostGIS y tableros Looker Studio.',
+    techStack: ['PostgreSQL', 'PostGIS', 'Python ETL', 'Looker Studio', 'Analítica Territorial'],
+    deliverable: 'Centro de Inteligencia Gubernamental con +131,000 registros y 245,000 m² de espacio público auditado.'
+  }
+];
 
 interface EvaArchitecture {
   id: 'DAG' | 'ETL' | 'C2' | 'BI' | 'PRICING';
@@ -90,6 +203,9 @@ const EVA_ARCHITECTURES: Record<string, EvaArchitecture> = {
 export function CurriculumTelemetryModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<TabKey>('TELEMETRY');
+  const [selectedProjectId, setSelectedProjectId] = useState<string>('COT');
+  const [badgeViewMode, setBadgeViewMode] = useState<'TABLE' | 'CARDS'>('TABLE');
+  const [badgeFilter, setBadgeFilter] = useState<'ALL' | 'IBM' | 'COURSERA' | 'MINTIC' | 'GOOGLE'>('ALL');
 
   // Estado de la Calculadora de Costeo de Software (Modelos EVA & CPC)
   const [calcType, setCalcType] = useState<'DAG' | 'ETL' | 'C2' | 'BI' | 'PRICING'>('DAG');
@@ -111,6 +227,12 @@ export function CurriculumTelemetryModal() {
     setActiveTab(tab);
   };
 
+  // Totales de la 5ª Pantalla: Dashboard de Proyectos
+  const totalConceptHours = PROJECTS_TELEMETRY.reduce((acc, p) => acc + p.conceptHours, 0);
+  const totalMaterializeHours = PROJECTS_TELEMETRY.reduce((acc, p) => acc + p.materializeHours, 0);
+  const totalCoreProjectsHours = totalConceptHours + totalMaterializeHours;
+  const activeProject = PROJECTS_TELEMETRY.find(p => p.id === selectedProjectId) || PROJECTS_TELEMETRY[0];
+
   // Cálculo Algorítmico del Modelo de Costeo EVA (Economic Value Added)
   const selectedArch = EVA_ARCHITECTURES[calcType];
   const totalCostCOP = Math.round(calcHours * selectedArch.basePerHour * calcComplexity);
@@ -131,51 +253,15 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
     );
   };
 
-  // Credenciales Verificadas y Badges Credly
-  const badgesList = [
-    {
-      title: 'Agile Explorer',
-      issuer: 'IBM SkillsBuild',
-      category: 'Metodologías Ágiles & Scrum',
-      credlyUrl: 'https://www.credly.com/users/gustavo-de-la-rosa.abf5f564/badges',
-      color: '#00f0ff'
-    },
-    {
-      title: 'Explore Emerging Tech',
-      issuer: 'IBM SkillsBuild',
-      category: 'Tecnologías Emergentes & Cloud',
-      credlyUrl: 'https://www.credly.com/users/gustavo-de-la-rosa.abf5f564/badges',
-      color: '#FFE066'
-    },
-    {
-      title: 'Cybersecurity Fundamentals',
-      issuer: 'IBM SkillsBuild',
-      category: 'Ciberseguridad Defensiva',
-      credlyUrl: 'https://www.credly.com/users/gustavo-de-la-rosa.abf5f564/badges',
-      color: '#10b981'
-    },
-    {
-      title: 'Web Development with Python',
-      issuer: 'IBM SkillsBuild',
-      category: 'Desarrollo Web & Backend',
-      credlyUrl: 'https://www.credly.com/users/gustavo-de-la-rosa.abf5f564/badges',
-      color: '#a855f7'
-    },
-    {
-      title: 'Python for Data Science & AI',
-      issuer: 'IBM / Coursera',
-      category: 'Ciencia de Datos & IA',
-      credlyUrl: 'https://www.credly.com/users/gustavo-de-la-rosa.abf5f564/badges',
-      color: '#00f0ff'
-    },
-    {
-      title: 'Programación en Python (50 Horas)',
-      issuer: 'MinTIC / Univ. Distrital FJC',
-      category: 'Certificación Académica Oficial',
-      credlyUrl: 'https://www.credly.com/users/gustavo-de-la-rosa.abf5f564/badges',
-      color: '#FFE066'
-    }
-  ];
+  // Credenciales Verificadas Oficiales (12 Certificaciones Credly / IBM / Coursera / MinTIC / Google)
+  const filteredCredentials = VERIFIED_CREDENTIALS.filter((item) => {
+    if (badgeFilter === 'ALL') return true;
+    if (badgeFilter === 'IBM') return item.type === 'IBM SkillsBuild';
+    if (badgeFilter === 'COURSERA') return item.type === 'Coursera';
+    if (badgeFilter === 'MINTIC') return item.type === 'MinTIC';
+    if (badgeFilter === 'GOOGLE') return item.type === 'Google';
+    return true;
+  });
 
   // Experiencia Demostrable en Alcaldía Local de Santa Fe (5 Contratos CPS)
   const contractsList = [
@@ -266,7 +352,7 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
       </div>
 
       {/* ========================================================================= */}
-      {/* MODAL COMPLETO: DASHBOARD TÁCTICO NERV C2 & MAGI SYSTEM                   */}
+      {/* MODAL COMPLETO: DASHBOARD TÁCTICO NERV C2 (5 PANTALLAS)                    */}
       {/* ========================================================================= */}
       <AnimatePresence>
         {isOpen && (
@@ -282,32 +368,28 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
               <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#00f0ff] pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#a855f7] pointer-events-none" />
 
-              {/* Cabecera Principal del Dashboard con HUD NERV / MAGI */}
+              {/* Cabecera Principal del Dashboard — CÉDULA COMPLETAMENTE ELIMINADA */}
               <div className="p-4 sm:p-6 border-b border-zinc-800 bg-[#0a0d18]/95 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-2 mb-1.5 flex-wrap">
                     <span className="px-2 py-0.5 rounded bg-[#00f0ff]/15 border border-[#00f0ff]/50 font-mono text-[10px] font-bold text-[#00f0ff] uppercase tracking-wider">
-                      NERV C2 TACTICAL HUD
+                      AUTOR &amp; DESARROLLADOR PRINCIPAL
                     </span>
                     <span className="px-2 py-0.5 rounded bg-emerald-950/70 border border-emerald-500/40 font-mono text-[10px] text-emerald-400 font-bold flex items-center gap-1 shadow-sm">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      MAGI SYNC RATE: 100%
+                      DISPONIBLE // BOGOTÁ D.C.
                     </span>
                     <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 font-mono text-[10px] text-zinc-400">
-                      PERIMETER: HARDENED A+
+                      MAGI SYNC RATE: 100%
                     </span>
                   </div>
 
                   <h1 className="text-xl sm:text-2xl font-serif font-bold text-white tracking-wide">
                     Gustavo Alberto De La Rosa Flórez
                   </h1>
-                  <div className="flex flex-wrap items-center gap-2 mt-0.5 text-xs font-mono">
-                    <span className="text-[#FFE066] font-semibold">
-                      Data &amp; Automation Analyst | Python Developer | AI Solutions Builder
-                    </span>
-                    <span className="text-zinc-600">•</span>
-                    <span className="text-zinc-400">C.C. 1.032.428.783 de Bogotá D.C.</span>
-                  </div>
+                  <p className="text-xs sm:text-sm text-[#FFE066] font-mono font-medium mt-0.5">
+                    Data &amp; Automation Analyst | Python Developer | AI Solutions Builder
+                  </p>
                   <p className="text-[11px] text-zinc-400 font-sans italic mt-1">
                     * Perfil validado mediante certificaciones técnicas internacionales y experiencia contractual demostrable en el sector público.
                   </p>
@@ -322,58 +404,70 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
                 </button>
               </div>
 
-              {/* Barra de Navegación de las 4 Pestañas */}
-              <div className="flex border-b border-zinc-800 bg-[#05060b] px-4 overflow-x-auto scrollbar-none gap-2">
+              {/* Barra de Navegación Canónica de las 5 Pestañas */}
+              <div className="flex border-b border-zinc-800 bg-[#05060b] px-2 sm:px-4 overflow-x-auto scrollbar-none gap-1 sm:gap-2">
                 <button
                   onClick={() => handleTabChange('TELEMETRY')}
-                  className={`py-3 px-4 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-all cursor-pointer whitespace-nowrap ${
+                  className={`py-2.5 px-2.5 sm:px-3 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                     activeTab === 'TELEMETRY'
                       ? 'border-[#00f0ff] text-[#00f0ff] bg-[#00f0ff]/10'
                       : 'border-transparent text-zinc-400 hover:text-zinc-200'
                   }`}
                 >
-                  <Cpu size={14} />
-                  <span>1. Telemetría &amp; Stack</span>
+                  <Cpu size={14} className="shrink-0" />
+                  <span>⚙️ 1. <span className="hidden md:inline">Telemetría &amp; </span>Stack</span>
+                </button>
+
+                <button
+                  onClick={() => handleTabChange('PROJECTS_DASHBOARD')}
+                  className={`py-2.5 px-2.5 sm:px-3 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
+                    activeTab === 'PROJECTS_DASHBOARD'
+                      ? 'border-[#38bdf8] text-[#38bdf8] bg-[#38bdf8]/10'
+                      : 'border-transparent text-zinc-400 hover:text-zinc-200'
+                  }`}
+                >
+                  <BarChart3 size={14} className="shrink-0" />
+                  <span>📊 2. <span className="hidden md:inline">Dashboard </span>5 Paneles</span>
                 </button>
 
                 <button
                   onClick={() => handleTabChange('EXPERIENCE')}
-                  className={`py-3 px-4 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-all cursor-pointer whitespace-nowrap ${
+                  className={`py-2.5 px-2.5 sm:px-3 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                     activeTab === 'EXPERIENCE'
                       ? 'border-[#FFE066] text-[#FFE066] bg-[#FFE066]/10'
                       : 'border-transparent text-zinc-400 hover:text-zinc-200'
                   }`}
                 >
-                  <Briefcase size={14} />
-                  <span>2. Experiencia (Santa Fe)</span>
+                  <Briefcase size={14} className="shrink-0" />
+                  <span>🏛️ 3. <span className="hidden md:inline">Exp. </span>Santa Fe</span>
                 </button>
 
                 <button
                   onClick={() => handleTabChange('BADGES')}
-                  className={`py-3 px-4 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-all cursor-pointer whitespace-nowrap ${
+                  className={`py-2.5 px-2.5 sm:px-3 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                     activeTab === 'BADGES'
                       ? 'border-[#a855f7] text-[#a855f7] bg-[#a855f7]/10'
                       : 'border-transparent text-zinc-400 hover:text-zinc-200'
                   }`}
                 >
-                  <Award size={14} />
-                  <span>3. Insignias &amp; Credly</span>
+                  <Award size={14} className="shrink-0" />
+                  <span>🎖️ 4. Certificaciones</span>
                 </button>
 
                 <button
                   onClick={() => handleTabChange('CALCULATOR')}
-                  className={`py-3 px-4 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 border-b-2 transition-all cursor-pointer whitespace-nowrap ${
+                  className={`py-2.5 px-2.5 sm:px-3 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap shrink-0 ${
                     activeTab === 'CALCULATOR'
                       ? 'border-[#10b981] text-[#10b981] bg-[#10b981]/10'
                       : 'border-transparent text-zinc-400 hover:text-zinc-200'
                   }`}
                 >
-                  <Calculator size={14} />
-                  <span>4. Modelos EVA (MAGI C2)</span>
+                  <Calculator size={14} className="shrink-0" />
+                  <span>🧮 5. <span className="hidden md:inline">Costeo </span>EVA</span>
                 </button>
               </div>
 
-              {/* Contenido Dinámico de las Pestañas */}
+              {/* Contenido Dinámico de las 5 Pestañas */}
               <div className="p-4 sm:p-6 overflow-y-auto flex-1 font-sans space-y-6">
 
                 {/* ================================================================= */}
@@ -417,45 +511,6 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
                         <p className="text-[11px] text-zinc-300 mt-1">
                           Algoritmo de asignación y despacho coordinado simultáneo en territorio.
                         </p>
-                      </div>
-                    </div>
-
-                    {/* NUEVO PANEL TÁCTICO: TIEMPOS DE CONCEPTUALIZACIÓN VS. MATERIALIZACIÓN */}
-                    <div className="p-4 rounded-lg bg-[#080914] border border-[#00f0ff]/30 text-left space-y-3">
-                      <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-                        <h4 className="font-mono text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                          <Gauge size={14} className="text-[#00f0ff]" />
-                          <span>Telemetría de Ciclo de Vida: Conceptualización vs. Materialización</span>
-                        </h4>
-                        <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/70 border border-emerald-500/40 px-2 py-0.5 rounded">
-                          SPEEDUP: ~60% ACELERACIÓN
-                        </span>
-                      </div>
-
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 font-mono text-xs">
-                        <div className="p-3 rounded bg-black/60 border border-zinc-800">
-                          <span className="text-zinc-500 block text-[9.5px]">SPRINT CONCEPTUAL / MODELADO:</span>
-                          <strong className="text-[#FFE066] text-base block mt-0.5">48 Horas</strong>
-                          <span className="text-zinc-400 text-[10px] block mt-0.5">
-                            Diseño de DAGs, esquemas Pydantic y blueprints de microservicios.
-                          </span>
-                        </div>
-
-                        <div className="p-3 rounded bg-black/60 border border-zinc-800">
-                          <span className="text-zinc-500 block text-[9.5px]">MATERIALIZACIÓN A PRODUCCIÓN:</span>
-                          <strong className="text-[#00f0ff] text-base block mt-0.5">120 Horas</strong>
-                          <span className="text-zinc-400 text-[10px] block mt-0.5">
-                            Pipelines ETL, WebGL 2.0 (60 FPS) y hardening bancario A+.
-                          </span>
-                        </div>
-
-                        <div className="p-3 rounded bg-black/60 border border-zinc-800">
-                          <span className="text-zinc-500 block text-[9.5px]">MOTOR MULTIMEDIA / YOUTUBE:</span>
-                          <strong className="text-[#10b981] text-base block mt-0.5">+131k Nodos</strong>
-                          <span className="text-zinc-400 text-[10px] block mt-0.5">
-                            Telemetría continua, streaming multicanal y sincronización WebGL.
-                          </span>
-                        </div>
                       </div>
                     </div>
 
@@ -540,7 +595,215 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
                 )}
 
                 {/* ================================================================= */}
-                {/* PESTAÑA 2: EXPERIENCIA DEMOSTRABLE (ALCALDÍA LOCAL SANTA FE)       */}
+                {/* PESTAÑA 2: DASHBOARD DE PROYECTOS (TELEMETRÍA 5 PANELES NERV/MAGI)*/}
+                {/* ================================================================= */}
+                {activeTab === 'PROJECTS_DASHBOARD' && (
+                  <div className="space-y-6 animate-in fade-in duration-200 text-left">
+                    {/* Header del Dashboard Táctico */}
+                    <div className="p-4 rounded-lg bg-[#070914] border border-[#38bdf8]/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                      <div>
+                        <div className="flex items-center gap-2 mb-1">
+                          <BarChart3 size={15} className="text-[#38bdf8]" />
+                          <h3 className="font-mono text-xs font-bold text-[#38bdf8] uppercase tracking-wider">
+                            NERV C2 // DASHBOARD DE TELEMETRÍA TEMPORAL (5 UNIDADES CORE)
+                          </h3>
+                        </div>
+                        <p className="text-xs text-zinc-300 font-sans leading-relaxed">
+                          Registro comparativo de horas de <b>Conceptualización Lógica</b> vs. <b>Materialización en Código</b> desplegadas a lo largo de las 5 arquitecturas propietarias NOVUX.
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-2 shrink-0 font-mono text-[10.5px]">
+                        <span className="bg-emerald-950/70 border border-emerald-500/40 text-emerald-400 px-2 py-1 rounded font-bold">
+                          CONSENSO MAGI: 100%
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Resumen Superior de Indicadores KPI */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 font-mono">
+                      <div className="p-3 rounded bg-black/70 border border-zinc-800">
+                        <span className="text-[9.5px] text-zinc-500 block uppercase">TOTAL HORAS CORE:</span>
+                        <strong className="text-white text-lg font-bold block mt-0.5">{totalCoreProjectsHours} h</strong>
+                        <span className="text-[9.5px] text-zinc-400">5 Proyectos Insignia</span>
+                      </div>
+
+                      <div className="p-3 rounded bg-black/70 border border-zinc-800">
+                        <span className="text-[9.5px] text-[#FFE066] block uppercase">CONCEPTUALIZACIÓN:</span>
+                        <strong className="text-[#FFE066] text-lg font-bold block mt-0.5">{totalConceptHours} h</strong>
+                        <span className="text-[9.5px] text-zinc-400">27.5% Arquitectura Lógica</span>
+                      </div>
+
+                      <div className="p-3 rounded bg-black/70 border border-zinc-800">
+                        <span className="text-[9.5px] text-[#00f0ff] block uppercase">MATERIALIZACIÓN:</span>
+                        <strong className="text-[#00f0ff] text-lg font-bold block mt-0.5">{totalMaterializeHours} h</strong>
+                        <span className="text-[9.5px] text-zinc-400">72.5% Código &amp; Hardening</span>
+                      </div>
+
+                      <div className="p-3 rounded bg-black/70 border border-zinc-800">
+                        <span className="text-[9.5px] text-emerald-400 block uppercase">EFICIENCIA GLOBAL:</span>
+                        <strong className="text-emerald-400 text-lg font-bold block mt-0.5">+63.4%</strong>
+                        <span className="text-[9.5px] text-zinc-400">Aceleración Time-to-Market</span>
+                      </div>
+                    </div>
+
+                    {/* GRÁFICA COMPARATIVA TÁCTICA CENTRAL (BARRAS APILADAS NERV / MAGI) */}
+                    <div className="p-4 rounded-lg bg-[#070912] border border-zinc-800 relative overflow-hidden">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800/80 pb-2 mb-4 font-mono text-xs">
+                        <span className="text-white font-bold flex items-center gap-1.5">
+                          <Layers2 size={13} className="text-[#38bdf8]" />
+                          <span>DISTRIBUCIÓN DE HORAS POR UNIDAD: CONCEPTUALIZACIÓN VS. MATERIALIZACIÓN</span>
+                        </span>
+                        <div className="flex items-center gap-3 text-[10px]">
+                          <span className="flex items-center gap-1 text-[#FFE066]">
+                            <span className="w-2.5 h-2.5 rounded-sm bg-[#FFE066]/80" />
+                            <span>Conceptualización</span>
+                          </span>
+                          <span className="flex items-center gap-1 text-[#00f0ff]">
+                            <span className="w-2.5 h-2.5 rounded-sm bg-[#00f0ff]/80" />
+                            <span>Materialización</span>
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Visualizador de Barras Horizontales Tácticas */}
+                      <div className="space-y-3 font-mono">
+                        {PROJECTS_TELEMETRY.map((p) => {
+                          const isSelected = selectedProjectId === p.id;
+                          const maxHours = 280; // Escala máxima
+                          const conceptWidthPct = (p.conceptHours / maxHours) * 100;
+                          const materializeWidthPct = (p.materializeHours / maxHours) * 100;
+                          const totalPct = ((p.totalHours / maxHours) * 100).toFixed(0);
+
+                          return (
+                            <div 
+                              key={p.id}
+                              onClick={() => {
+                                sfx.playSelect();
+                                setSelectedProjectId(p.id);
+                              }}
+                              className={`p-2.5 rounded transition-all cursor-pointer border ${
+                                isSelected 
+                                  ? 'bg-[#0e1224] border-[#38bdf8] shadow-[0_0_20px_rgba(56,189,248,0.2)]' 
+                                  : 'bg-black/50 border-zinc-900 hover:border-zinc-700'
+                              }`}
+                            >
+                              <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs mb-1.5 gap-1">
+                                <div className="flex items-center gap-2">
+                                  <span 
+                                    className="px-1.5 py-0.2 rounded text-[10px] font-bold border"
+                                    style={{
+                                      color: p.primaryColor,
+                                      borderColor: `${p.primaryColor}50`,
+                                      backgroundColor: `${p.primaryColor}15`
+                                    }}
+                                  >
+                                    {p.unitCode}
+                                  </span>
+                                  <span className={`font-bold ${isSelected ? 'text-white' : 'text-zinc-300'}`}>
+                                    {p.shortName}
+                                  </span>
+                                  <span className="text-[10px] text-zinc-500 hidden md:inline">
+                                    — {p.fullName}
+                                  </span>
+                                </div>
+
+                                <div className="flex items-center gap-3 text-[10px] text-zinc-400">
+                                  <span>Concept: <b className="text-[#FFE066]">{p.conceptHours}h</b></span>
+                                  <span>Code: <b className="text-[#00f0ff]">{p.materializeHours}h</b></span>
+                                  <span className="text-white font-bold">Total: {p.totalHours}h</span>
+                                  <span className="text-emerald-400 font-bold bg-emerald-950/60 px-1.5 py-0.2 rounded border border-emerald-500/30">
+                                    {p.efficiency}
+                                  </span>
+                                </div>
+                              </div>
+
+                              {/* Barra Apilada Visual */}
+                              <div className="w-full h-3 bg-zinc-950 rounded overflow-hidden flex border border-zinc-800">
+                                <div 
+                                  style={{ width: `${conceptWidthPct}%` }}
+                                  className="h-full bg-gradient-to-r from-amber-500 to-amber-400 transition-all duration-500"
+                                  title={`Conceptualización: ${p.conceptHours}h`}
+                                />
+                                <div 
+                                  style={{ 
+                                    width: `${materializeWidthPct}%`,
+                                    backgroundColor: p.primaryColor
+                                  }}
+                                  className="h-full opacity-90 transition-all duration-500"
+                                  title={`Materialización: ${p.materializeHours}h`}
+                                />
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* SELECTOR Y PANEL DE DETALLE DE LA UNIDAD ACTIVA */}
+                    <div className="p-4 rounded-lg bg-[#070914] border border-zinc-800 text-left space-y-4">
+                      <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
+                        <div className="flex items-center gap-2">
+                          <span 
+                            className="font-mono text-xs font-bold px-2 py-0.5 rounded border"
+                            style={{
+                              color: activeProject.primaryColor,
+                              borderColor: `${activeProject.primaryColor}50`,
+                              backgroundColor: `${activeProject.primaryColor}15`
+                            }}
+                          >
+                            {activeProject.unitCode} // {activeProject.unitModel}
+                          </span>
+                          <h4 className="font-serif text-sm font-bold text-white">
+                            {activeProject.shortName}: {activeProject.fullName}
+                          </h4>
+                        </div>
+                        <span className="font-mono text-[10px] text-emerald-400 font-bold bg-emerald-950/70 border border-emerald-500/40 px-2 py-0.5 rounded">
+                          {activeProject.efficiency}
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 font-sans text-xs">
+                        <div className="p-3 rounded bg-black/60 border border-zinc-800">
+                          <span className="font-mono text-[10px] text-[#FFE066] font-bold block mb-1">
+                            FASE 1: CONCEPTUALIZACIÓN LÓGICA ({activeProject.conceptHours} Horas)
+                          </span>
+                          <p className="text-zinc-300 leading-relaxed">
+                            {activeProject.conceptDetails}
+                          </p>
+                        </div>
+
+                        <div className="p-3 rounded bg-black/60 border border-zinc-800">
+                          <span className="font-mono text-[10px] text-[#00f0ff] font-bold block mb-1">
+                            FASE 2: MATERIALIZACIÓN &amp; HARDENING ({activeProject.materializeHours} Horas)
+                          </span>
+                          <p className="text-zinc-300 leading-relaxed">
+                            {activeProject.materializeDetails}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="p-3 rounded bg-black/60 border border-zinc-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-mono text-xs">
+                        <div>
+                          <span className="text-[10px] text-zinc-500 block uppercase mb-1">ENTREGABLE VALIDADO EN PRODUCCIÓN:</span>
+                          <span className="text-zinc-200 font-sans font-medium">
+                            {activeProject.deliverable}
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap gap-1 shrink-0">
+                          {activeProject.techStack.map((tech, tIdx) => (
+                            <span key={tIdx} className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-[10px] text-zinc-300 font-mono">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* ================================================================= */}
+                {/* PESTAÑA 3: EXPERIENCIA DEMOSTRABLE (ALCALDÍA LOCAL SANTA FE)       */}
                 {/* ================================================================= */}
                 {activeTab === 'EXPERIENCE' && (
                   <div className="space-y-6 animate-in fade-in duration-200 text-left">
@@ -596,66 +859,226 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
                 )}
 
                 {/* ================================================================= */}
-                {/* PESTAÑA 3: INSIGNIAS Y CREDENCIALES VERIFICADAS (CREDLY / IBM)     */}
+                {/* PESTAÑA 4: CERTIFICACIONES TÉCNICAS OFICIALES (CREDLY / NERV)      */}
                 {/* ================================================================= */}
                 {activeTab === 'BADGES' && (
-                  <div className="space-y-6 animate-in fade-in duration-200 text-left">
-                    <div className="p-4 rounded-lg bg-[#0e101a] border border-[#a855f7]/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <div className="space-y-4 animate-in fade-in duration-200 text-left">
+                    {/* Header Oficial Verificado */}
+                    <div className="p-4 rounded-lg bg-[#0e101a] border border-[#a855f7]/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
                       <div>
-                        <h3 className="text-xs font-mono font-bold text-[#a855f7] uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                          <Award size={14} />
-                          <span>Perfil Oficial Verificado en Credly</span>
-                        </h3>
-                        <p className="text-xs text-zinc-300 font-sans">
-                          Insignias digitales emitidas por IBM SkillsBuild, MinTIC y entidades acreditadas globales.
+                        <div className="flex items-center gap-2 mb-1">
+                          <Award size={16} className="text-[#a855f7]" />
+                          <h3 className="text-xs font-mono font-bold text-white uppercase tracking-wider">
+                            TABLA AUDITABLE DE CERTIFICACIONES TÉCNICAS
+                          </h3>
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/70 border border-emerald-500/40 text-emerald-400 font-bold">
+                            12 / 12 VERIFICADAS
+                          </span>
+                        </div>
+                        <p className="text-xs text-zinc-300 font-sans leading-relaxed">
+                          Acreditaciones oficiales emitidas por IBM SkillsBuild, Coursera • IBM, MinTIC / Univ. Distrital y Google, con validación directa en Credly.
                         </p>
                       </div>
 
-                      <a
-                        href="https://www.credly.com/users/gustavo-de-la-rosa.abf5f564/badges"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => sfx.playClick()}
-                        className="px-3.5 py-1.5 rounded bg-[#a855f7]/20 hover:bg-[#a855f7]/40 border border-[#a855f7]/60 text-white font-mono text-xs font-bold flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(168,85,247,0.3)] shrink-0 cursor-pointer no-underline"
-                      >
-                        <span>Ver Perfil Credly</span>
-                        <ExternalLink size={12} />
-                      </a>
+                      <div className="flex items-center gap-2 shrink-0">
+                        {/* Selector de Modo: Tabla vs Tarjetas */}
+                        <div className="flex rounded bg-black/80 border border-zinc-800 p-0.5 font-mono text-[11px]">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              sfx.playSelect();
+                              setBadgeViewMode('TABLE');
+                            }}
+                            className={`px-2.5 py-1 rounded flex items-center gap-1.5 transition-colors cursor-pointer ${
+                              badgeViewMode === 'TABLE'
+                                ? 'bg-[#a855f7] text-white font-bold shadow-sm'
+                                : 'text-zinc-400 hover:text-white'
+                            }`}
+                          >
+                            <Table2 size={12} />
+                            <span>Tabla</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              sfx.playSelect();
+                              setBadgeViewMode('CARDS');
+                            }}
+                            className={`px-2.5 py-1 rounded flex items-center gap-1.5 transition-colors cursor-pointer ${
+                              badgeViewMode === 'CARDS'
+                                ? 'bg-[#a855f7] text-white font-bold shadow-sm'
+                                : 'text-zinc-400 hover:text-white'
+                            }`}
+                          >
+                            <LayoutGrid size={12} />
+                            <span>Tarjetas</span>
+                          </button>
+                        </div>
+
+                        <a
+                          href={CREDLY_PROFILE_URL}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => sfx.playClick()}
+                          className="px-3 py-1.5 rounded bg-[#a855f7]/20 hover:bg-[#a855f7]/40 border border-[#a855f7]/60 text-white font-mono text-xs font-bold flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(168,85,247,0.3)] shrink-0 cursor-pointer no-underline"
+                        >
+                          <span>Perfil Credly</span>
+                          <ExternalLink size={12} />
+                        </a>
+                      </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                      {badgesList.map((badge, idx) => (
-                        <div 
-                          key={idx}
-                          className="p-4 rounded-lg bg-black/60 border border-zinc-800 hover:border-[#a855f7]/60 transition-all flex flex-col justify-between text-left"
+                    {/* Filtros por Emisor */}
+                    <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none font-mono text-[10.5px]">
+                      <span className="text-zinc-500 uppercase text-[10px] mr-1 hidden sm:inline">FILTRO:</span>
+                      {[
+                        { key: 'ALL', label: `TODAS (${VERIFIED_CREDENTIALS.length})` },
+                        { key: 'IBM', label: `IBM SKILLSBUILD (4)` },
+                        { key: 'COURSERA', label: `COURSERA • IBM (6)` },
+                        { key: 'MINTIC', label: `MINTIC 50H (1)` },
+                        { key: 'GOOGLE', label: `GOOGLE AI (1)` }
+                      ].map((f) => (
+                        <button
+                          key={f.key}
+                          type="button"
+                          onClick={() => {
+                            sfx.playSelect();
+                            setBadgeFilter(f.key as any);
+                          }}
+                          className={`px-2.5 py-1 rounded transition-colors whitespace-nowrap cursor-pointer border ${
+                            badgeFilter === f.key
+                              ? 'bg-[#a855f7]/20 border-[#a855f7] text-[#a855f7] font-bold'
+                              : 'bg-black/40 border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700'
+                          }`}
                         >
-                          <div>
-                            <div className="flex items-center justify-between gap-1 mb-1.5">
-                              <span className="text-[10px] font-mono text-zinc-400 truncate">
-                                {badge.issuer}
-                              </span>
-                              <CheckCircle2 size={12} className="text-emerald-400 shrink-0" />
-                            </div>
-                            <h4 className="font-serif text-sm font-bold text-white mb-1 leading-snug">
-                              {badge.title}
-                            </h4>
-                            <p className="text-[11px] text-zinc-400 font-sans">
-                              {badge.category}
-                            </p>
-                          </div>
-
-                          <div className="mt-3 pt-2 border-t border-zinc-900 flex items-center justify-between text-[10px] font-mono text-[#a855f7]">
-                            <span>ESTADO: VERIFICADO</span>
-                            <span className="text-zinc-600">✓ NATIVO</span>
-                          </div>
-                        </div>
+                          {f.label}
+                        </button>
                       ))}
                     </div>
+
+                    {/* VISTA 1: TABLA TÁCTICA AUDITABLE NERV / MAGI */}
+                    {badgeViewMode === 'TABLE' && (
+                      <div className="overflow-x-auto rounded-lg border border-zinc-800 bg-[#070912]">
+                        <table className="w-full text-left font-mono text-xs">
+                          <thead className="bg-[#0e1222] border-b border-zinc-800 text-[10px] text-zinc-400 uppercase tracking-wider">
+                            <tr>
+                              <th className="py-2.5 px-3 w-12 text-center">#</th>
+                              <th className="py-2.5 px-3 min-w-[210px]">Certificación Oficial</th>
+                              <th className="py-2.5 px-3 min-w-[130px]">Institución Emisora</th>
+                              <th className="py-2.5 px-3 min-w-[130px]">Especialidad</th>
+                              <th className="py-2.5 px-3 min-w-[85px]">Fecha</th>
+                              <th className="py-2.5 px-3 text-right min-w-[100px]">Validación</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-zinc-800/60">
+                            {filteredCredentials.map((c, idx) => (
+                              <tr 
+                                key={c.id} 
+                                className="hover:bg-white/[0.03] transition-colors group"
+                              >
+                                <td className="py-2.5 px-3 text-center text-zinc-500 text-[11px]">
+                                  {String(idx + 1).padStart(2, '0')}
+                                </td>
+                                <td className="py-2.5 px-3">
+                                  <div className="font-bold text-white group-hover:text-[#a855f7] transition-colors">
+                                    {c.name}
+                                  </div>
+                                  <div className="flex flex-wrap gap-1 mt-1">
+                                    {c.skills.slice(0, 3).map((skill, sIdx) => (
+                                      <span 
+                                        key={sIdx} 
+                                        className="text-[9px] px-1.5 py-0.2 rounded bg-black/60 border border-zinc-800 text-zinc-400"
+                                      >
+                                        {skill}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </td>
+                                <td className="py-2.5 px-3">
+                                  <span className="text-[11px] font-medium text-zinc-300">
+                                    {c.issuer}
+                                  </span>
+                                </td>
+                                <td className="py-2.5 px-3">
+                                  <span className="text-[9.5px] font-bold px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">
+                                    {c.category}
+                                  </span>
+                                </td>
+                                <td className="py-2.5 px-3 text-zinc-400 text-[11px] whitespace-nowrap">
+                                  {c.issueDate}
+                                </td>
+                                <td className="py-2.5 px-3 text-right whitespace-nowrap">
+                                  <a
+                                    href={c.credlyUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={() => sfx.playClick()}
+                                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#a855f7]/10 hover:bg-[#a855f7]/30 border border-[#a855f7]/40 text-[#a855f7] hover:text-white text-[10px] font-bold transition-all cursor-pointer no-underline"
+                                  >
+                                    <CheckCircle2 size={11} className="text-emerald-400" />
+                                    <span>Verificar</span>
+                                    <ExternalLink size={9} />
+                                  </a>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+
+                    {/* VISTA 2: TARJETAS EN CUADRÍCULA */}
+                    {badgeViewMode === 'CARDS' && (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                        {filteredCredentials.map((item) => (
+                          <div 
+                            key={item.id}
+                            className="p-4 rounded-lg bg-black/60 border border-zinc-800 hover:border-[#a855f7]/60 transition-all flex flex-col justify-between text-left"
+                          >
+                            <div>
+                              <div className="flex items-center justify-between gap-1 mb-1.5">
+                                <span className="text-[10px] font-mono text-zinc-400 truncate">
+                                  {item.issuer}
+                                </span>
+                                <CheckCircle2 size={12} className="text-emerald-400 shrink-0" />
+                              </div>
+                              <h4 className="font-serif text-sm font-bold text-white mb-1 leading-snug">
+                                {item.name}
+                              </h4>
+                              <p className="text-[11px] text-[#FFE066] font-mono mb-2">
+                                {item.category}
+                              </p>
+                              <div className="flex flex-wrap gap-1 mb-2">
+                                {item.skills.slice(0, 3).map((s, sIdx) => (
+                                  <span key={sIdx} className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">
+                                    {s}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="mt-2 pt-2 border-t border-zinc-900 flex items-center justify-between text-[10px] font-mono">
+                              <span className="text-zinc-500">{item.issueDate}</span>
+                              <a
+                                href={item.credlyUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => sfx.playClick()}
+                                className="text-[#a855f7] hover:underline flex items-center gap-1 font-bold no-underline"
+                              >
+                                <span>Credly</span>
+                                <ExternalLink size={9} />
+                              </a>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
 
                 {/* ================================================================= */}
-                {/* PESTAÑA 4: MODELOS EVA & CALCULADORA DE COSTEO (NERV / MAGI C2)   */}
+                {/* PESTAÑA 5: MODELOS EVA & CALCULADORA DE COSTEO (NERV / MAGI C2)   */}
                 {/* ================================================================= */}
                 {activeTab === 'CALCULATOR' && (
                   <div className="space-y-6 animate-in fade-in duration-200 text-left">
