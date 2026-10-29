@@ -93,7 +93,7 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                     ? 'bg-[#C5A059] text-black border-[#FFE066] font-bold shadow-[0_0_20px_rgba(197,160,89,0.5)] scale-102'
                     : 'bg-[#0a0a0f]/90 text-zinc-300 border-zinc-800 hover:border-[#C5A059]/60 hover:text-white'
                 }`}
-                title={s.heading}
+                title={s.derivedServiceTitle || s.shortIdentifier || s.categoryTitle}
               >
                 <span className={`w-1.5 h-1.5 rounded-full ${isActive ? 'bg-black animate-ping' : 'bg-[#C5A059]'}`} />
                 <span>{label}</span>
@@ -172,10 +172,6 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                       CASO DE ÉXITO
                     </span>
                   </div>
-
-                  <h2 className="text-left text-base sm:text-lg tracking-wide font-serif mb-2 font-bold text-zinc-100 group-hover:text-[#FFE066] transition-colors line-clamp-2">
-                    {service.heading.replace(/^CASE-[^/]+\/\/\s*/, '')}
-                  </h2>
 
                   {/* Vista Previa Visual Real de la Aplicación */}
                   <div
