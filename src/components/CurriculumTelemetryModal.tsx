@@ -4,7 +4,8 @@ import {
   Activity, Award, Briefcase, Calculator, CheckCircle2, ChevronRight, 
   Clock, Cpu, Download, ExternalLink, FileText, Layers, ShieldCheck, 
   Sparkles, Terminal, TrendingUp, User, X, DollarSign, Send, MapPin, 
-  Database, RefreshCw, Gauge, BarChart3, Layers2, Table2, LayoutGrid, CheckCircle
+  Database, RefreshCw, Gauge, BarChart3, Layers2, Table2, LayoutGrid, CheckCircle,
+  Users, Target, Zap, ArrowRight, ShieldAlert
 } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
 import { getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
@@ -14,17 +15,15 @@ type TabKey = 'TELEMETRY' | 'PROJECTS_DASHBOARD' | 'EXPERIENCE' | 'BADGES' | 'CA
 
 interface ProjectTelemetryData {
   id: string;
+  tag: string;
   shortName: string;
   fullName: string;
-  unitCode: string;
-  unitModel: string;
   primaryColor: string;
   secondaryColor: string;
   conceptHours: number;
   materializeHours: number;
   totalHours: number;
-  efficiency: string;
-  efficiencyPct: number;
+  badgeEfficiency: string;
   conceptDetails: string;
   materializeDetails: string;
   techStack: string[];
@@ -34,171 +33,169 @@ interface ProjectTelemetryData {
 const PROJECTS_TELEMETRY: ProjectTelemetryData[] = [
   {
     id: 'COT',
+    tag: 'COT',
     shortName: 'NOVUX COT',
-    fullName: 'Tactical Digital Twin C2 // WebGL 2.0',
-    unitCode: 'EVA-00',
-    unitModel: 'PROTO-TYPE',
-    primaryColor: '#06B6D4',
-    secondaryColor: '#EAB308',
-    conceptHours: 64,
-    materializeHours: 176,
-    totalHours: 240,
-    efficiency: '+65% Entrega Ágil',
-    efficiencyPct: 65,
-    conceptDetails: 'Modelado geodésico submétrico Gauss-Haversine, cálculo de dispersión orbital y especificación de protocolos C2.',
-    materializeDetails: 'Motor 3D WebGL 2.0 con Three.js Engine a 60 FPS continuos, MapLibre GL y sellado criptográfico SHA-256.',
+    fullName: 'Tactical Digital Twin C2 // WebGL 2.0 (demo-c2.novuxops.com)',
+    primaryColor: '#00F0FF',
+    secondaryColor: '#38BDF8',
+    conceptHours: 68,
+    materializeHours: 182,
+    totalHours: 250,
+    badgeEfficiency: '+66% Entrega Ágil (1.09M Tokens)',
+    conceptDetails: 'Modelado geodésico submétrico Gauss-Haversine, cálculo de dispersión orbital y protocolos C2.',
+    materializeDetails: 'Motor 3D WebGL 2.0 con Three.js Engine a 60 FPS GPU continuos, MapLibre GL y sellado criptográfico SHA-256.',
     techStack: ['WebGL 2.0', 'Three.js 3D', 'Gauss-Haversine', 'MapLibre GL', 'Hash SHA-256'],
-    deliverable: 'Gemelo Digital 3D de comando en terreno con radar 360° y cadena de custodia incontestable.'
+    deliverable: 'Gemelo Digital 3D de comando en terreno con radar 360°, geoposicionamiento submétrico y cadena de custodia criptográfica.'
   },
   {
     id: 'PCD',
+    tag: 'PCD',
     shortName: 'NOVUX PCD',
-    fullName: 'Market Pricing Engine // Arbitraje de Precios',
-    unitCode: 'EVA-04',
-    unitModel: 'PRICING CORE',
-    primaryColor: '#D97706',
-    secondaryColor: '#94A3B8',
-    conceptHours: 42,
-    materializeHours: 118,
-    totalHours: 160,
-    efficiency: '+58% Reducción Time-to-Market',
-    efficiencyPct: 58,
-    conceptDetails: 'Formulación matemática de elasticidad de demanda, normalización dimensional unitaria ($/g, $/ml) y matching difuso.',
-    materializeDetails: 'Normalizador regex dimensional, auditoría paralela multi-nodo, simulador Buy-Box y ticker dinámico.',
+    fullName: 'Market Pricing & Trading Terminal (Adidas, Dafiti, Falabella, Éxito)',
+    primaryColor: '#F59E0B',
+    secondaryColor: '#D97706',
+    conceptHours: 52,
+    materializeHours: 138,
+    totalHours: 190,
+    badgeEfficiency: '+61% Reducción Time-to-Market',
+    conceptDetails: 'Formulación matemática de elasticidad de demanda, normalización unitaria dimensional ($/g, $/ml) y matching difuso.',
+    materializeDetails: 'Normalizador regex dimensional, auditoría paralela multi-nodo, simulador Buy-Box y ticker dinámico en Recharts.',
     techStack: ['Python Core', 'Regex Dimensional', 'Elasticidad Dinámica', 'Recharts Ticker'],
-    deliverable: 'Motor de arbitraje comercial B2B con optimización algorítmica de márgenes y Buy-Box.'
+    deliverable: 'Motor de arbitraje comercial B2B con normalización unitaria y optimización algorítmica de márgenes y Buy-Box.'
   },
   {
     id: 'ARES',
+    tag: 'ARES',
     shortName: 'ARES SCRAPER',
-    fullName: 'Resilient L7 Data Harvesting // Data Lakes',
-    unitCode: 'EVA-02',
-    unitModel: 'PRODUCTION MODEL',
+    fullName: 'Resilient L7 Data Harvesting // Paper NOVUX-ENG-001',
     primaryColor: '#EF4444',
-    secondaryColor: '#F59E0B',
-    conceptHours: 56,
-    materializeHours: 144,
-    totalHours: 200,
-    efficiency: '+61% Aceleración de Pipeline',
-    efficiencyPct: 61,
-    conceptDetails: 'Topología de recolección distribuida, contratos de datos fuertemente tipados en Pydantic y mitigación SSRF.',
-    materializeDetails: 'Parser nativo en lenguaje C (libxml2) en memoria RAM, Selenium Headless, Asyncio y FastAPI.',
+    secondaryColor: '#DC2626',
+    conceptHours: 58,
+    materializeHours: 152,
+    totalHours: 210,
+    badgeEfficiency: '+63% Aceleración Pipeline',
+    conceptDetails: 'Topología de recolección distribuida, contratos Pydantic fuertemente tipados y mitigación SSRF.',
+    materializeDetails: 'Parser nativo en lenguaje C (libxml2) en RAM, evasión WAF L7 y FastAPI concurrente.',
     techStack: ['Python Asíncrono', 'libxml2 en RAM', 'Pydantic', 'FastAPI', 'SLA 99.98%'],
-    deliverable: 'Infraestructura de extracción masiva de alta disponibilidad 24/7 y canalización a Data Lakes.'
+    deliverable: 'Infraestructura de extracción masiva de alta disponibilidad 24/7 y canalización a Data Lakes sin bloqueos WAF.'
   },
   {
-    id: 'CPC',
-    shortName: 'NOVUX CPC',
-    fullName: 'Political Intelligence // Kahn DAG',
-    unitCode: 'EVA-01',
-    unitModel: 'TEST TYPE',
-    primaryColor: '#7C3AED',
-    secondaryColor: '#10B981',
-    conceptHours: 52,
-    materializeHours: 128,
-    totalHours: 180,
-    efficiency: '+59% Eficiencia de Entrega',
-    efficiencyPct: 59,
-    conceptDetails: 'Modelado matemático de ordenación topológica Kahn DAG para resolución de dependencias legislativas.',
-    materializeDetails: 'Hemiciclo legislativo 3D (45 curules) en Three.js, conciliador algorítmico E-14 vs E-24 y FastAPI.',
-    techStack: ['Kahn DAG', 'Three.js 3D', 'FastAPI', 'Pandas Core', 'Forense E-14/E-24'],
-    deliverable: 'Plataforma de inteligencia regulatoria con hemiciclo tridimensional y trazabilidad de leyes.'
+    id: 'IDEALISTA',
+    tag: 'IDEALISTA',
+    shortName: 'IDEALISTA RADAR',
+    fullName: 'IDEALISTA REAL ESTATE RADAR — Arbitraje Inmobiliario & Yield Analyzer',
+    primaryColor: '#E5A93C',
+    secondaryColor: '#B45309',
+    conceptHours: 62,
+    materializeHours: 148,
+    totalHours: 210,
+    badgeEfficiency: '+62% Eficiencia Inmobiliaria',
+    conceptDetails: 'Modelado de rentabilidad por m², análisis de dispersión geoespacial de activos e índices CAP-rate.',
+    materializeDetails: 'Pipeline ETL de absorción continua, clustering de polígonos urbanos y alertas de subvaloración en tiempo real.',
+    techStack: ['Scraping Distribuido', 'PostGIS', 'CAP-Rate Algorítmico', 'Clustering Urbano'],
+    deliverable: 'Radar de arbitraje inmobiliario para identificación instantánea de activos con descuento de mercado >15%.'
   },
   {
-    id: 'SANTAFE',
-    shortName: 'SANTA FE BI',
-    fullName: 'Comando Central Bogotá // Analítica Territorial',
-    unitCode: 'MAGI',
-    unitModel: 'TRI-SUPERCOMPUTER',
-    primaryColor: '#059669',
-    secondaryColor: '#3B82F6',
-    conceptHours: 78,
-    materializeHours: 202,
-    totalHours: 280,
-    efficiency: '+72% Ahorro de Tiempos',
-    efficiencyPct: 72,
-    conceptDetails: 'Arquitectura de entidad-relación geoespacial, polígonos UPZ de alta concurrencia y matrices de reporte territorial.',
-    materializeDetails: 'Pipelines ETL en Python para +131k registros territoriales, PostgreSQL/PostGIS y tableros Looker Studio.',
-    techStack: ['PostgreSQL', 'PostGIS', 'Python ETL', 'Looker Studio', 'Analítica Territorial'],
-    deliverable: 'Centro de Inteligencia Gubernamental con +131,000 registros y 245,000 m² de espacio público auditado.'
+    id: 'TAZARTE',
+    tag: 'TAZARTE',
+    shortName: 'TAZARTE ESTIMATOR',
+    fullName: 'TAZARTE ESTIMATOR — Valuador Automático de Arte & Activos Singulares',
+    primaryColor: '#10B981',
+    secondaryColor: '#059669',
+    conceptHours: 34,
+    materializeHours: 96,
+    totalHours: 130,
+    badgeEfficiency: '+68% Velocidad de Avalúo',
+    conceptDetails: "Ontología taxonómica de casas de subasta (Christie's, Sotheby's) y análisis de series temporales de martillo.",
+    materializeDetails: 'Vectorización de fichas de catálogo, correlación hedónica de precios y tasación paramétrica automatizada.',
+    techStack: ['Modelado Hedónico', 'Taxonomía de Arte', 'Series Temporales', 'Pandas Engine'],
+    deliverable: 'Motor de tasación algorítmica para coleccionismo y galerías con intervalo de confianza del 94.2%.'
+  },
+  {
+    id: 'IA-LOCAL',
+    tag: 'IA-LOCAL',
+    shortName: 'IA LOCAL SEGURA',
+    fullName: 'IA LOCAL SEGURA — Servidor Privado Llama/DeepSeek (Cero Fuga Cloud)',
+    primaryColor: '#8B5CF6',
+    secondaryColor: '#6D28D9',
+    conceptHours: 44,
+    materializeHours: 106,
+    totalHours: 150,
+    badgeEfficiency: '100% Privacidad & Cero Costo API',
+    conceptDetails: 'Especificación de seguridad perimetral sin salida a internet (air-gapped) y cuantización INT4/GGUF en GPU local.',
+    materializeDetails: 'Orquestación mediante Ollama / vLLM, API compatible con OpenAI para el ecosistema NOVUX y reducción del 100% en facturación recurrente de LLM Cloud.',
+    techStack: ['Ollama / vLLM', 'Cuantización GGUF', 'Air-Gapped Local', 'FastAPI Proxy'],
+    deliverable: 'Arquitectura de Inteligencia Artificial local privada, soberana y de costo operativo $0 recurrente.'
   }
 ];
 
-interface EvaArchitecture {
-  id: 'DAG' | 'ETL' | 'C2' | 'BI' | 'PRICING';
-  unitCode: string;
-  unitName: string;
-  label: string;
-  basePerHour: number;
-  roiMultiplier: number;
-  primaryColor: string;
-  secondaryColor: string;
-  syncRate: string;
-  techFocus: string;
+// Modelos de Inversión y Retorno (MAGI Valuation Engine)
+interface InvestmentMode {
+  id: 'FULL_TIME' | 'CONTRACTOR' | 'PARTNER';
+  title: string;
+  badge: string;
+  targetCompensation: string;
+  usdEquivalent: string;
+  savingsOrAdvantage: string;
+  color: string;
+  keyHighlights: string[];
+  operationalImpact: string;
+  whatsappMessage: string;
 }
 
-const EVA_ARCHITECTURES: Record<string, EvaArchitecture> = {
-  DAG: {
-    id: 'DAG',
-    unitCode: 'EVA-01',
-    unitName: 'TEST TYPE',
-    label: 'NOVUX CPC // Grafos Kahn DAG & Hemiciclo 3D',
-    basePerHour: 115000,
-    roiMultiplier: 3.8,
-    primaryColor: '#7C3AED',
-    secondaryColor: '#10B981',
-    syncRate: 'SYNC RATE: 100%',
-    techFocus: 'Topological Kahn Sort, React 19, Three.js'
+const INVESTMENT_MODES: InvestmentMode[] = [
+  {
+    id: 'FULL_TIME',
+    title: '01. EMPLEADO FULL-TIME',
+    badge: 'ROL ESTRATÉGICO DIRECTO',
+    targetCompensation: '$6.500.000 – $9.000.000 COP / mes',
+    usdEquivalent: '$1.800 – $2.800 USD / mes (Remoto / On-site)',
+    savingsOrAdvantage: '65% de Ahorro Directo (+$13.5M COP/mes ahorrados)',
+    color: '#00F0FF',
+    keyHighlights: [
+      'Liderazgo y desarrollo unificado de pipelines de datos',
+      'Propiedad intelectual 100% in-house para su organización',
+      'Cero dependencia de proveedores externos costosos',
+      'Despliegues ágiles sin burocracia ni intermediarios'
+    ],
+    operationalImpact: 'Dirección técnica in situ, optimización continua de bases de datos territoriales y comerciales, y desarrollo de nuevas líneas de producto sin requerir contratar células sobredimensionadas.',
+    whatsappMessage: 'Hola Gustavo, revisé tu perfil en el Modal NERV C2 de novuxops.com y nos interesa evaluar una vinculación como Empleado Full-Time para liderar proyectos de Datos e Inteligencia de Software.'
   },
-  ETL: {
-    id: 'ETL',
-    unitCode: 'EVA-02',
-    unitName: 'PRODUCTION MODEL',
-    label: 'ARES SCRAPER // Ingesta Concurrente L7 & Data Lakes',
-    basePerHour: 95000,
-    roiMultiplier: 3.4,
-    primaryColor: '#EF4444',
-    secondaryColor: '#F59E0B',
-    syncRate: 'PERIMETER: HARDENED A+',
-    techFocus: 'Python Asíncrono, libxml2 en RAM, SLA 99.98%'
+  {
+    id: 'CONTRACTOR',
+    title: '02. CONTRATISTA / PRESTACIÓN DE SERVICIOS',
+    badge: 'FLEXIBILIDAD & ALTO IMPACTO',
+    targetCompensation: '$7.500.000 – $10.500.000 COP / mes',
+    usdEquivalent: '0% Carga Prestacional / Pasivo Laboral Cero',
+    savingsOrAdvantage: 'Deducción tributaria 100% como gasto operativo B2B',
+    color: '#F59E0B',
+    keyHighlights: [
+      '2 años de trayectoria real demostrable en Santa Fe (Bogotá)',
+      'Interlocución con entidades públicas y comités directivos',
+      'Arquitectura de datos y ciberseguridad con entrega por hitos',
+      'Cumplimiento contractual bajo normas ICONTEC NTC 1486'
+    ],
+    operationalImpact: 'Agilidad de contratación inmediata, facturación directa como persona natural o jurídica, auditoría técnica estricta y entregables verificables sin generar pasivos laborales ni contingencias.',
+    whatsappMessage: 'Hola Gustavo, me pongo en contacto desde novuxops.com para explorar una contratación por Prestación de Servicios / Consultoría Técnica para un sprint estratégico en nuestra entidad/empresa.'
   },
-  C2: {
-    id: 'C2',
-    unitCode: 'EVA-00',
-    unitName: 'PROTO-TYPE',
-    label: 'NOVUX COT // Gemelo Digital 3D & Comando C2',
-    basePerHour: 145000,
-    roiMultiplier: 5.0,
-    primaryColor: '#06B6D4',
-    secondaryColor: '#EAB308',
-    syncRate: 'SYNC RATE: 100%',
-    techFocus: 'WebGL 2.0 (60 FPS GPU), Gauss-Haversine WASM'
-  },
-  BI: {
-    id: 'BI',
-    unitCode: 'MAGI',
-    unitName: 'TRI-SUPERCOMPUTER',
-    label: 'SANTA FE BI // Inteligencia Territorial & PostGIS',
-    basePerHour: 110000,
-    roiMultiplier: 4.2,
-    primaryColor: '#059669',
-    secondaryColor: '#3B82F6',
-    syncRate: 'MAGI CONSENSUS: 3/3',
-    techFocus: 'PostgreSQL + PostGIS, +131k Registros'
-  },
-  PRICING: {
-    id: 'PRICING',
-    unitCode: 'EVA-04',
-    unitName: 'PRICING CORE',
-    label: 'NOVUX PCD // Motor de Fijación Dinámica & Arbitraje',
-    basePerHour: 125000,
-    roiMultiplier: 4.6,
-    primaryColor: '#D97706',
-    secondaryColor: '#94A3B8',
-    syncRate: 'SYNC RATE: 100%',
-    techFocus: 'Regex Dimensional, Elasticidad Buy-Box'
+  {
+    id: 'PARTNER',
+    title: '03. SOCIO TECNOLÓGICO / CONSULTOR B2B',
+    badge: 'ALIANZA ESTRATÉGICA & REVENUE SHARE',
+    targetCompensation: '$2.800.000 – $6.500.000 COP por Sprint',
+    usdEquivalent: 'O Alianza Revenue Share sobre PCD, COT y Ares Scraper',
+    savingsOrAdvantage: 'Acceso inmediato a $68.4M COP en código pre-construido',
+    color: '#10B981',
+    keyHighlights: [
+      'Time-to-market récord (despliegue en 2 a 4 semanas)',
+      'Blindaje legal SAS con actas de confidencialidad y cesión',
+      'Soporte técnico y hardening perimetral L7 continuo',
+      'Ecosistema activo con más de 1.140 horas de I+D lista'
+    ],
+    operationalImpact: 'Lanzamiento rápido de productos de software propios o integración comercial de los motores NOVUX (PCD, Ares, COT) para licitar con entidades del estado o competir en mercados privados.',
+    whatsappMessage: 'Hola Gustavo, me interesa coordinar una reunión ejecutiva para evaluar una alianza como Socio Tecnológico / Consultor B2B sobre las tecnologías del ecosistema NOVUX.'
   }
-};
+];
 
 export function CurriculumTelemetryModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -207,10 +204,8 @@ export function CurriculumTelemetryModal() {
   const [badgeViewMode, setBadgeViewMode] = useState<'TABLE' | 'CARDS'>('TABLE');
   const [badgeFilter, setBadgeFilter] = useState<'ALL' | 'IBM' | 'COURSERA' | 'MINTIC' | 'GOOGLE'>('ALL');
 
-  // Estado de la Calculadora de Costeo de Software (Modelos EVA & CPC)
-  const [calcType, setCalcType] = useState<'DAG' | 'ETL' | 'C2' | 'BI' | 'PRICING'>('DAG');
-  const [calcHours, setCalcHours] = useState(120);
-  const [calcComplexity, setCalcComplexity] = useState<1.0 | 1.35 | 1.8>(1.35);
+  // Estado del MAGI Valuation Engine (Modalidades de Inversión y ROI)
+  const [selectedInvestmentMode, setSelectedInvestmentMode] = useState<'FULL_TIME' | 'CONTRACTOR' | 'PARTNER'>('FULL_TIME');
 
   const handleOpen = () => {
     sfx.playWarp();
@@ -233,25 +228,9 @@ export function CurriculumTelemetryModal() {
   const totalCoreProjectsHours = totalConceptHours + totalMaterializeHours;
   const activeProject = PROJECTS_TELEMETRY.find(p => p.id === selectedProjectId) || PROJECTS_TELEMETRY[0];
 
-  // Cálculo Algorítmico del Modelo de Costeo EVA (Economic Value Added)
-  const selectedArch = EVA_ARCHITECTURES[calcType];
-  const totalCostCOP = Math.round(calcHours * selectedArch.basePerHour * calcComplexity);
-  const totalCostUSD = Math.round(totalCostCOP / 4150);
-  const annualSavingsCOP = Math.round(totalCostCOP * selectedArch.roiMultiplier);
-  const paybackMonths = ((totalCostCOP / (annualSavingsCOP / 12))).toFixed(1);
-  const manualHoursSavedMonth = Math.round(calcHours * 0.45);
-
-  const getCalculatorWhatsAppMsg = () => {
-    return encodeURIComponent(
-      `Hola Gustavo Alberto De La Rosa Flórez (NOVUX S.A.S.), calculé una cotización preliminar desde la Consola Táctica NERV C2:
-- Unidad Táctica: [${selectedArch.unitCode}] ${selectedArch.label}
-- Esfuerzo Estimado: ${calcHours} Horas de Ingeniería
-- Complejidad Lógica: ${calcComplexity === 1.0 ? 'Básica (1.0x)' : calcComplexity === 1.35 ? 'Intermedia (1.35x)' : 'Avanzada / Alta Concurrencia (1.8x)'}
-- Inversión Proyectada: $${totalCostCOP.toLocaleString('es-CO')} COP (~$${totalCostUSD.toLocaleString('en-US')} USD).
-- Consenso MAGI: 3/3 Aprobado (ROI Proyectado: ${paybackMonths} meses).
-Deseo agendar una sesión técnica para revisar requerimientos.`
-    );
-  };
+  // MAGI Valuation Engine - Modalidades de Inversión y ROI
+  const activeInvestment = INVESTMENT_MODES.find(m => m.id === selectedInvestmentMode) || INVESTMENT_MODES[0];
+  const getInvestmentWhatsAppMsg = () => encodeURIComponent(activeInvestment.whatsappMessage);
 
   // Credenciales Verificadas Oficiales (12 Certificaciones Credly / IBM / Coursera / MinTIC / Google)
   const filteredCredentials = VERIFIED_CREDENTIALS.filter((item) => {
@@ -368,31 +347,58 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
               <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#00f0ff] pointer-events-none" />
               <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#a855f7] pointer-events-none" />
 
-              {/* Cabecera Principal del Dashboard — CÉDULA COMPLETAMENTE ELIMINADA */}
+              {/* Cabecera Principal del Dashboard — AVATAR HUD & PRIVACIDAD HARDENED */}
               <div className="p-4 sm:p-6 border-b border-zinc-800 bg-[#0a0d18]/95 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                    <span className="px-2 py-0.5 rounded bg-[#00f0ff]/15 border border-[#00f0ff]/50 font-mono text-[10px] font-bold text-[#00f0ff] uppercase tracking-wider">
-                      AUTOR &amp; DESARROLLADOR PRINCIPAL
-                    </span>
-                    <span className="px-2 py-0.5 rounded bg-emerald-950/70 border border-emerald-500/40 font-mono text-[10px] text-emerald-400 font-bold flex items-center gap-1 shadow-sm">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      DISPONIBLE // BOGOTÁ D.C.
-                    </span>
-                    <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 font-mono text-[10px] text-zinc-400">
-                      MAGI SYNC RATE: 100%
-                    </span>
+                <div className="flex items-center gap-4">
+                  {/* Avatar Ejecutivo HUD 88x88px */}
+                  <div className="relative shrink-0 w-20 h-20 sm:w-[88px] sm:h-[88px] rounded-lg p-0.5 bg-black/90 border-2 border-[#00F0FF] shadow-[0_0_18px_rgba(0,240,255,0.35)] overflow-hidden group">
+                    <img
+                      src="/assets/gustavo-avatar-nerv.jpg"
+                      alt="Gustavo Alberto De La Rosa Flórez"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (target.src !== '/assets/gustavo-congreso.jpg') {
+                          target.src = '/assets/gustavo-congreso.jpg';
+                        }
+                      }}
+                      className="w-full h-full object-cover rounded"
+                      style={{
+                        objectPosition: 'center 18%',
+                        filter: 'contrast(1.08)'
+                      }}
+                    />
+                    <div className="absolute inset-0 border border-[#00F0FF]/30 rounded pointer-events-none" />
+                    <div className="absolute bottom-0 inset-x-0 bg-black/90 border-t border-[#00F0FF]/60 py-0.5 text-center pointer-events-none">
+                      <span className="font-mono text-[8px] font-bold text-[#00F0FF] tracking-widest block">
+                        LVL-L7 // LEAD
+                      </span>
+                    </div>
                   </div>
 
-                  <h1 className="text-xl sm:text-2xl font-serif font-bold text-white tracking-wide">
-                    Gustavo Alberto De La Rosa Flórez
-                  </h1>
-                  <p className="text-xs sm:text-sm text-[#FFE066] font-mono font-medium mt-0.5">
-                    Data &amp; Automation Analyst | Python Developer | AI Solutions Builder
-                  </p>
-                  <p className="text-[11px] text-zinc-400 font-sans italic mt-1">
-                    * Perfil validado mediante certificaciones técnicas internacionales y experiencia contractual demostrable en el sector público.
-                  </p>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                      <span className="px-2 py-0.5 rounded bg-[#00f0ff]/15 border border-[#00f0ff]/50 font-mono text-[10px] font-bold text-[#00f0ff] uppercase tracking-wider">
+                        AUTOR &amp; DESARROLLADOR PRINCIPAL
+                      </span>
+                      <span className="px-2 py-0.5 rounded bg-emerald-950/70 border border-emerald-500/40 font-mono text-[10px] text-emerald-400 font-bold flex items-center gap-1 shadow-sm">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        DISPONIBLE // BOGOTÁ D.C.
+                      </span>
+                      <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 font-mono text-[10px] text-zinc-400">
+                        MAGI SYNC RATE: 100%
+                      </span>
+                    </div>
+
+                    <h1 className="text-xl sm:text-2xl font-serif font-bold text-white tracking-wide">
+                      Gustavo Alberto De La Rosa Flórez
+                    </h1>
+                    <p className="text-xs sm:text-sm text-[#FFE066] font-mono font-medium mt-0.5">
+                      Data &amp; Automation Analyst | Python Developer | AI Solutions Builder
+                    </p>
+                    <p className="text-[11px] text-zinc-400 font-sans italic mt-1">
+                      * Perfil validado mediante certificaciones técnicas internacionales y experiencia contractual demostrable en el sector público.
+                    </p>
+                  </div>
                 </div>
 
                 <button
@@ -427,7 +433,7 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
                   }`}
                 >
                   <BarChart3 size={14} className="shrink-0" />
-                  <span>📊 2. <span className="hidden md:inline">Dashboard </span>5 Paneles</span>
+                  <span>📊 2. <span className="hidden md:inline">Dashboard </span>Proyectos</span>
                 </button>
 
                 <button
@@ -463,7 +469,7 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
                   }`}
                 >
                   <Calculator size={14} className="shrink-0" />
-                  <span>🧮 5. <span className="hidden md:inline">Costeo </span>EVA</span>
+                  <span>🧮 5. <span className="hidden md:inline">Valor Real &amp; </span>ROI</span>
                 </button>
               </div>
 
@@ -605,11 +611,11 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
                         <div className="flex items-center gap-2 mb-1">
                           <BarChart3 size={15} className="text-[#38bdf8]" />
                           <h3 className="font-mono text-xs font-bold text-[#38bdf8] uppercase tracking-wider">
-                            NERV C2 // DASHBOARD DE TELEMETRÍA TEMPORAL (5 UNIDADES CORE)
+                            NERV C2 // DASHBOARD DE TELEMETRÍA TEMPORAL (6 UNIDADES CORE)
                           </h3>
                         </div>
                         <p className="text-xs text-zinc-300 font-sans leading-relaxed">
-                          Registro comparativo de horas de <b>Conceptualización Lógica</b> vs. <b>Materialización en Código</b> desplegadas a lo largo de las 5 arquitecturas propietarias NOVUX.
+                          Registro comparativo de horas de <b>Conceptualización Lógica</b> vs. <b>Materialización en Código</b> desplegadas a lo largo de las 6 arquitecturas propietarias NOVUX.
                         </p>
                       </div>
 
@@ -625,25 +631,25 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
                       <div className="p-3 rounded bg-black/70 border border-zinc-800">
                         <span className="text-[9.5px] text-zinc-500 block uppercase">TOTAL HORAS CORE:</span>
                         <strong className="text-white text-lg font-bold block mt-0.5">{totalCoreProjectsHours} h</strong>
-                        <span className="text-[9.5px] text-zinc-400">5 Proyectos Insignia</span>
+                        <span className="text-[9.5px] text-zinc-400">6 Unidades de Ingeniería Propietarias</span>
                       </div>
 
                       <div className="p-3 rounded bg-black/70 border border-zinc-800">
                         <span className="text-[9.5px] text-[#FFE066] block uppercase">CONCEPTUALIZACIÓN:</span>
                         <strong className="text-[#FFE066] text-lg font-bold block mt-0.5">{totalConceptHours} h</strong>
-                        <span className="text-[9.5px] text-zinc-400">27.5% Arquitectura Lógica</span>
+                        <span className="text-[9.5px] text-zinc-400">27.9% Arquitectura &amp; Lógica en Gemini/NotebookLM</span>
                       </div>
 
                       <div className="p-3 rounded bg-black/70 border border-zinc-800">
                         <span className="text-[9.5px] text-[#00f0ff] block uppercase">MATERIALIZACIÓN:</span>
                         <strong className="text-[#00f0ff] text-lg font-bold block mt-0.5">{totalMaterializeHours} h</strong>
-                        <span className="text-[9.5px] text-zinc-400">72.5% Código &amp; Hardening</span>
+                        <span className="text-[9.5px] text-zinc-400">72.1% Código, Scraping L7 &amp; Hardening en Antigravity</span>
                       </div>
 
                       <div className="p-3 rounded bg-black/70 border border-zinc-800">
                         <span className="text-[9.5px] text-emerald-400 block uppercase">EFICIENCIA GLOBAL:</span>
-                        <strong className="text-emerald-400 text-lg font-bold block mt-0.5">+63.4%</strong>
-                        <span className="text-[9.5px] text-zinc-400">Aceleración Time-to-Market</span>
+                        <strong className="text-emerald-400 text-lg font-bold block mt-0.5">+64.8%</strong>
+                        <span className="text-[9.5px] text-zinc-400">2.78M Tokens RAG • 148 Pines WIP=1</span>
                       </div>
                     </div>
 
@@ -670,10 +676,9 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
                       <div className="space-y-3 font-mono">
                         {PROJECTS_TELEMETRY.map((p) => {
                           const isSelected = selectedProjectId === p.id;
-                          const maxHours = 280; // Escala máxima
+                          const maxHours = 250; // Escala máxima normalizada
                           const conceptWidthPct = (p.conceptHours / maxHours) * 100;
                           const materializeWidthPct = (p.materializeHours / maxHours) * 100;
-                          const totalPct = ((p.totalHours / maxHours) * 100).toFixed(0);
 
                           return (
                             <div 
@@ -698,12 +703,12 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
                                       backgroundColor: `${p.primaryColor}15`
                                     }}
                                   >
-                                    {p.unitCode}
+                                    [{p.tag}]
                                   </span>
                                   <span className={`font-bold ${isSelected ? 'text-white' : 'text-zinc-300'}`}>
                                     {p.shortName}
                                   </span>
-                                  <span className="text-[10px] text-zinc-500 hidden md:inline">
+                                  <span className="text-[10px] text-zinc-500 hidden md:inline truncate max-w-xs">
                                     — {p.fullName}
                                   </span>
                                 </div>
@@ -713,7 +718,7 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
                                   <span>Code: <b className="text-[#00f0ff]">{p.materializeHours}h</b></span>
                                   <span className="text-white font-bold">Total: {p.totalHours}h</span>
                                   <span className="text-emerald-400 font-bold bg-emerald-950/60 px-1.5 py-0.2 rounded border border-emerald-500/30">
-                                    {p.efficiency}
+                                    {p.badgeEfficiency}
                                   </span>
                                 </div>
                               </div>
@@ -752,14 +757,14 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
                               backgroundColor: `${activeProject.primaryColor}15`
                             }}
                           >
-                            {activeProject.unitCode} // {activeProject.unitModel}
+                            [{activeProject.tag}] // SISTEMA PROPIETARIO
                           </span>
                           <h4 className="font-serif text-sm font-bold text-white">
                             {activeProject.shortName}: {activeProject.fullName}
                           </h4>
                         </div>
                         <span className="font-mono text-[10px] text-emerald-400 font-bold bg-emerald-950/70 border border-emerald-500/40 px-2 py-0.5 rounded">
-                          {activeProject.efficiency}
+                          {activeProject.badgeEfficiency}
                         </span>
                       </div>
 
@@ -1078,208 +1083,232 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
                 )}
 
                 {/* ================================================================= */}
-                {/* PESTAÑA 5: MODELOS EVA & CALCULADORA DE COSTEO (NERV / MAGI C2)   */}
+                {/* PESTAÑA 5: MAGI VALUATION ENGINE & RETORNO DE INVERSIÓN (ROI)   */}
                 {/* ================================================================= */}
                 {activeTab === 'CALCULATOR' && (
                   <div className="space-y-6 animate-in fade-in duration-200 text-left">
+                    {/* Header del MAGI Valuation Engine */}
                     <div className="p-4 rounded-lg bg-[#070914] border border-[#10b981]/50">
                       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-1">
                         <h3 className="text-xs font-mono font-bold text-[#10b981] uppercase tracking-wider flex items-center gap-1.5">
                           <Calculator size={14} />
-                          <span>NERV C2 // Motor Económico EVA (Economic Value Added) &amp; MAGI Tri-Consensus</span>
+                          <span>MAGI VALUATION ENGINE // RETORNO DE INVERSIÓN AL CONTRATAR O ASOCIARSE CON GUSTAVO DE LA ROSA</span>
                         </h3>
                         <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/70 border border-emerald-500/40 px-2 py-0.5 rounded font-bold">
                           CONSENSO MAGI: 3/3 APROBADO
                         </span>
                       </div>
-                      <p className="text-xs text-zinc-300 leading-relaxed">
-                        Abstracción matemática de los modelos CPC/EVA: calcula el valor comercial de despliegue, horas telemétricas y retorno de inversión garantizado (ROI) para las 5 Unidades Tácticas.
+                      <p className="text-xs text-zinc-300 leading-relaxed font-sans">
+                        Modelo de costeo y optimización de capital: compara el impacto de contratar una célula técnica tradicional frente al efecto multiplicador de incorporar a Gustavo De La Rosa con más de <b>1.140 horas de software y pipelines pre-construidos</b> desde el primer día.
                       </p>
                     </div>
 
-                    {/* SELECTOR DE LAS 5 UNIDADES TÁCTICAS (ESTÉTICA EVANGELION / NERV) */}
-                    <div>
-                      <label className="text-xs font-mono font-bold text-zinc-300 block mb-2">
-                        SELECCIONE LA UNIDAD TÁCTICA A DESPLEGAR:
-                      </label>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5">
-                        {Object.values(EVA_ARCHITECTURES).map((arch) => {
-                          const isSelected = calcType === arch.id;
+                    {/* BLOQUE A: EFECTO MULTIPLICADOR 4x1 (CÉLULA TRADICIONAL VS. GUSTAVO DE LA ROSA) */}
+                    <div className="p-4 sm:p-5 rounded-lg bg-[#070a14] border border-zinc-800 space-y-4">
+                      <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
+                        <span className="font-mono text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                          <Users size={14} className="text-[#38bdf8]" />
+                          <span>BLOQUE A: EFECTO MULTIPLICADOR 4 EN 1 — ANÁLISIS DE MERCADO COLOMBIA</span>
+                        </span>
+                        <span className="text-[10px] font-mono text-amber-400 bg-amber-950/60 border border-amber-500/40 px-2 py-0.5 rounded">
+                          AHORRO ANUAL: ~$190M+ COP
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        {/* Opción A: Célula Tradicional */}
+                        <div className="p-3.5 rounded bg-red-950/15 border border-red-500/30 space-y-2.5">
+                          <div className="flex items-center justify-between">
+                            <span className="font-mono text-xs font-bold text-red-400 uppercase">
+                              OPCIÓN A: CÉLULA TÉCNICA TRADICIONAL
+                            </span>
+                            <span className="text-[10px] font-mono text-zinc-400">4 Nóminas Separadas</span>
+                          </div>
+
+                          <div className="space-y-1.5 font-mono text-xs text-zinc-300">
+                            <div className="flex justify-between py-1 border-b border-zinc-800/60">
+                              <span>• Analista de Datos &amp; BI (SQL/Looker)</span>
+                              <span className="text-zinc-200 font-bold">$5.500.000 COP</span>
+                            </div>
+                            <div className="flex justify-between py-1 border-b border-zinc-800/60">
+                              <span>• Ingeniero de Scraping &amp; WAF Bypass L7</span>
+                              <span className="text-zinc-200 font-bold">$7.200.000 COP</span>
+                            </div>
+                            <div className="flex justify-between py-1 border-b border-zinc-800/60">
+                              <span>• Desarrollador Frontend React &amp; 3D WebGL</span>
+                              <span className="text-zinc-200 font-bold">$6.000.000 COP</span>
+                            </div>
+                            <div className="flex justify-between py-1 border-b border-zinc-800/60">
+                              <span>• Arquitecto de Infraestructura &amp; IA Local</span>
+                              <span className="text-zinc-200 font-bold">$8.000.000 COP</span>
+                            </div>
+                          </div>
+
+                          <div className="pt-2 border-t border-red-500/30 flex items-baseline justify-between font-mono">
+                            <span className="text-xs text-zinc-400">COSTO MENSUAL TOTAL:</span>
+                            <span className="text-base font-bold text-red-400">~$22.300.000 COP / mes</span>
+                          </div>
+                          <p className="text-[11px] text-zinc-400 font-sans leading-snug">
+                            * Implica $267.6M COP/año + costos de onboarding, cargas prestacionales (+52%), fricción de comunicación y 4 meses mínimos de curva de aprendizaje.
+                          </p>
+                        </div>
+
+                        {/* Opción B: Solución Unificada Gustavo De La Rosa */}
+                        <div className="p-3.5 rounded bg-emerald-950/20 border border-emerald-500/40 space-y-2.5">
+                          <div className="flex items-center justify-between">
+                            <span className="font-mono text-xs font-bold text-emerald-400 uppercase">
+                              OPCIÓN B: INTEGRACIÓN UNIFICADA (GUSTAVO DE LA ROSA)
+                            </span>
+                            <span className="text-[10px] font-mono text-emerald-300 font-bold bg-emerald-950/80 px-1.5 py-0.5 rounded border border-emerald-500/40">
+                              MULTIPLICADOR 4x1
+                            </span>
+                          </div>
+
+                          <div className="space-y-1.5 text-xs text-zinc-200 font-sans">
+                            <div className="flex items-start gap-1.5">
+                              <CheckCircle2 size={13} className="text-emerald-400 shrink-0 mt-0.5" />
+                              <span><b>Una sola mente estratégica:</b> Arquitectura, datos territoriales, scraping L7 y gemelos WebGL 3D ejecutados sin silos.</span>
+                            </div>
+                            <div className="flex items-start gap-1.5">
+                              <CheckCircle2 size={13} className="text-emerald-400 shrink-0 mt-0.5" />
+                              <span><b>Capital Intelectual Día 1:</b> Aporta 1.140 horas de librerías, parsers en C (libxml2) y pipelines probados en campo.</span>
+                            </div>
+                            <div className="flex items-start gap-1.5">
+                              <CheckCircle2 size={13} className="text-emerald-400 shrink-0 mt-0.5" />
+                              <span><b>Valor en Activos Pre-construidos:</b> Más de <b>$68.400.000 COP</b> en software propietario listo para producción inmediata.</span>
+                            </div>
+                            <div className="flex items-start gap-1.5">
+                              <CheckCircle2 size={13} className="text-emerald-400 shrink-0 mt-0.5" />
+                              <span><b>Alineación con el Negocio:</b> Capacidad demostrada en el sector público (Santa Fe) y proyectos comerciales B2B.</span>
+                            </div>
+                          </div>
+
+                          <div className="pt-2 border-t border-emerald-500/30 flex items-baseline justify-between font-mono">
+                            <span className="text-xs text-zinc-300">AHORRO NETO ESTIMADO:</span>
+                            <span className="text-base font-bold text-emerald-400">+60% a 70% Directo</span>
+                          </div>
+                          <p className="text-[11px] text-zinc-400 font-sans leading-snug">
+                            * Despliegue inmediato sin semanas de inducción ni desalineación entre frontend, backend y analítica de datos.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* BLOQUE B: SELECTOR TÁCTICO DE 3 MODALIDADES DE INVERSIÓN */}
+                    <div className="p-4 sm:p-5 rounded-lg bg-[#070a14] border border-zinc-800 space-y-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800 pb-2">
+                        <span className="font-mono text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                          <Target size={14} className="text-[#FFE066]" />
+                          <span>BLOQUE B: ESCOJA SU MODALIDAD DE VINCULACIÓN O ASOCIACIÓN</span>
+                        </span>
+                        <span className="text-[10px] font-mono text-zinc-400">
+                          SELECCIONADA: <b className="text-white">{activeInvestment.title}</b>
+                        </span>
+                      </div>
+
+                      {/* 3 Botones de Selección */}
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        {INVESTMENT_MODES.map((mode) => {
+                          const isSelected = selectedInvestmentMode === mode.id;
                           return (
                             <button
-                              key={arch.id}
+                              key={mode.id}
                               onClick={() => {
                                 sfx.playSelect();
-                                setCalcType(arch.id);
+                                setSelectedInvestmentMode(mode.id);
                               }}
-                              className={`p-2.5 rounded text-left border transition-all cursor-pointer font-mono ${
+                              className={`p-3 rounded-lg border text-left transition-all cursor-pointer font-mono ${
                                 isSelected
-                                  ? 'bg-[#0f1224] scale-102 shadow-[0_0_20px_rgba(255,255,255,0.15)]'
+                                  ? 'bg-[#0f1428] shadow-[0_0_20px_rgba(0,240,255,0.2)]'
                                   : 'bg-black/60 border-zinc-800 hover:border-zinc-700 text-zinc-400'
                               }`}
                               style={{
-                                borderColor: isSelected ? arch.primaryColor : undefined
+                                borderColor: isSelected ? mode.color : undefined
                               }}
                             >
-                              <div className="flex items-center justify-between text-[10px] font-bold mb-1">
-                                <span style={{ color: arch.primaryColor }}>{arch.unitCode}</span>
-                                <span className="text-[9px] text-zinc-500">{arch.unitName}</span>
+                              <div className="flex items-center justify-between mb-1">
+                                <span 
+                                  className="text-[9px] font-bold px-1.5 py-0.5 rounded border"
+                                  style={{
+                                    color: mode.color,
+                                    borderColor: `${mode.color}40`,
+                                    backgroundColor: `${mode.color}15`
+                                  }}
+                                >
+                                  {mode.badge}
+                                </span>
                               </div>
-                              <div className={`text-[11px] font-bold truncate ${isSelected ? 'text-white' : 'text-zinc-300'}`}>
-                                {arch.label.split('//')[0]}
-                              </div>
-                              <div className="text-[9.5px] text-zinc-500 mt-1 truncate">
-                                {arch.techFocus}
-                              </div>
+                              <h4 className={`text-xs font-bold truncate ${isSelected ? 'text-white' : 'text-zinc-300'}`}>
+                                {mode.title}
+                              </h4>
+                              <p className="text-[11px] font-mono font-bold mt-1" style={{ color: mode.color }}>
+                                {mode.targetCompensation}
+                              </p>
                             </button>
                           );
                         })}
                       </div>
-                    </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                      {/* Controles de Parámetros de la Calculadora */}
-                      <div className="lg:col-span-6 space-y-4 bg-black/60 p-4 rounded-lg border border-zinc-800">
-                        {/* Slider de Horas de Ingeniería */}
-                        <div>
-                          <div className="flex items-center justify-between text-xs font-mono text-zinc-300 mb-1.5">
-                            <span>ESFUERZO ESTIMADO DE INGENIERÍA:</span>
-                            <span className="font-bold text-[#FFE066]">{calcHours} Horas</span>
+                      {/* Panel de Detalle Dinámico de la Modalidad Activa */}
+                      <div className="p-4 rounded-lg bg-black/70 border border-zinc-800 space-y-3.5">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800/80 pb-2">
+                          <div>
+                            <span className="text-[10px] font-mono text-zinc-500 uppercase block">MODALIDAD ACTIVA:</span>
+                            <h3 className="font-serif text-sm font-bold text-white">
+                              {activeInvestment.title}
+                            </h3>
                           </div>
-                          <input
-                            type="range"
-                            min="40"
-                            max="320"
-                            step="20"
-                            value={calcHours}
-                            onChange={(e) => setCalcHours(Number(e.target.value))}
-                            className="w-full accent-[#10b981] cursor-pointer"
-                          />
-                          <div className="flex justify-between text-[10px] font-mono text-zinc-500 mt-1">
-                            <span>40h (Sprint Rápido)</span>
-                            <span>160h (Mes Completo)</span>
-                            <span>320h (Despliegue Core)</span>
+                          <div className="text-right font-mono">
+                            <span className="text-sm font-bold block" style={{ color: activeInvestment.color }}>
+                              {activeInvestment.targetCompensation}
+                            </span>
+                            <span className="text-[10px] text-zinc-400 block">
+                              {activeInvestment.usdEquivalent}
+                            </span>
                           </div>
                         </div>
 
-                        {/* Selector de Complejidad Lógica */}
-                        <div>
-                          <label className="text-xs font-mono font-bold text-zinc-300 block mb-1.5">
-                            COMPLEJIDAD LÓGICA &amp; ARQUITECTURA:
-                          </label>
-                          <div className="grid grid-cols-3 gap-2">
-                            {[
-                              { val: 1.0, label: 'Básica (1.0x)' },
-                              { val: 1.35, label: 'Media (1.35x)' },
-                              { val: 1.8, label: 'Alta Concurrencia (1.8x)' }
-                            ].map((item) => (
-                              <button
-                                key={item.val}
-                                onClick={() => setCalcComplexity(item.val as any)}
-                                className={`py-2 px-1 text-center rounded font-mono text-[11px] border transition-all cursor-pointer ${
-                                  calcComplexity === item.val
-                                    ? 'bg-[#10b981]/20 border-[#10b981] text-[#10b981] font-bold'
-                                    : 'bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-white'
-                                }`}
-                              >
-                                {item.label}
-                              </button>
+                        {/* Ventaja de Ahorro */}
+                        <div className="p-3 rounded bg-emerald-950/30 border border-emerald-500/30 flex items-center justify-between text-xs font-mono">
+                          <span className="text-zinc-300">VENTAJA DIRECTA / AHORRO:</span>
+                          <span className="text-emerald-400 font-bold">{activeInvestment.savingsOrAdvantage}</span>
+                        </div>
+
+                        {/* Competencias y Diferenciales Clave */}
+                        <div className="space-y-2">
+                          <span className="text-[10.5px] font-mono text-zinc-400 uppercase tracking-wider block">
+                            DIFERENCIALES &amp; VALOR AGREGADO GARANTIZADO:
+                          </span>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            {activeInvestment.keyHighlights.map((hl, idx) => (
+                              <div key={idx} className="flex items-start gap-2 p-2 rounded bg-black/50 border border-zinc-800/80 text-xs text-zinc-200">
+                                <CheckCircle2 size={13} className="text-emerald-400 shrink-0 mt-0.5" />
+                                <span>{hl}</span>
+                              </div>
                             ))}
                           </div>
                         </div>
 
-                        {/* PANEL TÁCTICO MAGI TRI-CONSENSUS (MELCHIOR, BALTHASAR, CASPER) */}
-                        <div className="p-3 rounded bg-[#070914] border border-zinc-800 font-mono text-[10.5px] space-y-1.5">
-                          <div className="flex items-center justify-between text-[10px] text-zinc-400 border-b border-zinc-800 pb-1">
-                            <span>SUPERCOMPUTADORES MAGI</span>
-                            <span className="text-emerald-400 font-bold">VOTO UNÁNIME (3/3)</span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-zinc-400">MELCHIOR-1 (Viabilidad Técnica):</span>
-                            <span className="text-emerald-400 font-bold">APROBADO 100%</span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-zinc-400">BALTHASAR-2 (Retorno ROI &amp; Costos):</span>
-                            <span className="text-amber-400 font-bold">APROBADO 100%</span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-zinc-400">CASPER-3 (Resiliencia &amp; SLA):</span>
-                            <span className="text-cyan-400 font-bold">APROBADO 100%</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Panel de Resultados Matemáticos EVA */}
-                      <div className="lg:col-span-6 bg-[#080a14] p-5 rounded-lg border border-[#10b981]/40 flex flex-col justify-between space-y-4">
-                        <div>
-                          <div className="flex items-center justify-between mb-1">
-                            <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-wider block">
-                              VALOR COMERCIAL ESTIMADO DE DESPLIEGUE:
-                            </span>
-                            <span 
-                              className="text-[10px] font-mono font-bold px-2 py-0.5 rounded border"
-                              style={{
-                                color: selectedArch.primaryColor,
-                                borderColor: `${selectedArch.primaryColor}50`,
-                                backgroundColor: `${selectedArch.primaryColor}15`
-                              }}
-                            >
-                              [{selectedArch.unitCode}]
-                            </span>
-                          </div>
-                          <div className="text-3xl font-mono font-bold text-white flex items-baseline gap-2">
-                            <span className="text-[#10b981]">${totalCostCOP.toLocaleString('es-CO')}</span>
-                            <span className="text-xs font-mono text-zinc-400">COP</span>
-                          </div>
-                          <div className="text-xs font-mono text-zinc-400 mt-0.5">
-                            Equivalente aproximado: <b>~${totalCostUSD.toLocaleString('en-US')} USD</b>
-                          </div>
+                        {/* Impacto Operativo */}
+                        <div className="p-3 rounded bg-black/60 border border-zinc-800 text-xs font-sans text-zinc-300">
+                          <strong className="text-white font-mono block mb-1">IMPACTO OPERATIVO INMEDIATO:</strong>
+                          {activeInvestment.operationalImpact}
                         </div>
 
-                        <div className="grid grid-cols-2 gap-3 pt-3 border-t border-zinc-800 text-left">
-                          <div>
-                            <span className="text-[9px] font-mono uppercase text-zinc-500 block">
-                              AHORRO OPERATIVO ANUAL:
-                            </span>
-                            <span className="font-mono text-sm font-bold text-[#FFE066]">
-                              ${annualSavingsCOP.toLocaleString('es-CO')} COP
-                            </span>
-                          </div>
-                          <div>
-                            <span className="text-[9px] font-mono uppercase text-zinc-500 block">
-                              RETORNO DE INVERSIÓN (ROI):
-                            </span>
-                            <span className="font-mono text-sm font-bold text-emerald-400">
-                              {paybackMonths} Meses
-                            </span>
-                          </div>
-                          <div>
-                            <span className="text-[9px] font-mono uppercase text-zinc-500 block">
-                              HORAS-HOMBRE AHORRADAS:
-                            </span>
-                            <span className="font-mono text-xs font-bold text-zinc-300">
-                              ~{manualHoursSavedMonth} h / mes
-                            </span>
-                          </div>
-                          <div>
-                            <span className="text-[9px] font-mono uppercase text-zinc-500 block">
-                              PROPIEDAD DE CÓDIGO:
-                            </span>
-                            <span className="font-mono text-xs font-bold text-[#00f0ff]">
-                              100% Cesión Total
-                            </span>
-                          </div>
-                        </div>
-
+                        {/* Botón CTA Dinámico a WhatsApp B2B */}
                         <a
-                          href={`https://wa.me/573196300410?text=${getCalculatorWhatsAppMsg()}`}
+                          href={`https://wa.me/573196300410?text=${getInvestmentWhatsAppMsg()}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={() => sfx.playPowerUp()}
-                          className="w-full py-3 px-4 rounded bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(16,185,129,0.35)] cursor-pointer no-underline"
+                          className="w-full py-3.5 px-4 rounded text-white font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all cursor-pointer no-underline shadow-lg"
+                          style={{
+                            background: `linear-gradient(135deg, ${activeInvestment.color}, #059669)`,
+                            boxShadow: `0 0 25px ${activeInvestment.color}35`
+                          }}
                         >
-                          <Send size={14} />
-                          <span>Solicitar Despliegue con Parámetros NERV C2</span>
+                          <Send size={15} />
+                          <span>Agendar Sesión Técnica sobre {activeInvestment.title} vía WhatsApp B2B</span>
                         </a>
                       </div>
                     </div>
