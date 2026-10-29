@@ -168,8 +168,8 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                     <span className="font-mono text-xs font-bold text-[#FFE066] bg-[#C5A059]/15 border border-[#C5A059]/40 px-2 py-0.5 rounded uppercase tracking-wider">
                       {service.shortIdentifier || service.categoryTitle}
                     </span>
-                    <span className="text-[10px] font-mono text-zinc-500 uppercase">
-                      *{service.caseBadge || service.id}*
+                    <span className="text-[10px] font-mono text-emerald-400 font-semibold bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded uppercase tracking-wider">
+                      CASO DE ÉXITO
                     </span>
                   </div>
 

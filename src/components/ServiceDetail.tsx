@@ -308,7 +308,7 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
           <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-4 border-b border-zinc-800">
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-xs font-mono font-bold text-[#FFE066] bg-[#C5A059]/15 border border-[#C5A059]/50 px-3 py-1 rounded uppercase tracking-wider">
-                *{service.caseBadge || service.id}*
+                CASO DE ÉXITO
               </span>
               <span className="text-xs font-mono text-emerald-400 bg-emerald-950/70 border border-emerald-500/40 px-3 py-1 rounded inline-flex items-center gap-1.5 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />

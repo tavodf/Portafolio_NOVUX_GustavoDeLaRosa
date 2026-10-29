@@ -301,30 +301,30 @@ export function CurriculumTelemetryModal() {
           <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap hidden sm:block">
             <div className="bg-[#070914]/95 border border-[#00f0ff]/50 text-white text-xs font-mono px-3 py-1.5 rounded shadow-[0_0_25px_rgba(0,240,255,0.35)] backdrop-blur-md flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#00f0ff] animate-ping" />
-              <span className="font-bold text-[#00f0ff]">NERV C2 //</span>
-              <span>Telemetría &amp; Hoja de Vida Profesional</span>
+              <span className="font-bold text-[#00f0ff]">CV //</span>
+              <span>Hoja de Vida &amp; Telemetría Laboral</span>
             </div>
           </div>
 
-          {/* Botón Circular 3D Isométrico con Borde Táctico NERV / MAGI */}
+          {/* Botón Circular 3D Isométrico de CV y Telemetría */}
           <motion.button
             whileHover={{ y: -4, scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleOpen}
             onMouseEnter={() => sfx.playHover()}
-            className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-[#060814] via-[#121329] to-[#060814] text-white shadow-[0_12px_28px_rgba(0,0,0,0.85),0_0_25px_rgba(0,240,255,0.4)] flex items-center justify-center cursor-pointer border-2 border-[#00f0ff]/80 hover:border-[#a855f7] relative transition-colors duration-300"
-            aria-label="Abrir Consola de Telemetría Táctica NERV"
+            className="w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-[#060814] via-[#121329] to-[#060814] text-white shadow-[0_12px_28px_rgba(0,0,0,0.85),0_0_25px_rgba(0,240,255,0.4)] flex items-center justify-center cursor-pointer border-2 border-[#00f0ff]/80 hover:border-[#FFE066] relative transition-colors duration-300"
+            aria-label="Ver Hoja de Vida y Telemetría Profesional"
           >
             {/* Brillo Isométrico Superior */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-b from-white/20 via-transparent to-transparent pointer-events-none" />
 
-            {/* Anillo de Pulso Telemétrico NERV */}
+            {/* Anillo de Pulso Telemétrico */}
             <span className="absolute -inset-1 rounded-full border border-[#00f0ff]/50 animate-ping opacity-75 pointer-events-none" />
 
-            {/* Icono Central: Telemetría / NERV C2 */}
+            {/* Icono Central: CV Profesional */}
             <div className="relative z-10 flex flex-col items-center justify-center">
-              <Activity size={22} className="text-[#00f0ff] group-hover:text-[#FFE066] transition-colors" />
-              <span className="text-[7px] font-mono uppercase font-bold text-zinc-300 tracking-tighter">NERV // C2</span>
+              <FileText size={19} className="text-[#00f0ff] group-hover:text-[#FFE066] transition-colors" />
+              <span className="text-[9px] font-mono uppercase font-bold text-white tracking-wider mt-0.5">CV</span>
             </div>
           </motion.button>
         </div>
@@ -350,29 +350,29 @@ export function CurriculumTelemetryModal() {
               {/* Cabecera Principal del Dashboard — AVATAR HUD & PRIVACIDAD HARDENED */}
               <div className="p-4 sm:p-6 border-b border-zinc-800 bg-[#0a0d18]/95 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
-                  {/* Avatar Ejecutivo HUD 88x88px */}
-                  <div className="relative shrink-0 w-20 h-20 sm:w-[88px] sm:h-[88px] rounded-lg p-0.5 bg-black/90 border-2 border-[#00F0FF] shadow-[0_0_18px_rgba(0,240,255,0.35)] overflow-hidden group">
-                    <img
-                      src="/assets/gustavo-congreso.jpg"
-                      alt="Gustavo Alberto De La Rosa Flórez"
-                      onError={(e) => {
-                        const target = e.currentTarget;
-                        if (target.src !== '/assets/gustavo-congreso.jpg') {
-                          target.src = '/assets/gustavo-congreso.jpg';
-                        }
-                      }}
-                      className="w-full h-full object-cover rounded"
-                      style={{
-                        objectPosition: 'center 18%',
-                        filter: 'contrast(1.08)'
-                      }}
-                    />
-                    <div className="absolute inset-0 border border-[#00F0FF]/30 rounded pointer-events-none" />
-                    <div className="absolute bottom-0 inset-x-0 bg-black/90 border-t border-[#00F0FF]/60 py-0.5 text-center pointer-events-none">
-                      <span className="font-mono text-[8px] font-bold text-[#00F0FF] tracking-widest block">
-                        LVL-L7 // LEAD
-                      </span>
+                  {/* Avatar Ejecutivo sin elementos invasivos en el rostro */}
+                  <div className="flex flex-col items-center shrink-0">
+                    <div className="relative w-20 h-20 sm:w-[88px] sm:h-[88px] rounded-lg p-0.5 bg-black/90 border-2 border-[#00F0FF] shadow-[0_0_18px_rgba(0,240,255,0.35)] overflow-hidden group">
+                      <img
+                        src="/assets/gustavo-congreso.jpg"
+                        alt="Gustavo Alberto De La Rosa Flórez"
+                        onError={(e) => {
+                          const target = e.currentTarget;
+                          if (target.src !== '/assets/gustavo-congreso.jpg') {
+                            target.src = '/assets/gustavo-congreso.jpg';
+                          }
+                        }}
+                        className="w-full h-full object-cover rounded"
+                        style={{
+                          objectPosition: 'center 15%',
+                          filter: 'contrast(1.08)'
+                        }}
+                      />
+                      <div className="absolute inset-0 border border-[#00F0FF]/30 rounded pointer-events-none" />
                     </div>
+                    <span className="font-mono text-[8.5px] font-bold text-[#00F0FF] tracking-wider text-center mt-1 block uppercase">
+                      ANALISTA &amp; DEV
+                    </span>
                   </div>
 
                   <div>
@@ -485,129 +485,230 @@ export function CurriculumTelemetryModal() {
                 {/* PESTAÑA 1: TELEMETRÍA DE RENDIMIENTO & STACK                       */}
                 {/* ================================================================= */}
                 {activeTab === 'TELEMETRY' && (
-                  <div className="space-y-6 animate-in fade-in duration-200">
-                    {/* Tarjetas Métricas Clave de Telemetría */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                      <div className="p-4 rounded-lg bg-[#0a0d18] border border-[#00f0ff]/40 text-left">
-                        <span className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">
-                          ESFUERZO DE DESARROLLO LOGUEADO
+                  <div className="space-y-6 animate-in fade-in duration-200 text-left">
+                    {/* 1. TELEMETRÍA DE RITMO Y CAPACIDAD OPERATIVA DE TRABAJO */}
+                    <div>
+                      <div className="flex items-center justify-between border-b border-zinc-800 pb-2 mb-3">
+                        <span className="font-mono text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                          <Clock size={14} className="text-[#00f0ff]" />
+                          <span>RITMO DE PRODUCCIÓN Y CAPACIDAD LABORAL (TELEMETRÍA REAL)</span>
                         </span>
-                        <div className="text-2xl font-mono font-bold text-[#00f0ff]">
-                          +1,840 Horas
-                        </div>
-                        <p className="text-[11px] text-zinc-300 mt-1">
-                          Iteración en motores de datos, parsing L7 y tableros territoriales.
-                        </p>
+                        <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/70 border border-emerald-500/40 px-2 py-0.5 rounded">
+                          DISPONIBILIDAD INMEDIATA
+                        </span>
                       </div>
 
-                      <div className="p-4 rounded-lg bg-[#0a0d18] border border-[#FFE066]/40 text-left">
-                        <span className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">
-                          REDUCCIÓN DE LATENCIA DE CONSULTA
-                        </span>
-                        <div className="text-2xl font-mono font-bold text-[#FFE066]">
-                          &gt;2,500ms → &lt;180ms
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono">
+                        {/* Semanal */}
+                        <div className="p-3.5 rounded-lg bg-[#0a0d18] border border-[#00f0ff]/40">
+                          <span className="text-[9.5px] text-zinc-400 uppercase block mb-1">
+                            RITMO SEMANAL SOSTENIDO:
+                          </span>
+                          <div className="text-2xl font-bold text-[#00f0ff]">
+                            44h – 48h <span className="text-xs text-zinc-400 font-normal">/ sem</span>
+                          </div>
+                          <p className="text-[11px] text-zinc-300 font-sans mt-1.5 leading-snug">
+                            Desarrollo intensivo de pipelines ETL, lógica de backend, scripting automatizado y monitoreo de campo.
+                          </p>
                         </div>
-                        <p className="text-[11px] text-zinc-300 mt-1">
-                          Optimización en PostgreSQL/PostGIS e índices espaciales en memoria.
-                        </p>
+
+                        {/* Mensual */}
+                        <div className="p-3.5 rounded-lg bg-[#0a0d18] border border-[#FFE066]/40">
+                          <span className="text-[9.5px] text-zinc-400 uppercase block mb-1">
+                            PRODUCCIÓN TÉCNICA MENSUAL:
+                          </span>
+                          <div className="text-2xl font-bold text-[#FFE066]">
+                            ~180h – 195h <span className="text-xs text-zinc-400 font-normal">/ mes</span>
+                          </div>
+                          <p className="text-[11px] text-zinc-300 font-sans mt-1.5 leading-snug">
+                            Entrega de features críticas, resolución de incidencias en bases de datos y despliegue de soluciones.
+                          </p>
+                        </div>
+
+                        {/* Anual */}
+                        <div className="p-3.5 rounded-lg bg-[#0a0d18] border border-[#10b981]/40">
+                          <span className="text-[9.5px] text-zinc-400 uppercase block mb-1">
+                            CAPACIDAD OPERATIVA ANUAL:
+                          </span>
+                          <div className="text-2xl font-bold text-[#10b981]">
+                            +2,160h <span className="text-xs text-zinc-400 font-normal">/ año</span>
+                          </div>
+                          <p className="text-[11px] text-zinc-300 font-sans mt-1.5 leading-snug">
+                            Trayectoria contractual demostrable en el sector público (Santa Fe) y desarrollo continuo de software propio.
+                          </p>
+                        </div>
                       </div>
 
-                      <div className="p-4 rounded-lg bg-[#0a0d18] border border-[#10b981]/40 text-left">
-                        <span className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">
-                          RESOLUCIÓN LOGÍSTICA EN CAMPO
+                      {/* Banner de Impacto de Automatización */}
+                      <div className="mt-3 p-2.5 rounded bg-emerald-950/20 border border-emerald-500/30 flex items-center justify-between text-xs font-mono">
+                        <span className="text-zinc-300 flex items-center gap-1.5">
+                          <Zap size={13} className="text-emerald-400" />
+                          <span>IMPACTO EN EFICIENCIA DE PROCESOS:</span>
                         </span>
-                        <div className="text-2xl font-mono font-bold text-[#10b981]">
-                          60 Gestores
-                        </div>
-                        <p className="text-[11px] text-zinc-300 mt-1">
-                          Algoritmo de asignación y despacho coordinado simultáneo en territorio.
-                        </p>
+                        <span className="text-emerald-400 font-bold">
+                          &gt;70% Reducción en tiempos de reporte manual mediante scripts en Python
+                        </span>
                       </div>
                     </div>
 
-                    {/* Desglose de Stack Técnico Canónico */}
-                    <div className="space-y-4 text-left">
-                      <h3 className="text-sm font-mono font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                        <Terminal size={15} className="text-[#00f0ff]" />
-                        <span>Core Stack de Producción &amp; Arquitectura</span>
-                      </h3>
+                    {/* 2. SKILLS TÉCNICAS CON MÉTRICAS AUDITABLES Y VERIFICABLES */}
+                    <div className="space-y-3">
+                      <div className="border-b border-zinc-800 pb-2">
+                        <span className="font-mono text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                          <Target size={14} className="text-[#FFE066]" />
+                          <span>COMPETENCIAS CLAVE CON MÉTRICAS DE RESULTADOS EN PRODUCCIÓN</span>
+                        </span>
+                      </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="p-4 rounded-lg bg-black/60 border border-zinc-800">
-                          <h4 className="font-mono text-xs font-bold text-[#00f0ff] mb-2 flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#00f0ff]" />
-                            PYTHON CORE &amp; INGENIERÍA DE DATOS
-                          </h4>
-                          <p className="text-xs text-zinc-300 mb-2 leading-relaxed">
-                            Pandas, NumPy, Requests, Pydantic, Selenium Headless, BeautifulSoup4, parsing nativo C (libxml2) en memoria RAM y scripts CLI automatizados.
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 font-sans">
+                        {/* Skill 1: Data Engineering */}
+                        <div className="p-4 rounded-lg bg-black/60 border border-zinc-800 hover:border-[#00f0ff]/50 transition-colors">
+                          <div className="flex items-center justify-between mb-1.5">
+                            <span className="font-mono text-xs font-bold text-[#00f0ff]">
+                              INGENIERÍA DE DATOS &amp; PIPELINES ETL
+                            </span>
+                            <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-500/30">
+                              +131K REGISTROS
+                            </span>
+                          </div>
+                          <p className="text-xs text-zinc-300 leading-relaxed mb-2.5">
+                            Diseño y ejecución de pipelines de absorción, limpieza y depuración de datos territoriales y comerciales. Latencia de consulta optimizada a &lt;180ms mediante indexación espacial en PostgreSQL/PostGIS.
                           </p>
-                          <div className="flex flex-wrap gap-1.5">
-                            {['Pandas', 'NumPy', 'Pydantic', 'Asyncio', 'libxml2', 'FastAPI'].map((t, idx) => (
-                              <span key={idx} className="text-[10px] font-mono px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded">
+                          <div className="flex flex-wrap gap-1">
+                            {['Python Core', 'PostgreSQL / PostGIS', 'Pandas', 'Pydantic', 'Asyncio', 'ETL Automatizado'].map((t, idx) => (
+                              <span key={idx} className="text-[9.5px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">
                                 {t}
                               </span>
                             ))}
                           </div>
                         </div>
 
-                        <div className="p-4 rounded-lg bg-black/60 border border-zinc-800">
-                          <h4 className="font-mono text-xs font-bold text-[#FFE066] mb-2 flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#FFE066]" />
-                            FRONTEND REACT 19 &amp; VISUALIZACIÓN 3D
-                          </h4>
-                          <p className="text-xs text-zinc-300 mb-2 leading-relaxed">
-                            React 19, TypeScript, Vite 8, WebGL 2.0 con Three.js Engine (60 FPS constantes), MapLibre GL, Recharts dinámico y Tailwind CSS.
+                        {/* Skill 2: Scraping & Harvesting */}
+                        <div className="p-4 rounded-lg bg-black/60 border border-zinc-800 hover:border-red-400/50 transition-colors">
+                          <div className="flex items-center justify-between mb-1.5">
+                            <span className="font-mono text-xs font-bold text-red-400">
+                              WEB SCRAPING &amp; MINERÍA DE MERCADO
+                            </span>
+                            <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-500/30">
+                              99.98% UPTIME
+                            </span>
+                          </div>
+                          <p className="text-xs text-zinc-300 leading-relaxed mb-2.5">
+                            Infraestructura de recolección continua de datos comerciales sobre sitios protegidos por Cloudflare/DataDome. Parser nativo en C (libxml2) en memoria RAM para consumo mínimo de recursos y 0 bloqueos.
                           </p>
-                          <div className="flex flex-wrap gap-1.5">
-                            {['React 19', 'TypeScript', 'Three.js', 'WebGL 2.0', 'Recharts', 'Tailwind'].map((t, idx) => (
-                              <span key={idx} className="text-[10px] font-mono px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded">
+                          <div className="flex flex-wrap gap-1">
+                            {['libxml2 en RAM', 'Selenium Headless', 'FastAPI', 'Stealth Proxies', 'Data Lake L7'].map((t, idx) => (
+                              <span key={idx} className="text-[9.5px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">
                                 {t}
                               </span>
                             ))}
                           </div>
                         </div>
 
-                        <div className="p-4 rounded-lg bg-black/60 border border-zinc-800">
-                          <h4 className="font-mono text-xs font-bold text-[#38bdf8] mb-2 flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8]" />
-                            ARQUITECTURA RESILIENTE &amp; ALTA DISPONIBILIDAD (SLA 99.98%)
-                          </h4>
-                          <p className="text-xs text-zinc-300 mb-2 leading-relaxed">
-                            Despliegue multi-región en red Edge de baja latencia, aislamiento estricto de entornos de cómputo, cifrado de datos de grado industrial en tránsito y reposo, y tolerancia a fallos diseñada para máxima continuidad de negocio.
+                        {/* Skill 3: Frontend & 3D WebGL */}
+                        <div className="p-4 rounded-lg bg-black/60 border border-zinc-800 hover:border-[#38bdf8]/50 transition-colors">
+                          <div className="flex items-center justify-between mb-1.5">
+                            <span className="font-mono text-xs font-bold text-[#38bdf8]">
+                              FRONTEND REACT &amp; VISUALIZACIÓN INTERACTIVA
+                            </span>
+                            <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-500/30">
+                              60 FPS CONSTANTES
+                            </span>
+                          </div>
+                          <p className="text-xs text-zinc-300 leading-relaxed mb-2.5">
+                            Construcción de interfaces tácticas y tableros analíticos de alta velocidad en React 19 y TypeScript. Gemelos digitales y hemiciclos 3D renderizados a 60 FPS estables sobre WebGL 2.0 y Three.js.
                           </p>
-                          <div className="flex flex-wrap gap-1.5">
-                            {['SLA 99.98%', 'Edge Global', 'Cifrado E2E', 'Zero-Trust', 'Alta Concurrencia'].map((t, idx) => (
-                              <span key={idx} className="text-[10px] font-mono px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded">
+                          <div className="flex flex-wrap gap-1">
+                            {['React 19', 'TypeScript', 'Three.js 3D', 'WebGL 2.0', 'Vite 8', 'Tailwind CSS'].map((t, idx) => (
+                              <span key={idx} className="text-[9.5px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">
                                 {t}
                               </span>
                             ))}
                           </div>
                         </div>
 
-                        <div className="p-4 rounded-lg bg-black/60 border border-zinc-800">
-                          <h4 className="font-mono text-xs font-bold text-[#10b981] mb-2 flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#10b981]" />
-                            ALGORITMOS &amp; INTEGRACIÓN DE MODELOS IA
-                          </h4>
-                          <p className="text-xs text-zinc-300 mb-2 leading-relaxed">
-                            Ordenación topológica Kahn DAG para flujos normativos, cálculo geodésico Gauss-Haversine submétrico y orquestación con LLM APIs (Gemini 2.5 / OpenAI).
+                        {/* Skill 4: Territorial & BI */}
+                        <div className="p-4 rounded-lg bg-black/60 border border-zinc-800 hover:border-emerald-400/50 transition-colors">
+                          <div className="flex items-center justify-between mb-1.5">
+                            <span className="font-mono text-xs font-bold text-emerald-400">
+                              BUSINESS INTELLIGENCE &amp; ANALÍTICA TERRITORIAL
+                            </span>
+                            <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-500/30">
+                              245K m² AUDITADOS
+                            </span>
+                          </div>
+                          <p className="text-xs text-zinc-300 leading-relaxed mb-2.5">
+                            Experiencia real en campo coordinando equipos y centralizando más de 131.000 reportes en cuadros de mando de Looker Studio con georreferenciación sub-métrica para decisiones gerenciales.
                           </p>
-                          <div className="flex flex-wrap gap-1.5">
-                            {['Kahn DAG', 'Gauss-Haversine', 'Gemini API', 'PostGIS', 'Looker Studio'].map((t, idx) => (
-                              <span key={idx} className="text-[10px] font-mono px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded">
+                          <div className="flex flex-wrap gap-1">
+                            {['Looker Studio', 'Analítica Territorial', 'Georreferenciación', 'Auditoría Institucional'].map((t, idx) => (
+                              <span key={idx} className="text-[9.5px] font-mono px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">
                                 {t}
                               </span>
                             ))}
                           </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 3. STACK TECNOLÓGICO DOMINADO (ORGANIZADO POR CAPAS PROFESIONALES) */}
+                    <div className="space-y-3">
+                      <div className="border-b border-zinc-800 pb-2">
+                        <span className="font-mono text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                          <Terminal size={14} className="text-[#a855f7]" />
+                          <span>STACK TECNOLÓGICO DE PRODUCCIÓN (HERRAMIENTAS &amp; ENTORNO)</span>
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 font-mono text-xs">
+                        {/* Capa 1 */}
+                        <div className="p-3 rounded bg-[#0a0d18] border border-zinc-800">
+                          <span className="text-[10px] text-[#00f0ff] font-bold block mb-1.5">LENGUAJES CORE:</span>
+                          <ul className="space-y-1 text-zinc-300 text-[11px]">
+                            <li>• Python (Avanzado)</li>
+                            <li>• SQL (PostgreSQL)</li>
+                            <li>• TypeScript / JS</li>
+                            <li>• C (libxml2 nativo)</li>
+                          </ul>
+                        </div>
+
+                        {/* Capa 2 */}
+                        <div className="p-3 rounded bg-[#0a0d18] border border-zinc-800">
+                          <span className="text-[10px] text-[#FFE066] font-bold block mb-1.5">FRAMEWORKS &amp; UI:</span>
+                          <ul className="space-y-1 text-zinc-300 text-[11px]">
+                            <li>• React 19 &amp; Vite 8</li>
+                            <li>• Three.js (WebGL 2.0)</li>
+                            <li>• Tailwind CSS</li>
+                            <li>• Recharts / D3.js</li>
+                          </ul>
+                        </div>
+
+                        {/* Capa 3 */}
+                        <div className="p-3 rounded bg-[#0a0d18] border border-zinc-800">
+                          <span className="text-[10px] text-emerald-400 font-bold block mb-1.5">BACKEND &amp; DATA:</span>
+                          <ul className="space-y-1 text-zinc-300 text-[11px]">
+                            <li>• FastAPI &amp; Asyncio</li>
+                            <li>• Pandas &amp; NumPy</li>
+                            <li>• PostGIS Espacial</li>
+                            <li>• Selenium &amp; Pydantic</li>
+                          </ul>
+                        </div>
+
+                        {/* Capa 4 */}
+                        <div className="p-3 rounded bg-[#0a0d18] border border-zinc-800">
+                          <span className="text-[10px] text-[#a855f7] font-bold block mb-1.5">HERRAMIENTAS &amp; IA:</span>
+                          <ul className="space-y-1 text-zinc-300 text-[11px]">
+                            <li>• Git &amp; GitHub</li>
+                            <li>• Looker Studio BI</li>
+                            <li>• Qwen Local (Vulkan)</li>
+                            <li>• Linux / Bash CLI</li>
+                          </ul>
                         </div>
                       </div>
                     </div>
                   </div>
                 )}
 
-                {/* ================================================================= */}
-                {/* PESTAÑA 2: DASHBOARD DE PROYECTOS (TELEMETRÍA 5 PANELES NERV/MAGI)*/}
-                {/* ================================================================= */}
                 {activeTab === 'PROJECTS_DASHBOARD' && (
                   <div className="space-y-6 animate-in fade-in duration-200 text-left">
                     {/* Header del Dashboard Táctico */}
@@ -616,11 +717,11 @@ export function CurriculumTelemetryModal() {
                         <div className="flex items-center gap-2 mb-1">
                           <BarChart3 size={15} className="text-[#38bdf8]" />
                           <h3 className="font-mono text-xs font-bold text-[#38bdf8] uppercase tracking-wider">
-                            NERV C2 // DASHBOARD DE TELEMETRÍA TEMPORAL (6 UNIDADES CORE)
+                            DASHBOARD DE TELEMETRÍA TEMPORAL // 6 PROYECTOS & ARQUITECTURAS EN PRODUCCIÓN
                           </h3>
                         </div>
                         <p className="text-xs text-zinc-300 font-sans leading-relaxed">
-                          Registro comparativo de horas de <b>Conceptualización Lógica</b> vs. <b>Materialización en Código</b> desplegadas a lo largo de las 6 arquitecturas propietarias NOVUX.
+                          Registro de horas reales de <b>Arquitectura &amp; Diseño Lógico</b> vs. <b>Escritura de Código &amp; Despliegue</b> en las 6 soluciones de software desarrolladas.
                         </p>
                       </div>
 
