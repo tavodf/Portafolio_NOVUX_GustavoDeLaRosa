@@ -56,7 +56,7 @@ export function CurriculumTelemetryModal() {
       `Hola Gustavo Alberto De La Rosa Flórez (NOVUX S.A.S.), calculé una cotización preliminar desde la Consola de Telemetría:
 - Tipo de Solución: ${selectedRate.label}
 - Esfuerzo Estimado: ${calcHours} Horas
-- Complejidad: ${calcComplexity === 1.0 ? 'Básica (1.0x)' : calcComplexity === 1.35 ? 'Intermedia (1.35x)' : 'Crítica / WAF / 3D (1.8x)'}
+- Complejidad: ${calcComplexity === 1.0 ? 'Básica (1.0x)' : calcComplexity === 1.35 ? 'Intermedia (1.35x)' : 'Avanzada / Alta Concurrencia (1.8x)'}
 - Inversión Proyectada: $${totalCostCOP.toLocaleString('es-CO')} COP (~$${totalCostUSD.toLocaleString('en-US')} USD).
 Deseo agendar una sesión técnica para revisar requerimientos.`
     );
@@ -405,15 +405,15 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
                         </div>
 
                         <div className="p-4 rounded-lg bg-black/60 border border-zinc-800">
-                          <h4 className="font-mono text-xs font-bold text-[#ef4444] mb-2 flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#ef4444]" />
-                            CIBERSEGURIDAD DEFENSIVA & HARDENING
+                          <h4 className="font-mono text-xs font-bold text-[#38bdf8] mb-2 flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8]" />
+                            ARQUITECTURA RESILIENTE & ALTA DISPONIBILIDAD (SLA 99.98%)
                           </h4>
                           <p className="text-xs text-zinc-300 mb-2 leading-relaxed">
-                            Cabeceras HSTS (Strict-Transport-Security de grado bancario), MutationObserver anti-tamper en el DOM, escudo anti-SSRF de IPs privadas y bypass WAF vía JA3 TLS spoofing.
+                            Despliegue multi-región en red Edge de baja latencia, aislamiento estricto de entornos de cómputo, cifrado de datos de grado industrial en tránsito y reposo, y tolerancia a fallos diseñada para máxima continuidad de negocio.
                           </p>
                           <div className="flex flex-wrap gap-1.5">
-                            {['HSTS A+', 'Anti-SSRF', 'DOM Centinela', 'TLS JA3', 'SHA-256'].map((t, idx) => (
+                            {['SLA 99.98%', 'Edge Global', 'Cifrado E2E', 'Zero-Trust', 'Alta Concurrencia'].map((t, idx) => (
                               <span key={idx} className="text-[10px] font-mono px-2 py-0.5 bg-zinc-900 border border-zinc-800 text-zinc-300 rounded">
                                 {t}
                               </span>
@@ -633,13 +633,13 @@ Deseo agendar una sesión técnica para revisar requerimientos.`
                         {/* Selector de Complejidad Lógica */}
                         <div>
                           <label className="text-xs font-mono font-bold text-zinc-300 block mb-1.5">
-                            COMPLEJIDAD LÓGICA & HARDENING:
+                            COMPLEJIDAD LÓGICA & ARQUITECTURA:
                           </label>
                           <div className="grid grid-cols-3 gap-2">
                             {[
                               { val: 1.0, label: 'Básica (1.0x)' },
                               { val: 1.35, label: 'Media (1.35x)' },
-                              { val: 1.8, label: 'Crítica / WAF (1.8x)' }
+                              { val: 1.8, label: 'Alta Concurrencia (1.8x)' }
                             ].map((item) => (
                               <button
                                 key={item.val}

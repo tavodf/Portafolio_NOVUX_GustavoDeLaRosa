@@ -77,7 +77,7 @@ export const VERIFIED_CREDENTIALS: VerifiedCredential[] = [
     issuer: 'IBM SkillsBuild',
     issueDate: '29 Oct, 2024',
     issueTimestamp: '2024-10-29',
-    category: 'SEGURIDAD & WAF',
+    category: 'SEGURIDAD & REDES',
     type: 'IBM SkillsBuild',
     skills: ['Seguridad en Redes', 'Defensa Perimetral', 'Threat Modeling', 'Criptografía'],
     credlyUrl: 'https://www.credly.com/badges/cb02eb3b-c3e6-4d02-943b-4eed3abce34d',

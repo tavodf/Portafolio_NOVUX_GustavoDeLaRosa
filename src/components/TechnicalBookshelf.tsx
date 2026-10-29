@@ -33,7 +33,7 @@ const BOOKS: TechnicalBook[] = [
     accentColor: '#00f0ff',
     glowColor: 'rgba(0, 240, 255, 0.35)',
     summary: 'Especificación de ingeniería del motor 3D WebGL 2.0 (60 FPS GPU), cálculo geodésico submétrico Gauss-Haversine y cadena de custodia fotográfica con hash inmutable SHA-256.',
-    modules: ['Renderizado Orbital WebGL', 'Telemetría Radar 360°', 'Sellado Criptográfico SHA-256', 'Anti-Tamper DOM Guard']
+    modules: ['Renderizado Orbital WebGL', 'Telemetría Radar 360°', 'Sellado Criptográfico SHA-256', 'Integridad de Sesión']
   },
   {
     id: 'NOVUX_PCD',
@@ -62,8 +62,8 @@ const BOOKS: TechnicalBook[] = [
     pdfUrl: '/manuales/LIBRO_FUNCIONAMIENTO_ARES_SCRAPER.pdf',
     accentColor: '#ef4444',
     glowColor: 'rgba(239, 68, 68, 0.35)',
-    summary: 'Infraestructura de recolección web masiva con bypass verificado de WAFs (Cloudflare/DataDome), parsing en memoria nativa en lenguaje C (libxml2) y escudo defensivo anti-SSRF.',
-    modules: ['Evasión WAF & JA3 Spoofing', 'DOM Parser Nativo C en RAM', 'Escudo Defensivo Anti-SSRF', 'Pydantic Data Lake Pipeline']
+    summary: 'Infraestructura de recolección web masiva con alta disponibilidad, parsing en memoria nativa en lenguaje C (libxml2) y protocolos de resguardo perimetral.',
+    modules: ['Extracción Concurrente L7', 'DOM Parser Nativo C en RAM', 'Resguardo Perimetral Seguro', 'Pydantic Data Lake Pipeline']
   },
   {
     id: 'NOVUX_CPC',

@@ -555,7 +555,7 @@ export function ServiceDetail({ service, onBack }: ServiceDetailProps) {
                       {isSantaFe
                         ? 'Auditoría 131k registros territoriales en Bogotá'
                         : isAres
-                        ? 'Evasión WAF sin bloqueos y persistencia de cookies'
+                        ? 'Pipeline continuo de alta disponibilidad y persistencia de sesión'
                         : isCot
                         ? '60 FPS constantes GPU y Hash SHA-256 de custodia'
                         : '45 curules en vivo y validación de actas E-14 vs E-24'}

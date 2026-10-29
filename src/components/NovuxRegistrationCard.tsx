@@ -381,7 +381,7 @@ export function NovuxRegistrationCard() {
                     {[
                       { id: 'ALL', label: 'Todo el Ecosistema NOVUX' },
                       { id: 'MARKETPULSE', label: 'NOVUX MarketPulse' },
-                      { id: 'FACTORY', label: 'Software Factory & WAF' },
+                      { id: 'FACTORY', label: 'Software Factory & Cloud' },
                       { id: 'PAPERS', label: 'Papers & Bitácora L7' },
                     ].map((item) => (
                       <button

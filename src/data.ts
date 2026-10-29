@@ -69,26 +69,26 @@ export const services: Record<string, Service> = {
     shortIdentifier: '[ ARES SCRAPER ]',
     tag: '[ ARES SCRAPER ]',
     caseBadge: 'CASE-ARES-GRID',
-    statusTag: '[L7 PIPELINE // WAF BYPASS ACTIVE]',
-    keyMetric: 'Extracción concurrente de alta disponibilidad en memoria C sin bloqueos perimetrales.',
+    statusTag: '[L7 PIPELINE // CONCURRENCIA ACTIVA]',
+    keyMetric: 'Extracción concurrente de alta disponibilidad en memoria C con persistencia de sesión.',
     businessProblem: 'Pérdida de millones en oportunidades comerciales por no tener precios y catálogos de competidores actualizados, bloqueados continuamente por firewalls y sistemas antibot.',
     businessValue: 'Captura ininterrumpida de inteligencia de precios y mercado 24/7 con 99.98% de disponibilidad, superando bloqueos de Cloudflare y poblando automáticamente sus bases de datos.',
     targetAudience: 'E-commerce, Retailers, Distribuidores Mayoristas, Agencias de Pricing y Consultoras de Inteligencia Competitiva.',
     metrics: [
-      { label: 'DISPONIBILIDAD PERIMETRAL', value: '99.98%' },
+      { label: 'DISPONIBILIDAD OPERATIVA', value: '99.98%' },
       { label: 'MEMORIA DE PARSING', value: 'RAM C Nativa' },
-      { label: 'BYPASS DE PERÍMETROS', value: 'Cloudflare / WAF' },
+      { label: 'CANALIZACIÓN DE DATOS', value: 'Data Lake L7' },
       { label: 'LATENCIA DE EXTRACCIÓN', value: '< 180 ms' },
     ],
-    technicalArgument: 'Demostramos en vivo la evasión perimetral de WAFs y la extracción en memoria continua C sin comprometer la IP corporativa.',
-    shortDescription: 'Motor de Inteligencia de Mercado y Extracción Masiva Web: evade bloqueos de Cloudflare/DataDome y recolecta precios, inventarios y catálogos de la competencia de forma continua y automatizada.',
-    heading: 'CASE-ARES-GRID // MOTOR DE EXTRACCIÓN L7 & EVASIÓN WAF (ARES SCRAPER)',
-    description: 'Infraestructura automatizada de extracción y recolección masiva de datos en la web (Web Scraping Industrial). Neutralizamos bloqueos antibot de Cloudflare, Akamai y DataDome para recolectar información comercial crítica de la competencia sin caídas y alimentar directamente sus sistemas de toma de decisiones.',
+    technicalArgument: 'Demostramos en vivo la extracción continua en memoria C y la canalización directa a Data Lake optimizando latencia.',
+    shortDescription: 'Motor de Inteligencia de Mercado y Extracción Masiva Web: recolecta precios, inventarios y catálogos comerciales de forma continua, automatizada y de alta fidelidad.',
+    heading: 'CASE-ARES-GRID // MOTOR DE EXTRACCIÓN L7 & DATA HARVESTING (ARES SCRAPER)',
+    description: 'Infraestructura automatizada de extracción y recolección masiva de datos en la web (Web Data Harvesting Industrial). Arquitectura de alta concurrencia diseñada para recolectar información comercial crítica de mercado sin interrupciones y alimentar directamente sus sistemas de toma de decisiones.',
     derivedServiceTitle: 'Web Data Harvesting, Extracción Masiva de Datos y Data Lakes',
-    derivedServiceDescription: 'Implementamos infraestructuras de minería de datos y recolección web a gran escala adaptando este motor: orquestación de proxies residenciales rotativos, evasión de barreras antibot, extracción asíncrona concurrente y pipelines canónicos hacia su base de datos o almacenamiento en nube.',
+    derivedServiceDescription: 'Implementamos infraestructuras de minería de datos y recolección web a gran escala adaptando este motor: orquestación distribuida, extracción asíncrona concurrente, normalización en memoria y pipelines canónicos hacia su base de datos o almacenamiento en nube.',
     derivedServices: [
       'Infraestructuras de Extracción Masiva Web (Web Data Harvesting)',
-      'Bypass Avanzado de Firewalls de Aplicación Web (WAF & Antibot)',
+      'Canalización y Extracción Distribuida de Alta Resiliencia',
       'Construcción y Alimentación Continua de Data Lakes Corporativos',
       'Pipelines ETL Asíncronos Tipados en Pydantic y Pandas Core'
     ],
@@ -101,8 +101,8 @@ export const services: Record<string, Service> = {
     secondaryCtaText: 'SOLICITAR DESARROLLO A MEDIDA',
     keyServices: [
       {
-        title: 'Evasión Antibot WAF (Selenium Stealth)',
-        detail: 'Bypass de perímetros Cloudflare, DataDome y reCAPTCHA con persistencia de sesión.'
+        title: 'Navegación Headless Optimizada (Selenium)',
+        detail: 'Automatización de navegación con alta resiliencia y persistencia de sesión.'
       },
       {
         title: 'Parsing de Alto Rendimiento en C (libxml2)',
@@ -115,13 +115,13 @@ export const services: Record<string, Service> = {
     ],
     caseStudy: {
       title: 'CASO DE ÉXITO: CASE-ARES-GRID // ARES SCRAPER L7',
-      description: 'Motor industrial de extracción de alta concurrencia con evasión WAF verificada en video y código fuente: 0 bloqueos perimetrales y descarga masiva directa a Data Lake.'
+      description: 'Motor industrial de extracción de alta concurrencia verificado en producción: descarga masiva continua y alimentación directa a Data Lake.'
     },
     techStack: [
       { name: 'Python Asíncrono', iconName: 'python' },
       { name: 'Proxies Distribuidos', iconName: 'shield' },
       { name: 'Selenium Headless', iconName: 'selenium' },
-      { name: 'Cloudflare Bypass', iconName: 'cpu' },
+      { name: 'Extracción Asíncrona', iconName: 'cpu' },
       { name: 'libxml2 en RAM', iconName: 'code' },
     ]
   },

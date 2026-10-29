@@ -28,7 +28,7 @@ const CLUSTERS = {
 
 const SEMANTIC_NODES: SemanticNode[] = [
   // Cluster Pricing
-  { id: 'p1', name: 'ARES Scraper Engine', cluster: 'pricing', x: -140, y: -80, z: 90, weight: 1.2, description: 'Crawler asíncrono distribuido con rotación TLS y bypass antibot.', tags: ['Scraping', 'HTTP/2', 'FastAPI'] },
+  { id: 'p1', name: 'ARES Scraper Engine', cluster: 'pricing', x: -140, y: -80, z: 90, weight: 1.2, description: 'Crawler asíncrono distribuido con alta concurrencia y persistencia de sesión.', tags: ['Scraping', 'HTTP/2', 'FastAPI'] },
   { id: 'p2', name: 'Dynamic Pricing Matcher', cluster: 'pricing', x: -180, y: -20, z: 40, weight: 1.0, description: 'Motor de casamiento difuso de catálogos y normalización de SKUs.', tags: ['E-Commerce', 'NLP', 'Pricing'] },
   { id: 'p3', name: 'Elasticidad & Margen B2B', cluster: 'pricing', x: -110, y: -120, z: -30, weight: 0.9, description: 'Modelo econométrico de elasticidad de demanda y umbrales de margen.', tags: ['Econometría', 'Elasticidad'] },
   { id: 'p4', name: 'Retail Scraper Alkosto/Éxito', cluster: 'pricing', x: -90, y: -40, z: 120, weight: 1.1, description: 'Adaptadores específicos de extracción DOM y renderizado headless.', tags: ['DOM', 'Playwright'] },

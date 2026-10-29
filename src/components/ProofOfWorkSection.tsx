@@ -15,7 +15,7 @@ export function ProofOfWorkSection() {
     {
       id: 'ARES' as const,
       label: 'Caso 01: Ares Grid',
-      subtitle: 'Bypass WAF & Minería L7',
+      subtitle: 'Extracción L7 & Data Harvesting',
       tag: 'Scraping Industrial',
       accent: '#38bdf8'
     },
@@ -109,13 +109,13 @@ export function ProofOfWorkSection() {
                 <div className="space-y-4">
                   <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-sky-950/60 border border-sky-500/40 text-sky-300 font-mono text-xs">
                     <ShieldCheck size={13} />
-                    <span>CASE-ARES-GRID // EVASIÓN WAF EN VIVO</span>
+                    <span>CASE-ARES-GRID // EXTRACCIÓN L7 EN VIVO</span>
                   </div>
                   <h3 className="text-xl sm:text-2xl font-bold font-serif text-white">
-                    Ares Scraper: Minería de Datos & Bypass Antibot Perimetral
+                    Ares Scraper: Minería de Datos & Extracción Masiva Continua
                   </h3>
                   <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans">
-                    Demostración práctica de evasión de firewalls (Cloudflare / Akamai) mediante emulación de huellas digitales TLS/JA3 con Selenium Stealth y un motor de parsing ultrarrápido compilado en lenguaje C (<code className="text-[#FFE066]">libxml2</code>).
+                    Demostración práctica de canalización de datos a escala industrial mediante automatización headless y un motor de parsing ultrarrápido compilado en lenguaje C (<code className="text-[#FFE066]">libxml2</code>).
                   </p>
 
                   <div className="grid grid-cols-2 gap-3 pt-2 font-mono text-xs">
@@ -125,7 +125,7 @@ export function ProofOfWorkSection() {
                       <span className="text-zinc-400 text-[10px] block">Parser en memoria C</span>
                     </div>
                     <div className="p-3 rounded bg-black/60 border border-zinc-800">
-                      <span className="text-zinc-500 block text-[10px]">VELOCIDAD DE BYPASS:</span>
+                      <span className="text-zinc-500 block text-[10px]">LATENCIA DE INGESTA:</span>
                       <strong className="text-sky-400 text-sm">&lt; 350 ms</strong>
                       <span className="text-zinc-400 text-[10px] block">Persistencia de sesión</span>
                     </div>
@@ -133,7 +133,7 @@ export function ProofOfWorkSection() {
 
                   <div className="p-3.5 rounded bg-[#10141f] border border-sky-500/30 text-sky-200 text-xs font-mono">
                     <strong className="text-white block mb-1 font-sans">// Argumento de Cierre Técnico:</strong>
-                    "Mostramos en vivo la evasión perimetral y la extracción en memoria continua C sin comprometer su IP corporativa."
+                    "Mostramos en vivo la extracción continua en memoria C y la canalización directa a Data Lake con latencia mínima."
                   </div>
 
                   <div className="pt-2 flex flex-wrap gap-3">

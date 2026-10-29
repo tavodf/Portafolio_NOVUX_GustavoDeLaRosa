@@ -121,7 +121,7 @@ export function ConversionAndLegalSection() {
               >
                 <option value="NOVUX MarketPulse (Monitoreo Precios)">NOVUX MarketPulse (Setup $450 USD | Retainer $350-$450/mes)</option>
                 <option value="DataOps & RPA (Conciliación CST 23)">DataOps & RPA (Setup $600 USD | Retainer $250/mes)</option>
-                <option value="Web Data Harvesting (Ares Scraper WAF)">Web Data Harvesting (Base $500 USD / dataset)</option>
+                <option value="Web Data Harvesting (Ares Scraper L7)">Web Data Harvesting (Base $500 USD / dataset)</option>
                 <option value="Data Analytics & BI (Looker Studio)">Data Analytics & BI ($1,200 - $2,500 USD por fase)</option>
                 <option value="AI Document & NLP (Auditoría BPE)">AI Document & NLP ($950 USD Setup + Fee volumen)</option>
                 <option value="Software Factory (Tactical C2 3D & Ares Stack)">Software Factory // Tactical C2 Twin & Ares ($1,500 - $3,500 USD / Sprint)</option>

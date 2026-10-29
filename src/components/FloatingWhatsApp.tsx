@@ -19,8 +19,8 @@ export function FloatingWhatsApp({ currentContext }: FloatingWhatsAppProps) {
     },
     {
       title: 'CASE-ARES-GRID',
-      desc: 'Extracción L7 y Evasión WAF (Ares Scraper)',
-      message: 'Hola NOVUX S.A.S., requiero cotizar infraestructura de Web Data Harvesting y bypass antibot WAF con Ares Scraper.'
+      desc: 'Extracción L7 y Data Harvesting (Ares Scraper)',
+      message: 'Hola NOVUX S.A.S., requiero cotizar infraestructura de Web Data Harvesting y canalización a Data Lakes con Ares Scraper.'
     },
     {
       title: 'CASE-COT-OPS',
