@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { MessageSquare, Send, User, Sparkles, Check, Clock, ShieldCheck, CornerDownRight } from 'lucide-react';
+import { motion } from 'motion/react';
+import { MessageSquare, Send, Sparkles, Check, Clock, ShieldCheck } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
+import { useLanguage } from '../context/LanguageContext';
 
 interface CommentItem {
   id: string;
@@ -16,7 +17,7 @@ interface CommentsSectionProps {
   postId: string;
 }
 
-const SEED_COMMENTS: Record<string, CommentItem[]> = {
+const SEED_COMMENTS_ES: Record<string, CommentItem[]> = {
   '3': [
     {
       id: 'c1',
@@ -31,13 +32,35 @@ const SEED_COMMENTS: Record<string, CommentItem[]> = {
       name: 'Dra. Sofía Valenzuela',
       role: 'NLP Researcher & Machine Learning Lead',
       date: 'Hace 5 horas',
-      content: 'La analogía con el Árbol de la Vida y la delimitación del niño digital capta la esencia real de la IA: no hay magia en una red profunda, hay billones de tokens filtrados por MinHash/LSH. Quien introduce datos duplicados introduce sesgos por repetición en los pesos matriciales.',
+      content: 'La analogía con el árbol de ingesta y la delimitación algorítmica capta la esencia real de la IA: no hay magia en una red profunda, hay billones de tokens filtrados por MinHash/LSH. Quien introduce datos duplicados introduce sesgos por repetición en los pesos matriciales.',
+      isVerified: true,
+    }
+  ]
+};
+
+const SEED_COMMENTS_EN: Record<string, CommentItem[]> = {
+  '3': [
+    {
+      id: 'c1',
+      name: 'Carlos Mendoza, M.Sc.',
+      role: 'Staff Data Engineer • LatAm Retail',
+      date: '2 hours ago',
+      content: 'The breakdown of libxml2 versus html.parser is spot on. We experienced continuous OOM kills in 4 GB RAM Kubernetes pods when parsing deep marketplace HTML trees. Migrating to contiguous C buffers and iterparse generators dropped memory usage to a stable 45 MB.',
+      isVerified: true,
+    },
+    {
+      id: 'c2',
+      name: 'Dr. Sofía Valenzuela',
+      role: 'NLP Researcher & Machine Learning Lead',
+      date: '5 hours ago',
+      content: 'The ingestion tree topology captures the true essence of production AI: there is no magic inside a deep network—only billions of tokens filtered through MinHash/LSH. Feeding duplicate data directly injects repetition bias into matrix weights.',
       isVerified: true,
     }
   ]
 };
 
 export function CommentsSection({ postId }: CommentsSectionProps) {
+  const { lang } = useLanguage();
   const [comments, setComments] = useState<CommentItem[]>([]);
   const [authorName, setAuthorName] = useState('');
   const [authorRole, setAuthorRole] = useState('');
@@ -47,18 +70,18 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
   const [errorNotice, setErrorNotice] = useState<string | null>(null);
 
   useEffect(() => {
+    const seedMap = lang === 'en' ? SEED_COMMENTS_EN : SEED_COMMENTS_ES;
     try {
-      const stored = localStorage.getItem(`novux_comments_${postId}`);
+      const stored = localStorage.getItem(`novux_comments_${postId}_${lang}`);
       if (stored) {
         setComments(JSON.parse(stored));
       } else {
-        const initial = SEED_COMMENTS[postId] || [];
-        setComments(initial);
+        setComments(seedMap[postId] || []);
       }
     } catch {
-      setComments(SEED_COMMENTS[postId] || []);
+      setComments(seedMap[postId] || []);
     }
-  }, [postId]);
+  }, [postId, lang]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,12 +89,20 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
     setErrorNotice(null);
 
     if (!authorName.trim() || !message.trim()) {
-      setErrorNotice('Por favor completa tu nombre y el comentario.');
+      setErrorNotice(
+        lang === 'en'
+          ? 'Please enter both your name and comment.'
+          : 'Por favor completa tu nombre y el comentario.'
+      );
       return;
     }
 
     if (message.length < 10) {
-      setErrorNotice('El comentario debe contener al menos 10 caracteres.');
+      setErrorNotice(
+        lang === 'en'
+          ? 'Your comment must contain at least 10 characters.'
+          : 'El comentario debe contener al menos 10 caracteres.'
+      );
       return;
     }
 
@@ -80,16 +111,15 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
     setTimeout(() => {
       setIsSubmitting(false);
 
-      // Sanitización estricta anti-XSS
       const cleanName = authorName.replace(/[<>]/g, '').trim();
-      const cleanRole = authorRole.replace(/[<>]/g, '').trim() || 'Ingeniero / Lector Técnico';
+      const cleanRole = authorRole.replace(/[<>]/g, '').trim() || (lang === 'en' ? 'Engineer / Technical Reader' : 'Ingeniero / Lector Técnico');
       const cleanMessage = message.replace(/[<>]/g, '').trim();
 
       const newComment: CommentItem = {
         id: `com_${Date.now()}`,
         name: cleanName,
         role: cleanRole,
-        date: 'Recién publicado',
+        date: lang === 'en' ? 'Just now' : 'Recién publicado',
         content: cleanMessage,
         isVerified: false,
       };
@@ -97,7 +127,7 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
       const updated = [newComment, ...comments];
       setComments(updated);
       try {
-        localStorage.setItem(`novux_comments_${postId}`, JSON.stringify(updated));
+        localStorage.setItem(`novux_comments_${postId}_${lang}`, JSON.stringify(updated));
       } catch {}
 
       setMessage('');
@@ -114,13 +144,15 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
         <div className="flex items-center gap-2">
           <MessageSquare size={16} className="text-[#FFE066]" />
           <h3 className="text-sm font-mono font-bold text-zinc-100 uppercase tracking-wider">
-            MESA DE DEBATE TÉCNICO // COMENTARIOS DE LA COMUNIDAD ({comments.length})
+            {lang === 'en'
+              ? `TECHNICAL DISCUSSION BOARD // COMMUNITY COMMENTS (${comments.length})`
+              : `MESA DE DEBATE TÉCNICO // COMENTARIOS DE LA COMUNIDAD (${comments.length})`}
           </h3>
         </div>
 
         <span className="text-[11px] font-mono text-zinc-400 bg-black/60 px-2.5 py-1 rounded border border-zinc-800 flex items-center gap-1">
           <ShieldCheck size={11} className="text-[#C5A059]" />
-          <span>Moderación C-Level • Libre de Inyecciones</span>
+          <span>{lang === 'en' ? 'C-Level Moderation • XSS Protected' : 'Moderación C-Level • Libre de Inyecciones'}</span>
         </span>
       </div>
 
@@ -128,7 +160,11 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
       <div className="p-5 sm:p-6 rounded-lg bg-[#08080e] border border-zinc-800 mb-8 shadow-xl">
         <h4 className="text-xs font-mono font-bold text-[#FFE066] uppercase mb-3 flex items-center gap-1.5">
           <Sparkles size={12} />
-          <span>Aportar al Debate o Consulta de Arquitectura</span>
+          <span>
+            {lang === 'en'
+              ? 'Contribute to the Technical Discussion or Architecture Inquiry'
+              : 'Aportar al Debate o Consulta de Arquitectura'}
+          </span>
         </h4>
 
         {errorNotice && (
@@ -144,7 +180,11 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
             className="mb-3 p-2.5 rounded bg-emerald-950/70 border border-emerald-500/50 text-emerald-200 text-xs font-mono flex items-center gap-1.5"
           >
             <Check size={13} />
-            <span>Comentario verificado y publicado en la bitácora técnica.</span>
+            <span>
+              {lang === 'en'
+                ? 'Comment verified and published to the engineering log.'
+                : 'Comentario verificado y publicado en la bitácora técnica.'}
+            </span>
           </motion.div>
         )}
 
@@ -152,12 +192,12 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label className="text-[11px] font-mono text-zinc-400 block mb-1">
-                Nombre / Alias:
+                {lang === 'en' ? 'Name / Alias:' : 'Nombre / Alias:'}
               </label>
               <input
                 type="text"
                 required
-                placeholder="Ej. Gustavo De La Rosa"
+                placeholder={lang === 'en' ? 'e.g., Gustavo De La Rosa' : 'Ej. Gustavo De La Rosa'}
                 value={authorName}
                 onChange={(e) => setAuthorName(e.target.value)}
                 className="w-full bg-black/80 border border-zinc-800 focus:border-[#C5A059] rounded px-3 py-2 text-xs font-mono text-zinc-200 outline-none transition-colors"
@@ -166,11 +206,11 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
 
             <div>
               <label className="text-[11px] font-mono text-zinc-400 block mb-1">
-                Rol o Empresa:
+                {lang === 'en' ? 'Role or Organization:' : 'Rol o Empresa:'}
               </label>
               <input
                 type="text"
-                placeholder="Ej. Data Architect / Software Engineer"
+                placeholder="e.g., Data Architect / Software Engineer"
                 value={authorRole}
                 onChange={(e) => setAuthorRole(e.target.value)}
                 className="w-full bg-black/80 border border-zinc-800 focus:border-[#C5A059] rounded px-3 py-2 text-xs font-mono text-zinc-200 outline-none transition-colors"
@@ -180,12 +220,16 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
 
           <div>
             <label className="text-[11px] font-mono text-zinc-400 block mb-1">
-              Tu Aporte Técnico o Reflexión:
+              {lang === 'en' ? 'Your Technical Contribution or Analysis:' : 'Tu Aporte Técnico o Reflexión:'}
             </label>
             <textarea
               required
               rows={3}
-              placeholder="Escribe tu análisis sobre la extracción en Capa 7, pipelines en C, MinHash o el debate epistemológico..."
+              placeholder={
+                lang === 'en'
+                  ? 'Share your analysis on Layer 7 extraction, C pipelines, MinHash, or token economics...'
+                  : 'Escribe tu análisis sobre la extracción en Capa 7, pipelines en C, MinHash o economía de tokens...'
+              }
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               className="w-full bg-black/80 border border-zinc-800 focus:border-[#C5A059] rounded p-3 text-xs font-mono text-zinc-200 outline-none transition-colors"
@@ -199,7 +243,11 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
               className="px-5 py-2 bg-[#C5A059] hover:bg-[#FFE066] text-black font-mono font-bold text-xs rounded transition-all cursor-pointer shadow-[0_0_15px_rgba(197,160,89,0.4)] flex items-center gap-1.5"
             >
               <Send size={12} />
-              <span>{isSubmitting ? 'Transmitiendo...' : 'Publicar Comentario'}</span>
+              <span>
+                {isSubmitting
+                  ? (lang === 'en' ? 'Publishing...' : 'Transmitiendo...')
+                  : (lang === 'en' ? 'Publish Comment' : 'Publicar Comentario')}
+              </span>
             </button>
           </div>
         </form>
@@ -222,7 +270,7 @@ export function CommentsSection({ postId }: CommentsSectionProps) {
                     <span className="text-xs font-mono font-bold text-zinc-200">{com.name}</span>
                     {com.isVerified && (
                       <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-[#C5A059]/20 text-[#FFE066] border border-[#C5A059]/40">
-                        VERIFICADO
+                        {lang === 'en' ? 'VERIFIED' : 'VERIFICADO'}
                       </span>
                     )}
                   </div>

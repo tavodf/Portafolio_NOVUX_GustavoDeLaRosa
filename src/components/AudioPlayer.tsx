@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Volume2, VolumeX, Play, Pause, Radio, Zap } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
+import { useLanguage } from '../context/LanguageContext';
 
 interface AudioPlayerProps {
   videoId?: string;
@@ -42,6 +43,7 @@ interface YTPlayerInstance {
 }
 
 export function AudioPlayer({ videoId = 'Dy080SqIEMU' }: AudioPlayerProps) {
+  const { lang } = useLanguage();
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(45);
@@ -272,7 +274,7 @@ export function AudioPlayer({ videoId = 'Dy080SqIEMU' }: AudioPlayerProps) {
                 ? 'bg-[#C5A059]/25 text-[#FFE066] border border-[#C5A059]/60 shadow-[0_0_12px_rgba(197,160,89,0.35)]' 
                 : 'bg-zinc-800/80 hover:bg-[#C5A059]/15 text-zinc-300 hover:text-[#C5A059] border border-zinc-700'
             }`}
-            title={isPlaying ? "Pausar música de fondo" : "Reproducir música ambiental"}
+            title={isPlaying ? (lang === 'en' ? "Pause background audio" : "Pausar música de fondo") : (lang === 'en' ? "Play ambient audio" : "Reproducir música ambiental")}
           >
             {isPlaying ? (
               <>
@@ -282,7 +284,7 @@ export function AudioPlayer({ videoId = 'Dy080SqIEMU' }: AudioPlayerProps) {
             ) : (
               <>
                 <Play size={11} className="fill-current" />
-                <span className="text-[10px] sm:text-[11px]">MÚSICA</span>
+                <span className="text-[10px] sm:text-[11px]">{lang === 'en' ? 'AUDIO' : 'MÚSICA'}</span>
               </>
             )}
           </button>
@@ -292,13 +294,13 @@ export function AudioPlayer({ videoId = 'Dy080SqIEMU' }: AudioPlayerProps) {
             <button
               onClick={handleToggleMute}
               className="p-1 text-zinc-400 hover:text-[#C5A059] transition-colors cursor-pointer"
-              title={isMuted ? "Activar sonido" : "Silenciar música"}
+              title={isMuted ? (lang === 'en' ? "Unmute audio" : "Activar sonido") : (lang === 'en' ? "Mute audio" : "Silenciar música")}
             >
               {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
             </button>
           )}
 
-          {/* Botón SFX (Efectos Arcade) */}
+          {/* Botón SFX (Efectos UI) */}
           <button
             onClick={handleToggleSfx}
             className={`flex items-center gap-1 px-1.5 sm:px-2 py-1 rounded text-[9.5px] sm:text-[10px] font-mono tracking-wider transition-all duration-200 cursor-pointer border ${
@@ -306,7 +308,7 @@ export function AudioPlayer({ videoId = 'Dy080SqIEMU' }: AudioPlayerProps) {
                 ? 'border-[#C5A059]/40 bg-black/40 text-[#C5A059] hover:bg-[#C5A059]/20' 
                 : 'border-zinc-800 bg-black/20 text-zinc-600 hover:text-zinc-400'
             }`}
-            title="Efectos de sonido retro de videojuegos para clics y botones"
+            title={lang === 'en' ? "Interactive UI audio feedback for clicks and controls" : "Respuesta auditiva de interfaz para clics y controles"}
           >
             <Zap size={10} className={sfxActive ? "fill-[#C5A059]" : "opacity-40"} />
             <span className="font-bold">SFX</span>
@@ -323,7 +325,7 @@ export function AudioPlayer({ videoId = 'Dy080SqIEMU' }: AudioPlayerProps) {
                 value={isMuted ? 0 : volume}
                 onChange={(e) => handleVolumeChange(Number(e.target.value))}
                 className="w-16 h-1 bg-zinc-700 accent-[#C5A059] rounded cursor-pointer"
-                title={`Volumen: ${volume}%`}
+                title={`${lang === 'en' ? 'Volume' : 'Volumen'}: ${volume}%`}
               />
             </div>
           )}

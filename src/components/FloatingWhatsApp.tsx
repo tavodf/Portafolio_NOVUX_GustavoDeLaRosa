@@ -3,39 +3,51 @@ import { motion, AnimatePresence } from 'motion/react';
 import { MessageCircle, X, ArrowUpRight, Send } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
 import { getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
+import { useLanguage } from '../context/LanguageContext';
 
 interface FloatingWhatsAppProps {
   currentContext?: string;
 }
 
 export function FloatingWhatsApp({ currentContext }: FloatingWhatsAppProps) {
+  const { lang } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
   const quickOptions = [
     {
       title: 'CASE-SANTAFE-BI',
-      desc: 'Comando Central Bogotá (+131k interacciones)',
-      message: 'Hola NOVUX S.A.S., me interesa cotizar una plataforma de Business Intelligence Gubernamental y Analítica Territorial basada en CASE-SANTAFE-BI.'
+      desc: lang === 'en' ? 'Government Central Command (+131k interactions)' : 'Comando Central Bogotá (+131k interacciones)',
+      message: lang === 'en'
+        ? 'Hello NOVUX team, I am interested in quoting a Government Business Intelligence and Territorial Analytics platform based on CASE-SANTAFE-BI.'
+        : 'Hola NOVUX S.A.S., me interesa cotizar una plataforma de Business Intelligence Gubernamental y Analítica Territorial basada en CASE-SANTAFE-BI.'
     },
     {
       title: 'Novux ARES SCRAP',
-      desc: 'Resilient L7 Data Harvesting & Lead Engine',
-      message: 'Hola NOVUX S.A.S., requiero cotizar infraestructura de Web Data Harvesting y canalización a Data Lakes con Novux ARES SCRAP.'
+      desc: lang === 'en' ? 'Resilient L7 Data Harvesting & Lead Engine' : 'Resilient L7 Data Harvesting & Lead Engine',
+      message: lang === 'en'
+        ? 'Hello NOVUX team, I require quoting Web Data Harvesting infrastructure and Data Lake pipelines with Novux ARES SCRAP.'
+        : 'Hola NOVUX S.A.S., requiero cotizar infraestructura de Web Data Harvesting y canalización a Data Lakes con Novux ARES SCRAP.'
     },
     {
       title: 'Novux COT',
-      desc: 'Gemelos Digitales 3D & Telemetría C2 (60 FPS)',
-      message: 'Hola NOVUX S.A.S., deseo cotizar la plataforma de Control Operativo en Territorio Novux COT (Tactical Digital Twin C2 // WebGL 2.0).'
+      desc: lang === 'en' ? '3D Digital Twins & C2 Telemetry (60 FPS)' : 'Gemelos Digitales 3D & Telemetría C2 (60 FPS)',
+      message: lang === 'en'
+        ? 'Hello NOVUX team, I would like to quote the Field Operational Control platform Novux COT (Tactical Digital Twin C2 // WebGL 2.0).'
+        : 'Hola NOVUX S.A.S., deseo cotizar la plataforma de Control Operativo en Territorio Novux COT (Tactical Digital Twin C2 // WebGL 2.0).'
     },
     {
       title: 'Novux CPC',
-      desc: 'Hemiciclo 3D & Kahn DAG (45 Curules en Vivo)',
-      message: 'Hola NOVUX S.A.S., busco cotizar la plataforma de Inteligencia Política y Auditoría Electoral Novux CPC.'
+      desc: lang === 'en' ? '3D Hemicycle & Kahn DAG (45 Live Seats)' : 'Hemiciclo 3D & Kahn DAG (45 Curules en Vivo)',
+      message: lang === 'en'
+        ? 'Hello NOVUX team, I am looking to quote the Political Intelligence and Electoral Audit platform Novux CPC.'
+        : 'Hola NOVUX S.A.S., busco cotizar la plataforma de Inteligencia Política y Auditoría Electoral Novux CPC.'
     },
     {
-      title: 'Desarrollo a Medida // Sprints B2B',
-      desc: '100% Cesión de Código y Control Propietario',
-      message: 'Hola NOVUX S.A.S., deseo cotizar un desarrollo de software a medida o ingeniería de datos para mi empresa.'
+      title: lang === 'en' ? 'Custom Engineering // B2B Sprints' : 'Desarrollo a Medida // Sprints B2B',
+      desc: lang === 'en' ? '100% Code Assignment & Proprietary Control' : '100% Cesión de Código y Control Propietario',
+      message: lang === 'en'
+        ? 'Hello NOVUX team, I want to quote custom software development or data engineering for my enterprise.'
+        : 'Hola NOVUX S.A.S., deseo cotizar un desarrollo de software a medida o ingeniería de datos para mi empresa.'
     }
   ];
 
@@ -67,7 +79,7 @@ export function FloatingWhatsApp({ currentContext }: FloatingWhatsAppProps) {
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                   </div>
                   <div className="text-[10px] text-zinc-400 font-mono">
-                    Línea Oficial: {WHATSAPP_DISPLAY_NUMBER}
+                    {lang === 'en' ? 'Official Line:' : 'Línea Oficial:'} {WHATSAPP_DISPLAY_NUMBER}
                   </div>
                 </div>
               </div>
@@ -81,7 +93,7 @@ export function FloatingWhatsApp({ currentContext }: FloatingWhatsAppProps) {
             </div>
 
             <p className="text-[11px] text-zinc-300 font-sans my-3 leading-snug">
-              Seleccione la arquitectura o caso de éxito que desea adaptar a las necesidades operativas de su organización:
+              {lang === 'en' ? 'Select the architecture or case study you want to adapt to your organization\'s operational needs:' : 'Seleccione la arquitectura o caso de éxito que desea adaptar a las necesidades operativas de su organización:'}
             </p>
 
             {/* Opciones directas por anclaje <a> para evitar bloqueos de popup locales */}
@@ -122,7 +134,7 @@ export function FloatingWhatsApp({ currentContext }: FloatingWhatsAppProps) {
                 className="w-full mt-2 py-2 px-3 rounded-lg bg-[#C5A059] hover:bg-[#FFE066] text-black font-mono font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 no-underline shadow-md"
               >
                 <Send size={12} />
-                <span>Consulta General por WhatsApp</span>
+                <span>{lang === 'en' ? 'General Inquiry via WhatsApp' : 'Consulta General por WhatsApp'}</span>
               </a>
             </div>
           </motion.div>
@@ -138,7 +150,7 @@ export function FloatingWhatsApp({ currentContext }: FloatingWhatsAppProps) {
           title="Atención Directa WhatsApp B2B"
         >
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-[11px] font-mono text-zinc-300 group-hover:text-white">Atención Inmediata:</span>
+          <span className="text-[11px] font-mono text-zinc-300 group-hover:text-white">{lang === 'en' ? 'Immediate Support:' : 'Atención Inmediata:'}</span>
           <span className="text-xs font-mono font-bold text-[#FFE066] group-hover:text-emerald-400 transition-colors">
             WHATSAPP B2B
           </span>

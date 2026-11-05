@@ -14,15 +14,16 @@ import { MatrixRain } from './components/MatrixRain';
 import { AudioPlayer } from './components/AudioPlayer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { CurriculumTelemetryModal } from './components/CurriculumTelemetryModal';
-import { services } from './data';
-import { blogPosts } from './blogData';
-import { techNews } from './newsData';
+import { services, getLocalizedServices } from './data';
+import { useLanguage } from './context/LanguageContext';
+import { blogPosts, getLocalizedBlogPosts } from './blogData';
 import { ServiceId, BlogPost, TechNewsItem } from './types';
 import { sfx } from './utils/soundEffects';
 
 type ViewMode = 'HOME' | 'BLOG' | 'BLOG_POST' | 'NOTICIAS' | ServiceId;
 
 export default function App() {
+  const { lang } = useLanguage();
   const [currentView, setCurrentView] = useState<ViewMode>('HOME');
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(blogPosts[0] || null);
 
@@ -177,7 +178,7 @@ export default function App() {
               className="w-full"
             >
               <BlogList 
-                posts={blogPosts}
+                posts={getLocalizedBlogPosts(lang)}
                 onSelectPost={handleSelectPost}
                 onBackToHome={handleBackToHome}
               />
@@ -211,7 +212,7 @@ export default function App() {
               className="w-full"
             >
               <ServiceDetail 
-                service={services[currentView as ServiceId] || Object.values(services)[0]} 
+                service={getLocalizedServices(lang)[currentView as ServiceId] || Object.values(getLocalizedServices(lang))[0]} 
                 onBack={handleBackToHome} 
               />
             </motion.div>

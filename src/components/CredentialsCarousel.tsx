@@ -21,6 +21,7 @@ import {
   LayoutGrid
 } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
+import { useLanguage } from '../context/LanguageContext';
 
 export interface VerifiedCredential {
   id: string;
@@ -220,11 +221,75 @@ function getCredentialIcon(iconType: string) {
   }
 }
 
+const CREDENTIAL_TRANSLATIONS_EN: Record<string, { name?: string; category?: string; issueDate?: string }> = {
+  'mintic-ud-python': {
+    name: 'Python Programming Language (50h)',
+    category: 'Backend & Algorithms',
+    issueDate: 'Dec 2020'
+  },
+  'ibm-python-data-science': {
+    category: 'Data & AI',
+    issueDate: 'May 2024'
+  },
+  'ibm-data-analytics-essentials': {
+    category: 'Analytics & BI',
+    issueDate: 'May 2024'
+  },
+  'ibm-excel-data-analytics': {
+    category: 'Financial Modeling',
+    issueDate: 'Jun 2024'
+  },
+  'ibm-data-viz-dashboards': {
+    category: 'Dashboards & BI',
+    issueDate: 'Jun 2024'
+  },
+  'ibm-ml-python': {
+    category: 'Machine Learning',
+    issueDate: 'Jul 2024'
+  },
+  'ibm-deep-learning': {
+    category: 'Neural Networks',
+    issueDate: 'Jul 2024'
+  },
+  'google-ai-essentials': {
+    category: 'Generative AI',
+    issueDate: 'Aug 2024'
+  },
+  'ibm-web-dev-python': {
+    category: 'Backend & APIs',
+    issueDate: 'Aug 2024'
+  },
+  'ibm-cybersecurity-fundamentals': {
+    category: 'L7 Security',
+    issueDate: 'Sep 2024'
+  },
+  'ibm-agile-explorer': {
+    category: 'Agile Governance',
+    issueDate: 'Sep 2024'
+  },
+  'ibm-emerging-tech': {
+    category: 'Cloud & AI Stack',
+    issueDate: 'Oct 2024'
+  }
+};
+
 export function CredentialsCarousel() {
+  const { lang } = useLanguage();
   const [viewMode, setViewMode] = useState<'CAROUSEL' | 'TABLE'>('CAROUSEL');
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const credentials = VERIFIED_CREDENTIALS.map((c) => {
+    if (lang !== 'en') return c;
+    const tr = CREDENTIAL_TRANSLATIONS_EN[c.id];
+    return {
+      ...c,
+      name: tr?.name || c.name,
+      category: tr?.category || c.category,
+      issueDate: tr?.issueDate || c.issueDate
+    };
+  });
 
   const updateScrollButtons = () => {
     const el = scrollContainerRef.current;
@@ -271,7 +336,7 @@ export function CredentialsCarousel() {
         <div className="flex items-center gap-2">
           <Award className="w-4 h-4 text-[#C5A059]" />
           <span className="text-xs font-mono uppercase tracking-widest text-[#C5A059] font-bold flex items-center gap-1.5">
-            Acreditaciones Técnicas &amp; Certificaciones Verificadas
+            {lang === 'en' ? 'Technical Accreditations & Verified Certifications' : 'Acreditaciones Técnicas & Certificaciones Verificadas'}
             <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           </span>
           <span className="hidden sm:inline-flex text-zinc-600 font-mono text-xs">//</span>
@@ -297,7 +362,7 @@ export function CredentialsCarousel() {
               }`}
             >
               <LayoutGrid size={11} />
-              <span>Carrusel</span>
+              <span>{lang === 'en' ? 'Carousel' : 'Carrusel'}</span>
             </button>
             <button
               type="button"
@@ -312,7 +377,7 @@ export function CredentialsCarousel() {
               }`}
             >
               <Table2 size={11} />
-              <span>Tabla</span>
+              <span>{lang === 'en' ? 'Table' : 'Tabla'}</span>
             </button>
           </div>
 
@@ -325,7 +390,7 @@ export function CredentialsCarousel() {
             className="inline-flex items-center gap-1.5 px-3 py-1 rounded-sm bg-[#C5A059]/15 hover:bg-[#C5A059] text-[#FFE066] hover:text-black border border-[#C5A059]/50 hover:border-[#FFE066] text-[11px] font-mono tracking-wider transition-all duration-200 cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(197,160,89,0.4)] font-semibold"
           >
             <CheckCircle size={12} className="text-emerald-400 group-hover:text-black" />
-            <span>Perfil Oficial en Credly</span>
+            <span>{lang === 'en' ? 'Official Credly Profile' : 'Perfil Oficial en Credly'}</span>
             <ExternalLink size={10} />
           </a>
         </div>
@@ -338,15 +403,15 @@ export function CredentialsCarousel() {
             <thead className="bg-[#0e0e16] border-b border-[#C5A059]/30 text-[10px] text-[#C5A059] uppercase tracking-wider">
               <tr>
                 <th className="py-2.5 px-3 w-12 text-center">#</th>
-                <th className="py-2.5 px-3 min-w-[210px]">Acreditación Oficial</th>
-                <th className="py-2.5 px-3 min-w-[130px]">Institución Emisora</th>
-                <th className="py-2.5 px-3 min-w-[130px]">Especialidad</th>
-                <th className="py-2.5 px-3 min-w-[85px]">Fecha</th>
-                <th className="py-2.5 px-3 text-right min-w-[100px]">Validación</th>
+                <th className="py-2.5 px-3 min-w-[210px]">{lang === 'en' ? 'Official Credential' : 'Acreditación Oficial'}</th>
+                <th className="py-2.5 px-3 min-w-[130px]">{lang === 'en' ? 'Issuing Institution' : 'Institución Emisora'}</th>
+                <th className="py-2.5 px-3 min-w-[130px]">{lang === 'en' ? 'Specialty' : 'Especialidad'}</th>
+                <th className="py-2.5 px-3 min-w-[85px]">{lang === 'en' ? 'Date' : 'Fecha'}</th>
+                <th className="py-2.5 px-3 text-right min-w-[100px]">{lang === 'en' ? 'Validation' : 'Validación'}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-800/60">
-              {VERIFIED_CREDENTIALS.map((item, idx) => (
+              {credentials.map((item, idx) => (
                 <tr key={item.id} className="hover:bg-white/[0.03] transition-colors group">
                   <td className="py-2.5 px-3 text-center text-zinc-500 text-[11px]">
                     {String(idx + 1).padStart(2, '0')}
@@ -386,7 +451,7 @@ export function CredentialsCarousel() {
                       className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#C5A059]/10 hover:bg-[#C5A059]/30 border border-[#C5A059]/40 text-[#FFE066] text-[10px] font-bold transition-all cursor-pointer no-underline"
                     >
                       <CheckCircle size={11} className="text-emerald-400" />
-                      <span>Verificar</span>
+                      <span>{lang === 'en' ? 'Verify' : 'Verificar'}</span>
                       <ExternalLink size={9} />
                     </a>
                   </td>
@@ -404,13 +469,13 @@ export function CredentialsCarousel() {
           onClick={() => handleManualScroll('left')}
           onMouseEnter={() => sfx.playHover()}
           disabled={!canScrollLeft}
-          aria-label="Desplazar credenciales hacia la izquierda"
+          aria-label={lang === 'en' ? 'Scroll credentials left' : 'Desplazar credenciales hacia la izquierda'}
           className={`absolute left-0 sm:-left-3 z-20 p-2.5 sm:p-3 rounded-full border transition-all duration-200 shadow-xl cursor-pointer flex items-center justify-center ${
             canScrollLeft
               ? 'bg-[#0e0e14] hover:bg-[#C5A059] text-[#C5A059] hover:text-black border-[#C5A059]/60 hover:border-[#FFE066] shadow-[0_0_20px_rgba(0,0,0,0.85)] hover:shadow-[0_0_20px_rgba(197,160,89,0.6)] scale-100 hover:scale-110 active:scale-95'
               : 'bg-zinc-950/60 text-zinc-600 border-zinc-800/60 opacity-30 cursor-not-allowed'
           }`}
-          title="Ver credenciales anteriores"
+          title={lang === 'en' ? 'View previous credentials' : 'Ver credenciales anteriores'}
         >
           <ChevronLeft size={20} strokeWidth={2.5} />
         </button>
@@ -421,7 +486,7 @@ export function CredentialsCarousel() {
           className="w-full flex gap-3 sm:gap-4 overflow-x-auto no-scrollbar scroll-smooth py-3 px-8 sm:px-10 select-none"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {VERIFIED_CREDENTIALS.map((item) => {
+          {credentials.map((item) => {
             const isIBMBuild = item.type === 'IBM SkillsBuild';
 
             return (
@@ -472,7 +537,7 @@ export function CredentialsCarousel() {
                       {item.issueDate}
                     </span>
                     <span className="text-[#C5A059] group-hover:text-[#FFE066] flex items-center gap-0.5 text-[9px] font-bold underline decoration-[#C5A059]/50">
-                      Ver Insignia <ExternalLink size={8} />
+                      {lang === 'en' ? 'View Badge' : 'Ver Insignia'} <ExternalLink size={8} />
                     </span>
                   </div>
                 </div>
@@ -500,13 +565,13 @@ export function CredentialsCarousel() {
           onClick={() => handleManualScroll('right')}
           onMouseEnter={() => sfx.playHover()}
           disabled={!canScrollRight}
-          aria-label="Desplazar credenciales hacia la derecha"
+          aria-label={lang === 'en' ? 'Scroll credentials right' : 'Desplazar credenciales hacia la derecha'}
           className={`absolute right-0 sm:-right-3 z-20 p-2.5 sm:p-3 rounded-full border transition-all duration-200 shadow-xl cursor-pointer flex items-center justify-center ${
             canScrollRight
               ? 'bg-[#0e0e14] hover:bg-[#C5A059] text-[#C5A059] hover:text-black border-[#C5A059]/60 hover:border-[#FFE066] shadow-[0_0_20px_rgba(0,0,0,0.85)] hover:shadow-[0_0_20px_rgba(197,160,89,0.6)] scale-100 hover:scale-110 active:scale-95'
               : 'bg-zinc-950/60 text-zinc-600 border-zinc-800/60 opacity-30 cursor-not-allowed'
           }`}
-          title="Ver credenciales siguientes"
+          title={lang === 'en' ? 'View next credentials' : 'Ver credenciales siguientes'}
         >
           <ChevronRight size={20} strokeWidth={2.5} />
         </button>
@@ -515,7 +580,11 @@ export function CredentialsCarousel() {
       {/* Indicador de ayuda y navegación en el pie */}
       <div className="text-center mt-1 flex items-center justify-center gap-2">
         <span className="text-[10px] font-mono text-zinc-500 tracking-wider">
-          // Usa las flechas laterales <kbd className="px-1 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-zinc-400">◀</kbd> <kbd className="px-1 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-zinc-400">▶</kbd> para explorar las 12 credenciales oficiales en orden cronológico
+          {lang === 'en' ? (
+            <>// Use the side arrows <kbd className="px-1 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-zinc-400">◀</kbd> <kbd className="px-1 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-zinc-400">▶</kbd> to explore all 12 official credentials in chronological order</>
+          ) : (
+            <>// Usa las flechas laterales <kbd className="px-1 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-zinc-400">◀</kbd> <kbd className="px-1 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-zinc-400">▶</kbd> para explorar las 12 credenciales oficiales en orden cronológico</>
+          )}
         </span>
       </div>
     </>

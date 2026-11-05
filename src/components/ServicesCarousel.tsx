@@ -12,7 +12,7 @@ interface ServicesCarouselProps {
 }
 
 export function ServicesCarousel({ services, onSelectService }: ServicesCarouselProps) {
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -114,9 +114,9 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
             <button
               onClick={() => handleScroll('left')}
               onMouseEnter={() => sfx.playHover()}
-              aria-label="Caso anterior"
+              aria-label={lang === 'en' ? 'Previous case' : 'Caso anterior'}
               className="p-2 rounded-sm border transition-all duration-200 cursor-pointer flex items-center justify-center bg-[#0e0e14] hover:bg-[#C5A059] text-[#C5A059] hover:text-black border-[#C5A059]/60 hover:border-[#FFE066] shadow-[0_0_15px_rgba(197,160,89,0.3)] active:scale-95"
-              title="Caso anterior"
+              title={lang === 'en' ? 'Previous case' : 'Caso anterior'}
             >
               <ChevronLeft size={16} strokeWidth={2.5} />
             </button>
@@ -124,9 +124,9 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
             <button
               onClick={() => handleScroll('right')}
               onMouseEnter={() => sfx.playHover()}
-              aria-label="Caso siguiente"
+              aria-label={lang === 'en' ? 'Next case' : 'Caso siguiente'}
               className="p-2 rounded-sm border transition-all duration-200 cursor-pointer flex items-center justify-center bg-[#0e0e14] hover:bg-[#C5A059] text-[#C5A059] hover:text-black border-[#C5A059]/60 hover:border-[#FFE066] shadow-[0_0_15px_rgba(197,160,89,0.3)] active:scale-95"
-              title="Caso siguiente"
+              title={lang === 'en' ? 'Next case' : 'Caso siguiente'}
             >
               <ChevronRight size={16} strokeWidth={2.5} />
             </button>
@@ -142,12 +142,6 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {services.map((service, index) => {
-
-
-
-
-
-
             return (
               <motion.div
                 key={service.id}
@@ -185,7 +179,7 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                       }
                     }}
                     className="h-[210px] w-full mb-3 overflow-hidden rounded-sm border border-[#C5A059]/40 group-hover:border-[#FFE066] bg-black relative shadow-inner group/preview cursor-pointer"
-                    title={`Lanzar ${service.shortIdentifier || service.categoryTitle} en vivo`}
+                    title={lang === 'en' ? `Launch ${service.shortIdentifier || service.categoryTitle} live` : `Lanzar ${service.shortIdentifier || service.categoryTitle} en vivo`}
                   >
                     {service.image ? (
                       <img
@@ -195,7 +189,7 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                       />
                     ) : (
                       <div className="w-full h-full bg-[#0a0c14] flex items-center justify-center font-mono text-zinc-500 text-xs">
-                        [VISTA PREVIA NO DISPONIBLE]
+                        {lang === 'en' ? '[PREVIEW UNAVAILABLE]' : '[VISTA PREVIA NO DISPONIBLE]'}
                       </div>
                     )}
 
@@ -212,7 +206,7 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
 
                     {/* Overlay Inferior en Hover: Clic para Lanzar Demo */}
                     <div className="absolute inset-x-0 bottom-0 py-2 px-3 bg-gradient-to-t from-black/95 via-black/80 to-transparent flex items-center justify-between text-[10px] font-mono text-zinc-300 group-hover/preview:text-[#FFE066] transition-colors pointer-events-none border-t border-white/5">
-                      <span className="truncate">{service.statusTag || '[PRODUCCIÓN // 100% ONLINE]'}</span>
+                      <span className="truncate">{service.statusTag || (lang === 'en' ? '[PRODUCTION // 100% ONLINE]' : '[PRODUCCIÓN // 100% ONLINE]')}</span>
                       <span className="shrink-0 font-bold flex items-center gap-1 text-[#FFE066]">
                         {t('openAppHover')}
                       </span>
@@ -319,12 +313,16 @@ export function ServicesCarousel({ services, onSelectService }: ServicesCarousel
                       onMouseEnter={() => sfx.playHover()}
                       className="w-full bg-gradient-to-r from-[#C5A059] via-[#FFE066] to-[#C5A059] hover:from-[#FFE066] hover:to-[#C5A059] text-black py-2.5 text-xs tracking-wider transition-all duration-300 rounded-sm uppercase font-bold shadow-[0_0_20px_rgba(197,160,89,0.4)] cursor-pointer text-center block font-mono"
                     >
-                      {service.ctaText || 'LANZAR DEMO INTERACTIVO // DEMO ACTIVA ↗'}
+                      {service.ctaText || t('tryLiveDemoBtn')}
                     </button>
                   )}
 
                   <a
-                    href={getWhatsAppUrl(`Hola NOVUX S.A.S., me interesa solicitar desarrollo a la medida basado en la arquitectura de ${service.shortIdentifier || service.categoryTitle}.`)}
+                    href={getWhatsAppUrl(
+                      lang === 'en'
+                        ? `Hello NOVUX S.A.S., I am interested in requesting custom development based on the ${service.shortIdentifier || service.categoryTitle} architecture.`
+                        : `Hola NOVUX S.A.S., me interesa solicitar desarrollo a la medida basado en la arquitectura de ${service.shortIdentifier || service.categoryTitle}.`
+                    )}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={(e) => {

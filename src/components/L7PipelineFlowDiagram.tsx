@@ -1,17 +1,18 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { 
-  Sparkles, Play, Pause, RotateCcw, ShieldCheck, 
-  Layers, Cpu, Server, Network, Binary, Database, Compass, Terminal, ArrowUp
+  Sparkles, Play, Pause, RotateCcw, 
+  Cpu, Terminal
 } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
+import { useLanguage } from '../context/LanguageContext';
 
 interface PipelineNode {
   id: string;
   badge: string;
   name: string;
   shortLabel: string;
-  pillar: 'Pilar de Poda & Parsing (C-Level)' | 'Pilar Troncal (Arquitectura de Datos)' | 'Pilar de Expansión (Espacio Vectorial)';
+  pillar: string;
   l7Phase: string;
   osiLayer: string;
   description: string;
@@ -22,7 +23,7 @@ interface PipelineNode {
   isApex?: boolean;
 }
 
-const PIPELINE_NODES: PipelineNode[] = [
+const PIPELINE_NODES_ES: PipelineNode[] = [
   {
     id: 'keter',
     badge: 'K-7',
@@ -180,41 +181,188 @@ const PIPELINE_NODES: PipelineNode[] = [
   },
 ];
 
+const PIPELINE_NODES_EN: PipelineNode[] = [
+  {
+    id: 'keter',
+    badge: 'K-7',
+    name: 'KNOWLEDGE ENGINE // AI MODELS',
+    shortLabel: 'AI TENSORS',
+    pillar: 'Core Pillar (Data Architecture)',
+    l7Phase: 'The Apex: Trained Cognitive Model',
+    osiLayer: 'Cognitive Apex (LLM Weights)',
+    description: 'The ultimate purpose of ingestion. Billions of purified and deduplicated tokens feed the matrix weights of the neural network. A tireless system free of structural noise executing with mathematical precision.',
+    telemetry: 'Calibrated Weights • Zero Structural Hallucination • Pure Tensors',
+    x: 400,
+    y: 35,
+    color: '#FFF8DC',
+    isApex: true,
+  },
+  {
+    id: 'chokhmah',
+    badge: 'VEC',
+    name: 'VECTOR SPACES // EMBEDDINGS',
+    shortLabel: 'EMBEDDINGS',
+    pillar: 'Expansion Pillar (Vector Space)',
+    l7Phase: 'Multidimensional Matrix Projection',
+    osiLayer: 'R^N Tensor Algebra',
+    description: 'Projection of hypertext into dense vector spaces where concepts acquire numerical coordinates computable via cosine similarity.',
+    telemetry: 'Dim: 1536 / 4096 • Cosine Similarity • Dense Vectors',
+    x: 580,
+    y: 110,
+    color: '#FFE066',
+  },
+  {
+    id: 'binah',
+    badge: 'BPE',
+    name: 'BPE TOKENIZER & CURATED CORPUS',
+    shortLabel: 'TOKENIZER',
+    pillar: 'Pruning & Parsing Pillar (C-Level)',
+    l7Phase: 'Sub-Word Segmentation & Vocabulary',
+    osiLayer: 'Byte-Pair Encoding (BPE)',
+    description: 'Analytical division of text into reproducible integer sequences. Syntactic structure is purified before feeding downstream training or inference.',
+    telemetry: 'Vocabulary: 100K tokens • Controlled Entropy',
+    x: 220,
+    y: 110,
+    color: '#C5A059',
+  },
+  {
+    id: 'daat',
+    badge: 'PYD',
+    name: 'TYPED CANONICAL VALIDATION',
+    shortLabel: 'PYDANTIC V2',
+    pillar: 'Core Pillar (Data Architecture)',
+    l7Phase: 'Immutability & Strict Typing',
+    osiLayer: 'Type Safety & In-Memory Validation',
+    description: 'The threshold where raw data ceases to be plain text and becomes an immutable typed entity enforced by strict runtime validation schemas.',
+    telemetry: 'Schema Enforcement: 100% • Zero Type Errors',
+    x: 400,
+    y: 180,
+    color: '#38bdf8',
+  },
+  {
+    id: 'chesed',
+    badge: 'LSH',
+    name: 'LOCALITY-SENSITIVE HASHING (LSH)',
+    shortLabel: 'LSH BANDS',
+    pillar: 'Expansion Pillar (Vector Space)',
+    l7Phase: 'Massive Probabilistic Indexing',
+    osiLayer: 'Sub-Band Indexing O(N)',
+    description: 'Clustering of documents into hash sub-bands. Enables identifying near-duplicates across millions of records in linear O(N) time without memory degradation.',
+    telemetry: 'Complexity: O(N) vs O(N^2) • LSH Sub-bands',
+    x: 580,
+    y: 250,
+    color: '#FFE066',
+  },
+  {
+    id: 'gevurah',
+    badge: 'MIN',
+    name: '64-PERMUTATION MINHASH ENGINE',
+    shortLabel: 'MINHASH 64',
+    pillar: 'Pruning & Parsing Pillar (C-Level)',
+    l7Phase: 'Redundancy Pruning & Jaccard',
+    osiLayer: 'Probabilistic Filter J > 0.75',
+    description: 'Computation of compact syntactic fingerprints via families of pseudorandom hash functions (a*x + b mod P). Immediately discards duplicate records.',
+    telemetry: '64 Permutations • Jaccard Threshold: J > 0.75',
+    x: 220,
+    y: 250,
+    color: '#f87171',
+  },
+  {
+    id: 'tiferet',
+    badge: 'XPAT',
+    name: 'SEMANTIC PROJECTION // SCOPED XPATH',
+    shortLabel: 'SCOPED DOM',
+    pillar: 'Core Pillar (Data Architecture)',
+    l7Phase: 'Tree Core: Selective Extraction',
+    osiLayer: 'DOM Context Partitioning',
+    description: 'Selective extraction of value-bearing nodes via relative XPath. Instead of blind regex scanning, it navigates DOM topology with surgical precision.',
+    telemetry: 'Local RAM Scope • Pruned Nodes: 94%',
+    x: 400,
+    y: 330,
+    color: '#FFE066',
+  },
+  {
+    id: 'netzach',
+    badge: 'K-3',
+    name: 'SHINGLE SEGMENTATION (TRIGRAMS)',
+    shortLabel: 'SHINGLES K=3',
+    pillar: 'Expansion Pillar (Vector Space)',
+    l7Phase: 'Lexical N-Gram Segmentation',
+    osiLayer: 'N-Gram Tokenization K=3',
+    description: 'Decomposition of text into overlapping 3-word sequences, generating the lexical fingerprint used to evaluate structural similarity.',
+    telemetry: 'K=3 Shingles • CRC32 Hashing',
+    x: 580,
+    y: 410,
+    color: '#FFE066',
+  },
+  {
+    id: 'hod',
+    badge: 'C/AST',
+    name: 'NATIVE C PARSER (libxml2)',
+    shortLabel: 'libxml2 C',
+    pillar: 'Pruning & Parsing Pillar (C-Level)',
+    l7Phase: 'Contiguous Native C-Level Memory',
+    osiLayer: 'AST Tree in xmlNode Pointers',
+    description: 'Direct memory mapping into contiguous C xmlNode structs. Bypasses Python garbage collector overhead to guarantee extreme throughput.',
+    telemetry: 'RAM Usage: < 1.8 MB (vs 42 MB Python)',
+    x: 220,
+    y: 410,
+    color: '#C5A059',
+  },
+  {
+    id: 'yesod',
+    badge: 'BUF',
+    name: 'UTF-8 STREAM & CHUNK BUFFER',
+    shortLabel: 'STREAM L7',
+    pillar: 'Core Pillar (Data Architecture)',
+    l7Phase: 'Zero-Copy Memory Buffer',
+    osiLayer: 'OSI Layer 7 Application (Idempotent GET)',
+    description: 'Reception of payload in 64 KB chunks in continuous read memory without altering remote host state.',
+    telemetry: 'Idempotent GET Request • 64 KB Buffer',
+    x: 400,
+    y: 485,
+    color: '#38bdf8',
+  },
+  {
+    id: 'malkhut',
+    badge: 'L3/4',
+    name: 'TCP SOCKET & TLS 1.3 HANDSHAKE',
+    shortLabel: 'SOCKET BASE',
+    pillar: 'Core Pillar (Data Architecture)',
+    l7Phase: 'Physical Base: Network Transit',
+    osiLayer: 'OSI Layers L1–L4 (Physical, Network & Transport)',
+    description: 'The foundational layer of sockets, DNS resolution, and TCP/IP packets transporting public hypertext across the network.',
+    telemetry: 'TLS 1.3 Handshake • MTU: 1500 bytes • TCP Socket',
+    x: 400,
+    y: 565,
+    color: '#C5A059',
+  },
+];
+
 // Los 22 Senderos de Conexión del Árbol de Ingesta
 const TREE_PATHS = [
-  // Eje Troncal Central
   ['malkhut', 'yesod'],
   ['yesod', 'tiferet'],
   ['tiferet', 'daat'],
   ['daat', 'keter'],
-
-  // Base y Conexiones Inferiores
   ['malkhut', 'hod'],
   ['malkhut', 'netzach'],
   ['yesod', 'hod'],
   ['yesod', 'netzach'],
   ['hod', 'netzach'],
-
-  // Convergencia hacia Tiferet (El Corazón del DOM)
   ['hod', 'tiferet'],
   ['netzach', 'tiferet'],
-
-  // Ascenso a Filtros de Deduplicación
   ['hod', 'gevurah'],
   ['netzach', 'chesed'],
   ['tiferet', 'gevurah'],
   ['tiferet', 'chesed'],
   ['gevurah', 'chesed'],
-
-  // Ascenso hacia Da'at y Espacios Superiores
   ['gevurah', 'binah'],
   ['chesed', 'chokhmah'],
   ['gevurah', 'daat'],
   ['chesed', 'daat'],
   ['binah', 'daat'],
   ['chokhmah', 'daat'],
-
-  // Cúspide Hacia la Corona Cognitiva de la IA
   ['binah', 'chokhmah'],
   ['binah', 'keter'],
   ['chokhmah', 'keter'],
@@ -222,9 +370,12 @@ const TREE_PATHS = [
 ];
 
 export function L7PipelineFlowDiagram() {
+  const { lang } = useLanguage();
   const [isPlaying, setIsPlaying] = useState(true);
   const [activeId, setActiveId] = useState<string>('keter');
   const [energyPhase, setEnergyPhase] = useState(0);
+
+  const nodes = lang === 'en' ? PIPELINE_NODES_EN : PIPELINE_NODES_ES;
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -234,7 +385,7 @@ export function L7PipelineFlowDiagram() {
     return () => clearInterval(interval);
   }, [isPlaying]);
 
-  const activeNode = PIPELINE_NODES.find((s) => s.id === activeId) || PIPELINE_NODES[0];
+  const activeNode = nodes.find((s) => s.id === activeId) || nodes[0];
 
   const handleSelect = (n: PipelineNode) => {
     sfx.playSelect();
@@ -248,7 +399,9 @@ export function L7PipelineFlowDiagram() {
         <div className="flex items-center gap-2">
           <Terminal size={15} className="text-[#FFE066] animate-pulse" />
           <span className="text-xs font-mono font-bold text-zinc-100 tracking-wider">
-            TOPOLOGÍA DEL PIPELINE // EL ÁRBOL DE INGESTA L7: DEL SOCKET A LA MENTE DE LA IA
+            {lang === 'en'
+              ? 'PIPELINE TOPOLOGY // L7 INGESTION TREE: FROM SOCKET TO AI TENSORS'
+              : 'TOPOLOGÍA DEL PIPELINE // EL ÁRBOL DE INGESTA L7: DEL SOCKET A LA MENTE DE LA IA'}
           </span>
         </div>
 
@@ -261,7 +414,11 @@ export function L7PipelineFlowDiagram() {
             className="flex items-center gap-1.5 px-3 py-1 bg-black/80 hover:bg-[#C5A059]/20 border border-[#C5A059]/40 hover:border-[#C5A059] text-[#C5A059] text-[11px] font-mono rounded cursor-pointer transition-all"
           >
             {isPlaying ? <Pause size={11} /> : <Play size={11} />}
-            <span>{isPlaying ? 'Pausar Flujo' : 'Reanudar Flujo'}</span>
+            <span>
+              {isPlaying
+                ? (lang === 'en' ? 'Pause Flow' : 'Pausar Flujo')
+                : (lang === 'en' ? 'Resume Flow' : 'Reanudar Flujo')}
+            </span>
           </button>
 
           <button
@@ -270,7 +427,7 @@ export function L7PipelineFlowDiagram() {
               setEnergyPhase(0);
             }}
             className="p-1.5 bg-black/80 hover:bg-zinc-800 text-zinc-400 hover:text-white rounded border border-zinc-800 cursor-pointer transition-all"
-            title="Reiniciar Ascenso"
+            title={lang === 'en' ? 'Reset Flow' : 'Reiniciar Ascenso'}
           >
             <RotateCcw size={12} />
           </button>
@@ -284,10 +441,14 @@ export function L7PipelineFlowDiagram() {
           <div className="flex items-center gap-2 text-[#FFE066]">
             <Sparkles size={13} />
             <span>
-              «Recorrido ascendente de 11 fases: desde el socket TCP en la base física hasta la corona tensorial de la IA»
+              {lang === 'en'
+                ? '«11-stage ascending pipeline: from physical TCP socket to the AI tensor apex»'
+                : '«Recorrido ascendente de 11 fases: desde el socket TCP en la base física hasta la corona tensorial de la IA»'}
             </span>
           </div>
-          <span className="text-zinc-500">Haz clic en cualquier fase para auditar su arquitectura</span>
+          <span className="text-zinc-500">
+            {lang === 'en' ? 'Click any stage to inspect its architecture' : 'Haz clic en cualquier fase para auditar su arquitectura'}
+          </span>
         </div>
 
         <div className="min-w-[760px] max-w-[800px] mx-auto relative py-2">
@@ -317,25 +478,22 @@ export function L7PipelineFlowDiagram() {
 
             {/* Los 3 Pilares del Pipeline de Ingesta */}
             <g opacity="0.15" stroke="#C5A059" strokeWidth="1" strokeDasharray="3 3">
-              {/* Pilar Izquierdo: C-Level Parsing & Poda */}
               <line x1="220" y1="20" x2="220" y2="590" />
-              {/* Pilar Central: Troncal de Arquitectura & Tipado */}
               <line x1="400" y1="10" x2="400" y2="600" strokeWidth="1.5" />
-              {/* Pilar Derecho: Segmentación & Expansión Vectorial */}
               <line x1="580" y1="20" x2="580" y2="590" />
             </g>
 
             {/* Rótulos de los 3 Pilares */}
             <g opacity="0.4" fontFamily="monospace" fontSize="9" fill="#C5A059" textAnchor="middle">
-              <text x="220" y="605">// PILAR C-PARSING & PODA</text>
-              <text x="400" y="612">// EJE TRONCAL DE ARQUITECTURA</text>
-              <text x="580" y="605">// PILAR VECTORIAL & LSH</text>
+              <text x="220" y="605">{lang === 'en' ? '// C-PARSING & PRUNING PILLAR' : '// PILAR C-PARSING & PODA'}</text>
+              <text x="400" y="612">{lang === 'en' ? '// CORE ARCHITECTURE AXIS' : '// EJE TRONCAL DE ARQUITECTURA'}</text>
+              <text x="580" y="605">{lang === 'en' ? '// VECTOR & LSH PILLAR' : '// PILAR VECTORIAL & LSH'}</text>
             </g>
 
             {/* Los 22 Senderos de Tránsito de Datos */}
             {TREE_PATHS.map(([id1, id2], idx) => {
-              const node1 = PIPELINE_NODES.find((s) => s.id === id1);
-              const node2 = PIPELINE_NODES.find((s) => s.id === id2);
+              const node1 = nodes.find((s) => s.id === id1);
+              const node2 = nodes.find((s) => s.id === id2);
               if (!node1 || !node2) return null;
 
               return (
@@ -366,7 +524,6 @@ export function L7PipelineFlowDiagram() {
             {/* Partículas de Ingesta Ascendiendo hacia la Corona Cognitiva */}
             {isPlaying && (
               <g filter="url(#laserBeam)">
-                {/* Paquete Cuántico en el Eje Central (Malkhut -> Apex) */}
                 <circle
                   cx="400"
                   cy={565 - (energyPhase / 100) * 530}
@@ -379,8 +536,6 @@ export function L7PipelineFlowDiagram() {
                   r="18"
                   fill="url(#nodeGlow)"
                 />
-
-                {/* Partículas Derivadas a los Pilares Laterales */}
                 <circle
                   cx={400 - Math.sin((energyPhase / 100) * Math.PI) * 180}
                   cy={565 - (energyPhase / 100) * 450}
@@ -399,7 +554,7 @@ export function L7PipelineFlowDiagram() {
             )}
 
             {/* Renderizado de los 11 Nodos del Pipeline de Ingesta */}
-            {PIPELINE_NODES.map((node) => {
+            {nodes.map((node) => {
               const isActive = node.id === activeId;
               const isApex = node.isApex;
 
@@ -410,7 +565,6 @@ export function L7PipelineFlowDiagram() {
                   className="cursor-pointer transition-transform duration-300"
                   style={{ transformOrigin: `${node.x}px ${node.y}px` }}
                 >
-                  {/* Resplandor si está activo */}
                   {isActive && (
                     <circle
                       cx={node.x}
@@ -421,7 +575,6 @@ export function L7PipelineFlowDiagram() {
                     />
                   )}
 
-                  {/* Cuerpo del Nodo */}
                   <circle
                     cx={node.x}
                     cy={node.y}
@@ -433,7 +586,6 @@ export function L7PipelineFlowDiagram() {
                     filter={isActive ? 'url(#laserBeam)' : undefined}
                   />
 
-                  {/* Anillo concéntrico interno */}
                   <circle
                     cx={node.x}
                     cy={node.y}
@@ -445,7 +597,6 @@ export function L7PipelineFlowDiagram() {
                     opacity={isActive ? 0.9 : 0.4}
                   />
 
-                  {/* Badge Técnico Central (Sin Hebreo: Puras Siglas de Ingeniería) */}
                   <text
                     x={node.x}
                     y={node.y + (isApex ? 4.5 : 4)}
@@ -459,7 +610,6 @@ export function L7PipelineFlowDiagram() {
                     {node.badge}
                   </text>
 
-                  {/* Etiqueta Inferior del Nodo */}
                   <text
                     x={node.x}
                     y={node.y + (isApex ? 42 : 36)}
@@ -478,7 +628,7 @@ export function L7PipelineFlowDiagram() {
         </div>
       </div>
 
-      {/* Panel de Inspección de la Fase Seleccionada: Fuera del overflow scroll para usar el 100% del ancho */}
+      {/* Panel de Inspección de la Fase Seleccionada */}
       <div className="p-4 sm:p-6 pt-0 bg-[#040406]">
         <motion.div
           key={activeNode.id}
@@ -487,12 +637,11 @@ export function L7PipelineFlowDiagram() {
           transition={{ duration: 0.2 }}
           className="p-5 rounded-lg bg-[#0e0e18] border border-[#C5A059]/40 shadow-2xl space-y-4"
         >
-          {/* Fila Superior: Badge + Nombre + Pilar */}
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-800/80 pb-3">
             <div className="flex flex-wrap items-center gap-2.5">
               <span className="px-2.5 py-1 rounded text-xs font-mono font-bold bg-[#C5A059]/20 text-[#FFE066] border border-[#C5A059]/50 flex items-center gap-1.5 shadow-sm">
                 <Cpu size={13} />
-                <span>FASE [{activeNode.badge}]: {activeNode.name}</span>
+                <span>{lang === 'en' ? 'STAGE' : 'FASE'} [{activeNode.badge}]: {activeNode.name}</span>
               </span>
               <span className="text-xs font-mono font-semibold text-[#38bdf8] bg-sky-950/40 px-2.5 py-0.5 rounded border border-sky-800/40">
                 {activeNode.l7Phase}
@@ -504,19 +653,17 @@ export function L7PipelineFlowDiagram() {
             </span>
           </div>
 
-          {/* Fila Central: Descripción amplia y legible */}
           <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans">
             {activeNode.description}
           </p>
 
-          {/* Fila Inferior: Telemetría y Capa OSI bien estructurada */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-zinc-900">
             <div className="p-3 rounded bg-black/80 border border-zinc-800/90 flex flex-col justify-between font-mono">
-              <span className="text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Capa OSI:</span>
+              <span className="text-[10px] text-zinc-500 uppercase tracking-widest mb-1">{lang === 'en' ? 'OSI Layer:' : 'Capa OSI:'}</span>
               <span className="text-xs sm:text-sm font-bold text-[#FFE066]">{activeNode.osiLayer}</span>
             </div>
             <div className="p-3 rounded bg-black/80 border border-zinc-800/90 flex flex-col justify-between font-mono">
-              <span className="text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Métricas & Telemetría Clave:</span>
+              <span className="text-[10px] text-zinc-500 uppercase tracking-widest mb-1">{lang === 'en' ? 'Key Metrics & Telemetry:' : 'Métricas & Telemetría Clave:'}</span>
               <span className="text-xs font-bold text-emerald-400">{activeNode.telemetry}</span>
             </div>
           </div>

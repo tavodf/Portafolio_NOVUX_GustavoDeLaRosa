@@ -19,7 +19,6 @@ import {
   Database,
   BookOpen,
   CheckCircle2,
-  Terminal,
   Bookmark,
   Play,
   Copy,
@@ -27,13 +26,14 @@ import {
   Video,
   Workflow,
   FileCode,
-  Linkedin,
-  Link as LinkIcon
+  Linkedin
 } from 'lucide-react';
-import { techNews } from '../newsData';
+import { getLocalizedTechNews } from '../newsData';
 import { TechNewsItem, NewsCategory } from '../types';
 import { sfx } from '../utils/soundEffects';
-import { getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
+import { getWhatsAppUrl } from '../data';
+import { useLanguage } from '../context/LanguageContext';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 interface NoticiasProps {
   onBackToHome: () => void;
@@ -48,10 +48,21 @@ const CATEGORIES: NewsCategory[] = [
   'Cloud & Datos'
 ];
 
+const CATEGORY_LABELS_EN: Record<NewsCategory, string> = {
+  'Todas': 'All',
+  'IA & Machine Learning': 'AI & Machine Learning',
+  'Apps & Herramientas': 'Apps & Tools',
+  'Avances Corporativos': 'Enterprise Advances',
+  'Recursos & Open Source': 'Resources & Open Source',
+  'Cloud & Datos': 'Cloud & Data'
+};
+
 export function Noticias({ onBackToHome }: NoticiasProps) {
+  const { lang } = useLanguage();
+  const localizedNews = getLocalizedTechNews(lang);
   const [selectedCategory, setSelectedCategory] = useState<NewsCategory>('Todas');
   const [searchQuery, setSearchQuery] = useState('');
-  const [expandedId, setExpandedId] = useState<string | null>(techNews[0]?.id || null);
+  const [expandedId, setExpandedId] = useState<string | null>(localizedNews[0]?.id || null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [copiedCodeKey, setCopiedCodeKey] = useState<string | null>(null);
 
@@ -62,7 +73,7 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
       const match = hash.match(/id=([a-zA-Z0-9-_]+)/);
       if (match && match[1]) {
         const targetId = match[1];
-        const exists = techNews.some(n => n.id === targetId);
+        const exists = localizedNews.some(n => n.id === targetId);
         if (exists) {
           setExpandedId(targetId);
           setTimeout(() => {
@@ -78,9 +89,9 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
     handleHashCheck();
     window.addEventListener('hashchange', handleHashCheck);
     return () => window.removeEventListener('hashchange', handleHashCheck);
-  }, []);
+  }, [localizedNews]);
 
-  const filteredNews = techNews.filter((item) => {
+  const filteredNews = localizedNews.filter((item) => {
     const matchesCategory = selectedCategory === 'Todas' || item.category === selectedCategory;
     const matchesQuery = 
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -107,7 +118,9 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
     if (navigator.clipboard) {
       const directUrl = `${window.location.origin}${window.location.pathname}#noticias?id=${item.id}`;
       navigator.clipboard.writeText(
-        `${item.title}\n\n${item.summary}\n\n🔗 Enlace directo al Despacho: ${directUrl}\n\nAutor: ${item.author || 'Gustavo De La Rosa'}`
+        lang === 'en'
+          ? `${item.title}\n\n${item.summary}\n\n🔗 Direct link to Dispatch: ${directUrl}\n\nAuthor: ${item.author || 'Gustavo De La Rosa'}`
+          : `${item.title}\n\n${item.summary}\n\n🔗 Enlace directo al Despacho: ${directUrl}\n\nAutor: ${item.author || 'Gustavo De La Rosa'}`
       );
       setCopiedId(item.id);
       setTimeout(() => setCopiedId(null), 2500);
@@ -143,14 +156,19 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
   const getImpactBadgeColor = (badge?: string) => {
     switch (badge) {
       case 'DESPACHO TÉCNICO / ARQUITECTURA':
+      case 'TECHNICAL DISPATCH / ARCHITECTURE':
         return 'bg-[#C5A059]/25 text-[#FFE066] border-[#C5A059] shadow-[0_0_15px_rgba(197,160,89,0.35)] font-bold';
       case 'DISRUPCIÓN':
+      case 'DISRUPTION':
         return 'bg-red-500/20 text-red-400 border-red-500/40';
       case 'LANZAMIENTO':
+      case 'RELEASE':
         return 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40';
       case 'TENDENCIA':
+      case 'TREND':
         return 'bg-[#C5A059]/25 text-[#FFE066] border-[#C5A059]/50';
       case 'AVANCE':
+      case 'ENTERPRISE':
         return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
       case 'RECURSO':
         return 'bg-purple-500/20 text-purple-300 border-purple-500/40';
@@ -174,10 +192,11 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
             className="group inline-flex items-center gap-2 text-xs font-mono text-zinc-300 hover:text-[#FFE066] px-4 py-2 rounded-sm bg-[#101017]/90 border border-zinc-800 hover:border-[#C5A059] transition-all duration-300 cursor-pointer shadow-md hover:shadow-[0_0_20px_rgba(197,160,89,0.35)]"
           >
             <ArrowLeft size={14} className="text-[#C5A059] group-hover:-translate-x-1 transition-transform" />
-            <span>Volver al Menú Principal</span>
+            <span>{lang === 'en' ? 'Back to Main Menu' : 'Volver al Menú Principal'}</span>
           </button>
 
           <div className="flex items-center gap-3">
+            <LanguageSwitcher />
             <a
               href="https://www.linkedin.com/in/tavodelarosaf/?isSelfProfile=true"
               target="_blank"
@@ -185,7 +204,7 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
               onClick={() => sfx.playClick()}
               onMouseEnter={() => sfx.playHover()}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#0077b5]/15 hover:bg-[#0077b5]/30 border border-[#0077b5]/50 hover:border-[#0077b5] text-cyan-200 hover:text-white font-mono text-xs font-bold transition-all shadow-sm cursor-pointer"
-              title="Perfil Oficial de LinkedIn de Gustavo De La Rosa"
+              title={lang === 'en' ? 'Official LinkedIn Profile of Gustavo De La Rosa' : 'Perfil Oficial de LinkedIn de Gustavo De La Rosa'}
             >
               <Linkedin size={13} className="text-[#0077b5]" />
               <span className="hidden sm:inline">LINKEDIN</span>
@@ -193,7 +212,7 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
 
             <div className="flex items-center gap-2 text-xs font-mono text-[#C5A059]">
               <Radio size={14} className="animate-pulse text-[#FFE066]" />
-              <span className="hidden sm:inline tracking-wider font-semibold">RADAR TÉCNICO & DESPACHOS</span>
+              <span className="hidden sm:inline tracking-wider font-semibold">{lang === "en" ? "TECH RADAR & DISPATCHES" : "RADAR TÉCNICO & DESPACHOS"}</span>
             </div>
           </div>
         </div>
@@ -211,13 +230,21 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
           <div className="mb-8 border-b border-[#C5A059]/20 pb-6">
             <div className="flex items-center gap-2 text-xs font-mono text-[#C5A059] uppercase tracking-widest mb-2 font-bold">
               <Sparkles size={14} className="text-[#FFE066]" />
-              <span>Observatorio Tecnológico & Artículos de Profundidad</span>
+              <span>
+                {lang === 'en'
+                  ? 'Technology Observatory & Deep-Dive Articles'
+                  : 'Observatorio Tecnológico & Artículos de Profundidad'}
+              </span>
             </div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif text-white tracking-wide font-bold leading-tight">
-              Noticias & Despachos de Ingeniería
+              {lang === 'en'
+                ? 'Engineering News & Technical Dispatches'
+                : 'Noticias & Despachos de Ingeniería'}
             </h1>
             <p className="mt-3 text-sm sm:text-base text-zinc-300 font-sans leading-relaxed font-light">
-              Análisis exhaustivos, investigación de tendencias y arquitectura de sistemas curados por Gustavo De La Rosa. Cobertura crítica de avances en IA aplicada, ingeniería de datos y desarrollo de software de alta escala.
+              {lang === 'en'
+                ? 'In-depth analysis, technology radar, and systems architecture curated by Gustavo De La Rosa. Critical coverage of applied AI, data engineering, and high-scale software development.'
+                : 'Análisis exhaustivos, investigación de tendencias y arquitectura de sistemas curados por Gustavo De La Rosa. Cobertura crítica de avances en IA aplicada, ingeniería de datos y desarrollo de software de alta escala.'}
             </p>
           </div>
 
@@ -235,7 +262,11 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                 <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C5A059]" />
                 <input
                   type="text"
-                  placeholder="Buscar por tecnología, impacto o concepto (ej: Python, Rust, WebGPU, Agentes)..."
+                  placeholder={
+                    lang === 'en'
+                      ? 'Search by technology, impact, or concept (e.g., Python, Rust, WebGPU, Agents)...'
+                      : 'Buscar por tecnología, impacto o concepto (ej: Python, Rust, WebGPU, Agentes)...'
+                  }
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-10 pr-20 py-2.5 rounded-sm bg-[#111118] border border-zinc-800 focus:border-[#C5A059] focus:outline-none focus:ring-1 focus:ring-[#C5A059] text-sm text-zinc-200 placeholder-zinc-500 font-mono transition-all shadow-inner"
@@ -249,7 +280,7 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                     }}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-zinc-400 hover:text-white font-mono cursor-pointer"
                   >
-                    [ Limpiar ]
+                    {lang === 'en' ? '[ Clear ]' : '[ Limpiar ]'}
                   </button>
                 )}
               </div>
@@ -260,7 +291,7 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                 className="px-4 py-2.5 bg-[#C5A059] hover:bg-[#FFE066] text-black font-mono font-bold text-xs rounded-sm transition-all cursor-pointer shadow-md flex items-center justify-center gap-1.5 shrink-0"
               >
                 <Search size={13} className="stroke-[2.5]" />
-                <span>Buscar</span>
+                <span>{lang === 'en' ? 'Search' : 'Buscar'}</span>
               </button>
             </form>
 
@@ -280,18 +311,22 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                     }`}
                   >
                     {category !== 'Todas' && getCategoryIcon(category)}
-                    <span>{category}</span>
+                    <span>{lang === 'en' ? CATEGORY_LABELS_EN[category] : category}</span>
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Listado de Noticias con Lectura Profunda y Resplandor al Hover */}
+          {/* Listado de Noticias */}
           {filteredNews.length === 0 ? (
             <div className="p-12 text-center border border-zinc-800 rounded-sm bg-[#07070a] text-zinc-400 font-mono text-sm">
               <Radio size={28} className="mx-auto mb-3 text-zinc-600" />
-              <p>No se encontraron despachos que coincidan con la búsqueda.</p>
+              <p>
+                {lang === 'en'
+                  ? 'No dispatches matched your search criteria.'
+                  : 'No se encontraron despachos que coincidan con la búsqueda.'}
+              </p>
               <button
                 onClick={() => {
                   setSearchQuery('');
@@ -299,7 +334,7 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                 }}
                 className="mt-3 text-xs text-[#C5A059] hover:underline cursor-pointer"
               >
-                Restablecer todos los filtros
+                {lang === 'en' ? 'Reset all filters' : 'Restablecer todos los filtros'}
               </button>
             </div>
           ) : (
@@ -316,7 +351,6 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                     transition={{ delay: idx * 0.05 }}
                     className="group relative border border-zinc-800/90 hover:border-[#C5A059] bg-[#09090e]/95 rounded-sm p-5 sm:p-7 transition-all duration-300 shadow-md hover:shadow-[0_0_30px_rgba(197,160,89,0.35)] scroll-mt-6"
                   >
-                    {/* Corner accents on hover */}
                     <div className="absolute top-0 right-0 w-2.5 h-2.5 border-t border-r border-[#C5A059]/40 group-hover:border-[#FFE066] transition-colors" />
                     <div className="absolute bottom-0 left-0 w-2.5 h-2.5 border-b border-l border-[#C5A059]/40 group-hover:border-[#FFE066] transition-colors" />
 
@@ -330,7 +364,7 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                         )}
                         <span className="flex items-center gap-1 text-[#C5A059] font-medium bg-[#C5A059]/10 px-2 py-0.5 rounded border border-[#C5A059]/20">
                           {getCategoryIcon(item.category)}
-                          {item.category}
+                          {lang === 'en' ? (CATEGORY_LABELS_EN[item.category as NewsCategory] || item.category) : item.category}
                         </span>
                         <span className="text-zinc-600">•</span>
                         <span className="text-zinc-400 flex items-center gap-1">
@@ -351,7 +385,7 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                       {/* Fuente & Autor */}
                       <div className="flex items-center gap-2 text-[11px] font-mono text-zinc-500">
                         <span className="bg-black/50 px-2.5 py-0.5 rounded border border-zinc-800">
-                          Fuente: <strong className="text-zinc-300">{item.source}</strong>
+                          {lang === 'en' ? 'Source:' : 'Fuente:'} <strong className="text-zinc-300">{item.source}</strong>
                         </span>
                       </div>
                     </div>
@@ -394,7 +428,11 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                             <div className="my-4 p-4 sm:p-5 rounded-sm bg-[#040408] border border-[#C5A059]/30 shadow-inner">
                               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#C5A059] font-bold mb-3">
                                 <Bookmark size={14} className="text-[#FFE066]" />
-                                <span>Puntos Clave para la Toma de Decisiones:</span>
+                                <span>
+                                  {lang === 'en'
+                                    ? 'Key Executive Takeaways:'
+                                    : 'Puntos Clave para la Toma de Decisiones:'}
+                                </span>
                               </div>
                               <ul className="space-y-2 text-xs sm:text-sm text-zinc-300">
                                 {item.keyTakeaways.map((takeaway, tIdx) => (
@@ -411,7 +449,9 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                           {item.architectureImpact && (
                             <div className="p-4 rounded-sm bg-[#12121c]/80 border-l-2 border-[#C5A059] text-xs sm:text-sm text-zinc-200 leading-relaxed font-mono">
                               <span className="text-[#C5A059] text-[11px] block mb-1 uppercase font-bold tracking-wider">
-                                // IMPACTO EN ARQUITECTURA & SOFTWARE FACTORY:
+                                {lang === 'en'
+                                  ? '// ARCHITECTURE & SOFTWARE FACTORY IMPACT:'
+                                  : '// IMPACTO EN ARQUITECTURA & SOFTWARE FACTORY:'}
                               </span>
                               {item.architectureImpact}
                             </div>
@@ -423,10 +463,14 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                               <div className="flex items-center justify-between mb-4 pb-2 border-b border-zinc-800">
                                 <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#FFE066] font-bold">
                                   <Workflow size={15} className="text-[#C5A059]" />
-                                  <span>Topología & Flujo de Datos Corporativo (Vertex AI / RAG):</span>
+                                  <span>
+                                    {lang === 'en'
+                                      ? 'Enterprise Data Flow & Topology (Vertex AI / RAG):'
+                                      : 'Topología & Flujo de Datos Corporativo (Vertex AI / RAG):'}
+                                  </span>
                                 </div>
                                 <span className="text-[10px] font-mono text-zinc-500 bg-black/60 px-2 py-0.5 rounded border border-zinc-800">
-                                  Aislamiento Perimetral
+                                  {lang === 'en' ? 'Perimeter Isolation' : 'Aislamiento Perimetral'}
                                 </span>
                               </div>
 
@@ -439,7 +483,7 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                                     <div>
                                       <div className="flex items-center justify-between mb-2">
                                         <span className="text-[10px] font-mono font-bold text-[#C5A059] bg-[#C5A059]/10 px-1.5 py-0.5 rounded">
-                                          Paso {step.step}
+                                          {lang === 'en' ? `Step ${step.step}` : `Paso ${step.step}`}
                                         </span>
                                         {sIdx < item.diagramSteps!.length - 1 && (
                                           <span className="text-zinc-600 text-xs hidden md:inline">→</span>
@@ -463,7 +507,11 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                             <div className="my-6 space-y-4">
                               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#FFE066] font-bold">
                                 <FileCode size={15} className="text-[#C5A059]" />
-                                <span>Ejemplos de Función & Código de Implementación:</span>
+                                <span>
+                                  {lang === 'en'
+                                    ? 'Implementation Code & Function Examples:'
+                                    : 'Ejemplos de Función & Código de Implementación:'}
+                                </span>
                               </div>
 
                               {item.codeSnippets.map((snippet, snIdx) => {
@@ -475,7 +523,6 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                                     key={snIdx} 
                                     className="rounded-sm bg-[#050509] border border-zinc-800 hover:border-[#C5A059]/50 transition-colors overflow-hidden"
                                   >
-                                    {/* Cabecera del snippet */}
                                     <div className="flex items-center justify-between px-3.5 py-2 bg-[#0c0c14] border-b border-zinc-800">
                                       <div className="flex items-center gap-2">
                                         <span className="text-[10px] uppercase font-mono font-bold px-2 py-0.5 rounded bg-[#C5A059]/20 text-[#FFE066] border border-[#C5A059]/30">
@@ -488,17 +535,17 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                                       <button
                                         onClick={() => handleCopyCode(snippetKey, snippet.code)}
                                         className="inline-flex items-center gap-1 text-[11px] font-mono text-zinc-400 hover:text-white bg-black/60 hover:bg-zinc-800 px-2 py-1 rounded border border-zinc-800 transition-colors cursor-pointer"
-                                        title="Copiar código"
+                                        title={lang === 'en' ? 'Copy code' : 'Copiar código'}
                                       >
                                         {isCopied ? (
                                           <>
                                             <Check size={12} className="text-emerald-400" />
-                                            <span className="text-emerald-400">¡Copiado!</span>
+                                            <span className="text-emerald-400">{lang === 'en' ? 'Copied!' : '¡Copiado!'}</span>
                                           </>
                                         ) : (
                                           <>
                                             <Copy size={12} />
-                                            <span>Copiar</span>
+                                            <span>{lang === 'en' ? 'Copy' : 'Copiar'}</span>
                                           </>
                                         )}
                                       </button>
@@ -510,7 +557,6 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                                       </p>
                                     )}
 
-                                    {/* Bloque de código */}
                                     <div className="p-4 overflow-x-auto">
                                       <pre className="text-xs font-mono text-zinc-200 leading-relaxed whitespace-pre selection:bg-[#C5A059] selection:text-black">
                                         <code>{snippet.code}</code>
@@ -528,11 +574,15 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                               <div className="flex items-center justify-between mb-3 pb-2 border-b border-zinc-800">
                                 <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#FFE066] font-bold">
                                   <Video size={15} className="text-[#C5A059]" />
-                                  <span>Demostración en Video & Recorrido de Consola:</span>
+                                  <span>
+                                    {lang === 'en'
+                                      ? 'Video Demonstration & Console Walkthrough:'
+                                      : 'Demostración en Video & Recorrido de Consola:'}
+                                  </span>
                                 </div>
                                 <span className="flex items-center gap-1 text-[10px] font-mono text-[#C5A059] bg-[#C5A059]/10 px-2 py-0.5 rounded border border-[#C5A059]/20">
                                   <Play size={10} className="fill-[#C5A059]" />
-                                  YouTube Oficial
+                                  {lang === 'en' ? 'Official YouTube' : 'YouTube Oficial'}
                                 </span>
                               </div>
 
@@ -544,7 +594,6 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                                 {item.videoDemo.caption}
                               </p>
 
-                              {/* Iframe 16:9 con contenedor responsivo y borde cyberpunk */}
                               <div className="relative aspect-video w-full rounded overflow-hidden border border-zinc-800 group-hover:border-[#C5A059]/60 shadow-[0_10px_30px_rgba(0,0,0,0.8)] bg-black">
                                 <iframe
                                   src={`https://www.youtube.com/embed/${item.videoDemo.youtubeId}?rel=0`}
@@ -559,10 +608,13 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
 
                           {/* Firma de Autor */}
                           <div className="flex items-center justify-between text-xs font-mono text-zinc-500 pt-3 border-t border-zinc-900">
-                            <span>Autor: <strong className="text-zinc-300">{item.author || 'Gustavo De La Rosa'}</strong></span>
+                            <span>
+                              {lang === 'en' ? 'Author:' : 'Autor:'}{' '}
+                              <strong className="text-zinc-300">{item.author || 'Gustavo De La Rosa'}</strong>
+                            </span>
                             <span className="text-emerald-400 flex items-center gap-1">
                               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                              Despacho validado
+                              {lang === 'en' ? 'Verified Dispatch' : 'Despacho validado'}
                             </span>
                           </div>
                         </motion.div>
@@ -585,7 +637,7 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                         ))}
                       </div>
 
-                      {/* Botones de acción con Resplandor */}
+                      {/* Botones de acción */}
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => handleToggleExpand(item.id)}
@@ -593,7 +645,11 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                           className="group inline-flex items-center gap-1.5 text-xs font-mono text-[#C5A059] hover:text-black bg-[#C5A059]/10 hover:bg-[#C5A059] px-3.5 py-1.5 rounded-sm border border-[#C5A059]/40 hover:border-[#FFE066] transition-all duration-200 cursor-pointer shadow-sm hover:shadow-[0_0_15px_rgba(197,160,89,0.5)] font-semibold"
                         >
                           <BookOpen size={13} className="text-[#C5A059] group-hover:text-black" />
-                          <span>{isExpanded ? 'Contraer Despacho' : 'Leer Despacho Completo'}</span>
+                          <span>
+                            {isExpanded
+                              ? (lang === 'en' ? 'Collapse Dispatch' : 'Contraer Despacho')
+                              : (lang === 'en' ? 'Read Full Dispatch' : 'Leer Despacho Completo')}
+                          </span>
                           {isExpanded ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
                         </button>
 
@@ -601,10 +657,14 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                           onClick={() => handleShare(item)}
                           onMouseEnter={() => sfx.playHover()}
                           className="inline-flex items-center gap-1 text-xs font-mono text-zinc-400 hover:text-white px-2.5 py-1.5 rounded-sm bg-black/40 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 transition-colors cursor-pointer"
-                          title="Copiar despacho al portapapeles"
+                          title={lang === 'en' ? 'Copy dispatch link to clipboard' : 'Copiar despacho al portapapeles'}
                         >
                           <Share2 size={12} />
-                          <span>{copiedId === item.id ? '¡Copiado!' : 'Compartir'}</span>
+                          <span>
+                            {copiedId === item.id
+                              ? (lang === 'en' ? 'Copied!' : '¡Copiado!')
+                              : (lang === 'en' ? 'Share' : 'Compartir')}
+                          </span>
                         </button>
 
                         {item.externalUrl && (
@@ -615,9 +675,9 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
                             onClick={() => sfx.playSelect()}
                             onMouseEnter={() => sfx.playHover()}
                             className="inline-flex items-center gap-1 text-xs font-mono text-zinc-300 hover:text-[#FFE066] bg-black/60 px-2.5 py-1.5 rounded-sm border border-zinc-800 hover:border-[#C5A059]/50 transition-colors cursor-pointer"
-                            title="Visitar recurso oficial"
+                            title={lang === 'en' ? 'Visit official resource' : 'Visitar recurso oficial'}
                           >
-                            <span>Fuente</span>
+                            <span>{lang === 'en' ? 'Source' : 'Fuente'}</span>
                             <ExternalLink size={11} />
                           </a>
                         )}
@@ -631,10 +691,18 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
 
           {/* Pie informativo de la sección */}
           <div className="mt-10 pt-6 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between text-xs font-mono text-zinc-500 gap-4">
-            <span>// Despachos & Radar de Vanguardia • Curaduría por Gustavo De La Rosa</span>
+            <span>
+              {lang === 'en'
+                ? '// Dispatches & Tech Radar • Curated by Gustavo De La Rosa'
+                : '// Despachos & Radar de Vanguardia • Curaduría por Gustavo De La Rosa'}
+            </span>
 
             <a
-              href={getWhatsAppUrl('Hola Gustavo / NOVUX S.A.S., vi el radar de noticias y deseo contactar para consultoría tecnológica.')}
+              href={getWhatsAppUrl(
+                lang === 'en'
+                  ? 'Hello Gustavo / NOVUX S.A.S., I read your Tech Radar dispatches and would like to inquire about technology consulting.'
+                  : 'Hola Gustavo / NOVUX S.A.S., vi el radar de noticias y deseo contactar para consultoría tecnológica.'
+              )}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => sfx.playSelect()}
@@ -642,12 +710,12 @@ export function Noticias({ onBackToHome }: NoticiasProps) {
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/50 hover:border-emerald-400 text-emerald-300 hover:text-white transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)] font-bold cursor-pointer"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>ATENCIÓN WHATSAPP B2B</span>
+              <span>{lang === 'en' ? 'B2B WHATSAPP DESK' : 'ATENCIÓN WHATSAPP B2B'}</span>
             </a>
 
             <span className="text-[#C5A059] flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-ping" />
-              Nuevos despachos en preparación
+              {lang === 'en' ? 'New dispatches in preparation' : 'Nuevos despachos en preparación'}
             </span>
           </div>
 

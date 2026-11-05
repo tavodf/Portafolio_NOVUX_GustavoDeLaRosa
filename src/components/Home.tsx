@@ -1,10 +1,10 @@
 import { motion } from 'motion/react';
-import { Github, Linkedin, BookOpen, ChevronRight, Sparkles, Radio, FlaskConical, Terminal, Cpu, Database, ShieldCheck, Layers, MessageCircle } from 'lucide-react';
-import { getLocalizedServiceList, getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
+import { Github, Linkedin, BookOpen, ChevronRight, Sparkles, Radio, FlaskConical, MessageCircle } from 'lucide-react';
+import { getLocalizedServiceList, getWhatsAppUrl } from '../data';
 import { useLanguage } from '../context/LanguageContext';
 import { LanguageSwitcher } from './LanguageSwitcher';
-import { blogPosts } from '../blogData';
-import { techNews } from '../newsData';
+import { getLocalizedBlogPosts } from '../blogData';
+import { getLocalizedTechNews } from '../newsData';
 import { ServiceId, BlogPost, TechNewsItem } from '../types';
 import { sfx } from '../utils/soundEffects';
 import { CredentialsCarousel } from './CredentialsCarousel';
@@ -27,8 +27,9 @@ export function Home({
   onSelectNewsItem 
 }: HomeProps) {
   const { lang, t } = useLanguage();
-  const latestPost = blogPosts[0];
-  const latestNews = techNews[0];
+  const isEn = lang === 'en';
+  const latestPost = getLocalizedBlogPosts(lang)[0];
+  const latestNews = getLocalizedTechNews(lang)[0];
   const localizedServices = getLocalizedServiceList(lang);
   const b2bServices = localizedServices.filter(s => !s.isLab && s.id !== 'LABORATORIO_INVESTIGACION');
   const labService = localizedServices.find(s => s.isLab || s.id === 'LABORATORIO_INVESTIGACION');
@@ -93,14 +94,18 @@ export function Home({
               onClick={() => sfx.playClick()}
               onMouseEnter={() => sfx.playHover()}
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[#0077b5]/15 hover:bg-[#0077b5]/30 border border-[#0077b5]/50 hover:border-[#0077b5] text-cyan-200 hover:text-white font-mono text-xs font-bold transition-all shadow-[0_0_15px_rgba(0,119,181,0.25)] cursor-pointer"
-              title="Perfil Oficial de LinkedIn de Gustavo De La Rosa"
+              title={isEn ? 'Official LinkedIn Profile of Gustavo De La Rosa' : 'Perfil Oficial de LinkedIn de Gustavo De La Rosa'}
             >
               <Linkedin size={13} className="text-[#0077b5]" />
               <span>LINKEDIN</span>
             </a>
 
             <a
-              href={getWhatsAppUrl('Hola NOVUX S.A.S., me comunico desde la plataforma oficial.')}
+              href={getWhatsAppUrl(
+                isEn
+                  ? 'Hello NOVUX S.A.S., I am reaching out from the official platform.'
+                  : 'Hola NOVUX S.A.S., me comunico desde la plataforma oficial.'
+              )}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => sfx.playSelect()}
@@ -293,7 +298,7 @@ export function Home({
 
                 <div className="flex items-center gap-2 self-end sm:self-center shrink-0 z-10">
                   <span className="text-xs font-mono text-[#C5A059] group-hover:text-[#FFE066] tracking-wider uppercase font-semibold">
-                    Explorar
+                    {t('exploreNewsBtn')}
                   </span>
                   <ChevronRight size={15} className="text-[#C5A059] group-hover:translate-x-1 group-hover:text-[#FFE066] transition-transform" />
                 </div>
@@ -329,7 +334,7 @@ export function Home({
             onClick={() => sfx.playClick()}
             onMouseEnter={() => sfx.playHover()}
             className="group inline-flex items-center gap-3 px-6 py-3 rounded-sm border border-zinc-800 hover:border-[#C5A059]/60 bg-[#0e0e11]/85 hover:bg-[#18181f]/95 backdrop-blur-md text-zinc-300 hover:text-[#FFE066] shadow-[0_4px_24px_rgba(0,0,0,0.7)] transition-all duration-300 text-xs font-mono tracking-wider cursor-pointer"
-            title="Visitar perfil de GitHub de Gustavo De La Rosa (tavodf)"
+            title={isEn ? 'Visit GitHub profile of Gustavo De La Rosa (tavodf)' : 'Visitar perfil de GitHub de Gustavo De La Rosa (tavodf)'}
           >
             <Github className="w-4 h-4 text-[#C5A059] group-hover:scale-110 transition-transform duration-200" />
             <span className="font-semibold tracking-wide">github.com/tavodf</span>
@@ -342,7 +347,7 @@ export function Home({
             onClick={() => sfx.playClick()}
             onMouseEnter={() => sfx.playHover()}
             className="group inline-flex items-center gap-3 px-6 py-3 rounded-sm border border-zinc-800 hover:border-[#0077b5]/80 bg-[#0e0e11]/85 hover:bg-[#0077b5]/15 backdrop-blur-md text-zinc-300 hover:text-white shadow-[0_4px_24px_rgba(0,0,0,0.7)] hover:shadow-[0_0_20px_rgba(0,119,181,0.35)] transition-all duration-300 text-xs font-mono tracking-wider cursor-pointer"
-            title="Visitar perfil de LinkedIn de Gustavo De La Rosa"
+            title={isEn ? 'Visit LinkedIn profile of Gustavo De La Rosa' : 'Visitar perfil de LinkedIn de Gustavo De La Rosa'}
           >
             <Linkedin className="w-4 h-4 text-[#0077b5] group-hover:scale-110 transition-transform duration-200" />
             <span className="font-semibold tracking-wide">linkedin.com/in/tavodelarosaf</span>
@@ -364,12 +369,16 @@ export function Home({
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm bg-[#0077b5]/15 hover:bg-[#0077b5]/30 border border-[#0077b5]/50 hover:border-[#0077b5] text-cyan-200 hover:text-white transition-all shadow-[0_0_12px_rgba(0,119,181,0.2)] font-bold cursor-pointer"
           >
             <Linkedin size={13} className="text-[#0077b5]" />
-            <span>LINKEDIN OFICIAL</span>
+            <span>{isEn ? 'OFFICIAL LINKEDIN' : 'LINKEDIN OFICIAL'}</span>
           </a>
 
           {/* Enlace Oficial a WhatsApp Corporativo */}
           <a
-            href={getWhatsAppUrl('Hola NOVUX S.A.S., me comunico desde la plataforma oficial.')}
+            href={getWhatsAppUrl(
+              isEn
+                ? 'Hello NOVUX S.A.S., I am reaching out from the official platform.'
+                : 'Hola NOVUX S.A.S., me comunico desde la plataforma oficial.'
+            )}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => sfx.playSelect()}

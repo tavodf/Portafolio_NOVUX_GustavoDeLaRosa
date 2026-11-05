@@ -1,10 +1,11 @@
 import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { 
   Terminal, Play, RotateCcw, Copy, Check, Hash, Sparkles, 
-  Layers, Code2, ShieldCheck, Binary, Cpu, ArrowRight, CheckCircle2
+  Code2, ShieldCheck, Binary, Cpu, CheckCircle2
 } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
+import { useLanguage } from '../context/LanguageContext';
 
 // Función para calcular CRC32 / Hash simple de strings
 function crc32(str: string): number {
@@ -72,6 +73,7 @@ function computeMinHashSignature(shingles: Set<string>, numPerm: number = 32): n
 }
 
 export function NovuxEng001Interactive() {
+  const { lang } = useLanguage();
   const [activeTab, setActiveTab] = useState<'python-code' | 'minhash' | 'cparser'>('python-code');
 
   // Estado del MinHash Playground
@@ -117,14 +119,14 @@ export function NovuxEng001Interactive() {
   const applyPreset = (type: 'near-duplicate' | 'different' | 'partial') => {
     sfx.playSelect();
     if (type === 'near-duplicate') {
-      setTextA('Samsung Galaxy S24 Ultra 512GB Titanium Gray 5G Desbloqueado');
-      setTextB('Samsung Galaxy S24 Ultra 5G 512GB Gris Titanio Libre de Fabrica');
+      setTextA('Samsung Galaxy S24 Ultra 512GB Titanium Gray 5G Unlocked');
+      setTextB('Samsung Galaxy S24 Ultra 5G 512GB Titanium Gray Factory Unlocked');
     } else if (type === 'different') {
-      setTextA('Monitor Gaming ASUS ROG Swift 32 Pulgadas 4K OLED 240Hz');
-      setTextB('Teclado Mecanico Inalambrico Keychron Q1 Pro RGB Red Switches');
+      setTextA('ASUS ProArt Display 32 Inch 4K OLED Professional Monitor');
+      setTextB('Keychron Q1 Pro Wireless Mechanical Keyboard RGB Switches');
     } else {
-      setTextA('Sony WH-1000XM5 Audifonos Inalambricos con Cancelacion de Ruido');
-      setTextB('Sony WF-1000XM5 Auriculares Bluetooth True Wireless Cancelacion Activa');
+      setTextA('Sony WH-1000XM5 Wireless Noise Canceling Headphones');
+      setTextB('Sony WF-1000XM5 True Wireless Bluetooth Earbuds Active Noise Canceling');
     }
   };
 
@@ -144,7 +146,7 @@ export function NovuxEng001Interactive() {
   const handleResetMinHashTexts = () => {
     sfx.playBack();
     setTextA('Apple MacBook Pro 16 M3 Max 36GB RAM 1TB SSD Space Black');
-    setTextB('Apple MacBook Pro 16 M3 Max 36GB Memoria Unificada 1TB SSD Negro Espacial');
+    setTextB('Apple MacBook Pro 16 M3 Max 36GB Unified Memory 1TB SSD Space Black');
     setNumPermutations(32);
   };
 
@@ -292,7 +294,9 @@ class ScopedDOMParser:
         <div className="flex items-center gap-2">
           <Terminal size={15} className="text-[#C5A059]" />
           <span className="text-xs font-mono font-bold text-zinc-100 tracking-wider">
-            LABORATORIO DE INGENIERÍA // EJECUTOR TÉCNICO L7 & MINHASH
+            {lang === 'en'
+              ? 'ENGINEERING LAB // L7 & MINHASH TECHNICAL EXECUTOR'
+              : 'LABORATORIO DE INGENIERÍA // EJECUTOR TÉCNICO L7 & MINHASH'}
           </span>
         </div>
 
@@ -310,7 +314,7 @@ class ScopedDOMParser:
             }`}
           >
             <Code2 size={12} />
-            <span>Código Python Ejecutable</span>
+            <span>{lang === 'en' ? 'Executable Python Code' : 'Código Python Ejecutable'}</span>
           </button>
 
           <button
@@ -340,7 +344,7 @@ class ScopedDOMParser:
             }`}
           >
             <Cpu size={12} />
-            <span>Parser C (libxml2)</span>
+            <span>{lang === 'en' ? 'C Parser (libxml2)' : 'Parser C (libxml2)'}</span>
           </button>
         </div>
       </div>
@@ -358,10 +362,16 @@ class ScopedDOMParser:
               <div>
                 <h4 className="text-xs sm:text-sm font-mono font-bold text-[#FFE066] uppercase tracking-wider flex items-center gap-2">
                   <Play size={13} className="text-[#C5A059] fill-current" />
-                  <span>Implementación Técnica Ejecutable (libxml2 + Pydantic + MinHash)</span>
+                  <span>
+                    {lang === 'en'
+                      ? 'Executable Technical Implementation (libxml2 + Pydantic + MinHash)'
+                      : 'Implementación Técnica Ejecutable (libxml2 + Pydantic + MinHash)'}
+                  </span>
                 </h4>
                 <p className="text-xs text-zinc-400 font-sans mt-0.5">
-                  Código de producción optimizado para bajo consumo de memoria. Pulsa «Ejecutar Código Python» para correr el pipeline en tiempo real.
+                  {lang === 'en'
+                    ? 'Production code optimized for low memory footprint. Click "Run Python Code" to execute the pipeline in real time.'
+                    : 'Código de producción optimizado para bajo consumo de memoria. Pulsa «Ejecutar Código Python» para correr el pipeline en tiempo real.'}
                 </p>
               </div>
 
@@ -370,10 +380,10 @@ class ScopedDOMParser:
                   <button
                     onClick={handleClearPythonResult}
                     className="px-3 py-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-[#FFE066] border border-zinc-700 font-mono text-xs rounded transition-colors flex items-center gap-1 cursor-pointer"
-                    title="Limpiar salida y devolver proceso"
+                    title={lang === 'en' ? 'Clear output and reset state' : 'Limpiar salida y devolver proceso'}
                   >
                     <RotateCcw size={12} />
-                    <span>Limpiar Salida</span>
+                    <span>{lang === 'en' ? 'Clear Output' : 'Limpiar Salida'}</span>
                   </button>
                 )}
 
@@ -383,16 +393,20 @@ class ScopedDOMParser:
                   className="px-4 py-2 bg-[#C5A059] hover:bg-[#FFE066] text-black font-mono font-bold text-xs rounded transition-all cursor-pointer shadow-[0_0_20px_rgba(197,160,89,0.5)] flex items-center gap-1.5 animate-pulse"
                 >
                   <Play size={12} className="fill-current" />
-                  <span>{isRunningPython ? 'Compilando y Ejecutando...' : 'Ejecutar Código Python'}</span>
+                  <span>
+                    {isRunningPython
+                      ? (lang === 'en' ? 'Compiling & Running...' : 'Compilando y Ejecutando...')
+                      : (lang === 'en' ? 'Run Python Code' : 'Ejecutar Código Python')}
+                  </span>
                 </button>
 
                 <button
                   onClick={handleCopyPython}
                   className="px-3 py-2 bg-black/80 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 font-mono text-xs rounded transition-colors flex items-center gap-1 cursor-pointer"
-                  title="Copiar código fuente"
+                  title={lang === 'en' ? 'Copy source code' : 'Copiar código fuente'}
                 >
                   {copiedCode ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
-                  <span>{copiedCode ? 'Copiado' : 'Copiar'}</span>
+                  <span>{copiedCode ? (lang === 'en' ? 'Copied' : 'Copiado') : (lang === 'en' ? 'Copy' : 'Copiar')}</span>
                 </button>
               </div>
             </div>
@@ -415,7 +429,7 @@ class ScopedDOMParser:
                   <span className="text-[#c084fc]">from</span> <span className="text-[#38bdf8]">lxml</span> <span className="text-[#c084fc]">import</span> <span className="text-[#38bdf8]">etree</span>{'\n'}
                   <span className="text-[#c084fc]">from</span> <span className="text-[#38bdf8]">pydantic</span> <span className="text-[#c084fc]">import</span> <span className="text-[#38bdf8]">BaseModel, Field, HttpUrl</span>{'\n\n'}
                   <span className="text-[#c084fc]">class</span> <span className="text-[#38bdf8] font-bold">CanonicalProduct</span>(<span className="text-[#38bdf8]">BaseModel</span>):{'\n'}
-                  {'    '}<span className="text-[#a1a1aa] italic">"""Esquema canónico fuertemente tipado."""</span>{'\n'}
+                  {'    '}<span className="text-[#a1a1aa] italic">"""Strongly typed canonical schema."""</span>{'\n'}
                   {'    '}sku: <span className="text-[#38bdf8]">str</span> = <span className="text-[#FFE066]">Field</span>(..., min_length=<span className="text-[#f472b6]">1</span>){'\n'}
                   {'    '}name: <span className="text-[#38bdf8]">str</span> = <span className="text-[#FFE066]">Field</span>(..., min_length=<span className="text-[#f472b6]">2</span>){'\n'}
                   {'    '}price: <span className="text-[#38bdf8]">float</span> = <span className="text-[#FFE066]">Field</span>(..., gt=<span className="text-[#f472b6]">0.0</span>){'\n'}
@@ -468,12 +482,16 @@ class ScopedDOMParser:
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-800 pb-2">
                   <div className="flex items-center gap-2 text-emerald-400 font-bold">
                     <CheckCircle2 size={14} />
-                    <span>EJECUCIÓN COMPLETADA: 2 ENTIDADES CANÓNICAS EMITIDAS</span>
+                    <span>
+                      {lang === 'en'
+                        ? 'EXECUTION COMPLETED: 2 CANONICAL ENTITIES EMITTED'
+                        : 'EJECUCIÓN COMPLETADA: 2 ENTIDADES CANÓNICAS EMITIDAS'}
+                    </span>
                   </div>
                   <div className="flex items-center gap-3 text-[11px] text-zinc-400">
-                    <span>Tiempo de Ejecución: <strong className="text-[#FFE066]">{pythonExecutionResult.runtime_ms} ms</strong></span>
+                    <span>{lang === 'en' ? 'Runtime:' : 'Tiempo de Ejecución:'} <strong className="text-[#FFE066]">{pythonExecutionResult.runtime_ms} ms</strong></span>
                     <span>•</span>
-                    <span>Ahorro RAM en C: <strong className="text-emerald-400">{pythonExecutionResult.memory_saved_percent}%</strong></span>
+                    <span>{lang === 'en' ? 'C RAM Savings:' : 'Ahorro RAM en C:'} <strong className="text-emerald-400">{pythonExecutionResult.memory_saved_percent}%</strong></span>
                   </div>
                 </div>
 
@@ -487,13 +505,13 @@ class ScopedDOMParser:
                 </div>
 
                 <div className="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-[11px]">
-                  <span className="text-zinc-500">// Pipeline completado satisfactoriamente</span>
+                  <span className="text-zinc-500">{lang === 'en' ? '// Pipeline completed successfully' : '// Pipeline completado satisfactoriamente'}</span>
                   <button
                     onClick={handleClearPythonResult}
                     className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-800 text-[#C5A059] hover:text-[#FFE066] border border-zinc-800 transition-colors cursor-pointer"
                   >
                     <RotateCcw size={11} />
-                    <span>Limpiar salida y devolver proceso</span>
+                    <span>{lang === 'en' ? 'Clear output & reset state' : 'Limpiar salida y devolver proceso'}</span>
                   </button>
                 </div>
               </motion.div>
@@ -513,41 +531,47 @@ class ScopedDOMParser:
               <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                 <h4 className="text-xs sm:text-sm font-mono font-bold text-[#FFE066] uppercase tracking-wider flex items-center gap-2">
                   <Sparkles size={14} />
-                  <span>Deduplicación Semántica en Escala (Shingling + MinHash)</span>
+                  <span>
+                    {lang === 'en'
+                      ? 'Scale Semantic Deduplication (Shingling + MinHash)'
+                      : 'Deduplicación Semántica en Escala (Shingling + MinHash)'}
+                  </span>
                 </h4>
                 {/* Presets Rápidos */}
                 <div className="flex items-center gap-1.5 text-[11px] font-mono">
-                  <span className="text-zinc-500 mr-1">Casos de prueba:</span>
+                  <span className="text-zinc-500 mr-1">{lang === 'en' ? 'Test presets:' : 'Casos de prueba:'}</span>
                   <button
                     onClick={() => applyPreset('near-duplicate')}
                     className="px-2 py-0.5 rounded bg-zinc-800 hover:bg-[#C5A059]/20 hover:text-[#FFE066] text-zinc-300 border border-zinc-700 cursor-pointer"
                   >
-                    Casi Idénticos (95%)
+                    {lang === 'en' ? 'Near-Identical (95%)' : 'Casi Idénticos (95%)'}
                   </button>
                   <button
                     onClick={() => applyPreset('partial')}
                     className="px-2 py-0.5 rounded bg-zinc-800 hover:bg-[#C5A059]/20 hover:text-[#FFE066] text-zinc-300 border border-zinc-700 cursor-pointer"
                   >
-                    Variación Parcial
+                    {lang === 'en' ? 'Partial Variation' : 'Variación Parcial'}
                   </button>
                   <button
                     onClick={() => applyPreset('different')}
                     className="px-2 py-0.5 rounded bg-zinc-800 hover:bg-[#C5A059]/20 hover:text-[#FFE066] text-zinc-300 border border-zinc-700 cursor-pointer"
                   >
-                    Distintos
+                    {lang === 'en' ? 'Distinct' : 'Distintos'}
                   </button>
                   <button
                     onClick={handleResetMinHashTexts}
                     className="px-2 py-0.5 rounded bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-[#FFE066] border border-zinc-800 cursor-pointer flex items-center gap-1"
-                    title="Devolver textos al estado original"
+                    title={lang === 'en' ? 'Restore default texts' : 'Devolver textos al estado original'}
                   >
                     <RotateCcw size={10} />
-                    <span>Restablecer</span>
+                    <span>{lang === 'en' ? 'Reset' : 'Restablecer'}</span>
                   </button>
                 </div>
               </div>
               <p className="text-xs text-zinc-400 font-sans">
-                Edita los dos textos a continuación. La herramienta calcula los $k$-shingles (trigramas), evalúa el coeficiente de Jaccard teórico exacto y computa la firma MinHash para deduplicación masiva en tiempo lineal.
+                {lang === 'en'
+                  ? 'Edit the two product strings below. The engine computes k-shingles (trigrams), evaluates the exact theoretical Jaccard coefficient, and generates the MinHash signature for linear-time massive deduplication.'
+                  : 'Edita los dos textos a continuación. La herramienta calcula los k-shingles (trigramas), evalúa el coeficiente de Jaccard teórico exacto y computa la firma MinHash para deduplicación masiva en tiempo lineal.'}
               </p>
             </div>
 
@@ -555,7 +579,7 @@ class ScopedDOMParser:
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label className="text-[11px] font-mono text-zinc-300 flex items-center justify-between">
-                  <span className="text-[#C5A059] font-bold">Documento A (Entrada Cruda 1):</span>
+                  <span className="text-[#C5A059] font-bold">{lang === 'en' ? 'Document A (Raw Input 1):' : 'Documento A (Entrada Cruda 1):'}</span>
                   <span className="text-zinc-500">{shinglesA.size} shingles</span>
                 </label>
                 <textarea
@@ -568,7 +592,7 @@ class ScopedDOMParser:
 
               <div className="space-y-1.5">
                 <label className="text-[11px] font-mono text-zinc-300 flex items-center justify-between">
-                  <span className="text-[#C5A059] font-bold">Documento B (Entrada Cruda 2):</span>
+                  <span className="text-[#C5A059] font-bold">{lang === 'en' ? 'Document B (Raw Input 2):' : 'Documento B (Entrada Cruda 2):'}</span>
                   <span className="text-zinc-500">{shinglesB.size} shingles</span>
                 </label>
                 <textarea
@@ -585,7 +609,7 @@ class ScopedDOMParser:
               {/* Jaccard Exacto */}
               <div className="p-3.5 rounded-lg bg-[#0e0e18] border border-zinc-800">
                 <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
-                  Similitud Jaccard Exacta (J)
+                  {lang === 'en' ? 'Exact Jaccard Similarity (J)' : 'Similitud Jaccard Exacta (J)'}
                 </div>
                 <div className="text-2xl font-mono font-bold text-[#FFE066] mt-1">
                   {(exactJaccard * 100).toFixed(1)}%
@@ -598,42 +622,42 @@ class ScopedDOMParser:
               {/* MinHash Aproximado */}
               <div className="p-3.5 rounded-lg bg-[#0e0e18] border border-zinc-800">
                 <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest flex items-center justify-between">
-                  <span>Aproximación MinHash</span>
+                  <span>{lang === 'en' ? 'MinHash Approximation' : 'Aproximación MinHash'}</span>
                   <span className="text-[#C5A059] text-[9px] font-bold">{numPermutations} hashes</span>
                 </div>
                 <div className="text-2xl font-mono font-bold text-[#C5A059] mt-1">
                   {(minhashSimilarity * 100).toFixed(1)}%
                 </div>
                 <div className="text-[10px] font-mono text-zinc-500 mt-0.5">
-                  Colisión de huella fija O(1)
+                  {lang === 'en' ? 'Fixed-size O(1) fingerprint collision' : 'Colisión de huella fija O(1)'}
                 </div>
               </div>
 
               {/* Dictamen del Filtro */}
               <div className="p-3.5 rounded-lg bg-[#0e0e18] border border-zinc-800 flex flex-col justify-between">
                 <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
-                  Dictamen del Pipeline
+                  {lang === 'en' ? 'Pipeline Verdict' : 'Dictamen del Pipeline'}
                 </div>
                 <div className="mt-1">
                   {exactJaccard >= 0.75 ? (
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-red-950/60 border border-red-500/50 text-red-300 text-xs font-mono font-bold">
                       <ShieldCheck size={12} />
-                      DUPLICADO DESCARTADO
+                      {lang === 'en' ? 'DUPLICATE DISCARDED' : 'DUPLICADO DESCARTADO'}
                     </span>
                   ) : exactJaccard >= 0.35 ? (
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-950/60 border border-amber-500/50 text-amber-300 text-xs font-mono font-bold">
                       <Binary size={12} />
-                      VARIACIÓN SEMÁNTICA
+                      {lang === 'en' ? 'SEMANTIC VARIATION' : 'VARIACIÓN SEMÁNTICA'}
                     </span>
                   ) : (
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-emerald-950/60 border border-emerald-500/50 text-emerald-300 text-xs font-mono font-bold">
                       <Check size={12} />
-                      REGISTRO ÚNICO / APROBADO
+                      {lang === 'en' ? 'UNIQUE RECORD / APPROVED' : 'REGISTRO ÚNICO / APROBADO'}
                     </span>
                   )}
                 </div>
                 <div className="text-[10px] font-mono text-zinc-500 mt-1">
-                  Umbral de ingesta: J &gt; 0.75
+                  {lang === 'en' ? 'Ingestion threshold: J > 0.75' : 'Umbral de ingesta: J > 0.75'}
                 </div>
               </div>
             </div>
@@ -641,16 +665,20 @@ class ScopedDOMParser:
             {/* Inspección de Firmas MinHash (Primeros 8 enteros generados) */}
             <div className="p-3.5 rounded-lg bg-black/60 border border-zinc-800 text-xs font-mono">
               <div className="text-[11px] text-zinc-400 mb-2 flex items-center justify-between">
-                <span className="text-[#C5A059] font-bold">// HUELLAS MINHASH GENERADAS (MUESTRA DE 8 FUNCIONES HASH):</span>
-                <span className="text-zinc-500">Vector comprimido para indexación LSH</span>
+                <span className="text-[#C5A059] font-bold">
+                  {lang === 'en'
+                    ? '// GENERATED MINHASH SIGNATURES (8-HASH SAMPLE):'
+                    : '// HUELLAS MINHASH GENERADAS (MUESTRA DE 8 FUNCIONES HASH):'}
+                </span>
+                <span className="text-zinc-500">{lang === 'en' ? 'Compressed vector for LSH indexing' : 'Vector comprimido para indexación LSH'}</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px]">
                 <div className="bg-[#0b0b14] p-2 rounded border border-zinc-900 overflow-x-auto text-zinc-300">
-                  <span className="text-[#FFE066]">Firma A: </span>
+                  <span className="text-[#FFE066]">{lang === 'en' ? 'Signature A: ' : 'Firma A: '}</span>
                   [{sigA.slice(0, 8).join(', ')}]
                 </div>
                 <div className="bg-[#0b0b14] p-2 rounded border border-zinc-900 overflow-x-auto text-zinc-300">
-                  <span className="text-[#FFE066]">Firma B: </span>
+                  <span className="text-[#FFE066]">{lang === 'en' ? 'Signature B: ' : 'Firma B: '}</span>
                   [{sigB.slice(0, 8).join(', ')}]
                 </div>
               </div>
@@ -669,10 +697,22 @@ class ScopedDOMParser:
             <div>
               <h4 className="text-xs sm:text-sm font-mono font-bold text-[#FFE066] uppercase tracking-wider flex items-center gap-2 mb-1">
                 <Cpu size={14} />
-                <span>Simulador de Parsing a Nivel C (libxml2) & Scope Local</span>
+                <span>
+                  {lang === 'en'
+                    ? 'C-Level Parsing Simulator (libxml2) & Local Scope'
+                    : 'Simulador de Parsing a Nivel C (libxml2) & Scope Local'}
+                </span>
               </h4>
               <p className="text-xs text-zinc-400 font-sans">
-                Observa cómo el motor compila el árbol en memoria nativa continua y ejecuta consultas XPath relativas (<code className="text-[#C5A059]">./@data-sku</code>, <code className="text-[#C5A059]">.//h2/text()</code>) directamente sobre el nodo contenedor, podando el 90%+ del DOM innecesario.
+                {lang === 'en' ? (
+                  <>
+                    Observe how the engine compiles the DOM tree in contiguous native memory and executes relative XPath queries (<code className="text-[#C5A059]">./@data-sku</code>, <code className="text-[#C5A059]">.//h2/text()</code>) directly on the container node, pruning 90%+ of unnecessary DOM overhead.
+                  </>
+                ) : (
+                  <>
+                    Observa cómo el motor compila el árbol en memoria nativa continua y ejecuta consultas XPath relativas (<code className="text-[#C5A059]">./@data-sku</code>, <code className="text-[#C5A059]">.//h2/text()</code>) directamente sobre el nodo contenedor, podando el 90%+ del DOM innecesario.
+                  </>
+                )}
               </p>
             </div>
 
@@ -680,7 +720,7 @@ class ScopedDOMParser:
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <div className="bg-black/90 p-3.5 rounded border border-zinc-800 font-mono text-xs">
                 <div className="text-[10px] text-zinc-500 uppercase tracking-widest mb-1.5">
-                  Payload HTML en Buffer de Memoria (Chunk)
+                  {lang === 'en' ? 'HTML Payload in Memory Buffer (Chunk)' : 'Payload HTML en Buffer de Memoria (Chunk)'}
                 </div>
                 <pre className="text-zinc-300 overflow-x-auto text-[11px] leading-relaxed">
 {`<article class="product-card" data-sku="MBP-M3M-36GB">
@@ -692,7 +732,7 @@ class ScopedDOMParser:
       Apple MacBook Pro 16 M3 Max 36GB RAM 1TB SSD Space Black
     </h2>
     <span class="price-val">$3,499.00</span>
-    <span class="stock-status in-stock">Disponible</span>
+    <span class="stock-status in-stock">Available</span>
   </div>
 </article>`}
                 </pre>
@@ -702,7 +742,7 @@ class ScopedDOMParser:
               <div className="flex flex-col justify-between bg-[#0e0e18] p-4 rounded border border-zinc-800">
                 <div className="space-y-3">
                   <div className="text-[11px] font-mono text-[#C5A059] font-bold">
-                    // CONSULTAS XPATH RELATIVAS:
+                    {lang === 'en' ? '// RELATIVE XPATH QUERIES:' : '// CONSULTAS XPATH RELATIVAS:'}
                   </div>
                   <div className="space-y-1.5 text-xs font-mono text-zinc-300">
                     <div className="p-2 rounded bg-black/60 border border-zinc-900 flex justify-between">
@@ -710,11 +750,11 @@ class ScopedDOMParser:
                       <code>node.xpath("./@data-sku")</code>
                     </div>
                     <div className="p-2 rounded bg-black/60 border border-zinc-900 flex justify-between">
-                      <span className="text-[#FFE066]">Nombre:</span>
+                      <span className="text-[#FFE066]">{lang === 'en' ? 'Name:' : 'Nombre:'}</span>
                       <code>node.xpath(".//h2[@class='title']/text()")</code>
                     </div>
                     <div className="p-2 rounded bg-black/60 border border-zinc-900 flex justify-between">
-                      <span className="text-[#FFE066]">Precio:</span>
+                      <span className="text-[#FFE066]">{lang === 'en' ? 'Price:' : 'Precio:'}</span>
                       <code>node.xpath(".//span[@class='price-val']/text()")</code>
                     </div>
                   </div>
@@ -726,7 +766,11 @@ class ScopedDOMParser:
                   className="mt-4 w-full py-2.5 px-4 bg-[#C5A059] hover:bg-[#FFE066] text-black font-mono font-bold text-xs rounded transition-all cursor-pointer shadow-[0_0_20px_rgba(197,160,89,0.4)] flex items-center justify-center gap-2"
                 >
                   <Play size={13} className="fill-current" />
-                  <span>{isParsing ? 'Compilando en libxml2 C...' : 'Ejecutar Ingesta L7 (C-Parser)'}</span>
+                  <span>
+                    {isParsing
+                      ? (lang === 'en' ? 'Compiling in libxml2 C...' : 'Compilando en libxml2 C...')
+                      : (lang === 'en' ? 'Run L7 Ingestion (C-Parser)' : 'Ejecutar Ingesta L7 (C-Parser)')}
+                  </span>
                 </button>
               </div>
             </div>
@@ -741,41 +785,43 @@ class ScopedDOMParser:
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-800 pb-2">
                   <span className="text-[#FFE066] font-bold flex items-center gap-1.5">
                     <Check size={13} className="text-emerald-400" />
-                    OBJETO CANÓNICO PYDANTIC GENERADO EXITOSAMENTE
+                    {lang === 'en'
+                      ? 'CANONICAL PYDANTIC OBJECT GENERATED SUCCESSFULLY'
+                      : 'OBJETO CANÓNICO PYDANTIC GENERADO EXITOSAMENTE'}
                   </span>
                   <span className="text-zinc-500 text-[10px]">
-                    Memoria C: {parsedData.c_level_memory_bytes} bytes • Ahorro RAM: ~96%
+                    {lang === 'en' ? 'C Memory:' : 'Memoria C:'} {parsedData.c_level_memory_bytes} bytes • {lang === 'en' ? 'RAM Saved: ~96%' : 'Ahorro RAM: ~96%'}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]">
                   <div className="p-2 rounded bg-[#0e0e18] border border-zinc-900">
-                    <span className="text-zinc-500 block">SKU Validado:</span>
+                    <span className="text-zinc-500 block">{lang === 'en' ? 'Validated SKU:' : 'SKU Validado:'}</span>
                     <span className="text-zinc-200 font-bold">{parsedData.sku}</span>
                   </div>
                   <div className="p-2 rounded bg-[#0e0e18] border border-zinc-900">
-                    <span className="text-zinc-500 block">Precio Float:</span>
+                    <span className="text-zinc-500 block">{lang === 'en' ? 'Float Price:' : 'Precio Float:'}</span>
                     <span className="text-emerald-400 font-bold">${parsedData.price_val} {parsedData.currency}</span>
                   </div>
                   <div className="p-2 rounded bg-[#0e0e18] border border-zinc-900">
-                    <span className="text-zinc-500 block">Huella MinHash:</span>
+                    <span className="text-zinc-500 block">{lang === 'en' ? 'MinHash Fingerprint:' : 'Huella MinHash:'}</span>
                     <span className="text-[#C5A059] font-bold">[{parsedData.minhash_signature.slice(0, 4).join(', ')}...]</span>
                   </div>
                 </div>
 
                 <div className="p-2.5 rounded bg-[#0a0a14] border border-zinc-900 text-zinc-300 text-[11px] leading-relaxed">
-                  <span className="text-zinc-500 block mb-1">Nombre Normalizado:</span>
+                  <span className="text-zinc-500 block mb-1">{lang === 'en' ? 'Normalized Name:' : 'Nombre Normalizado:'}</span>
                   {parsedData.name}
                 </div>
 
                 <div className="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-[11px]">
-                  <span className="text-zinc-500">// Objeto validado en tiempo real</span>
+                  <span className="text-zinc-500">{lang === 'en' ? '// Real-time validated object' : '// Objeto validado en tiempo real'}</span>
                   <button
                     onClick={handleClearParsedData}
                     className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-800 text-[#C5A059] hover:text-[#FFE066] border border-zinc-800 transition-colors cursor-pointer"
                   >
                     <RotateCcw size={11} />
-                    <span>Limpiar extracción y devolver proceso</span>
+                    <span>{lang === 'en' ? 'Clear extraction & reset state' : 'Limpiar extracción y devolver proceso'}</span>
                   </button>
                 </div>
               </motion.div>

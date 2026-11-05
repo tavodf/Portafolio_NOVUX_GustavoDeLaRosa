@@ -6,8 +6,10 @@ import {
 } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
 import { getWhatsAppUrl, WHATSAPP_CORPORATE_NUMBER, WHATSAPP_DISPLAY_NUMBER } from '../data';
+import { useLanguage } from '../context/LanguageContext';
 
 export function ConversionAndLegalSection() {
+  const { lang } = useLanguage();
   const [companyName, setCompanyName] = useState('');
   const [email, setEmail] = useState('');
   const [serviceChoice, setServiceChoice] = useState('NOVUX_MARKETPULSE');
@@ -17,42 +19,76 @@ export function ConversionAndLegalSection() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!habeasDataAccepted) {
-      alert('Debe aceptar la Política de Tratamiento de Datos (Ley 1581 de 2012) para continuar.');
+      alert(
+        lang === 'en'
+          ? 'You must accept the Data Processing Policy (Law 1581 of 2012) to continue.'
+          : 'Debe aceptar la Política de Tratamiento de Datos (Ley 1581 de 2012) para continuar.'
+      );
       return;
     }
     sfx.playPowerUp();
     setSubmitted(true);
 
-    const message = `Hola NOVUX S.A.S., soy de la empresa ${companyName || 'Interesada'} (${email}). Deseo iniciar contacto comercial para el servicio de ${serviceChoice}.`;
+    const message =
+      lang === 'en'
+        ? `Hello NOVUX S.A.S., I am reaching out from ${companyName || 'Interested Company'} (${email}). I would like to start a B2B inquiry regarding ${serviceChoice}.`
+        : `Hola NOVUX S.A.S., soy de la empresa ${companyName || 'Interesada'} (${email}). Deseo iniciar contacto comercial para el servicio de ${serviceChoice}.`;
     window.open(getWhatsAppUrl(message), '_blank');
   };
 
-  const legalKit = [
-    {
-      code: 'NOVUX_F3.1.2',
-      name: 'Oferta Mercantil Comercial v1.0',
-      desc: 'Propuesta formal vinculante con desglose de entregables, SLA y cronograma financiero.',
-      type: 'Propuesta Comercial'
-    },
-    {
-      code: 'NOVUX_F3.1.3',
-      name: 'Alcance del Servicio (SOW) v1.0',
-      desc: 'Definición de requerimientos técnicos, hitos de sprint y criterios de aceptación cerrados.',
-      type: 'Alcance Técnico'
-    },
-    {
-      code: 'NOVUX_F3.1.4',
-      name: 'Contrato Marco B2B Tech Services v1.0',
-      desc: 'Cláusulas de cumplimiento, limitación de responsabilidad y 100% transferencia patrimonial de IP.',
-      type: 'Contrato Marco'
-    },
-    {
-      code: 'NOVUX_F3.2.1',
-      name: 'Acuerdo de Confidencialidad (NDA) v1.0',
-      desc: 'Blindaje estricto de secretos industriales, bases de datos propietarias y algoritmos mutuos.',
-      type: 'Confidencialidad'
-    }
-  ];
+  const legalKit = lang === 'en'
+    ? [
+        {
+          code: 'NOVUX_F3.1.2',
+          name: 'B2B Commercial Offer v1.0',
+          desc: 'Binding formal proposal detailing deliverables, SLAs, and financial milestones.',
+          type: 'Commercial Proposal'
+        },
+        {
+          code: 'NOVUX_F3.1.3',
+          name: 'Statement of Work (SOW) v1.0',
+          desc: 'Definition of technical requirements, sprint milestones, and closed acceptance criteria.',
+          type: 'Technical Scope'
+        },
+        {
+          code: 'NOVUX_F3.1.4',
+          name: 'Master B2B Tech Services Agreement v1.0',
+          desc: 'Compliance clauses, liability caps, and 100% intellectual property assignment.',
+          type: 'Master Agreement'
+        },
+        {
+          code: 'NOVUX_F3.2.1',
+          name: 'Non-Disclosure Agreement (NDA) v1.0',
+          desc: 'Strict protection of trade secrets, proprietary databases, and mutual algorithms.',
+          type: 'Confidentiality'
+        }
+      ]
+    : [
+        {
+          code: 'NOVUX_F3.1.2',
+          name: 'Oferta Mercantil Comercial v1.0',
+          desc: 'Propuesta formal vinculante con desglose de entregables, SLA y cronograma financiero.',
+          type: 'Propuesta Comercial'
+        },
+        {
+          code: 'NOVUX_F3.1.3',
+          name: 'Alcance del Servicio (SOW) v1.0',
+          desc: 'Definición de requerimientos técnicos, hitos de sprint y criterios de aceptación cerrados.',
+          type: 'Alcance Técnico'
+        },
+        {
+          code: 'NOVUX_F3.1.4',
+          name: 'Contrato Marco B2B Tech Services v1.0',
+          desc: 'Cláusulas de cumplimiento, limitación de responsabilidad y 100% transferencia patrimonial de IP.',
+          type: 'Contrato Marco'
+        },
+        {
+          code: 'NOVUX_F3.2.1',
+          name: 'Acuerdo de Confidencialidad (NDA) v1.0',
+          desc: 'Blindaje estricto de secretos industriales, bases de datos propietarias y algoritmos mutuos.',
+          type: 'Confidencialidad'
+        }
+      ];
 
   return (
     <section className="w-full max-w-6xl my-16">
@@ -60,13 +96,15 @@ export function ConversionAndLegalSection() {
       <div className="text-center mb-10">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-sm bg-[#0e0e13]/90 border border-[#C5A059]/40 text-[#C5A059] font-mono text-xs sm:text-sm tracking-widest uppercase shadow-[0_0_20px_rgba(197,160,89,0.18)] mb-3">
           <Scale size={14} className="text-[#FFE066]" />
-          <span>// BLOQUE 4: CIERRE DE CONVERSIÓN & KIT LEGAL COMPLIANCE</span>
+          <span>{lang === 'en' ? '// BLOCK 4: CONVERSION CLOSING & LEGAL COMPLIANCE KIT' : '// BLOQUE 4: CIERRE DE CONVERSIÓN & KIT LEGAL COMPLIANCE'}</span>
         </div>
         <h2 className="text-2xl sm:text-3xl font-serif text-white tracking-wide">
-          Compliance-by-Design & Contratación Inmediata
+          {lang === 'en' ? 'Compliance-by-Design & Immediate B2B Onboarding' : 'Compliance-by-Design & Contratación Inmediata'}
         </h2>
         <p className="text-xs sm:text-sm text-zinc-400 font-sans max-w-2xl mx-auto mt-2">
-          Operamos bajo el marco legal de la República de Colombia con blindaje contractual en cesión de propiedad intelectual, acuerdos de confidencialidad y tratamiento de datos personales.
+          {lang === 'en'
+            ? 'We operate under corporate legal standards with contractual protection covering intellectual property assignment, non-disclosure agreements, and data privacy regulations.'
+            : 'Operamos bajo el marco legal de la República de Colombia con blindaje contractual en cesión de propiedad intelectual, acuerdos de confidencialidad y tratamiento de datos personales.'}
         </p>
       </div>
 
@@ -76,10 +114,10 @@ export function ConversionAndLegalSection() {
           <div className="flex items-center justify-between border-b border-zinc-800 pb-4 mb-6">
             <div>
               <span className="text-xs font-mono text-[#C5A059] block uppercase tracking-wider">
-                FORMULARIO RADAR B2B
+                {lang === 'en' ? 'B2B RADAR INQUIRY FORM' : 'FORMULARIO RADAR B2B'}
               </span>
               <h3 className="text-lg font-bold text-white font-serif">
-                Solicitar Cotización y SOW Técnico
+                {lang === 'en' ? 'Request Quote & Technical SOW' : 'Solicitar Cotización y SOW Técnico'}
               </h3>
             </div>
             <div className="w-9 h-9 rounded-full bg-[#C5A059]/20 border border-[#C5A059]/50 flex items-center justify-center text-[#FFE066]">
@@ -89,11 +127,13 @@ export function ConversionAndLegalSection() {
 
           <form onSubmit={handleSubmit} className="space-y-4 font-mono text-xs">
             <div>
-              <label className="text-zinc-300 block mb-1">Nombre de la Empresa / Contacto:</label>
+              <label className="text-zinc-300 block mb-1">
+                {lang === 'en' ? 'Company / Contact Name:' : 'Nombre de la Empresa / Contacto:'}
+              </label>
               <input
                 type="text"
                 required
-                placeholder="Ej: Distribuidora Andina S.A.S. / Carlos Ramos"
+                placeholder={lang === 'en' ? 'E.g., Andean Logistics Corp. / Carlos Ramos' : 'Ej: Distribuidora Andina S.A.S. / Carlos Ramos'}
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
                 className="w-full bg-black/80 border border-zinc-800 focus:border-[#C5A059] text-zinc-100 rounded px-3 py-2.5 outline-none transition-colors"
@@ -101,11 +141,13 @@ export function ConversionAndLegalSection() {
             </div>
 
             <div>
-              <label className="text-zinc-300 block mb-1">Correo Corporativo:</label>
+              <label className="text-zinc-300 block mb-1">
+                {lang === 'en' ? 'Corporate Email:' : 'Correo Corporativo:'}
+              </label>
               <input
                 type="email"
                 required
-                placeholder="carlos@tuempresa.com"
+                placeholder={lang === 'en' ? 'carlos@yourcompany.com' : 'carlos@tuempresa.com'}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full bg-black/80 border border-zinc-800 focus:border-[#C5A059] text-zinc-100 rounded px-3 py-2.5 outline-none transition-colors"
@@ -113,18 +155,44 @@ export function ConversionAndLegalSection() {
             </div>
 
             <div>
-              <label className="text-zinc-300 block mb-1">Servicio B2B de Interés:</label>
+              <label className="text-zinc-300 block mb-1">
+                {lang === 'en' ? 'B2B Service of Interest:' : 'Servicio B2B de Interés:'}
+              </label>
               <select
                 value={serviceChoice}
                 onChange={(e) => setServiceChoice(e.target.value)}
                 className="w-full bg-black/80 border border-zinc-800 focus:border-[#C5A059] text-zinc-100 rounded px-3 py-2.5 outline-none transition-colors"
               >
-                <option value="NOVUX MarketPulse (Monitoreo Precios)">NOVUX MarketPulse (Setup $450 USD | Retainer $350-$450/mes)</option>
-                <option value="DataOps & RPA (Conciliación CST 23)">DataOps & RPA (Setup $600 USD | Retainer $250/mes)</option>
-                <option value="Web Data Harvesting (Ares Scraper L7)">Web Data Harvesting (Base $500 USD / dataset)</option>
-                <option value="Data Analytics & BI (Looker Studio)">Data Analytics & BI ($1,200 - $2,500 USD por fase)</option>
-                <option value="AI Document & NLP (Auditoría BPE)">AI Document & NLP ($950 USD Setup + Fee volumen)</option>
-                <option value="Software Factory (Tactical C2 3D & Ares Stack)">Software Factory // Tactical C2 Twin & Ares ($1,500 - $3,500 USD / Sprint)</option>
+                <option value="NOVUX MarketPulse (Price Monitoring)">
+                  {lang === 'en'
+                    ? 'NOVUX MarketPulse (Setup $450 USD | Retainer $350-$450/mo)'
+                    : 'NOVUX MarketPulse (Setup $450 USD | Retainer $350-$450/mes)'}
+                </option>
+                <option value="DataOps & RPA (CST 23 Compliance)">
+                  {lang === 'en'
+                    ? 'DataOps & RPA (Setup $600 USD | Retainer $250/mo)'
+                    : 'DataOps & RPA (Setup $600 USD | Retainer $250/mes)'}
+                </option>
+                <option value="Web Data Harvesting (Ares Scraper L7)">
+                  {lang === 'en'
+                    ? 'Web Data Harvesting (Base $500 USD / dataset)'
+                    : 'Web Data Harvesting (Base $500 USD / dataset)'}
+                </option>
+                <option value="Data Analytics & BI (Looker Studio)">
+                  {lang === 'en'
+                    ? 'Data Analytics & BI ($1,200 - $2,500 USD per phase)'
+                    : 'Data Analytics & BI ($1,200 - $2,500 USD por fase)'}
+                </option>
+                <option value="AI Document & NLP (BPE Auditing)">
+                  {lang === 'en'
+                    ? 'AI Document & NLP ($950 USD Setup + Volume Fee)'
+                    : 'AI Document & NLP ($950 USD Setup + Fee volumen)'}
+                </option>
+                <option value="Software Factory (Tactical C2 3D & Ares Stack)">
+                  {lang === 'en'
+                    ? 'Software Factory // Tactical C2 Twin & Ares ($1,500 - $3,500 USD / Sprint)'
+                    : 'Software Factory // Tactical C2 Twin & Ares ($1,500 - $3,500 USD / Sprint)'}
+                </option>
               </select>
             </div>
 
@@ -137,9 +205,15 @@ export function ConversionAndLegalSection() {
                   onChange={(e) => setHabeasDataAccepted(e.target.checked)}
                   className="mt-0.5 accent-[#C5A059] rounded cursor-pointer"
                 />
-                <span>
-                  Autorizo el tratamiento de mis datos de contacto conforme a la <strong className="text-zinc-200">Ley 1581 de 2012</strong> de la República de Colombia y la Política de Tratamiento de Información (PTI) de NOVUX S.A.S. para fines exclusivos de cotización y relacionamiento comercial.
-                </span>
+                {lang === 'en' ? (
+                  <span>
+                    I authorize the processing of my contact details in accordance with <strong className="text-zinc-200">Data Protection Law 1581 of 2012</strong> and the Information Processing Policy (PTI) of NOVUX S.A.S. exclusively for quoting and commercial communication purposes.
+                  </span>
+                ) : (
+                  <span>
+                    Autorizo el tratamiento de mis datos de contacto conforme a la <strong className="text-zinc-200">Ley 1581 de 2012</strong> de la República de Colombia y la Política de Tratamiento de Información (PTI) de NOVUX S.A.S. para fines exclusivos de cotización y relacionamiento comercial.
+                  </span>
+                )}
               </label>
             </div>
 
@@ -153,14 +227,18 @@ export function ConversionAndLegalSection() {
               }`}
             >
               <Send size={13} />
-              <span>Enviar Solicitud a WhatsApp Corporativo</span>
+              <span>{lang === 'en' ? 'Send Request to Corporate WhatsApp' : 'Enviar Solicitud a WhatsApp Corporativo'}</span>
             </button>
           </form>
 
           {submitted && (
             <div className="mt-4 p-3 rounded bg-emerald-950/80 border border-emerald-500/50 text-emerald-300 text-xs font-mono flex items-center gap-2">
               <CheckCircle2 size={14} />
-              <span>Redirigiendo a WhatsApp corporativo con su solicitud pre-llenada...</span>
+              <span>
+                {lang === 'en'
+                  ? 'Redirecting to corporate WhatsApp with your pre-filled inquiry...'
+                  : 'Redirigiendo a WhatsApp corporativo con su solicitud pre-llenada...'}
+              </span>
             </div>
           )}
         </div>
@@ -170,10 +248,12 @@ export function ConversionAndLegalSection() {
           <div className="bg-[#0e0e15] border border-zinc-800 rounded-xl p-6 shadow-xl">
             <div className="flex items-center gap-2 text-xs font-mono text-[#FFE066] mb-3">
               <Lock size={14} className="text-[#C5A059]" />
-              <span>KIT DOCUMENTAL LEGAL BLINDADO // NOVUX S.A.S.</span>
+              <span>{lang === 'en' ? 'SHIELDED B2B LEGAL DOCUMENT KIT // NOVUX S.A.S.' : 'KIT DOCUMENTAL LEGAL BLINDADO // NOVUX S.A.S.'}</span>
             </div>
             <p className="text-xs text-zinc-400 font-sans mb-4 leading-relaxed">
-              Disponemos de contratos tipo estandarizados que aceleran el cierre comercial B2B a menos de 48 horas con estricto apego al Código de Comercio y leyes colombianas:
+              {lang === 'en'
+                ? 'We provide standardized B2B contract templates that accelerate commercial onboarding to under 48 hours with full compliance:'
+                : 'Disponemos de contratos tipo estandarizados que aceleran el cierre comercial B2B a menos de 48 horas con estricto apego al Código de Comercio y leyes colombianas:'}
             </p>
 
             <div className="space-y-2.5 font-mono text-xs">
@@ -193,7 +273,7 @@ export function ConversionAndLegalSection() {
                       <p className="text-[11px] text-zinc-400 font-sans mt-0.5">{doc.desc}</p>
                     </div>
                   </div>
-                  <span className="text-[10px] text-emerald-400 font-bold shrink-0">LISTO</span>
+                  <span className="text-[10px] text-emerald-400 font-bold shrink-0">{lang === 'en' ? 'READY' : 'LISTO'}</span>
                 </div>
               ))}
             </div>
@@ -202,19 +282,19 @@ export function ConversionAndLegalSection() {
           {/* Tarjeta de Datos Corporativos Oficiales */}
           <div className="p-4 rounded-xl bg-black/80 border border-zinc-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
             <div>
-              <span className="text-zinc-500 block text-[10px]">RAZÓN SOCIAL:</span>
+              <span className="text-zinc-500 block text-[10px]">{lang === 'en' ? 'CORPORATE ENTITY:' : 'RAZÓN SOCIAL:'}</span>
               <strong className="text-zinc-200">NOVUX S.A.S.</strong>
             </div>
             <div>
-              <span className="text-zinc-500 block text-[10px]">JURISDICCIÓN:</span>
-              <strong className="text-zinc-200">Bogotá D.C., Colombia</strong>
+              <span className="text-zinc-500 block text-[10px]">{lang === 'en' ? 'JURISDICTION:' : 'JURISDICCIÓN:'}</span>
+              <strong className="text-zinc-200">{lang === 'en' ? 'Bogota D.C., Colombia' : 'Bogotá D.C., Colombia'}</strong>
             </div>
             <div>
               <span className="text-zinc-500 block text-[10px]">WHATSAPP B2B:</span>
-              <strong className="text-emerald-400">Canal Oficial Verificado</strong>
+              <strong className="text-emerald-400">{lang === 'en' ? 'Verified Official Channel' : 'Canal Oficial Verificado'}</strong>
             </div>
             <div>
-              <span className="text-zinc-500 block text-[10px]">TASA BASE:</span>
+              <span className="text-zinc-500 block text-[10px]">{lang === 'en' ? 'BASE FX RATE:' : 'TASA BASE:'}</span>
               <strong className="text-[#FFE066]">1 USD = $4,000 COP</strong>
             </div>
           </div>

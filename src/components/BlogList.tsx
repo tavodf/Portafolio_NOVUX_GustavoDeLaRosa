@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, Calendar, Clock, Tag, BookOpen, ChevronRight, Search, X, MessageCircle, Linkedin } from 'lucide-react';
 import { BlogPost } from '../types';
+import { useLanguage } from '../context/LanguageContext';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import { sfx } from '../utils/soundEffects';
-import { getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
+import { getWhatsAppUrl } from '../data';
 
 interface BlogListProps {
   posts: BlogPost[];
@@ -13,6 +15,7 @@ interface BlogListProps {
 }
 
 export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null }: BlogListProps) {
+  const { lang } = useLanguage();
   const [selectedTag, setSelectedTag] = useState<string | null>(initialTag);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -60,40 +63,44 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
           className="group inline-flex items-center gap-2 border border-[#C5A059]/40 hover:border-[#C5A059] bg-[#0e0e12]/80 hover:bg-[#C5A059]/15 text-[#C5A059] px-4 py-2 rounded-sm text-xs font-mono uppercase tracking-widest transition-all cursor-pointer shadow-md"
         >
           <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-          <span>Volver al Inicio</span>
+          <span>{lang === 'en' ? 'Back to Home' : 'Volver al Inicio'}</span>
         </button>
 
-        <a
-          href="https://www.linkedin.com/in/tavodelarosaf/?isSelfProfile=true"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => sfx.playClick()}
-          onMouseEnter={() => sfx.playHover()}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#0077b5]/15 hover:bg-[#0077b5]/30 border border-[#0077b5]/50 hover:border-[#0077b5] text-cyan-200 hover:text-white font-mono text-xs font-bold transition-all shadow-sm cursor-pointer"
-          title="Perfil Oficial de LinkedIn de Gustavo De La Rosa"
-        >
-          <Linkedin size={13} className="text-[#0077b5]" />
-          <span className="hidden sm:inline">LINKEDIN</span>
-        </a>
+        <div className="flex items-center gap-2.5">
+          <LanguageSwitcher />
+          <a
+            href="https://www.linkedin.com/in/tavodelarosaf/?isSelfProfile=true"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => sfx.playClick()}
+            onMouseEnter={() => sfx.playHover()}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#0077b5]/15 hover:bg-[#0077b5]/30 border border-[#0077b5]/50 hover:border-[#0077b5] text-cyan-200 hover:text-white font-mono text-xs font-bold transition-all shadow-sm cursor-pointer"
+            title={lang === 'en' ? 'Official LinkedIn Profile of Gustavo De La Rosa' : 'Perfil Oficial de LinkedIn de Gustavo De La Rosa'}
+          >
+            <Linkedin size={13} className="text-[#0077b5]" />
+            <span className="hidden sm:inline">LINKEDIN</span>
+          </a>
+        </div>
       </div>
 
       {/* Cabecera del Blog / Radar */}
       <div className="text-center max-w-2xl mx-auto mb-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C5A059]/10 border border-[#C5A059]/30 text-[#C5A059] text-xs font-mono mb-3">
           <BookOpen size={12} />
-          <span>RADAR TÉCNICO & DISPATCHES</span>
+          <span>{lang === 'en' ? 'TECHNICAL RADAR & PAPERS' : 'RADAR TÉCNICO & DISPATCHES'}</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-3">
-          Bitácora & Artículos
+          {lang === 'en' ? 'Engineering Log & Technical Papers' : 'Bitácora & Artículos'}
         </h1>
         <p className="text-sm sm:text-base text-zinc-400 font-light">
-          Reflexiones sobre ingeniería de software, arquitectura de datos, álgebra lineal y deconstrucción de sistemas.
+          {lang === 'en'
+            ? 'Essays on software engineering, data architecture, linear algebra, and systems deconstruction.'
+            : 'Reflexiones sobre ingeniería de software, arquitectura de datos, álgebra lineal y deconstrucción de sistemas.'}
         </p>
       </div>
 
       {/* Barra de Búsqueda y Filtros de Tags */}
       <div className="mb-10 space-y-4 bg-[#0e0e14]/90 border border-zinc-800 p-5 sm:p-6 rounded-xl backdrop-blur-md shadow-2xl">
-        {/* Barra de Búsqueda Prominente con Botón de Búsqueda Interactivo */}
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -106,13 +113,17 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
               type="button"
               onClick={() => sfx.playClick()}
               className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C5A059] hover:text-[#FFE066] transition-colors cursor-pointer"
-              title="Buscar en la bitácora"
+              title={lang === 'en' ? 'Search log' : 'Buscar en la bitácora'}
             >
               <Search size={16} />
             </button>
             <input
               type="text"
-              placeholder="Buscar por título, temática, tecnología (ej: BPE, SQL, L7, Python, Arcade)..."
+              placeholder={
+                lang === 'en'
+                  ? 'Search by title, topic, or technology (e.g., BPE, SQL, L7, Python, AI Costs)...'
+                  : 'Buscar por título, temática, tecnología (ej: BPE, SQL, L7, Python, Costos IA)...'
+              }
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-black/85 border border-zinc-800 focus:border-[#C5A059] text-zinc-100 text-xs sm:text-sm font-mono rounded-lg pl-10 pr-10 py-3 outline-none transition-all shadow-inner placeholder:text-zinc-500 focus:shadow-[0_0_20px_rgba(197,160,89,0.25)]"
@@ -125,7 +136,7 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
                   setSearchQuery('');
                 }}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white p-1 rounded-md hover:bg-zinc-800 transition-colors cursor-pointer"
-                title="Borrar búsqueda"
+                title={lang === 'en' ? 'Clear search' : 'Borrar búsqueda'}
               >
                 <X size={15} />
               </button>
@@ -138,7 +149,7 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
             className="px-5 py-3 bg-[#C5A059] hover:bg-[#FFE066] text-black font-mono font-bold text-xs sm:text-sm rounded-lg transition-all cursor-pointer shadow-[0_0_15px_rgba(197,160,89,0.4)] flex items-center justify-center gap-2 hover:shadow-[0_0_25px_rgba(197,160,89,0.7)] shrink-0"
           >
             <Search size={14} className="stroke-[2.5]" />
-            <span>Buscar</span>
+            <span>{lang === 'en' ? 'Search' : 'Buscar'}</span>
           </button>
         </form>
 
@@ -146,7 +157,7 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
         <div className="pt-3 border-t border-zinc-800/80 flex flex-wrap items-center gap-1.5">
           <span className="text-[11px] font-mono text-zinc-400 mr-1 uppercase tracking-wider flex items-center gap-1 font-semibold">
             <Tag size={11} className="text-[#C5A059]" />
-            Etiquetas:
+            {lang === 'en' ? 'Tags:' : 'Etiquetas:'}
           </span>
 
           <button
@@ -158,7 +169,7 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
                 : 'bg-zinc-900/90 text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700'
             }`}
           >
-            Todos ({posts.length})
+            {lang === 'en' ? `All (${posts.length})` : `Todos (${posts.length})`}
           </button>
 
           {allTags.map((tag) => {
@@ -189,7 +200,9 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
       <div className="grid grid-cols-1 gap-6">
         {filteredPosts.length === 0 ? (
           <div className="text-center py-16 text-zinc-500 font-mono text-sm border border-zinc-900 rounded-lg">
-            No se encontraron artículos con los criterios seleccionados.
+            {lang === 'en'
+              ? 'No articles found matching the selected criteria.'
+              : 'No se encontraron artículos con los criterios seleccionados.'}
           </div>
         ) : (
           filteredPosts.map((post, index) => (
@@ -202,10 +215,8 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
               onMouseEnter={() => sfx.playHover()}
               className="group relative bg-[#0e0e13]/85 hover:bg-[#13131c] border border-zinc-800 hover:border-[#C5A059] rounded-lg p-6 sm:p-7 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-[0_0_35px_rgba(197,160,89,0.38)] flex flex-col md:flex-row gap-6 items-start overflow-hidden"
             >
-              {/* Corner accents */}
               <div className="absolute top-0 right-0 w-2.5 h-2.5 border-t border-r border-[#C5A059]/40 group-hover:border-[#FFE066] transition-colors" />
               <div className="absolute bottom-0 left-0 w-2.5 h-2.5 border-b border-l border-[#C5A059]/40 group-hover:border-[#FFE066] transition-colors" />
-              {/* Imagen en miniatura si existe */}
               {post.image && (
                 <div className="w-full md:w-48 h-44 rounded overflow-hidden border border-zinc-800 shrink-0 bg-black/80">
                   <img
@@ -226,7 +237,6 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
                 </div>
               )}
 
-              {/* Contenido de la tarjeta */}
               <div className="flex-1 flex flex-col justify-between h-full">
                 <div>
                   <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-zinc-500 mb-2">
@@ -264,7 +274,7 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
                   </div>
 
                   <span className="inline-flex items-center gap-1 text-xs font-mono text-[#C5A059] group-hover:translate-x-1 transition-transform">
-                    <span>Leer Artículo</span>
+                    <span>{lang === 'en' ? 'Read Article' : 'Leer Artículo'}</span>
                     <ChevronRight size={14} />
                   </span>
                 </div>
@@ -277,10 +287,14 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
       {/* Barra de Contacto Directo WhatsApp Oficial en Bitácora */}
       <div className="mt-12 pt-6 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-400">
         <div className="flex items-center gap-2 text-zinc-500">
-          <span>// Bitácora Técnica & Ensayos • NOVUX D&D</span>
+          <span>{lang === 'en' ? '// Engineering Log & Technical Papers • NOVUX D&D' : '// Bitácora Técnica & Ensayos • NOVUX D&D'}</span>
         </div>
         <a
-          href={getWhatsAppUrl('Hola Gustavo / NOVUX S.A.S., estuve leyendo la Bitácora técnica y deseo consultar sobre un proyecto.')}
+          href={getWhatsAppUrl(
+            lang === 'en'
+              ? 'Hello Gustavo / NOVUX S.A.S., I was reading your Engineering Log and would like to inquire about a project.'
+              : 'Hola Gustavo / NOVUX S.A.S., estuve leyendo la Bitácora técnica y deseo consultar sobre un proyecto.'
+          )}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => sfx.playSelect()}
@@ -289,7 +303,7 @@ export function BlogList({ posts, onSelectPost, onBackToHome, initialTag = null 
         >
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <MessageCircle size={13} />
-          <span>CANAL OFICIAL DE ATENCIÓN WHATSAPP</span>
+          <span>{lang === 'en' ? 'OFFICIAL WHATSAPP SUPPORT CHANNEL' : 'CANAL OFICIAL DE ATENCIÓN WHATSAPP'}</span>
         </a>
       </div>
     </motion.div>

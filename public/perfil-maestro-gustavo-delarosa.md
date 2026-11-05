@@ -2,7 +2,7 @@
 **Coordinador de Operaciones · Especialista en Automatización & Datos · Desarrollador Python**
 
 Bogotá D.C., Colombia | Portafolio Web: [novuxops.com](https://www.novuxops.com/)  
-Correo: Gustavodlr53@gmail.com | Tel: +57 319 534 8320  
+Correo: Gustavodlr53@gmail.com | Tel: +57 319 6300410  
 GitHub: [github.com/tavodf](https://github.com/tavodf) | LinkedIn: [linkedin.com/in/tavodelarosaf](https://www.linkedin.com/in/tavodelarosaf)
 
 ---

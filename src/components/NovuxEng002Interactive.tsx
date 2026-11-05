@@ -1,16 +1,16 @@
 import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { 
-  Coins, Terminal, Play, RotateCcw, Copy, Check, Sparkles, 
-  ArrowRight, ShieldAlert, Cpu, Layers, DollarSign, Gauge, CheckCircle2, Code2
+  Coins, Play, RotateCcw, Copy, Check, 
+  ShieldAlert, Gauge, CheckCircle2, Code2
 } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
+import { useLanguage } from '../context/LanguageContext';
 
 // Simulador heurístico de BPE para comparar fragmentación en inglés vs español
 function simulateBpeTokens(text: string, language: 'en' | 'es'): { tokens: string[]; count: number } {
   if (!text.trim()) return { tokens: [], count: 0 };
 
-  // Palabras comunes y sus fragmentaciones típicas en tokenizadores de 32k-50k con sesgo en inglés
   const englishDict: Record<string, string[]> = {
     'understanding': ['understanding'],
     'computational': ['computational'],
@@ -43,7 +43,6 @@ function simulateBpeTokens(text: string, language: 'en' | 'es'): { tokens: strin
     if (dict[clean]) {
       result.push(...dict[clean]);
     } else {
-      // Heurística BPE estándar: en inglés ~4 caracteres/token, en español ~2.2 caracteres/token
       const chunkLen = language === 'en' ? 4 : 2;
       for (let i = 0; i < clean.length; i += chunkLen) {
         result.push(clean.slice(i, i + chunkLen));
@@ -58,13 +57,14 @@ function simulateBpeTokens(text: string, language: 'en' | 'es'): { tokens: strin
 }
 
 export function NovuxEng002Interactive() {
-  const [activeTab, setActiveTab] = useState<'auditor' | 'arcade' | 'code'>('auditor');
+  const { lang } = useLanguage();
+  const [activeTab, setActiveTab] = useState<'auditor' | 'context' | 'code'>('auditor');
 
   // Textos para comparación de impuesto lingüístico
   const [englishText, setEnglishText] = useState('understanding the computational architecture of deep learning models');
   const [spanishText, setSpanishText] = useState('entendimiento de la arquitectura computacional de modelos de aprendizaje profundo');
 
-  // Parámetros económicos del Arcade
+  // Parámetros económicos de API
   const [pricePerMillionInput, setPricePerMillionInput] = useState(2.50); // USD por 1M tokens
   const [pricePerMillionOutput, setPricePerMillionOutput] = useState(10.00);
   const [monthlyVolumeRequests, setMonthlyVolumeRequests] = useState(100000); // 100k requests/mes
@@ -138,7 +138,9 @@ export function NovuxEng002Interactive() {
         },
         linguistic_tax_surcharge_percent: linguisticTaxMetrics.tokenDiffPercent,
         projected_annual_overpay_usd: linguisticTaxMetrics.extraAnnualCost,
-        novux_recommendation: 'Recomendada migración a vocabulario multilingüe de 128k tokens o pre-procesamiento estructurado en JSON minificado para reducir sobrecosto en un 35%.'
+        novux_recommendation: lang === 'en'
+          ? 'Recommended migration to 128k multilingual vocabulary or minified JSON structured preprocessing to reduce token surcharge by 35%.'
+          : 'Recomendada migración a vocabulario multilingüe de 128k tokens o pre-procesamiento estructurado en JSON minificado para reducir sobrecosto en un 35%.'
       });
       sfx.playPowerUp();
     }, 450);
@@ -149,7 +151,7 @@ export function NovuxEng002Interactive() {
     const rawCode = `from typing import Dict
 import unicodedata
 
-class ArcadeTokenAuditor:
+class TokenCostAuditor:
     def __init__(self, price_per_million_input: float, price_per_million_output: float):
         self.price_input = price_per_million_input
         self.price_output = price_per_million_output
@@ -179,12 +181,14 @@ class ArcadeTokenAuditor:
 
   return (
     <div className="w-full my-10 rounded-xl overflow-hidden border border-[#C5A059]/40 bg-[#07070d] shadow-[0_0_50px_rgba(197,160,89,0.18)] select-none">
-      {/* Cabecera del Laboratorio Arcade */}
+      {/* Cabecera del Laboratorio */}
       <div className="bg-[#12121c] px-4 py-3 border-b border-[#C5A059]/30 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <Coins size={16} className="text-[#FFE066] animate-pulse" />
           <span className="text-xs font-mono font-bold text-zinc-100 tracking-wider">
-            LABORATORIO ARCADE // AUDITOR BPE & IMPUESTO LINGÜÍSTICO EN ESPAÑOL
+            {lang === 'en'
+              ? 'AI COST LAB // BPE AUDITOR & SPANISH LINGUISTIC OPTIMIZATION'
+              : 'LABORATORIO DE COSTOS IA // AUDITOR BPE & OPTIMIZACIÓN LINGÜÍSTICA EN ESPAÑOL'}
           </span>
         </div>
 
@@ -202,22 +206,22 @@ class ArcadeTokenAuditor:
             }`}
           >
             <Gauge size={12} />
-            <span>Auditor de Impuesto</span>
+            <span>{lang === 'en' ? 'Linguistic Tax Auditor' : 'Auditor de Impuesto'}</span>
           </button>
 
           <button
             onClick={() => {
               sfx.playClick();
-              setActiveTab('arcade');
+              setActiveTab('context');
             }}
             className={`px-3 py-1 rounded transition-all cursor-pointer flex items-center gap-1.5 ${
-              activeTab === 'arcade'
+              activeTab === 'context'
                 ? 'bg-[#C5A059] text-black font-bold shadow-[0_0_10px_rgba(197,160,89,0.5)]'
                 : 'text-zinc-400 hover:text-white'
             }`}
           >
             <Coins size={12} />
-            <span>La Tolva del Arcade</span>
+            <span>{lang === 'en' ? 'Context Window' : 'Ventana de Contexto'}</span>
           </button>
 
           <button
@@ -232,7 +236,7 @@ class ArcadeTokenAuditor:
             }`}
           >
             <Code2 size={12} />
-            <span>Script Python (Auditor)</span>
+            <span>{lang === 'en' ? 'Python Script (Auditor)' : 'Script Python (Auditor)'}</span>
           </button>
         </div>
       </div>
@@ -250,24 +254,31 @@ class ArcadeTokenAuditor:
               <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                 <h4 className="text-xs sm:text-sm font-mono font-bold text-[#FFE066] uppercase tracking-wider flex items-center gap-2">
                   <ShieldAlert size={15} className="text-[#C5A059]" />
-                  <span>Comparativa de Fragmentación BPE: Asimetría Inglés vs Español</span>
+                  <span>
+                    {lang === 'en'
+                      ? 'BPE Fragmentation Benchmark: English vs Spanish Asymmetry'
+                      : 'Comparativa de Fragmentación BPE: Asimetría Inglés vs Español'}
+                  </span>
                 </h4>
                 <div className="flex items-center gap-2">
                   <span className="text-[11px] font-mono text-zinc-400 bg-black/60 px-2 py-0.5 rounded border border-zinc-800">
-                    Sobrecosto Estimado: <strong className="text-red-400">+{linguisticTaxMetrics.tokenDiffPercent}% Tokens</strong>
+                    {lang === 'en' ? 'Estimated Surcharge:' : 'Sobrecosto Estimado:'}{' '}
+                    <strong className="text-red-400">+{linguisticTaxMetrics.tokenDiffPercent}% Tokens</strong>
                   </span>
                   <button
                     onClick={handleResetAuditorTexts}
                     className="text-[11px] font-mono text-zinc-400 hover:text-[#FFE066] bg-zinc-900 hover:bg-zinc-800 px-2 py-0.5 rounded border border-zinc-800 cursor-pointer flex items-center gap-1"
-                    title="Restablecer textos al valor predeterminado"
+                    title={lang === 'en' ? 'Reset texts to default values' : 'Restablecer textos al valor predeterminado'}
                   >
                     <RotateCcw size={10} />
-                    <span>Restablecer</span>
+                    <span>{lang === 'en' ? 'Reset' : 'Restablecer'}</span>
                   </button>
                 </div>
               </div>
               <p className="text-xs text-zinc-400 font-sans">
-                Edita los enunciados equivalentes. Observa cómo el algoritmo BPE parte la palabra en español en múltiples monedas (sub-piezas), mientras que en inglés conserva palabras completas en una sola ficha.
+                {lang === 'en'
+                  ? 'Edit the equivalent statements below. Observe how the BPE algorithm splits Spanish words into multiple subword units, while preserving full English words as single tokens.'
+                  : 'Edita los enunciados equivalentes. Observa cómo el algoritmo BPE fragmenta las palabras en español en múltiples sub-unidades, mientras que en inglés conserva palabras completas en un solo token.'}
               </p>
             </div>
 
@@ -276,8 +287,10 @@ class ArcadeTokenAuditor:
               {/* Input Inglés */}
               <div className="space-y-2 p-3.5 rounded-lg bg-[#0a0a12] border border-zinc-800">
                 <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-sky-400 font-bold">🇺🇸 ENTRADA EN INGLÉS (Base 1.0x):</span>
-                  <span className="text-zinc-400 font-bold">{enTokens.count} Fichas (Tokens)</span>
+                  <span className="text-sky-400 font-bold">
+                    {lang === 'en' ? '🇺🇸 ENGLISH INPUT (1.0x Baseline):' : '🇺🇸 ENTRADA EN INGLÉS (Base 1.0x):'}
+                  </span>
+                  <span className="text-zinc-400 font-bold">{enTokens.count} Tokens</span>
                 </div>
                 <textarea
                   rows={2}
@@ -285,9 +298,10 @@ class ArcadeTokenAuditor:
                   onChange={(e) => setEnglishText(e.target.value)}
                   className="w-full bg-black/80 border border-zinc-800 focus:border-sky-500 rounded p-2.5 text-xs font-mono text-zinc-200 outline-none"
                 />
-                {/* Visualizador de Fichas de Arcade */}
                 <div className="space-y-1">
-                  <span className="text-[10px] font-mono text-zinc-500 uppercase">Tokens Forjados por el BPE:</span>
+                  <span className="text-[10px] font-mono text-zinc-500 uppercase">
+                    {lang === 'en' ? 'BPE Generated Subword Tokens:' : 'Tokens Generados por el BPE:'}
+                  </span>
                   <div className="flex flex-wrap gap-1.5 min-h-[32px] p-2 rounded bg-black/60 border border-zinc-900">
                     {enTokens.tokens.map((tok, idx) => (
                       <span
@@ -299,7 +313,7 @@ class ArcadeTokenAuditor:
                     ))}
                   </div>
                   <div className="text-[10px] font-mono text-zinc-500 text-right">
-                    Ratio: {linguisticTaxMetrics.ratioEn} caracteres/ficha
+                    Ratio: {linguisticTaxMetrics.ratioEn} {lang === 'en' ? 'chars/token' : 'caracteres/token'}
                   </div>
                 </div>
               </div>
@@ -307,8 +321,10 @@ class ArcadeTokenAuditor:
               {/* Input Español */}
               <div className="space-y-2 p-3.5 rounded-lg bg-[#0a0a12] border border-zinc-800">
                 <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-amber-400 font-bold">🇪🇸 ENTRADA EN ESPAÑOL (Impuesto Lingüístico):</span>
-                  <span className="text-red-400 font-bold">{esTokens.count} Fichas (Tokens)</span>
+                  <span className="text-amber-400 font-bold">
+                    {lang === 'en' ? '🇪🇸 SPANISH INPUT (Linguistic Tax):' : '🇪🇸 ENTRADA EN ESPAÑOL (Impuesto Lingüístico):'}
+                  </span>
+                  <span className="text-red-400 font-bold">{esTokens.count} Tokens</span>
                 </div>
                 <textarea
                   rows={2}
@@ -316,9 +332,10 @@ class ArcadeTokenAuditor:
                   onChange={(e) => setSpanishText(e.target.value)}
                   className="w-full bg-black/80 border border-zinc-800 focus:border-amber-500 rounded p-2.5 text-xs font-mono text-zinc-200 outline-none"
                 />
-                {/* Visualizador de Fichas de Arcade */}
                 <div className="space-y-1">
-                  <span className="text-[10px] font-mono text-zinc-500 uppercase">Tokens Forjados por el BPE:</span>
+                  <span className="text-[10px] font-mono text-zinc-500 uppercase">
+                    {lang === 'en' ? 'BPE Generated Subword Tokens:' : 'Tokens Generados por el BPE:'}
+                  </span>
                   <div className="flex flex-wrap gap-1.5 min-h-[32px] p-2 rounded bg-black/60 border border-zinc-900">
                     {esTokens.tokens.map((tok, idx) => (
                       <span
@@ -330,7 +347,7 @@ class ArcadeTokenAuditor:
                     ))}
                   </div>
                   <div className="text-[10px] font-mono text-zinc-500 text-right">
-                    Ratio: {linguisticTaxMetrics.ratioEs} caracteres/ficha
+                    Ratio: {linguisticTaxMetrics.ratioEs} {lang === 'en' ? 'chars/token' : 'caracteres/token'}
                   </div>
                 </div>
               </div>
@@ -340,19 +357,19 @@ class ArcadeTokenAuditor:
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div className="p-3.5 rounded-lg bg-[#0e0e18] border border-zinc-800">
                 <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
-                  Sobrecosto por Tasa de Cambio
+                  {lang === 'en' ? 'Tokenization Surcharge' : 'Sobrecosto por Tasa de Cambio'}
                 </div>
                 <div className="text-2xl font-mono font-bold text-red-400 mt-1">
                   +{linguisticTaxMetrics.tokenDiffPercent}%
                 </div>
                 <div className="text-[10px] font-mono text-zinc-500 mt-0.5">
-                  Operaciones matriciales extra
+                  {lang === 'en' ? 'Extra matrix operations' : 'Operaciones matriciales extra'}
                 </div>
               </div>
 
               <div className="p-3.5 rounded-lg bg-[#0e0e18] border border-zinc-800">
                 <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest flex justify-between">
-                  <span>Factura Mensual (100k Req)</span>
+                  <span>{lang === 'en' ? 'Monthly Bill (100k Req)' : 'Factura Mensual (100k Req)'}</span>
                 </div>
                 <div className="text-xl font-mono font-bold text-zinc-200 mt-1 flex items-baseline gap-2">
                   <span className="text-emerald-400">${linguisticTaxMetrics.monthlyCostEn}</span>
@@ -360,27 +377,27 @@ class ArcadeTokenAuditor:
                   <span className="text-amber-400">${linguisticTaxMetrics.monthlyCostEs} USD</span>
                 </div>
                 <div className="text-[10px] font-mono text-zinc-500 mt-0.5">
-                  Mismo contenido semántico
+                  {lang === 'en' ? 'Identical semantic payload' : 'Mismo contenido semántico'}
                 </div>
               </div>
 
               <div className="p-3.5 rounded-lg bg-[#0e0e18] border border-zinc-800 flex flex-col justify-between">
                 <div className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">
-                  Fuga Financiera Anual
+                  {lang === 'en' ? 'Annual Financial Leakage' : 'Fuga Financiera Anual'}
                 </div>
                 <div className="text-2xl font-mono font-bold text-[#FFE066] mt-0.5">
                   ${linguisticTaxMetrics.extraAnnualCost} USD
                 </div>
                 <div className="text-[10px] font-mono text-zinc-500">
-                  Desperdicio evitable con sanitización
+                  {lang === 'en' ? 'Avoidable overhead via payload sanitization' : 'Desperdicio evitable con sanitización'}
                 </div>
               </div>
             </div>
           </motion.div>
         )}
 
-        {/* PESTAÑA 2: LA TOLVA DEL ARCADE (CONTEXT WINDOW) */}
-        {activeTab === 'arcade' && (
+        {/* PESTAÑA 2: BUFFER DE VENTANA DE CONTEXTO */}
+        {activeTab === 'context' && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -390,27 +407,37 @@ class ArcadeTokenAuditor:
             <div>
               <h4 className="text-xs sm:text-sm font-mono font-bold text-[#FFE066] uppercase tracking-wider flex items-center gap-2 mb-1">
                 <Coins size={15} className="text-[#C5A059]" />
-                <span>La Tolva del Arcade: Capacidad Física de la Ventana de Contexto</span>
+                <span>
+                  {lang === 'en'
+                    ? 'Quadratic Attention Memory & Context Window'
+                    : 'Memoria de Atención Cuadrática y Ventana de Contexto'}
+                </span>
               </h4>
               <p className="text-xs text-zinc-400 font-sans">
-                La máquina de Street Fighter tiene un depósito donde caen las fichas. En la inferencia LLM ocurre exactamente lo mismo: cada token ocupa una ranura en la memoria de atención cuadrática O(N²). Si la tolva se llena, la partida interrumpe su contexto.
+                {lang === 'en'
+                  ? 'In Transformer model inference, each token occupies a slot in O(N²) attention memory. When the context window saturates with unstructured or redundant data, compute costs spike and context truncation occurs.'
+                  : 'En inferencia de modelos Transformer, cada token ocupa un slot en memoria de atención O(N²). Si la ventana de contexto se satura con datos no estructurados o redundantes, los costos de cómputo se disparan y el modelo interrumpe la ejecución.'}
               </p>
             </div>
 
-            {/* Simulación Gráfica de la Tolva */}
+            {/* Simulación Gráfica del Buffer */}
             <div className="p-6 rounded-lg bg-[#050509] border border-[#C5A059]/40 relative overflow-hidden text-center space-y-4 shadow-inner">
               <div className="flex flex-wrap items-center justify-between text-xs font-mono text-zinc-400 border-b border-zinc-800 pb-2">
-                <span>// ESTADO DE LA TOLVA DE MONEDAS: 128,000 RANURAS MÁXIMAS</span>
-                <span className="text-[#FFE066]">Ocupación Actual: {esTokens.count + enTokens.count} / 128,000 tokens</span>
+                <span>
+                  {lang === 'en'
+                    ? '// ATTENTION MEMORY BUFFER: 128,000 MAX TOKENS'
+                    : '// BUFFER DE MEMORIA DE ATENCIÓN: 128,000 TOKENS MÁXIMOS'}
+                </span>
+                <span className="text-[#FFE066]">
+                  {lang === 'en' ? 'Active Allocation:' : 'Ocupación Actual:'} {esTokens.count + enTokens.count} / 128,000 tokens
+                </span>
               </div>
 
-              {/* Tolva física simulada */}
               <div className="w-full max-w-md mx-auto h-40 border-2 border-dashed border-[#C5A059]/40 rounded-b-2xl bg-black/60 relative flex flex-col justify-end p-3 overflow-hidden">
                 <div className="absolute top-2 left-1/2 -translate-x-1/2 text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
-                  ▼ RANURA MECÁNICA DE MONEDAS ▼
+                  {lang === 'en' ? '▼ ATTENTION SLOT BUFFER (VRAM) ▼' : '▼ BUFFER DE SLOTS DE ATENCIÓN (VRAM) ▼'}
                 </div>
 
-                {/* Monedas cayendo */}
                 <div className="flex flex-wrap justify-center gap-1.5 z-10">
                   {Array.from({ length: Math.min(esTokens.count + enTokens.count, 28) }).map((_, i) => (
                     <motion.div
@@ -425,12 +452,16 @@ class ArcadeTokenAuditor:
                   ))}
                 </div>
 
-                {/* Resplandor inferior */}
                 <div className="absolute bottom-0 inset-x-0 h-10 bg-gradient-to-t from-[#C5A059]/20 to-transparent pointer-events-none" />
               </div>
 
               <div className="max-w-lg mx-auto text-xs font-mono text-zinc-400">
-                <span className="text-[#FFE066] font-bold">Lección de Negocio:</span> Quien llena la tolva con palabras vacías ("por favor", saludos, código HTML redundante) paga el costo de la partida sin jugar. Sanea el payload antes de insertar la moneda en la ranura.
+                <span className="text-[#FFE066] font-bold">
+                  {lang === 'en' ? 'Efficiency Rule:' : 'Regla de Eficiencia:'}
+                </span>{' '}
+                {lang === 'en'
+                  ? 'Sending unstructured payloads (residual HTML, verbose boilerplate, or repeated text) saturates context memory and multiplies API costs. Sanitize and compress payloads prior to inference.'
+                  : 'Enviar payloads con datos sin estructurar (HTML residual, saludos superfluos o texto repetido) satura la memoria de contexto y multiplica los costos de API. Sanitice y comprima la información antes de la inferencia.'}
               </div>
             </div>
           </motion.div>
@@ -448,10 +479,16 @@ class ArcadeTokenAuditor:
               <div>
                 <h4 className="text-xs sm:text-sm font-mono font-bold text-[#FFE066] uppercase tracking-wider flex items-center gap-2">
                   <Play size={13} className="text-[#C5A059] fill-current" />
-                  <span>ArcadeTokenAuditor: Script de Auditoría Económica en Python</span>
+                  <span>
+                    {lang === 'en'
+                      ? 'TokenCostAuditor: Python Economic Auditing Script'
+                      : 'TokenCostAuditor: Script de Auditoría Económica en Python'}
+                  </span>
                 </h4>
                 <p className="text-xs text-zinc-400 font-sans mt-0.5">
-                  Calcula el costo real por tanda de fichas consumidas, ratio de caracteres por token y auditoría B2B.
+                  {lang === 'en'
+                    ? 'Computes real API cost per batch of consumed tokens, character-to-token ratio, and B2B volume projection.'
+                    : 'Calcula el costo real por lote de tokens consumidos, ratio de caracteres por token y auditoría B2B.'}
                 </p>
               </div>
 
@@ -460,10 +497,10 @@ class ArcadeTokenAuditor:
                   <button
                     onClick={handleClearAudit}
                     className="px-3 py-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 hover:text-[#FFE066] border border-zinc-700 font-mono text-xs rounded transition-colors flex items-center gap-1 cursor-pointer"
-                    title="Limpiar dictamen y devolver proceso"
+                    title={lang === 'en' ? 'Clear report and reset state' : 'Limpiar dictamen y devolver proceso'}
                   >
                     <RotateCcw size={12} />
-                    <span>Limpiar Dictamen</span>
+                    <span>{lang === 'en' ? 'Clear Report' : 'Limpiar Dictamen'}</span>
                   </button>
                 )}
 
@@ -473,16 +510,20 @@ class ArcadeTokenAuditor:
                   className="px-4 py-2 bg-[#C5A059] hover:bg-[#FFE066] text-black font-mono font-bold text-xs rounded transition-all cursor-pointer shadow-[0_0_20px_rgba(197,160,89,0.5)] flex items-center gap-1.5 animate-pulse"
                 >
                   <Play size={12} className="fill-current" />
-                  <span>{isAuditing ? 'Auditoría en Curso...' : '▶ Ejecutar Auditoría'}</span>
+                  <span>
+                    {isAuditing
+                      ? (lang === 'en' ? 'Running Audit...' : 'Auditoría en Curso...')
+                      : (lang === 'en' ? '▶ Run Cost Audit' : '▶ Ejecutar Auditoría')}
+                  </span>
                 </button>
 
                 <button
                   onClick={handleCopyCode}
                   className="px-3 py-2 bg-black/80 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 font-mono text-xs rounded transition-colors flex items-center gap-1 cursor-pointer"
-                  title="Copiar código fuente"
+                  title={lang === 'en' ? 'Copy source code' : 'Copiar código fuente'}
                 >
                   {copiedCode ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
-                  <span>{copiedCode ? 'Copiado' : 'Copiar'}</span>
+                  <span>{copiedCode ? (lang === 'en' ? 'Copied' : 'Copiado') : (lang === 'en' ? 'Copy' : 'Copiar')}</span>
                 </button>
               </div>
             </div>
@@ -492,25 +533,25 @@ class ArcadeTokenAuditor:
               <div className="bg-[#0d0d15] px-4 py-2 border-b border-zinc-800 flex items-center justify-between text-[11px] text-zinc-400">
                 <span className="flex items-center gap-1.5 text-[#C5A059]">
                   <Code2 size={12} />
-                  arcade_token_auditor.py
+                  token_cost_auditor.py
                 </span>
-                <span className="text-zinc-600">// NOVUX Engine • Token Cost Auditor v1.0</span>
+                <span className="text-zinc-600">// NOVUX Engine • Token Cost Auditor v1.2</span>
               </div>
 
               <div className="p-4 sm:p-5 overflow-x-auto text-[11.5px] leading-relaxed max-h-[320px] overflow-y-auto">
                 <pre className="text-zinc-300">
                   <span className="text-[#c084fc]">from</span> <span className="text-[#38bdf8]">typing</span> <span className="text-[#c084fc]">import</span> <span className="text-[#38bdf8]">Dict</span>{'\n'}
                   <span className="text-[#c084fc]">import</span> <span className="text-[#38bdf8]">unicodedata</span>{'\n\n'}
-                  <span className="text-[#c084fc]">class</span> <span className="text-[#38bdf8] font-bold">ArcadeTokenAuditor</span>:{'\n'}
+                  <span className="text-[#c084fc]">class</span> <span className="text-[#38bdf8] font-bold">TokenCostAuditor</span>:{'\n'}
                   {'    '}<span className="text-[#c084fc]">def</span> <span className="text-[#FFE066]">__init__</span>(<span className="text-[#fb923c]">self</span>, price_per_million_input: <span className="text-[#38bdf8]">float</span>, price_per_million_output: <span className="text-[#38bdf8]">float</span>):{'\n'}
                   {'        '}<span className="text-[#fb923c]">self</span>.price_input = price_per_million_input{'\n'}
                   {'        '}<span className="text-[#fb923c]">self</span>.price_output = price_per_million_output{'\n\n'}
                   {'    '}<span className="text-[#f43f5e]">@staticmethod</span>{'\n'}
                   {'    '}<span className="text-[#c084fc]">def</span> <span className="text-[#FFE066]">normalize_text</span>(text: <span className="text-[#38bdf8]">str</span>) -&gt; <span className="text-[#38bdf8]">str</span>:{'\n'}
-                  {'        '}<span className="text-[#a1a1aa] italic">"""Sanea el texto eliminando caracteres invisibles y redundancias."""</span>{'\n'}
+                  {'        '}<span className="text-[#a1a1aa] italic">"""Sanitizes payload by removing invisible characters and redundancies."""</span>{'\n'}
                   {'        '}<span className="text-[#c084fc]">return</span> unicodedata.<span className="text-[#FFE066]">normalize</span>(<span className="text-[#4ade80]">"NFKC"</span>, text).<span className="text-[#FFE066]">strip</span>(){'\n\n'}
                   {'    '}<span className="text-[#c084fc]">def</span> <span className="text-[#FFE066]">audit_payload</span>(<span className="text-[#fb923c]">self</span>, text: <span className="text-[#38bdf8]">str</span>, token_count: <span className="text-[#38bdf8]">int</span>, is_output: <span className="text-[#38bdf8]">bool</span> = <span className="text-[#c084fc]">False</span>) -&gt; <span className="text-[#38bdf8]">Dict[str, float]</span>:{'\n'}
-                  {'        '}<span className="text-[#a1a1aa] italic">"""Calcula el costo real por tanda de fichas consumidas."""</span>{'\n'}
+                  {'        '}<span className="text-[#a1a1aa] italic">"""Computes actual cost per batch of consumed API tokens."""</span>{'\n'}
                   {'        '}rate = <span className="text-[#fb923c]">self</span>.price_output <span className="text-[#c084fc]">if</span> is_output <span className="text-[#c084fc]">else</span> <span className="text-[#fb923c]">self</span>.price_input{'\n'}
                   {'        '}cost_usd = (token_count / <span className="text-[#f472b6]">1_000_000</span>) * rate{'\n'}
                   {'        '}chars = <span className="text-[#FFE066]">len</span>(text){'\n'}
@@ -537,10 +578,14 @@ class ArcadeTokenAuditor:
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-zinc-800 pb-2">
                   <div className="flex items-center gap-2 text-emerald-400 font-bold">
                     <CheckCircle2 size={14} />
-                    <span>DICTAMEN DE AUDITORÍA ECONÓMICA COMPLETADO</span>
+                    <span>
+                      {lang === 'en'
+                        ? 'ECONOMIC AUDIT REPORT COMPLETED'
+                        : 'DICTAMEN DE AUDITORÍA ECONÓMICA COMPLETADO'}
+                    </span>
                   </div>
                   <span className="text-zinc-500 text-[11px]">
-                    Volumen de Análisis: {auditOutput.contractVolume.toLocaleString()} consultas/mes
+                    {lang === 'en' ? 'Analyzed Volume:' : 'Volumen de Análisis:'} {auditOutput.contractVolume.toLocaleString()} {lang === 'en' ? 'queries/month' : 'consultas/mes'}
                   </span>
                 </div>
 
@@ -551,13 +596,13 @@ class ArcadeTokenAuditor:
                 </div>
 
                 <div className="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-[11px]">
-                  <span className="text-zinc-500">// Auditoría completada con éxito</span>
+                  <span className="text-zinc-500">{lang === 'en' ? '// Audit completed successfully' : '// Auditoría completada con éxito'}</span>
                   <button
                     onClick={handleClearAudit}
                     className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-800 text-[#C5A059] hover:text-[#FFE066] border border-zinc-800 transition-colors cursor-pointer"
                   >
                     <RotateCcw size={11} />
-                    <span>Limpiar dictamen y devolver proceso</span>
+                    <span>{lang === 'en' ? 'Clear report & reset state' : 'Limpiar dictamen y devolver proceso'}</span>
                   </button>
                 </div>
               </motion.div>

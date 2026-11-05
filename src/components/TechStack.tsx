@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { TechItem } from '../types';
 import { sfx } from '../utils/soundEffects';
+import { useLanguage } from '../context/LanguageContext';
 
 interface TechStackProps {
   items?: TechItem[];
@@ -164,6 +165,7 @@ function TechCard({ item, index }: TechCardProps) {
 }
 
 export function TechStack({ items }: TechStackProps) {
+  const { lang } = useLanguage();
   if (!items || items.length === 0) return null;
 
   return (
@@ -171,7 +173,7 @@ export function TechStack({ items }: TechStackProps) {
       <div className="flex items-center gap-2 mb-3">
         <span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-[#C5A059] flex items-center gap-2 font-semibold">
           <span className="w-1.5 h-1.5 rounded-full bg-[#C5A059] inline-block animate-pulse" />
-          Stack Tecnológico
+          {lang === 'en' ? 'Tech Stack' : 'Stack Tecnológico'}
         </span>
         <div className="h-[1px] flex-grow bg-gradient-to-r from-[#C5A059]/30 to-transparent" />
       </div>

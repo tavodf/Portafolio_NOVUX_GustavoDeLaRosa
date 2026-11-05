@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Play, Copy, Check, Terminal, CheckCircle2, Code2, RotateCcw } from 'lucide-react';
+import { Play, Copy, Check, CheckCircle2, Code2, RotateCcw } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
+import { useLanguage } from '../context/LanguageContext';
 
 interface PythonCodeBlockProps {
   codeString: string;
@@ -13,7 +14,6 @@ export function highlightPythonCode(code: string) {
   let inMultiDocstring = false;
 
   return lines.map((line, lineIdx) => {
-    // Manejo de Docstrings multilínea """ ... """
     const trimmed = line.trim();
     if (trimmed.startsWith('"""') || trimmed.startsWith("'''")) {
       if (trimmed.length > 3 && (trimmed.endsWith('"""') || trimmed.endsWith("'''"))) {
@@ -42,7 +42,6 @@ export function highlightPythonCode(code: string) {
       );
     }
 
-    // Líneas que son comentarios puros #
     if (trimmed.startsWith('#')) {
       return (
         <div key={lineIdx} className="text-zinc-500 italic">
@@ -51,17 +50,15 @@ export function highlightPythonCode(code: string) {
       );
     }
 
-    // Tokenización por expresiones regulares respetando espacios
     const tokens: React.ReactNode[] = [];
-    const regex = /(\s+)|(#.*$)|("""[\s\S]*?""")|('(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*")|(@\w+)|(\b(?:class|def|return|yield|for|in|try|except|continue|if|not|and|or|as|from|import|with|pass|raise|while|lambda|is)\b)|(\b(?:self|cls)\b)|(\b(?:CanonicalProduct|MinHashDeduplicator|ScopedDOMParser|ArcadeTokenAuditor|Dict|BaseModel|Field|HttpUrl|Generator|List|Set|str|float|int|bytes|dict|bool|tuple)\b)|(\b\d+(?:\.\d+)?\b)|(\b[a-zA-Z_]\w*(?=\())|([a-zA-Z_]\w*)|([^\s\w])/g;
+    const regex = /(\s+)|(#.*$)|("""[\s\S]*?""")|('(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*")|(@\w+)|(\b(?:class|def|return|yield|for|in|try|except|continue|if|not|and|or|as|from|import|with|pass|raise|while|lambda|is)\b)|(\b(?:self|cls)\b)|(\b(?:CanonicalProduct|MinHashDeduplicator|ScopedDOMParser|TokenCostAuditor|Dict|BaseModel|Field|HttpUrl|Generator|List|Set|str|float|int|bytes|dict|bool|tuple)\b)|(\b\d+(?:\.\d+)?\b)|(\b[a-zA-Z_]\w*(?=\())|([a-zA-Z_]\w*)|([^\s\w])/g;
 
     let match;
-    let lastIdx = 0;
     let tokenKey = 0;
 
     while ((match = regex.exec(line)) !== null) {
       const [
-        full,
+        ,
         spaces,
         comment,
         docstring,
@@ -112,11 +109,12 @@ export function highlightPythonCode(code: string) {
 }
 
 export function PythonCodeBlock({ codeString }: PythonCodeBlockProps) {
+  const { lang } = useLanguage();
   const [copied, setCopied] = useState(false);
   const [isExecuting, setIsExecuting] = useState(false);
   const [output, setOutput] = useState<any | null>(null);
 
-  const isArcade = codeString.includes('ArcadeTokenAuditor');
+  const isTokenAuditor = codeString.includes('TokenCostAuditor') || codeString.includes('ArcadeTokenAuditor');
 
   const handleCopy = () => {
     sfx.playClick();
@@ -138,9 +136,9 @@ export function PythonCodeBlock({ codeString }: PythonCodeBlockProps) {
 
     setTimeout(() => {
       setIsExecuting(false);
-      if (isArcade) {
+      if (isTokenAuditor) {
         setOutput({
-          auditor: 'ArcadeTokenAuditor v1.2',
+          auditor: 'TokenCostAuditor v1.2',
           pricingInputM: 2.50,
           pricingOutputM: 10.00,
           results: [
@@ -161,8 +159,12 @@ export function PythonCodeBlock({ codeString }: PythonCodeBlockProps) {
               estimated_cost_usd_1M_queries: 60.00
             }
           ],
-          linguistic_tax_surcharge: '+140% costo en llamadas equivalentes en español',
-          recommendation: 'Aplicar podado léxico y codificación densa en formato JSON minificado.'
+          linguistic_tax_surcharge: lang === 'en'
+            ? '+140% cost surcharge on equivalent Spanish calls'
+            : '+140% costo en llamadas equivalentes en español',
+          recommendation: lang === 'en'
+            ? 'Apply lexical pruning and dense encoding in minified JSON format.'
+            : 'Aplicar podado léxico y codificación densa en formato JSON minificado.'
         });
       } else {
         setOutput({
@@ -204,11 +206,11 @@ export function PythonCodeBlock({ codeString }: PythonCodeBlockProps) {
           </div>
           <span className="ml-2 text-xs font-mono font-bold text-zinc-200 flex items-center gap-1.5">
             <Code2 size={13} className="text-[#C5A059]" />
-            {isArcade ? 'novux_arcade_token_auditor.py' : 'novux_l7_pipeline.py'}
+            {isTokenAuditor ? 'novux_token_cost_auditor.py' : 'novux_l7_pipeline.py'}
           </span>
           <span className="text-[10px] text-zinc-500 hidden sm:inline">
-            {isArcade
-              ? '// Python 3.12 • Unicode NFKC • Auditoría de Costos LLM'
+            {isTokenAuditor
+              ? (lang === 'en' ? '// Python 3.12 • Unicode NFKC • LLM Cost Audit' : '// Python 3.12 • Unicode NFKC • Auditoría de Costos LLM')
               : '// C-Python 3.12 • libxml2 v2.12 • Pydantic v2'}
           </span>
         </div>
@@ -218,10 +220,10 @@ export function PythonCodeBlock({ codeString }: PythonCodeBlockProps) {
             <button
               onClick={handleClear}
               className="flex items-center gap-1 text-zinc-400 hover:text-[#FFE066] px-2.5 py-1 rounded bg-black/60 hover:bg-zinc-800 border border-zinc-800 transition-colors cursor-pointer text-xs"
-              title="Limpiar salida y devolver proceso"
+              title={lang === 'en' ? 'Clear output and reset state' : 'Limpiar salida y devolver proceso'}
             >
               <RotateCcw size={11} />
-              <span>Limpiar</span>
+              <span>{lang === 'en' ? 'Clear' : 'Limpiar'}</span>
             </button>
           )}
 
@@ -233,18 +235,22 @@ export function PythonCodeBlock({ codeString }: PythonCodeBlockProps) {
             <Play size={11} className="fill-current" />
             <span>
               {isExecuting
-                ? (isArcade ? 'Calculando fichas...' : 'Compilando en C...')
-                : (isArcade ? '▶ Auditar Fichas & Costos' : '▶ Ejecutar Pipeline')}
+                ? (isTokenAuditor
+                    ? (lang === 'en' ? 'Auditing tokens...' : 'Calculando tokens...')
+                    : (lang === 'en' ? 'Compiling in C...' : 'Compilando en C...'))
+                : (isTokenAuditor
+                    ? (lang === 'en' ? '▶ Audit Tokens & Costs' : '▶ Auditar Tokens & Costos')
+                    : (lang === 'en' ? '▶ Run Pipeline' : '▶ Ejecutar Pipeline'))}
             </span>
           </button>
 
           <button
             onClick={handleCopy}
             className="flex items-center gap-1 text-zinc-400 hover:text-white px-2.5 py-1 rounded bg-black/60 hover:bg-zinc-800 border border-zinc-800 transition-colors cursor-pointer text-xs"
-            title="Copiar código fuente"
+            title={lang === 'en' ? 'Copy source code' : 'Copiar código fuente'}
           >
             {copied ? <Check size={12} className="text-emerald-400" /> : <Copy size={12} />}
-            <span>{copied ? 'Copiado' : 'Copiar'}</span>
+            <span>{copied ? (lang === 'en' ? 'Copied' : 'Copiado') : (lang === 'en' ? 'Copy' : 'Copiar')}</span>
           </button>
         </div>
       </div>
@@ -261,36 +267,40 @@ export function PythonCodeBlock({ codeString }: PythonCodeBlockProps) {
             <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-[11px]">
               <CheckCircle2 size={13} />
               <span>
-                {isArcade
-                  ? 'STDOUT // AUDITORÍA BPE FINALIZADA: BALANCE ECONÓMICO PROYECTADO'
-                  : 'STDOUT // 2 REGISTROS CANÓNICOS EXTRAÍDOS EN MEMORIA C CONTIGUA'}
+                {isTokenAuditor
+                  ? (lang === 'en'
+                      ? 'STDOUT // BPE AUDIT COMPLETED: PROJECTED ECONOMIC BALANCE'
+                      : 'STDOUT // AUDITORÍA BPE FINALIZADA: BALANCE ECONÓMICO PROYECTADO')
+                  : (lang === 'en'
+                      ? 'STDOUT // 2 CANONICAL RECORDS EXTRACTED IN CONTIGUOUS C MEMORY'
+                      : 'STDOUT // 2 REGISTROS CANÓNICOS EXTRAÍDOS EN MEMORIA C CONTIGUA')}
               </span>
             </div>
             <div className="text-[10px] text-zinc-400 flex items-center gap-2">
-              {isArcade ? (
+              {isTokenAuditor ? (
                 <span className="text-red-400 font-bold">{output.linguistic_tax_surcharge}</span>
               ) : (
                 <>
-                  <span>Tiempo: <strong className="text-[#FFE066]">{output.durationMs} ms</strong></span>
+                  <span>{lang === 'en' ? 'Runtime:' : 'Tiempo:'} <strong className="text-[#FFE066]">{output.durationMs} ms</strong></span>
                   <span>•</span>
-                  <span>Ahorro RAM vs Python puro: <strong className="text-emerald-400">{output.ramSavedPercent}%</strong></span>
+                  <span>{lang === 'en' ? 'RAM Saved vs pure Python:' : 'Ahorro RAM vs Python puro:'} <strong className="text-emerald-400">{output.ramSavedPercent}%</strong></span>
                 </>
               )}
             </div>
           </div>
 
           <div className="bg-[#090912] p-2.5 rounded border border-zinc-900 overflow-x-auto text-[10.5px] text-zinc-300">
-            <pre>{JSON.stringify(isArcade ? output.results : output.data, null, 2)}</pre>
+            <pre>{JSON.stringify(isTokenAuditor ? output.results : output.data, null, 2)}</pre>
           </div>
 
           <div className="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-[11px]">
-            <span className="text-zinc-500">// Ejecución completada en tiempo real</span>
+            <span className="text-zinc-500">{lang === 'en' ? '// Real-time execution completed' : '// Ejecución completada en tiempo real'}</span>
             <button
               onClick={handleClear}
               className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-zinc-900 hover:bg-zinc-800 text-[#C5A059] hover:text-[#FFE066] border border-zinc-800 transition-colors cursor-pointer"
             >
               <RotateCcw size={11} />
-              <span>Limpiar salida y devolver proceso</span>
+              <span>{lang === 'en' ? 'Clear output & reset state' : 'Limpiar salida y devolver proceso'}</span>
             </button>
           </div>
         </div>

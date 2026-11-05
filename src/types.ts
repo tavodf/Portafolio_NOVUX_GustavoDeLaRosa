@@ -120,7 +120,19 @@ export interface TechNewsItem {
   category: 'IA & Machine Learning' | 'Apps & Herramientas' | 'Avances Corporativos' | 'Recursos & Open Source' | 'Cloud & Datos';
   date: string;
   source: string;
-  impactBadge?: 'LANZAMIENTO' | 'TENDENCIA' | 'AVANCE' | 'RECURSO' | 'DISRUPCIÓN' | 'DESPACHO TÉCNICO / ARQUITECTURA';
+  impactBadge?:
+    | 'LANZAMIENTO'
+    | 'TENDENCIA'
+    | 'AVANCE'
+    | 'RECURSO'
+    | 'DISRUPCIÓN'
+    | 'DESPACHO TÉCNICO / ARQUITECTURA'
+    | 'RELEASE'
+    | 'TREND'
+    | 'ENTERPRISE'
+    | 'RESOURCE'
+    | 'DISRUPTION'
+    | 'TECHNICAL DISPATCH / ARCHITECTURE';
   tags: string[];
   externalUrl?: string;
   details?: string;

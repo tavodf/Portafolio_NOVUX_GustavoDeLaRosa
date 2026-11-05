@@ -4,7 +4,6 @@ import {
   ArrowLeft,
   MessageCircle,
   ExternalLink,
-  Play,
   FlaskConical,
   Terminal,
   Table2,
@@ -140,13 +139,14 @@ function TechItem({ item, index }: { item: { name: string; iconName: string }; i
 }
 
 function TechStackGrid({ items }: { items?: { name: string; iconName: string }[] }) {
+  const { lang } = useLanguage();
   if (!items || items.length === 0) return null;
   return (
     <div className="w-full mt-4">
       <div className="flex items-center gap-2 mb-3">
         <span className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-[#C5A059] flex items-center gap-2 font-semibold">
           <span className="w-1.5 h-1.5 rounded-full bg-[#FFE066] inline-block animate-pulse" />
-          TECH STACK IMPLEMENTADO & VERIFICADO
+          {lang === 'en' ? 'IMPLEMENTED & VERIFIED TECH STACK' : 'TECH STACK IMPLEMENTADO & VERIFICADO'}
         </span>
         <div className="h-[1px] flex-grow bg-gradient-to-r from-[#C5A059]/30 to-transparent" />
       </div>
@@ -205,14 +205,18 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
               onClick={() => sfx.playClick()}
               onMouseEnter={() => sfx.playHover()}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#0077b5]/15 hover:bg-[#0077b5]/30 border border-[#0077b5]/50 hover:border-[#0077b5] text-cyan-200 hover:text-white font-mono text-xs font-bold transition-all shadow-sm"
-              title="Perfil Oficial de LinkedIn de Gustavo De La Rosa"
+              title={lang === 'en' ? "Official LinkedIn Profile of Gustavo De La Rosa" : "Perfil Oficial de LinkedIn de Gustavo De La Rosa"}
             >
               <Linkedin size={13} className="text-[#0077b5]" />
               <span className="hidden sm:inline">LINKEDIN</span>
             </a>
 
             <a
-              href={getWhatsAppUrl("Hola NOVUX S.A.S., deseo consultar sobre los proyectos y simuladores del Laboratorio e Investigación.")}
+              href={getWhatsAppUrl(
+                lang === 'en'
+                  ? "Hello NOVUX S.A.S., I would like to inquire about the projects and simulators in the Research & Engineering Lab."
+                  : "Hola NOVUX S.A.S., deseo consultar sobre los proyectos y simuladores del Laboratorio e Investigación."
+              )}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => sfx.playSelect()}
@@ -290,10 +294,14 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
                     <span className="text-zinc-500">7 MIN</span>
                   </div>
                   <h3 className="text-base font-serif text-white group-hover:text-[#FFE066] transition-colors mb-2">
-                    Del Arcade a la Toquenización: La Importancia del Arcade en la IA
+                    {lang === 'en'
+                      ? 'Financial Optimization & Token Physics: Executive Guide to AI API Costs'
+                      : 'Optimización Financiera y Física del Token: Guía Ejecutiva de Costos en IA'}
                   </h3>
                   <p className="text-xs text-zinc-400 leading-relaxed font-sans mb-4">
-                    Desglose de primeros principios sobre la física del token, algoritmo Byte Pair Encoding (BPE), modelo mental del arcade noventero y el impuesto lingüístico en español.
+                    {lang === 'en'
+                      ? 'First-principles breakdown of token physics, Byte Pair Encoding (BPE) algorithms, API consumption economic models, and Spanish linguistic tax mitigation.'
+                      : 'Desglose de primeros principios sobre la física del token, algoritmo Byte Pair Encoding (BPE), modelo económico de consumo por API y mitigación del impuesto lingüístico en español.'}
                   </p>
                 </div>
                 <div className="flex items-center justify-between text-xs font-mono text-[#FFE066] pt-3 border-t border-zinc-800/80">
@@ -316,10 +324,14 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
                     <span className="text-zinc-500">6 MIN</span>
                   </div>
                   <h3 className="text-base font-serif text-white group-hover:text-[#FFE066] transition-colors mb-2">
-                    Arquitectura de Ingesta L7: Deduplicación MinHash & C-Parser
+                    {lang === 'en'
+                      ? 'L7 Ingestion Architecture: MinHash Deduplication & C-Parser'
+                      : 'Arquitectura de Ingesta L7: Deduplicación MinHash & C-Parser'}
                   </h3>
                   <p className="text-xs text-zinc-400 leading-relaxed font-sans mb-4">
-                    Extracción industrial masiva, bypass de sistemas anti-bot, procesamiento de árbol DOM en memoria nativa C y deduplicación con similitud Jaccard probabilística.
+                    {lang === 'en'
+                      ? 'High-scale industrial extraction, anti-bot WAF bypass, native C in-memory DOM tree parsing, and probabilistic Jaccard similarity deduplication.'
+                      : 'Extracción industrial masiva, bypass de sistemas anti-bot, procesamiento de árbol DOM en memoria nativa C y deduplicación con similitud Jaccard probabilística.'}
                   </p>
                 </div>
                 <div className="flex items-center justify-between text-xs font-mono text-[#FFE066] pt-3 border-t border-zinc-800/80">
@@ -346,7 +358,11 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
               <span>{t('backToHome')}</span>
             </button>
             <a
-              href={getWhatsAppUrl("Hola NOVUX S.A.S., deseo cotizar desarrollo especializado o investigación con el Laboratorio.")}
+              href={getWhatsAppUrl(
+                lang === 'en'
+                  ? "Hello NOVUX S.A.S., I would like to request a quote for specialized engineering or R&D with the Lab."
+                  : "Hola NOVUX S.A.S., deseo cotizar desarrollo especializado o investigación con el Laboratorio."
+              )}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => sfx.playSelect()}
@@ -408,14 +424,18 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
             onClick={() => sfx.playClick()}
             onMouseEnter={() => sfx.playHover()}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#0077b5]/15 hover:bg-[#0077b5]/30 border border-[#0077b5]/50 hover:border-[#0077b5] text-cyan-200 hover:text-white font-mono text-xs font-bold transition-all shadow-sm"
-            title="Perfil Oficial de LinkedIn de Gustavo De La Rosa"
+            title={lang === 'en' ? "Official LinkedIn Profile of Gustavo De La Rosa" : "Perfil Oficial de LinkedIn de Gustavo De La Rosa"}
           >
             <Linkedin size={13} className="text-[#0077b5]" />
             <span className="hidden sm:inline">LINKEDIN</span>
           </a>
 
           <a
-            href={getWhatsAppUrl(`Hola NOVUX S.A.S., me comunico desde la vista detallada de ${service.shortIdentifier || service.categoryTitle} para cotizar implementación.`)}
+            href={getWhatsAppUrl(
+              lang === 'en'
+                ? `Hello NOVUX S.A.S., I am reaching out from the detailed view of ${service.shortIdentifier || service.categoryTitle} to request an implementation quote.`
+                : `Hola NOVUX S.A.S., me comunico desde la vista detallada de ${service.shortIdentifier || service.categoryTitle} para cotizar implementación.`
+            )}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => sfx.playSelect()}
@@ -448,7 +468,7 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
               </span>
               <span className="text-xs font-mono text-emerald-400 bg-emerald-950/70 border border-emerald-500/40 px-3 py-1 rounded inline-flex items-center gap-1.5 shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>{service.statusTag || '[SISTEMA EN LÍNEA // VERIFICADO]'}</span>
+                <span>{service.statusTag || (lang === 'en' ? '[SYSTEM ONLINE // VERIFIED]' : '[SISTEMA EN LÍNEA // VERIFICADO]')}</span>
               </span>
             </div>
             <span className="text-xs font-mono text-zinc-400 uppercase tracking-widest">
@@ -484,7 +504,7 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
                 <div className="p-4 rounded-sm bg-emerald-950/30 border border-emerald-500/40 text-left shadow-sm">
                   <span className="text-[11px] font-mono text-emerald-400 uppercase tracking-wider block mb-1.5 font-bold flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    // IMPACTO EN EL NEGOCIO & RETORNO DE INVERSIÓN (ROI):
+                    {lang === 'en' ? '// BUSINESS IMPACT & RETURN ON INVESTMENT (ROI):' : '// IMPACTO EN EL NEGOCIO & RETORNO DE INVERSIÓN (ROI):'}
                   </span>
                   <p className="text-sm sm:text-[15px] text-zinc-100 font-sans leading-relaxed font-medium">
                     {service.businessValue}
@@ -496,7 +516,7 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
               {service.businessProblem && (
                 <div className="p-3.5 rounded-sm bg-black/70 border-l-2 border-l-amber-500 border-y border-r border-zinc-800 text-left">
                   <span className="text-[10.5px] font-mono text-amber-400 uppercase tracking-wider block mb-1 font-bold">
-                    EL DOLOR OPERATIVO QUE ELIMINA:
+                    {lang === 'en' ? 'OPERATIONAL BOTTLENECK SOLVED:' : 'EL DOLOR OPERATIVO QUE ELIMINA:'}
                   </span>
                   <p className="text-xs sm:text-sm text-zinc-300 font-sans leading-relaxed">
                     {service.businessProblem}
@@ -508,7 +528,7 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
               {service.targetAudience && (
                 <div className="p-3 rounded-sm bg-[#0e0e16]/70 border border-[#C5A059]/30 text-left">
                   <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider block mb-1 font-bold">
-                    DIRIGIDO A:
+                    {lang === 'en' ? 'DESIGNED FOR:' : 'DIRIGIDO A:'}
                   </span>
                   <p className="text-xs text-zinc-200 font-sans">
                     {service.targetAudience}
@@ -519,7 +539,7 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
               {/* Arquitectura Técnica */}
               <div className="p-4 rounded-sm bg-[#0e0e16]/80 border border-zinc-800 text-left">
                 <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider block mb-1.5 font-bold">
-                  // LA SOLUCIÓN TÉCNICA & ARQUITECTURA:
+                  {lang === 'en' ? '// TECHNICAL SOLUTION & ARCHITECTURE:' : '// LA SOLUCIÓN TÉCNICA & ARQUITECTURA:'}
                 </span>
                 <p className="text-sm sm:text-[15px] text-gray-200 leading-relaxed font-sans">
                   {service.description}
@@ -529,7 +549,7 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
               {service.technicalArgument && (
                 <div className="p-3.5 rounded-sm bg-black/70 border-l-2 border-l-[#C5A059] border-y border-r border-zinc-800 text-left">
                   <span className="text-[10px] font-mono text-zinc-400 uppercase block mb-1">
-                    ARGUMENTO DE INGENIERÍA:
+                    {lang === 'en' ? 'ENGINEERING RATIONALE:' : 'ARGUMENTO DE INGENIERÍA:'}
                   </span>
                   <p className="text-xs sm:text-sm font-mono text-zinc-200 italic leading-relaxed">
                     "{service.technicalArgument}"
@@ -541,7 +561,7 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
               {service.metrics && service.metrics.length > 0 && (
                 <div className="mt-2">
                   <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider block mb-2 font-bold">
-                    // MÉTRICAS DE RENDIMIENTO VERIFICADAS:
+                    {lang === 'en' ? '// VERIFIED PERFORMANCE METRICS:' : '// MÉTRICAS DE RENDIMIENTO VERIFICADAS:'}
                   </span>
                   <div className="grid grid-cols-2 gap-2.5">
                     {service.metrics.map((m, idx) => (
@@ -580,7 +600,7 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
                       className="absolute top-2 right-2 bg-black/85 hover:bg-[#C5A059] text-zinc-200 hover:text-black border border-[#C5A059]/50 rounded px-2.5 py-1 text-[11px] font-mono flex items-center gap-1.5 transition-all shadow-md"
                     >
                       <ExternalLink size={12} />
-                      <span>Abrir Pantalla Completa</span>
+                      <span>{lang === 'en' ? 'Open Full Screen' : 'Abrir Pantalla Completa'}</span>
                     </a>
                   </div>
                 ) : isAres && service.videoSrc ? (
@@ -597,7 +617,7 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
                     />
                     <div className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-md border border-purple-500/50 rounded px-2.5 py-1 text-[10.5px] font-mono text-purple-300 flex items-center gap-1.5 shadow">
                       <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
-                      <span>Novux ARES SCRAP // DEMO EN EJECUCIÓN</span>
+                      <span>{lang === 'en' ? 'Novux ARES SCRAP // LIVE DEMO RUNNING' : 'Novux ARES SCRAP // DEMO EN EJECUCIÓN'}</span>
                     </div>
                   </div>
                 ) : isCot && service.image ? (
@@ -610,10 +630,10 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent pointer-events-none" />
                     <div className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-md border border-cyan-500/50 rounded px-2.5 py-1 text-[10.5px] font-mono text-cyan-300 flex items-center gap-1.5 shadow">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                      <span>NOVUX TACTICAL C2 // GEMELO DIGITAL 3D (60 FPS)</span>
+                      <span>{lang === 'en' ? 'NOVUX TACTICAL C2 // 3D DIGITAL TWIN (60 FPS)' : 'NOVUX TACTICAL C2 // GEMELO DIGITAL 3D (60 FPS)'}</span>
                     </div>
                     <div className="absolute bottom-2.5 right-2.5 bg-emerald-950/90 border border-emerald-500/50 rounded px-2 py-0.5 text-[10px] font-mono text-emerald-300 font-bold">
-                      PRECISIÓN SUB-METRO WGS84
+                      {lang === 'en' ? 'SUB-METER WGS84 PRECISION' : 'PRECISIÓN SUB-METRO WGS84'}
                     </div>
                   </div>
                 ) : isCpc && service.image ? (
@@ -629,7 +649,7 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
                       <span>Novux CPC // POLITICAL & LEGALTECH INTELLIGENCE</span>
                     </div>
                     <div className="absolute bottom-2.5 right-2.5 bg-emerald-950/90 border border-emerald-500/50 rounded px-2 py-0.5 text-[10px] font-mono text-emerald-300 font-bold">
-                      45/45 CURULES // LIVE HUD
+                      {lang === 'en' ? '45/45 SEATS // LIVE HUD' : '45/45 CURULES // LIVE HUD'}
                     </div>
                   </div>
                 ) : (
@@ -643,7 +663,7 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
                     ) : (
                       <div className="text-center font-mono text-zinc-400">
                         <Terminal size={36} className="mx-auto mb-2 text-[#C5A059]" />
-                        <span>MÓDULO INTERACTIVO EN PRODUCCIÓN</span>
+                        <span>{lang === 'en' ? 'INTERACTIVE PRODUCTION MODULE' : 'MÓDULO INTERACTIVO EN PRODUCCIÓN'}</span>
                       </div>
                     )}
                   </div>
@@ -668,33 +688,33 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
                     </span>
                   </div>
                   <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/70 border border-emerald-500/40 px-2 py-0.5 rounded">
-                    [TELEMETRÍA: ACTIVA]
+                    {lang === 'en' ? '[TELEMETRY: ACTIVE]' : '[TELEMETRÍA: ACTIVA]'}
                   </span>
                 </div>
 
                 <div className="space-y-1.5 text-xs text-zinc-300 py-1">
                   <div className="flex items-start gap-2">
-                    <span className="text-zinc-500 shrink-0 w-28">Arquitectura:</span>
+                    <span className="text-zinc-500 shrink-0 w-28">{lang === 'en' ? 'Architecture:' : 'Arquitectura:'}</span>
                     <span className="text-zinc-200 font-semibold truncate">
                       {isSantaFe
                         ? 'PostgreSQL + PostGIS + React + D3.js'
                         : isAres
-                        ? 'Python Asíncrono + Selenium Stealth + libxml2 en RAM'
+                        ? (lang === 'en' ? 'Async Python + Selenium Stealth + In-RAM libxml2' : 'Python Asíncrono + Selenium Stealth + libxml2 en RAM')
                         : isCot
                         ? 'WebGL 2.0 + Three.js 3D + Gauss-Haversine WASM'
                         : 'React 19 + Three.js 3D + FastAPI + Kahn DAG'}
                     </span>
                   </div>
                   <div className="flex items-start gap-2">
-                    <span className="text-zinc-500 shrink-0 w-28">Verificación:</span>
+                    <span className="text-zinc-500 shrink-0 w-28">{lang === 'en' ? 'Verification:' : 'Verificación:'}</span>
                     <span className="text-[#FFE066] font-medium truncate">
                       {isSantaFe
-                        ? 'Auditoría 131k registros territoriales en Bogotá'
+                        ? (lang === 'en' ? 'Audit of 131k territorial records in Bogotá' : 'Auditoría 131k registros territoriales en Bogotá')
                         : isAres
-                        ? 'Pipeline continuo de alta disponibilidad y persistencia de sesión'
+                        ? (lang === 'en' ? 'Continuous high-availability pipeline & session persistence' : 'Pipeline continuo de alta disponibilidad y persistencia de sesión')
                         : isCot
-                        ? '60 FPS constantes GPU y Hash SHA-256 de custodia'
-                        : '45 curules en vivo y validación de actas E-14 vs E-24'}
+                        ? (lang === 'en' ? 'Sustained 60 FPS GPU & SHA-256 custody hash' : '60 FPS constantes GPU y Hash SHA-256 de custodia')
+                        : (lang === 'en' ? '45 live seats & E-14 vs E-24 tally validation' : '45 curules en vivo y validación de actas E-14 vs E-24')}
                     </span>
                   </div>
                 </div>
@@ -716,16 +736,18 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
           
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm bg-[#C5A059]/15 border border-[#C5A059]/40 text-[#FFE066] font-mono text-xs sm:text-sm tracking-widest uppercase mb-4 font-bold shadow-sm">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>[ INFRAESTRUCTURA DISPONIBLE PARA IMPLEMENTACIÓN ]</span>
+            <span>{lang === 'en' ? '[ INFRASTRUCTURE READY FOR DEPLOYMENT ]' : '[ INFRAESTRUCTURA DISPONIBLE PARA IMPLEMENTACIÓN ]'}</span>
           </div>
 
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-serif text-white uppercase tracking-wide mb-3 font-bold">
-            {service.derivedServiceTitle || 'Infraestructura Tecnológica Derivada a Medida'}
+            {service.derivedServiceTitle || (lang === 'en' ? 'Custom Derived Technological Infrastructure' : 'Infraestructura Tecnológica Derivada a Medida')}
           </h2>
 
           <p className="text-sm sm:text-base text-zinc-300 leading-relaxed font-sans mb-6 max-w-4xl">
             {service.derivedServiceDescription ||
-              'A partir de este motor algorítmico y arquitectura ya desplegada, en NOVUX D&D no construimos desde cero: adaptamos, parametrizamos y desplegamos esta misma base tecnológica a las necesidades operativas, comerciales y de datos de su organización con entrega total de código y control propietario.'}
+              (lang === 'en'
+                ? 'Building upon this deployed algorithmic engine and architecture, at NOVUX D&D we do not start from scratch: we adapt, parameterize, and deploy this proven technological foundation to your organization’s operational, commercial, and data needs with full source code and IP ownership.'
+                : 'A partir de este motor algorítmico y arquitectura ya desplegada, en NOVUX D&D no construimos desde cero: adaptamos, parametrizamos y desplegamos esta misma base tecnológica a las necesidades operativas, comerciales y de datos de su organización con entrega total de código y control propietario.')}
           </p>
 
           {/* Capacidades Derivadas Listadas */}
@@ -747,33 +769,45 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
             <div className="p-3.5 rounded-sm bg-black/80 border border-zinc-800 text-left">
               <span className="text-[10px] font-mono text-emerald-400 uppercase font-bold block mb-1">
-                AHORRO DE COSTES & TIME-TO-MARKET:
+                {lang === 'en' ? 'COST SAVINGS & TIME-TO-MARKET:' : 'AHORRO DE COSTES & TIME-TO-MARKET:'}
               </span>
               <p className="text-xs text-zinc-300 font-sans leading-relaxed">
-                Despliegue hasta 5x más rápido adaptando motores ya probados en producción con cero riesgo de arranque.
+                {lang === 'en'
+                  ? 'Deploy up to 5x faster by adapting engines already proven in production with zero cold-start risk.'
+                  : 'Despliegue hasta 5x más rápido adaptando motores ya probados en producción con cero riesgo de arranque.'}
               </p>
             </div>
             <div className="p-3.5 rounded-sm bg-black/80 border border-zinc-800 text-left">
               <span className="text-[10px] font-mono text-[#FFE066] uppercase font-bold block mb-1">
-                CERO COSTOS POR USUARIO (NO SAAS):
+                {lang === 'en' ? 'ZERO PER-SEAT FEES (NO SAAS TAX):' : 'CERO COSTOS POR USUARIO (NO SAAS):'}
               </span>
               <p className="text-xs text-zinc-300 font-sans leading-relaxed">
-                Infraestructura propia y escalable: no pague suscripciones mensuales crecientes por asiento de usuario.
+                {lang === 'en'
+                  ? 'Proprietary, scalable infrastructure: never pay recurring monthly per-seat subscription fees.'
+                  : 'Infraestructura propia y escalable: no pague suscripciones mensuales crecientes por asiento de usuario.'}
               </p>
             </div>
             <div className="p-3.5 rounded-sm bg-black/80 border border-zinc-800 text-left">
               <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold block mb-1">
-                100% CESIÓN DE CÓDIGO E IP:
+                {lang === 'en' ? '100% CODE & IP OWNERSHIP:' : '100% CESIÓN DE CÓDIGO E IP:'}
               </span>
               <p className="text-xs text-zinc-300 font-sans leading-relaxed">
-                Control absoluto de su propiedad intelectual y código fuente sin dependencia de terceros (vendor lock-in).
+                {lang === 'en'
+                  ? 'Complete control over your intellectual property and source code with zero third-party vendor lock-in.'
+                  : 'Control absoluto de su propiedad intelectual y código fuente sin dependencia de terceros (vendor lock-in).'}
               </p>
             </div>
           </div>
 
           <div className="p-3.5 rounded bg-black/70 border border-zinc-800 text-xs font-mono text-zinc-400 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <span>MODALIDAD DE ENTREGA: DESPLIEGUE A MEDIDA CON 100% CESIÓN DE CÓDIGO E IP</span>
-            <span className="text-emerald-400 font-bold">DISPONIBILIDAD INMEDIATA</span>
+            <span>
+              {lang === 'en'
+                ? 'DELIVERY MODEL: CUSTOM DEPLOYMENT WITH 100% SOURCE CODE & IP TRANSFER'
+                : 'MODALIDAD DE ENTREGA: DESPLIEGUE A MEDIDA CON 100% CESIÓN DE CÓDIGO E IP'}
+            </span>
+            <span className="text-emerald-400 font-bold">
+              {lang === 'en' ? 'IMMEDIATE AVAILABILITY' : 'DISPONIBILIDAD INMEDIATA'}
+            </span>
           </div>
         </section>
 
@@ -791,7 +825,7 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
             onMouseEnter={() => sfx.playHover()}
             className="w-full sm:w-auto px-8 py-4 rounded-sm bg-gradient-to-r from-[#C5A059] via-[#FFE066] to-[#C5A059] hover:from-[#FFE066] hover:to-[#C5A059] text-black font-mono font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-[0_0_30px_rgba(197,160,89,0.5)] hover:shadow-[0_0_40px_rgba(255,224,102,0.8)] cursor-pointer text-center flex items-center justify-center gap-2"
           >
-            <span>{service.ctaText || '[ LANZAR DEMO INTERACTIVO // DEMO ACTIVA ↗ ]'}</span>
+            <span>{service.ctaText || (lang === 'en' ? '[ LAUNCH INTERACTIVE DEMO // LIVE DEMO ↗ ]' : '[ LANZAR DEMO INTERACTIVO // DEMO ACTIVA ↗ ]')}</span>
             <ExternalLink size={16} />
           </a>
 
@@ -804,12 +838,16 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
             onMouseEnter={() => sfx.playHover()}
             className="w-full sm:w-auto px-8 py-4 rounded-sm border-2 border-[#C5A059] hover:bg-[#C5A059] text-[#FFE066] hover:text-black font-mono font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-md cursor-pointer text-center flex items-center justify-center gap-2"
           >
-            <span>{service.secondaryCtaText || '[ SOLICITAR DESARROLLO A MEDIDA ]'}</span>
+            <span>{service.secondaryCtaText || (lang === 'en' ? '[ REQUEST CUSTOM DEPLOYMENT ]' : '[ SOLICITAR DESARROLLO A MEDIDA ]')}</span>
           </a>
 
           {/* Botón WhatsApp Directo */}
           <a
-            href={getWhatsAppUrl(`Hola NOVUX S.A.S., deseo cotizar e iniciar proyecto sobre ${service.shortIdentifier || service.categoryTitle}.`)}
+            href={getWhatsAppUrl(
+              lang === 'en'
+                ? `Hello NOVUX S.A.S., I would like to request a quote and start a project based on ${service.shortIdentifier || service.categoryTitle}.`
+                : `Hola NOVUX S.A.S., deseo cotizar e iniciar proyecto sobre ${service.shortIdentifier || service.categoryTitle}.`
+            )}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => sfx.playSelect()}
@@ -817,7 +855,7 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
             className="w-full sm:w-auto px-6 py-4 rounded-sm border border-emerald-500/70 bg-emerald-950/60 hover:bg-emerald-900 text-emerald-300 hover:text-white font-mono font-bold text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 cursor-pointer text-center flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.25)]"
           >
             <MessageCircle size={16} />
-            <span>CONSULTA INMEDIATA WHATSAPP</span>
+            <span>{lang === 'en' ? 'DIRECT WHATSAPP INQUIRY' : 'CONSULTA INMEDIATA WHATSAPP'}</span>
           </a>
 
         </section>
