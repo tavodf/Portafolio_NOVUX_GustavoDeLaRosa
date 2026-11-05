@@ -12,6 +12,12 @@ import { useLanguage } from '../context/LanguageContext';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { getWhatsAppUrl, WHATSAPP_DISPLAY_NUMBER } from '../data';
 import { VERIFIED_CREDENTIALS, CREDLY_PROFILE_URL, VerifiedCredential } from './CredentialsCarousel';
+import { 
+  MASTER_PROFILE_DATA, 
+  MASTER_EXPERIENCE_DATA, 
+  MASTER_CERTIFICATIONS_INVENTORY, 
+  MasterCertificationItem 
+} from '../cvMasterData';
 
 type TabKey = 'TELEMETRY' | 'PROJECTS_DASHBOARD' | 'EXPERIENCE' | 'BADGES' | 'CALCULATOR';
 
@@ -206,6 +212,22 @@ export function CurriculumTelemetryModal() {
   const [selectedProjectId, setSelectedProjectId] = useState<string>('COT');
   const [badgeViewMode, setBadgeViewMode] = useState<'TABLE' | 'CARDS'>('TABLE');
   const [badgeFilter, setBadgeFilter] = useState<'ALL' | 'IBM' | 'COURSERA' | 'MINTIC' | 'GOOGLE'>('ALL');
+  const [masterCertFilter, setMasterCertFilter] = useState<'ALL' | 'DATA' | 'DEV' | 'LEGAL' | 'OPER' | 'AGILE' | 'MKT' | 'FOTO_ACAD'>('ALL');
+
+  const filteredMasterCertifications = MASTER_CERTIFICATIONS_INVENTORY.filter((item) => {
+    if (masterCertFilter === 'ALL') return true;
+    return item.category === masterCertFilter;
+  });
+
+  const handleDownloadMarkdown = () => {
+    sfx.playPowerUp();
+    const link = document.createElement('a');
+    link.href = '/perfil-maestro-gustavo-delarosa.md';
+    link.download = 'Gustavo_De_La_Rosa_Perfil_Maestro.md';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   // Estado del MAGI Valuation Engine (Modalidades de Inversión y ROI)
   const [selectedInvestmentMode, setSelectedInvestmentMode] = useState<'FULL_TIME' | 'CONTRACTOR' | 'PARTNER'>('FULL_TIME');
@@ -396,17 +418,29 @@ export function CurriculumTelemetryModal() {
                       Gustavo Alberto De La Rosa Flórez
                     </h1>
                     <p className="text-xs sm:text-sm text-[#FFE066] font-mono font-medium mt-0.5">
-                      Data &amp; Automation Analyst | Python Developer | AI Solutions Builder
+                      Coordinador de Operaciones · Especialista en Automatización &amp; Datos · Desarrollador Python
                     </p>
-                    <p className="text-[11px] text-zinc-400 font-sans italic mt-1">
-                      {lang === 'en' 
-                        ? '* Profile verified via international technical certifications and verifiable public sector track record.'
-                        : '* Perfil validado mediante certificaciones técnicas internacionales y experiencia contractual demostrable en el sector público.'}
-                    </p>
+                    <div className="flex flex-wrap items-center gap-2 mt-1.5 font-mono text-[10.5px] text-zinc-300">
+                      <span className="text-[#00F0FF]">{MASTER_PROFILE_DATA.location}</span>
+                      <span className="text-zinc-600">•</span>
+                      <a href={`tel:${MASTER_PROFILE_DATA.phoneClean}`} className="text-zinc-300 hover:text-white transition-colors">{MASTER_PROFILE_DATA.phone}</a>
+                      <span className="text-zinc-600">•</span>
+                      <a href={`mailto:${MASTER_PROFILE_DATA.email}`} className="text-cyan-300 hover:text-white transition-colors">{MASTER_PROFILE_DATA.email}</a>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 self-end sm:self-center">
+                <div className="flex items-center gap-2 self-end sm:self-center flex-wrap">
+                  <button
+                    onClick={handleDownloadMarkdown}
+                    onMouseEnter={() => sfx.playHover()}
+                    className="px-3 py-1.5 rounded-lg bg-[#00F0FF]/15 hover:bg-[#00F0FF]/30 border border-[#00F0FF]/60 text-[#00F0FF] hover:text-white font-mono text-xs font-bold flex items-center gap-1.5 transition-all shadow-[0_0_15px_rgba(0,240,255,0.25)] cursor-pointer"
+                    title="Descargar Perfil Profesional Maestro en formato Markdown (.md)"
+                  >
+                    <Download size={13} />
+                    <span className="hidden sm:inline">DESCARGAR</span>
+                    <span>.MD</span>
+                  </button>
                   <LanguageSwitcher />
                   <button
                     onClick={handleClose}
@@ -422,7 +456,7 @@ export function CurriculumTelemetryModal() {
               <div className="grid grid-cols-5 border-b border-zinc-800 bg-[#05060b] px-2 sm:px-6 gap-1 sm:gap-2">
                 <button
                   onClick={() => handleTabChange('TELEMETRY')}
-                  title="Stack Técnico y Competencias"
+                  title="Dashboard Maestro, 3 Pilares y Telemetría de Rendimiento"
                   className={`py-2.5 px-2 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap ${
                     activeTab === 'TELEMETRY'
                       ? 'border-[#00f0ff] text-[#00f0ff] bg-[#00f0ff]/10'
@@ -430,7 +464,7 @@ export function CurriculumTelemetryModal() {
                   }`}
                 >
                   <Cpu size={13} className="shrink-0" />
-                  <span>{lang === 'en' ? '1 SKILLS' : '1 SKILLS'}</span>
+                  <span>{lang === 'en' ? '1 MASTER' : '1 MASTER'}</span>
                 </button>
 
                 <button
@@ -443,12 +477,12 @@ export function CurriculumTelemetryModal() {
                   }`}
                 >
                   <BarChart3 size={13} className="shrink-0" />
-                  <span>{lang === 'en' ? '2 DB' : '2 DB'}</span>
+                  <span>{lang === 'en' ? '2 PROY' : '2 PROY'}</span>
                 </button>
 
                 <button
                   onClick={() => handleTabChange('EXPERIENCE')}
-                  title="Experiencia Territorial — Alcaldía Santa Fe"
+                  title="Experiencia Demostrable (Santa Fe, Avianca Express, NOVUX)"
                   className={`py-2.5 px-2 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap ${
                     activeTab === 'EXPERIENCE'
                       ? 'border-[#FFE066] text-[#FFE066] bg-[#FFE066]/10'
@@ -461,7 +495,7 @@ export function CurriculumTelemetryModal() {
 
                 <button
                   onClick={() => handleTabChange('BADGES')}
-                  title="Certificaciones Internacionales"
+                  title="Inventario Maestro de Certificaciones (+920 Horas)"
                   className={`py-2.5 px-2 font-mono text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 border-b-2 transition-all cursor-pointer whitespace-nowrap ${
                     activeTab === 'BADGES'
                       ? 'border-[#a855f7] text-[#a855f7] bg-[#a855f7]/10'
@@ -469,7 +503,7 @@ export function CurriculumTelemetryModal() {
                   }`}
                 >
                   <Award size={13} className="shrink-0" />
-                  <span>{lang === 'en' ? '4 CERT' : '4 CERT'}</span>
+                  <span>{lang === 'en' ? '4 CERT (+920H)' : '4 CERT (+920H)'}</span>
                 </button>
 
                 <button
@@ -490,10 +524,205 @@ export function CurriculumTelemetryModal() {
               <div className="p-4 sm:p-6 overflow-y-auto flex-1 font-sans space-y-6">
 
                 {/* ================================================================= */}
-                {/* PESTAÑA 1: TELEMETRÍA DE RENDIMIENTO & STACK                       */}
+                {/* PESTAÑA 1: DASHBOARD MAESTRO, PILARES & STACK TÉCNICO              */}
                 {/* ================================================================= */}
                 {activeTab === 'TELEMETRY' && (
                   <div className="space-y-6 animate-in fade-in duration-200 text-left">
+                    {/* 0. PANEL EJECUTIVO // PERFIL PROFESIONAL MAESTRO */}
+                    <div className="p-4 sm:p-5 rounded-lg bg-gradient-to-br from-[#0a0d18] via-[#070912] to-[#04060a] border border-[#00f0ff]/40 shadow-[0_0_35px_rgba(0,240,255,0.15)] relative overflow-hidden">
+                      <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#00f0ff]" />
+                      <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#FFE066]" />
+
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800 pb-2.5 mb-3.5">
+                        <div className="flex items-center gap-2">
+                          <User size={15} className="text-[#00f0ff]" />
+                          <h2 className="font-mono text-xs font-bold text-white uppercase tracking-wider">
+                            PERFIL PROFESIONAL MAESTRO // TRAYECTORIA MULTIDISCIPLINARIA
+                          </h2>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/70 border border-emerald-500/40 text-emerald-400 font-bold">
+                            1 AÑO Y 11 MESES A NIVEL OPERATIVO (2 AÑOS)
+                          </span>
+                          <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#a855f7]/20 border border-[#a855f7]/50 text-[#a855f7] font-bold">
+                            +920H FORMACIÓN CONTINUA
+                          </span>
+                        </div>
+                      </div>
+
+                      <p className="text-xs sm:text-[13px] text-zinc-200 font-sans leading-relaxed mb-4">
+                        {MASTER_PROFILE_DATA.profileSummary}
+                      </p>
+
+                      <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-zinc-800/80">
+                        <div className="flex flex-wrap items-center gap-2.5 font-mono text-[11px] text-zinc-300">
+                          <span className="inline-flex items-center gap-1 text-[#00F0FF]">
+                            <MapPin size={12} />
+                            <span>{MASTER_PROFILE_DATA.location}</span>
+                          </span>
+                          <span className="text-zinc-600">•</span>
+                          <a href={`tel:${MASTER_PROFILE_DATA.phoneClean}`} className="text-zinc-300 hover:text-white transition-colors">
+                            {MASTER_PROFILE_DATA.phone}
+                          </a>
+                          <span className="text-zinc-600">•</span>
+                          <a href={`mailto:${MASTER_PROFILE_DATA.email}`} className="text-cyan-300 hover:underline">
+                            {MASTER_PROFILE_DATA.email}
+                          </a>
+                        </div>
+
+                        <button
+                          onClick={handleDownloadMarkdown}
+                          onMouseEnter={() => sfx.playHover()}
+                          className="px-3.5 py-1.5 rounded bg-[#00F0FF]/20 hover:bg-[#00F0FF]/35 border border-[#00F0FF]/60 text-[#00F0FF] hover:text-white font-mono text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm cursor-pointer"
+                        >
+                          <Download size={13} />
+                          <span>Descargar Perfil Maestro (.MD)</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* KPI STATS GRID (7 INDICADORES) */}
+                    <div>
+                      <div className="border-b border-zinc-800 pb-2 mb-3">
+                        <span className="font-mono text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                          <Gauge size={14} className="text-[#FFE066]" />
+                          <span>MÉTRICAS CLAVE CONSOLIDADAS (DATA &amp; OPERACIONES)</span>
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2.5 font-mono">
+                        {MASTER_PROFILE_DATA.kpiStats.map((kpi, idx) => (
+                          <div 
+                            key={idx} 
+                            className="p-2.5 rounded-lg bg-black/60 border border-zinc-800 flex flex-col justify-between hover:border-zinc-700 transition-colors"
+                          >
+                            <span className="text-[9px] text-zinc-400 uppercase tracking-wider block mb-1 leading-tight">
+                              {kpi.label}
+                            </span>
+                            <div className="text-sm sm:text-[15px] font-bold leading-tight" style={{ color: kpi.color }}>
+                              {kpi.value}
+                            </div>
+                            <span className="text-[9.5px] text-zinc-400 font-sans mt-1 leading-tight">
+                              {kpi.detail}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* LOS 3 PILARES ESTRATÉGICOS MAESTROS */}
+                    <div>
+                      <div className="border-b border-zinc-800 pb-2 mb-3">
+                        <span className="font-mono text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                          <Layers size={14} className="text-[#00F0FF]" />
+                          <span>LOS TRES PILARES ESTRATÉGICOS DE TRAYECTORIA</span>
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 font-sans">
+                        {MASTER_PROFILE_DATA.pillars.map((pillar) => (
+                          <div 
+                            key={pillar.id}
+                            className="p-4 rounded-lg bg-black/60 border border-zinc-800 hover:border-zinc-700 transition-all flex flex-col justify-between"
+                            style={{ borderTopColor: pillar.color, borderTopWidth: '2px' }}
+                          >
+                            <div>
+                              <div className="flex items-center justify-between mb-1.5">
+                                <span 
+                                  className="text-[9.5px] font-mono font-bold px-2 py-0.5 rounded border"
+                                  style={{
+                                    color: pillar.color,
+                                    borderColor: `${pillar.color}40`,
+                                    backgroundColor: `${pillar.color}15`
+                                  }}
+                                >
+                                  {pillar.badge}
+                                </span>
+                                <span className="text-[10px] font-mono text-emerald-400 font-bold">
+                                  {pillar.metrics}
+                                </span>
+                              </div>
+
+                              <h3 className="font-serif text-sm font-bold text-white mb-0.5">
+                                {pillar.title}
+                              </h3>
+                              <p className="text-[11px] font-mono text-[#FFE066] mb-2">
+                                {pillar.subtitle}
+                              </p>
+                              <p className="text-xs text-zinc-300 leading-relaxed mb-3">
+                                {pillar.description}
+                              </p>
+
+                              <div className="space-y-1.5 pt-2 border-t border-zinc-800/80">
+                                {pillar.bullets.map((bullet, bIdx) => (
+                                  <div key={bIdx} className="flex items-start gap-1.5 text-xs text-zinc-300">
+                                    <CheckCircle2 size={12} className="text-emerald-400 shrink-0 mt-0.5" />
+                                    <span>{bullet}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* MATRIZ DE COMPETENCIAS TÉCNICAS */}
+                    <div className="p-4 rounded-lg bg-[#070912] border border-zinc-800">
+                      <div className="border-b border-zinc-800 pb-2 mb-3">
+                        <span className="font-mono text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                          <CheckCircle size={14} className="text-[#10b981]" />
+                          <span>HABILIDADES Y COMPETENCIAS TÉCNICAS VERIFICADAS</span>
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-xs">
+                        {/* Liderazgo */}
+                        <div className="p-3 rounded bg-black/50 border border-zinc-800/80">
+                          <span className="font-mono text-[11px] font-bold text-[#00F0FF] block mb-2 uppercase">
+                            • Liderazgo &amp; Operaciones
+                          </span>
+                          <ul className="space-y-1 text-zinc-300">
+                            {MASTER_PROFILE_DATA.competencies.operations.map((c, i) => (
+                              <li key={i} className="flex items-start gap-1.5">
+                                <span className="text-[#00F0FF]">•</span>
+                                <span>{c}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* Datos & Programación */}
+                        <div className="p-3 rounded bg-black/50 border border-zinc-800/80">
+                          <span className="font-mono text-[11px] font-bold text-[#FFE066] block mb-2 uppercase">
+                            • Datos &amp; Programación
+                          </span>
+                          <ul className="space-y-1 text-zinc-300">
+                            {MASTER_PROFILE_DATA.competencies.programming.map((c, i) => (
+                              <li key={i} className="flex items-start gap-1.5">
+                                <span className="text-[#FFE066]">•</span>
+                                <span>{c}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* Estrategia & Negocios */}
+                        <div className="p-3 rounded bg-black/50 border border-zinc-800/80">
+                          <span className="font-mono text-[11px] font-bold text-[#10b981] block mb-2 uppercase">
+                            • Estrategia &amp; Negocios
+                          </span>
+                          <ul className="space-y-1 text-zinc-300">
+                            {MASTER_PROFILE_DATA.competencies.strategy.map((c, i) => (
+                              <li key={i} className="flex items-start gap-1.5">
+                                <span className="text-[#10b981]">•</span>
+                                <span>{c}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
                     {/* 1. TELEMETRÍA DE RITMO Y CAPACIDAD OPERATIVA DE TRABAJO */}
                     <div>
                       <div className="flex items-center justify-between border-b border-zinc-800 pb-2 mb-3">
@@ -942,59 +1171,173 @@ export function CurriculumTelemetryModal() {
                 {/* ================================================================= */}
                 {activeTab === 'EXPERIENCE' && (
                   <div className="space-y-6 animate-in fade-in duration-200 text-left">
-                    {/* Tarjeta de Respaldo Contractual Oficial */}
-                    <div className="p-4 rounded-lg bg-[#0e101a] border border-[#FFE066]/40">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                    {/* ENTIDAD 1: ALCALDÍA LOCAL DE SANTA FE */}
+                    <div className="p-4 sm:p-5 rounded-lg bg-[#0e101a] border border-[#FFE066]/40 space-y-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800 pb-3">
                         <div className="flex items-center gap-2">
                           <MapPin size={16} className="text-[#FFE066]" />
-                          <h3 className="font-mono text-xs font-bold text-white uppercase tracking-wider">
-                            Fondo de Desarrollo Local de Santa Fe — Alcaldía Local
-                          </h3>
+                          <div>
+                            <h3 className="font-mono text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
+                              Fondo de Desarrollo Local de Santa Fe (Alcaldía Local de Santa Fe)
+                            </h3>
+                            <span className="text-[10px] font-mono text-zinc-400">Bogotá D.C., Colombia • Radicado Oficial No. 20265320571351</span>
+                          </div>
                         </div>
-                        <span className="text-[11px] font-mono text-[#FFE066] font-bold">
-                          Total Acumulado: 1 Año, 11 Meses y 11 Días
+                        <span className="text-[11px] font-mono text-[#FFE066] font-bold bg-[#FFE066]/10 border border-[#FFE066]/30 px-2.5 py-1 rounded w-fit">
+                          Total: 1 Año, 11 Meses y 11 Días
                         </span>
                       </div>
-                      <p className="text-xs text-zinc-300 leading-relaxed font-sans">
-                        Trayectoria contractual continua demostrable (21/12/2024 al 01/10/2026). Radicado oficial No. <b>20265320571351</b>. Evolución progresiva desde el monitoreo territorial de variables de alta complejidad hacia el liderazgo técnico en ingeniería de datos, analítica geoespacial y automatización de reportes mediante IA Generativa.
-                      </p>
-                    </div>
 
-                    {/* Línea de Tiempo de los 5 Contratos CPS */}
-                    <div className="space-y-4">
-                      {contractsList.map((c, idx) => (
-                        <div 
-                          key={idx}
-                          className="p-4 rounded-lg bg-black/60 border border-zinc-800 hover:border-[#FFE066]/60 transition-all text-left relative overflow-hidden"
-                        >
+                      {/* Roles en Santa Fe */}
+                      <div className="space-y-3.5">
+                        {/* Rol 1: Coordinador y Analista */}
+                        <div className="p-3.5 rounded bg-black/50 border border-zinc-800">
                           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                            <div className="flex items-center gap-2">
-                              <span className="text-xs font-mono font-bold text-[#FFE066] bg-[#FFE066]/10 px-2 py-0.5 rounded border border-[#FFE066]/30">
-                                {c.code}
-                              </span>
-                              <span className="text-xs font-mono text-zinc-400">
-                                {c.period}
-                              </span>
-                            </div>
-                            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
-                              {c.tag}
+                            <h4 className="text-sm font-serif font-bold text-white">
+                              Coordinador Técnico Operativo &amp; Analista de Datos Territorial
+                            </h4>
+                            <span className="text-[10.5px] font-mono text-[#FFE066] font-bold">
+                              Diciembre 2024 – Actualidad
                             </span>
                           </div>
-
-                          <h4 className="text-sm font-serif font-bold text-white mb-1">
-                            {c.role}
-                          </h4>
-                          <p className="text-xs text-zinc-300 font-sans leading-relaxed">
-                            {c.impact}
-                          </p>
+                          <ul className="space-y-2 text-xs text-zinc-300 font-sans">
+                            <li className="flex items-start gap-2">
+                              <span className="text-[#FFE066] font-bold mt-0.5">•</span>
+                              <span><strong className="text-white">Liderazgo Humano y Territorial:</strong> Coordiné en terreno a 60 gestores territoriales para acciones de Inspección, Vigilancia y Control (IVC), convivencia ciudadana y recuperación de espacio público en las UPZ 91, 92 y 93 (área con más de 1.2M de población flotante diaria).</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="text-[#FFE066] font-bold mt-0.5">•</span>
+                              <span><strong className="text-white">Ingeniería de Datos y Automatización ETL:</strong> Diseñé e implementé pipelines en Python (Pandas, Regex) que procesaron y estructuraron más de 131.000 interacciones operativas no estructuradas y auditaron la recuperación de 245.000 m² de espacio público, reduciendo los tiempos de consolidación técnica en más de un 70%.</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="text-[#FFE066] font-bold mt-0.5">•</span>
+                              <span><strong className="text-white">Monitoreo BI &amp; Calidad de Datos (MIPG):</strong> Estructuré matrices de depuración que redujeron inconsistencias operativas de 8.000 a 5.000 registros saneados y desarrollé tableros en Looker Studio y Excel Avanzado para la toma de decisiones en mesas institucionales.</span>
+                            </li>
+                          </ul>
                         </div>
-                      ))}
+
+                        {/* Rol 2: Gestor */}
+                        <div className="p-3.5 rounded bg-black/50 border border-zinc-800">
+                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                            <h4 className="text-sm font-serif font-bold text-white">
+                              Gestor de Seguridad y Convivencia Ciudadana
+                            </h4>
+                            <span className="text-[10.5px] font-mono text-zinc-400">
+                              Diciembre 2024 – Septiembre 2025
+                            </span>
+                          </div>
+                          <ul className="space-y-1.5 text-xs text-zinc-300 font-sans">
+                            <li className="flex items-start gap-2">
+                              <span className="text-[#FFE066] font-bold mt-0.5">•</span>
+                              <span><strong className="text-white">Inspección en Terreno y Mediación:</strong> Ejecución directa de recorridos de verificación y mediación comunitaria para la preservación del orden, censo en campo y prevención de ocupaciones indebidas.</span>
+                            </li>
+                            <li className="flex items-start gap-2">
+                              <span className="text-[#FFE066] font-bold mt-0.5">•</span>
+                              <span><strong className="text-white">Levantamiento de Información Primaria:</strong> Recolección y sistematización de datos en calle que nutrieron los diagnósticos preventivos y mapas de riesgo territorial de la localidad.</span>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      {/* Desglose de los 5 Contratos CPS */}
+                      <div className="pt-2">
+                        <span className="text-[10.5px] font-mono text-zinc-400 uppercase tracking-wider block mb-2 font-bold">
+                          TRAZABILIDAD CONTRACTUAL POR CPS (5 FASES AUDITABLES):
+                        </span>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2">
+                          {contractsList.map((c, idx) => (
+                            <div key={idx} className="p-2.5 rounded bg-black/70 border border-zinc-800/80 text-left">
+                              <div className="text-[11px] font-mono font-bold text-[#FFE066]">{c.code}</div>
+                              <div className="text-[9.5px] font-mono text-zinc-400 mb-1">{c.period}</div>
+                              <div className="text-[10px] text-zinc-300 line-clamp-2">{c.tag}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* ENTIDAD 2: AVIANCA EXPRESS */}
+                    <div className="p-4 sm:p-5 rounded-lg bg-[#0a0d18] border border-[#00f0ff]/40 space-y-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800 pb-3">
+                        <div className="flex items-center gap-2">
+                          <ShieldCheck size={16} className="text-[#00f0ff]" />
+                          <div>
+                            <h3 className="font-mono text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
+                              Avianca Express | Aeropuerto Internacional El Dorado
+                            </h3>
+                            <span className="text-[10px] font-mono text-zinc-400">Bogotá D.C., Colombia • Operaciones Aeronáuticas de Alta Precisión</span>
+                          </div>
+                        </div>
+                        <span className="text-[11px] font-mono text-[#00f0ff] font-bold bg-[#00f0ff]/10 border border-[#00f0ff]/30 px-2.5 py-1 rounded w-fit">
+                          2021 – 2023
+                        </span>
+                      </div>
+
+                      <div className="p-3.5 rounded bg-black/50 border border-zinc-800">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                          <h4 className="text-sm font-serif font-bold text-white">
+                            Operaciones Terrestres, Seguridad Operacional (SMS) &amp; Cumplimiento
+                          </h4>
+                          <span className="text-[10.5px] font-mono text-emerald-400 font-bold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30">
+                            CALIFICACIÓN 100.00% SMS / AVSEC
+                          </span>
+                        </div>
+                        <ul className="space-y-2 text-xs text-zinc-300 font-sans">
+                          <li className="flex items-start gap-2">
+                            <span className="text-[#00f0ff] font-bold mt-0.5">•</span>
+                            <span><strong className="text-white">Seguridad Operacional (SMS):</strong> Gestión estricta de protocolos de seguridad en rampa y operaciones terrestres bajo estándares aeronáuticos internacionales, certificado con calificación de 100.00% en Safety Management System.</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-[#00f0ff] font-bold mt-0.5">•</span>
+                            <span><strong className="text-white">Cumplimiento Normativo y Ética Corporativa:</strong> Aplicación estricta de normatividad anticorrupción (FCPA), protocolos de seguridad aeroportuaria AVSEC (100% calificación) y manejo logístico de pasajeros y equipajes especiales.</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* ENTIDAD 3: NOVUX D&D */}
+                    <div className="p-4 sm:p-5 rounded-lg bg-[#070c10] border border-[#10b981]/40 space-y-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800 pb-3">
+                        <div className="flex items-center gap-2">
+                          <Cpu size={16} className="text-[#10b981]" />
+                          <div>
+                            <h3 className="font-mono text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
+                              NOVUX D&amp;D / Consultor Independiente
+                            </h3>
+                            <span className="text-[10px] font-mono text-zinc-400">Software Factory, Data Analytics &amp; Automatización Digital</span>
+                          </div>
+                        </div>
+                        <span className="text-[11px] font-mono text-[#10b981] font-bold bg-[#10b981]/10 border border-[#10b981]/30 px-2.5 py-1 rounded w-fit">
+                          2020 – Actualidad
+                        </span>
+                      </div>
+
+                      <div className="p-3.5 rounded bg-black/50 border border-zinc-800">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                          <h4 className="text-sm font-serif font-bold text-white">
+                            Desarrollador de Software, Automatización y Soluciones Digitales
+                          </h4>
+                          <span className="text-[10.5px] font-mono text-cyan-300 font-bold">
+                            3 PLATAFORMAS EN PRODUCCIÓN
+                          </span>
+                        </div>
+                        <ul className="space-y-2 text-xs text-zinc-300 font-sans">
+                          <li className="flex items-start gap-2">
+                            <span className="text-[#10b981] font-bold mt-0.5">•</span>
+                            <span><strong className="text-white">Construcción de Sistemas en Producción:</strong> Diseño y despliegue de plataformas modulares: ARES Scraper (extracción web resiliente con 98.4% de efectividad y bypass antibot), NOVUX PCD (terminal de normalización de datos comerciales multitienda) y NOVUX COT (herramienta de control logístico y gemelo digital táctico de personal).</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <span className="text-[#10b981] font-bold mt-0.5">•</span>
+                            <span><strong className="text-white">Desarrollo E-Commerce y Estrategia Digital:</strong> Estructuración de plataformas comerciales y catálogos interactivos ligeros con conexión a pasarelas conversacionales (WhatsApp Business API).</span>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 )}
 
                 {/* ================================================================= */}
-                {/* PESTAÑA 4: CERTIFICACIONES TÉCNICAS OFICIALES (CREDLY / NERV)      */}
+                {/* PESTAÑA 4: INVENTARIO MAESTRO DE CERTIFICACIONES (+920 HORAS)      */}
                 {/* ================================================================= */}
                 {activeTab === 'BADGES' && (
                   <div className="space-y-4 animate-in fade-in duration-200 text-left">
@@ -1004,14 +1347,14 @@ export function CurriculumTelemetryModal() {
                         <div className="flex items-center gap-2 mb-1">
                           <Award size={16} className="text-[#a855f7]" />
                           <h3 className="text-xs font-mono font-bold text-white uppercase tracking-wider">
-                            TABLA AUDITABLE DE CERTIFICACIONES TÉCNICAS
+                            INVENTARIO MAESTRO DE CERTIFICACIONES Y FORMACIÓN CONTINUA
                           </h3>
                           <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/70 border border-emerald-500/40 text-emerald-400 font-bold">
-                            12 / 12 VERIFICADAS
+                            +920 HORAS TOTALES
                           </span>
                         </div>
                         <p className="text-xs text-zinc-300 font-sans leading-relaxed">
-                          Acreditaciones oficiales emitidas por IBM SkillsBuild, Coursera • IBM, MinTIC / Univ. Distrital y Google, con validación directa en Credly.
+                          Acreditaciones clasificadas bajo nomenclatura unificada <b>CERT-[ÁREA]-[NN]</b> (IBM, Google, Oracle/Alura, MinTIC, Avianca Express y Cámara de Comercio de Bogotá).
                         </p>
                       </div>
 
@@ -1063,25 +1406,67 @@ export function CurriculumTelemetryModal() {
                       </div>
                     </div>
 
-                    {/* Filtros por Emisor */}
+                    {/* Resumen Superior de Horas por Dominio */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2 font-mono text-center">
+                      <div className="p-2 rounded bg-black/60 border border-[#00F0FF]/30">
+                        <span className="text-[8.5px] text-zinc-400 block uppercase">DATA &amp; IA</span>
+                        <strong className="text-[#00F0FF] text-xs font-bold">+220h</strong>
+                        <span className="text-[8px] text-zinc-500 block">7 Cursos</span>
+                      </div>
+                      <div className="p-2 rounded bg-black/60 border border-[#FFE066]/30">
+                        <span className="text-[8.5px] text-zinc-400 block uppercase">DEV PYTHON</span>
+                        <strong className="text-[#FFE066] text-xs font-bold">+185h</strong>
+                        <span className="text-[8px] text-zinc-500 block">5 Cursos</span>
+                      </div>
+                      <div className="p-2 rounded bg-black/60 border border-[#38BDF8]/30">
+                        <span className="text-[8.5px] text-zinc-400 block uppercase">RESOLUCIÓN</span>
+                        <strong className="text-[#38BDF8] text-xs font-bold">+132h</strong>
+                        <span className="text-[8px] text-zinc-500 block">CCB 120h</span>
+                      </div>
+                      <div className="p-2 rounded bg-black/60 border border-[#EC4899]/30">
+                        <span className="text-[8.5px] text-zinc-400 block uppercase">FOTOGRAFÍA</span>
+                        <strong className="text-[#EC4899] text-xs font-bold">+216h</strong>
+                        <span className="text-[8px] text-zinc-500 block">Zona Cinco</span>
+                      </div>
+                      <div className="p-2 rounded bg-black/60 border border-[#10B981]/30">
+                        <span className="text-[8.5px] text-zinc-400 block uppercase">E-COMMERCE</span>
+                        <strong className="text-[#10B981] text-xs font-bold">+90h</strong>
+                        <span className="text-[8px] text-zinc-500 block">Google/CCB</span>
+                      </div>
+                      <div className="p-2 rounded bg-black/60 border border-[#a855f7]/30">
+                        <span className="text-[8.5px] text-zinc-400 block uppercase">AGILIDAD/SEC</span>
+                        <strong className="text-[#a855f7] text-xs font-bold">+50h</strong>
+                        <span className="text-[8px] text-zinc-500 block">IBM Skills</span>
+                      </div>
+                      <div className="p-2 rounded bg-black/60 border border-[#F59E0B]/30">
+                        <span className="text-[8.5px] text-zinc-400 block uppercase">AERONÁUTICA</span>
+                        <strong className="text-[#F59E0B] text-xs font-bold">100%</strong>
+                        <span className="text-[8px] text-zinc-500 block">SMS/AVSEC</span>
+                      </div>
+                    </div>
+
+                    {/* Filtros por Categoría */}
                     <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none font-mono text-[10.5px]">
                       <span className="text-zinc-500 uppercase text-[10px] mr-1 hidden sm:inline">FILTRO:</span>
                       {[
-                        { key: 'ALL', label: `TODAS (${VERIFIED_CREDENTIALS.length})` },
-                        { key: 'IBM', label: `IBM SKILLSBUILD (4)` },
-                        { key: 'COURSERA', label: `COURSERA • IBM (6)` },
-                        { key: 'MINTIC', label: `MINTIC 50H (1)` },
-                        { key: 'GOOGLE', label: `GOOGLE AI (1)` }
+                        { key: 'ALL', label: `TODAS (${MASTER_CERTIFICATIONS_INVENTORY.length})` },
+                        { key: 'DATA', label: 'DATA & IA (7)' },
+                        { key: 'DEV', label: 'DEV & PYTHON (5)' },
+                        { key: 'LEGAL', label: 'RESOLUCIÓN CCB (3)' },
+                        { key: 'OPER', label: 'AERONÁUTICA SMS (5)' },
+                        { key: 'AGILE', label: 'AGILE & SEC (3)' },
+                        { key: 'MKT', label: 'E-COMMERCE (4)' },
+                        { key: 'FOTO_ACAD', label: 'VISUAL & ACAD (4)' }
                       ].map((f) => (
                         <button
                           key={f.key}
                           type="button"
                           onClick={() => {
                             sfx.playSelect();
-                            setBadgeFilter(f.key as any);
+                            setMasterCertFilter(f.key as any);
                           }}
                           className={`px-2.5 py-1 rounded transition-colors whitespace-nowrap cursor-pointer border ${
-                            badgeFilter === f.key
+                            masterCertFilter === f.key
                               ? 'bg-[#a855f7]/20 border-[#a855f7] text-[#a855f7] font-bold'
                               : 'bg-black/40 border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700'
                           }`}
@@ -1091,43 +1476,56 @@ export function CurriculumTelemetryModal() {
                       ))}
                     </div>
 
-                    {/* VISTA 1: TABLA TÁCTICA AUDITABLE NERV / MAGI */}
+                    {/* VISTA 1: TABLA TÁCTICA AUDITABLE */}
                     {badgeViewMode === 'TABLE' && (
                       <div className="overflow-x-auto rounded-lg border border-zinc-800 bg-[#070912]">
                         <table className="w-full text-left font-mono text-xs">
                           <thead className="bg-[#0e1222] border-b border-zinc-800 text-[10px] text-zinc-400 uppercase tracking-wider">
                             <tr>
                               <th className="py-2.5 px-3 w-12 text-center">#</th>
-                              <th className="py-2.5 px-3 min-w-[210px]">Certificación Oficial</th>
-                              <th className="py-2.5 px-3 min-w-[130px]">Institución Emisora</th>
-                              <th className="py-2.5 px-3 min-w-[130px]">Especialidad</th>
-                              <th className="py-2.5 px-3 min-w-[85px]">Fecha</th>
-                              <th className="py-2.5 px-3 text-right min-w-[100px]">Validación</th>
+                              <th className="py-2.5 px-3 min-w-[120px]">Código</th>
+                              <th className="py-2.5 px-3 min-w-[240px]">Certificación Oficial</th>
+                              <th className="py-2.5 px-3 min-w-[70px]">Horas / Nota</th>
+                              <th className="py-2.5 px-3 min-w-[170px]">Institución Emisora</th>
+                              <th className="py-2.5 px-3 min-w-[120px]">Área</th>
+                              <th className="py-2.5 px-3 text-right min-w-[90px]">Validación</th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-zinc-800/60">
-                            {filteredCredentials.map((c, idx) => (
+                            {filteredMasterCertifications.map((c, idx) => (
                               <tr 
-                                key={c.id} 
+                                key={c.code} 
                                 className="hover:bg-white/[0.03] transition-colors group"
                               >
                                 <td className="py-2.5 px-3 text-center text-zinc-500 text-[11px]">
                                   {String(idx + 1).padStart(2, '0')}
                                 </td>
                                 <td className="py-2.5 px-3">
+                                  <span 
+                                    className="font-bold text-[10.5px] px-2 py-0.5 rounded border"
+                                    style={{
+                                      color: c.categoryColor,
+                                      borderColor: `${c.categoryColor}40`,
+                                      backgroundColor: `${c.categoryColor}15`
+                                    }}
+                                  >
+                                    [{c.code}]
+                                  </span>
+                                </td>
+                                <td className="py-2.5 px-3">
                                   <div className="font-bold text-white group-hover:text-[#a855f7] transition-colors">
                                     {c.name}
                                   </div>
-                                  <div className="flex flex-wrap gap-1 mt-1">
-                                    {c.skills.slice(0, 3).map((skill, sIdx) => (
-                                      <span 
-                                        key={sIdx} 
-                                        className="text-[9px] px-1.5 py-0.2 rounded bg-black/60 border border-zinc-800 text-zinc-400"
-                                      >
-                                        {skill}
-                                      </span>
-                                    ))}
-                                  </div>
+                                  {c.gradeOrDetail && (
+                                    <span className="text-[9.5px] text-zinc-400 block mt-0.5">
+                                      {c.gradeOrDetail}
+                                    </span>
+                                  )}
+                                </td>
+                                <td className="py-2.5 px-3">
+                                  <span className="text-emerald-400 font-bold text-[11px]">
+                                    {c.hours ? `${c.hours}h` : c.hoursDisplay || '—'}
+                                  </span>
                                 </td>
                                 <td className="py-2.5 px-3">
                                   <span className="text-[11px] font-medium text-zinc-300">
@@ -1136,24 +1534,25 @@ export function CurriculumTelemetryModal() {
                                 </td>
                                 <td className="py-2.5 px-3">
                                   <span className="text-[9.5px] font-bold px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-300">
-                                    {c.category}
+                                    {c.categoryLabel}
                                   </span>
                                 </td>
-                                <td className="py-2.5 px-3 text-zinc-400 text-[11px] whitespace-nowrap">
-                                  {c.issueDate}
-                                </td>
                                 <td className="py-2.5 px-3 text-right whitespace-nowrap">
-                                  <a
-                                    href={c.credlyUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    onClick={() => sfx.playClick()}
-                                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#a855f7]/10 hover:bg-[#a855f7]/30 border border-[#a855f7]/40 text-[#a855f7] hover:text-white text-[10px] font-bold transition-all cursor-pointer no-underline"
-                                  >
-                                    <CheckCircle2 size={11} className="text-emerald-400" />
-                                    <span>Verificar</span>
-                                    <ExternalLink size={9} />
-                                  </a>
+                                  {c.validationUrl ? (
+                                    <a
+                                      href={c.validationUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      onClick={() => sfx.playClick()}
+                                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#a855f7]/10 hover:bg-[#a855f7]/30 border border-[#a855f7]/40 text-[#a855f7] hover:text-white text-[10px] font-bold transition-all cursor-pointer no-underline"
+                                    >
+                                      <CheckCircle2 size={11} className="text-emerald-400" />
+                                      <span>Verificar</span>
+                                      <ExternalLink size={9} />
+                                    </a>
+                                  ) : (
+                                    <span className="text-[10px] text-zinc-500 font-mono">Oficial</span>
+                                  )}
                                 </td>
                               </tr>
                             ))}
@@ -1164,46 +1563,55 @@ export function CurriculumTelemetryModal() {
 
                     {/* VISTA 2: TARJETAS EN CUADRÍCULA */}
                     {badgeViewMode === 'CARDS' && (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                        {filteredCredentials.map((item) => (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
+                        {filteredMasterCertifications.map((item) => (
                           <div 
-                            key={item.id}
-                            className="p-4 rounded-lg bg-black/60 border border-zinc-800 hover:border-[#a855f7]/60 transition-all flex flex-col justify-between text-left"
+                            key={item.code}
+                            className="p-3.5 rounded-lg bg-black/60 border border-zinc-800 hover:border-zinc-700 transition-all flex flex-col justify-between text-left"
+                            style={{ borderTopColor: item.categoryColor, borderTopWidth: '2px' }}
                           >
                             <div>
                               <div className="flex items-center justify-between gap-1 mb-1.5">
-                                <span className="text-[10px] font-mono text-zinc-400 truncate">
-                                  {item.issuer}
+                                <span 
+                                  className="text-[9.5px] font-mono font-bold px-1.5 py-0.2 rounded border"
+                                  style={{
+                                    color: item.categoryColor,
+                                    borderColor: `${item.categoryColor}40`,
+                                    backgroundColor: `${item.categoryColor}15`
+                                  }}
+                                >
+                                  [{item.code}]
                                 </span>
-                                <CheckCircle2 size={12} className="text-emerald-400 shrink-0" />
+                                <span className="text-emerald-400 font-mono text-[10.5px] font-bold">
+                                  {item.hours ? `${item.hours}h` : item.hoursDisplay}
+                                </span>
                               </div>
                               <h4 className="font-serif text-sm font-bold text-white mb-1 leading-snug">
                                 {item.name}
                               </h4>
-                              <p className="text-[11px] text-[#FFE066] font-mono mb-2">
-                                {item.category}
+                              <p className="text-[10.5px] text-zinc-400 font-mono mb-1">
+                                {item.issuer}
                               </p>
-                              <div className="flex flex-wrap gap-1 mb-2">
-                                {item.skills.slice(0, 3).map((s, sIdx) => (
-                                  <span key={sIdx} className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-zinc-400">
-                                    {s}
-                                  </span>
-                                ))}
-                              </div>
+                              {item.gradeOrDetail && (
+                                <p className="text-[10px] text-[#FFE066] font-sans">
+                                  {item.gradeOrDetail}
+                                </p>
+                              )}
                             </div>
 
-                            <div className="mt-2 pt-2 border-t border-zinc-900 flex items-center justify-between text-[10px] font-mono">
-                              <span className="text-zinc-500">{item.issueDate}</span>
-                              <a
-                                href={item.credlyUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={() => sfx.playClick()}
-                                className="text-[#a855f7] hover:underline flex items-center gap-1 font-bold no-underline"
-                              >
-                                <span>Credly</span>
-                                <ExternalLink size={9} />
-                              </a>
+                            <div className="mt-2.5 pt-2 border-t border-zinc-900 flex items-center justify-between text-[10px] font-mono">
+                              <span className="text-zinc-500">{item.categoryLabel}</span>
+                              {item.validationUrl && (
+                                <a
+                                  href={item.validationUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-[#00F0FF] hover:underline flex items-center gap-1"
+                                >
+                                  <span>Credencial</span>
+                                  <ExternalLink size={9} />
+                                </a>
+                              )}
                             </div>
                           </div>
                         ))}

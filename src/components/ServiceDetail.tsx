@@ -22,7 +22,10 @@ import {
 } from "lucide-react";
 import { Service } from "../types";
 import { sfx } from "../utils/soundEffects";
-import { getWhatsAppUrl } from "../data";
+import { getWhatsAppUrl, getLocalizedServices } from "../data";
+import { useLanguage } from "../context/LanguageContext";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { L7EngineeringLab } from "./L7EngineeringLab";
 
 interface ServiceDetailProps {
   service: Service;
@@ -168,62 +171,191 @@ export function ServiceDetail({ service: initialService, onBack }: ServiceDetail
     sfx.playPowerUp();
   };
 
-  // Render para Laboratorio e Investigación (mantiene vista intacta e independiente)
+  // Render para Laboratorio e Investigación (mantiene vista intacta e interactiva con simuladores activos)
   if (service.isLab || service.id === "LABORATORIO_INVESTIGACION") {
     return (
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="min-h-screen bg-gradient-to-b from-black/80 via-[#06060c] to-black text-white flex flex-col font-sans select-none"
+        className="min-h-screen bg-gradient-to-b from-black/90 via-[#06060c] to-black text-white flex flex-col font-sans"
       >
-        <header className="w-full pt-6 sm:pt-8 pb-4 px-4 sm:px-8 max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <button
-            onClick={handleBack}
-            onMouseEnter={() => sfx.playHover()}
-            className="group flex items-center gap-2 border border-[#C5A059]/50 text-[#C5A059] px-4 py-2 rounded-sm hover:bg-[#C5A059]/10 transition-all font-mono text-xs uppercase cursor-pointer w-fit"
-          >
-            <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-            <span>Volver al Menú Principal</span>
-          </button>
-          <a
-            href={getWhatsAppUrl("Hola NOVUX S.A.S., deseo consultar sobre los proyectos del Laboratorio e Investigación.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/50 hover:border-emerald-400 text-emerald-300 hover:text-white font-mono text-xs font-bold transition-all shadow-sm w-fit"
-          >
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <MessageCircle size={13} />
-            <span>ATENCIÓN WHATSAPP</span>
-          </a>
+        <header className="w-full pt-6 sm:pt-8 pb-4 px-4 sm:px-8 max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-900">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleBack}
+              onMouseEnter={() => sfx.playHover()}
+              className="group flex items-center gap-2 border border-[#C5A059]/50 text-[#C5A059] px-4 py-2 rounded-sm hover:bg-[#C5A059]/10 transition-all font-mono text-xs uppercase cursor-pointer w-fit"
+            >
+              <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
+              <span>{t('backToHome')}</span>
+            </button>
+            <span className="font-mono text-xs text-[#FFE066] font-bold bg-[#C5A059]/15 border border-[#C5A059]/40 px-3 py-1 rounded">
+              {service.shortIdentifier || '[ R&D LAB ]'}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2.5 flex-wrap">
+            <LanguageSwitcher />
+
+            <a
+              href="https://www.linkedin.com/in/tavodelarosaf/?isSelfProfile=true"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => sfx.playClick()}
+              onMouseEnter={() => sfx.playHover()}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-[#0077b5]/15 hover:bg-[#0077b5]/30 border border-[#0077b5]/50 hover:border-[#0077b5] text-cyan-200 hover:text-white font-mono text-xs font-bold transition-all shadow-sm"
+              title="Perfil Oficial de LinkedIn de Gustavo De La Rosa"
+            >
+              <Linkedin size={13} className="text-[#0077b5]" />
+              <span className="hidden sm:inline">LINKEDIN</span>
+            </a>
+
+            <a
+              href={getWhatsAppUrl("Hola NOVUX S.A.S., deseo consultar sobre los proyectos y simuladores del Laboratorio e Investigación.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => sfx.playSelect()}
+              onMouseEnter={() => sfx.playHover()}
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-sm bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-500/50 hover:border-emerald-400 text-emerald-300 hover:text-white font-mono text-xs font-bold transition-all shadow-sm w-fit"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <MessageCircle size={13} />
+              <span>{t('whatsappCorporate')}</span>
+            </a>
+          </div>
         </header>
-        <main className="flex-grow flex items-center justify-center p-4 sm:p-6 md:px-8">
-          <div className="w-full max-w-2xl bg-[#090910]/95 border border-[#C5A059]/40 rounded-sm p-8 sm:p-12 shadow-[0_0_60px_rgba(197,160,89,0.18)] text-center relative overflow-hidden backdrop-blur-md">
+
+        <main className="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-8 flex flex-col items-center">
+          {/* Hero Banner del Laboratorio */}
+          <div className="w-full bg-[#0a0a12]/95 border border-[#C5A059]/40 rounded-sm p-6 sm:p-8 mb-8 text-center relative overflow-hidden backdrop-blur-md shadow-[0_12px_45px_rgba(0,0,0,0.9)]">
             <div className="absolute top-0 right-0 w-3.5 h-3.5 border-t-2 border-r-2 border-[#C5A059]" />
             <div className="absolute bottom-0 left-0 w-3.5 h-3.5 border-b-2 border-l-2 border-[#C5A059]" />
-            <div className="w-16 h-16 rounded-full border border-[#C5A059]/50 flex items-center justify-center mx-auto mb-6 bg-[#C5A059]/10 shadow-[0_0_30px_rgba(197,160,89,0.3)]">
-              <FlaskConical size={28} className="text-[#FFE066] animate-pulse" />
+
+            <div className="w-14 h-14 rounded-full border border-[#C5A059]/50 flex items-center justify-center mx-auto mb-4 bg-[#C5A059]/10 shadow-[0_0_25px_rgba(197,160,89,0.3)]">
+              <FlaskConical size={26} className="text-[#FFE066] animate-pulse" />
             </div>
-            <div className="inline-block px-3 py-1 rounded bg-[#C5A059]/15 border border-[#C5A059]/30 text-[#FFE066] font-mono text-xs uppercase tracking-widest mb-6 font-bold">
-              NOVUX D&D // DIVISIÓN DE INVESTIGACIÓN Y LABORATORIO
+
+            <div className="inline-block px-3.5 py-1 rounded bg-[#C5A059]/15 border border-[#C5A059]/30 text-[#FFE066] font-mono text-xs uppercase tracking-widest mb-3 font-bold">
+              {lang === 'en' ? 'NOVUX D&D // RESEARCH & ENGINEERING LAB' : 'NOVUX D&D // DIVISIÓN DE INVESTIGACIÓN Y LABORATORIO'}
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-serif text-white tracking-wide mb-6 leading-snug">
-              Investigación técnica y desarrollo de productos y conceptos.
-            </h2>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/80 border border-zinc-800 text-[11px] font-mono text-zinc-400 mb-8">
+
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif text-white tracking-wide mb-3">
+              {lang === 'en' 
+                ? 'Applied Engineering & Live Algorithmic Simulators' 
+                : 'Músculo Tecnológico: Simuladores Interactivos & Algoritmos de Frontera'}
+            </h1>
+
+            <p className="text-xs sm:text-sm text-zinc-300 max-w-2xl mx-auto font-sans leading-relaxed mb-4">
+              {lang === 'en'
+                ? 'Computational physics of language models, 3D latent space telemetry, BPE token economic auditing, and high-concurrency L7 scraping with MinHash deduplication.'
+                : 'Física computacional de modelos de lenguaje, telemetría de razonamiento 3D, auditoría económica de tokens BPE y canalización de scraping L7 con deduplicación MinHash.'}
+            </p>
+
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/80 border border-zinc-800 text-[11px] font-mono text-zinc-400">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-              <span>ESTADO: INVESTIGACIÓN ACTIVA & EXPERIMENTACIÓN EN CURSO</span>
+              <span>{lang === 'en' ? 'STATUS: ACTIVE RESEARCH & LIVE SIMULATORS' : 'ESTADO: INVESTIGACIÓN ACTIVA // SIMULADORES EN VIVO'}</span>
             </div>
-            <div className="pt-6 border-t border-zinc-800/80 flex flex-wrap justify-center gap-4">
-              <button
-                onClick={handleBack}
-                onMouseEnter={() => sfx.playHover()}
-                className="inline-flex items-center gap-2 bg-[#C5A059] hover:bg-[#FFE066] text-black px-6 py-2.5 rounded-sm font-mono font-bold text-xs uppercase tracking-widest transition-all cursor-pointer shadow-md"
+          </div>
+
+          {/* Componente Central de Simuladores Interactivos */}
+          <div className="w-full flex justify-center">
+            <L7EngineeringLab hideHeader />
+          </div>
+
+          {/* Sección de Papers Técnicos Vinculados */}
+          <div className="w-full max-w-6xl mt-12 mb-8">
+            <div className="flex items-center justify-between gap-4 mb-6 border-b border-zinc-800 pb-3">
+              <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#C5A059]">
+                <Sparkles size={14} className="text-[#FFE066]" />
+                <span>{lang === 'en' ? '// TECHNICAL WHITEPAPERS & RESEARCH LOGS' : '// PAPERS TÉCNICOS & BITÁCORA CIENTÍFICA'}</span>
+              </div>
+              <span className="text-[11px] font-mono text-zinc-500 hidden sm:inline uppercase">
+                {lang === 'en' ? 'PEER-GRADE ENGINEERING PUBLICATIONS' : 'PUBLICACIONES DE RIGOR CIENTÍFICO'}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Card Paper 04: Tokenización BPE */}
+              <div 
+                onClick={() => {
+                  sfx.playSelect();
+                  window.location.hash = 'blog?id=4';
+                }}
+                className="group p-5 bg-[#0e0e13]/90 border border-[#C5A059]/30 hover:border-[#FFE066] rounded-sm transition-all duration-300 cursor-pointer shadow-lg hover:shadow-[0_0_25px_rgba(197,160,89,0.2)] flex flex-col justify-between"
               >
-                <ArrowLeft size={14} />
-                <span>Volver al Inicio</span>
-              </button>
+                <div>
+                  <div className="flex items-center justify-between text-[11px] font-mono text-[#C5A059] mb-2">
+                    <span>PAPER 04 // TOKENOMICS</span>
+                    <span className="text-zinc-500">7 MIN</span>
+                  </div>
+                  <h3 className="text-base font-serif text-white group-hover:text-[#FFE066] transition-colors mb-2">
+                    Del Arcade a la Toquenización: La Importancia del Arcade en la IA
+                  </h3>
+                  <p className="text-xs text-zinc-400 leading-relaxed font-sans mb-4">
+                    Desglose de primeros principios sobre la física del token, algoritmo Byte Pair Encoding (BPE), modelo mental del arcade noventero y el impuesto lingüístico en español.
+                  </p>
+                </div>
+                <div className="flex items-center justify-between text-xs font-mono text-[#FFE066] pt-3 border-t border-zinc-800/80">
+                  <span>{lang === 'en' ? 'Read Technical Paper →' : 'Leer Paper Técnico →'}</span>
+                  <ExternalLink size={13} />
+                </div>
+              </div>
+
+              {/* Card Paper 03: Scraping L7 & MinHash */}
+              <div 
+                onClick={() => {
+                  sfx.playSelect();
+                  window.location.hash = 'blog?id=3';
+                }}
+                className="group p-5 bg-[#0e0e13]/90 border border-[#C5A059]/30 hover:border-[#FFE066] rounded-sm transition-all duration-300 cursor-pointer shadow-lg hover:shadow-[0_0_25px_rgba(197,160,89,0.2)] flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between text-[11px] font-mono text-[#C5A059] mb-2">
+                    <span>PAPER 03 // DATA HARVESTING</span>
+                    <span className="text-zinc-500">6 MIN</span>
+                  </div>
+                  <h3 className="text-base font-serif text-white group-hover:text-[#FFE066] transition-colors mb-2">
+                    Arquitectura de Ingesta L7: Deduplicación MinHash & C-Parser
+                  </h3>
+                  <p className="text-xs text-zinc-400 leading-relaxed font-sans mb-4">
+                    Extracción industrial masiva, bypass de sistemas anti-bot, procesamiento de árbol DOM en memoria nativa C y deduplicación con similitud Jaccard probabilística.
+                  </p>
+                </div>
+                <div className="flex items-center justify-between text-xs font-mono text-[#FFE066] pt-3 border-t border-zinc-800/80">
+                  <span>{lang === 'en' ? 'Read Technical Paper →' : 'Leer Paper Técnico →'}</span>
+                  <ExternalLink size={13} />
+                </div>
+              </div>
             </div>
+          </div>
+
+          {/* Stack Tecnológico del Laboratorio */}
+          <div className="w-full max-w-6xl mt-4 mb-8">
+            <TechStackGrid items={service.techStack} />
+          </div>
+
+          {/* Footer de Acciones del Laboratorio */}
+          <div className="w-full max-w-6xl pt-6 border-t border-zinc-800 flex flex-wrap justify-center gap-4">
+            <button
+              onClick={handleBack}
+              onMouseEnter={() => sfx.playHover()}
+              className="inline-flex items-center gap-2 bg-[#C5A059] hover:bg-[#FFE066] text-black px-6 py-2.5 rounded-sm font-mono font-bold text-xs uppercase tracking-widest transition-all cursor-pointer shadow-md"
+            >
+              <ArrowLeft size={14} />
+              <span>{t('backToHome')}</span>
+            </button>
+            <a
+              href={getWhatsAppUrl("Hola NOVUX S.A.S., deseo cotizar desarrollo especializado o investigación con el Laboratorio.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => sfx.playSelect()}
+              onMouseEnter={() => sfx.playHover()}
+              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-sm font-mono font-bold text-xs uppercase tracking-widest transition-all cursor-pointer shadow-md"
+            >
+              <MessageCircle size={14} />
+              <span>{lang === 'en' ? 'INQUIRE VIA WHATSAPP' : 'CONSULTAR CON EL LABORATORIO'}</span>
+            </a>
           </div>
         </main>
       </motion.div>

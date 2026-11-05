@@ -5,28 +5,38 @@ import {
   Layers, ShieldAlert, ArrowRight, Zap, Orbit
 } from 'lucide-react';
 import { sfx } from '../utils/soundEffects';
+import { useLanguage } from '../context/LanguageContext';
 import { NovuxEng001Interactive } from './NovuxEng001Interactive';
 import { NovuxEng002Interactive } from './NovuxEng002Interactive';
 import { NovuxEng003NeuralMatrix3D } from './NovuxEng003NeuralMatrix3D';
 
-export function L7EngineeringLab() {
+interface L7EngineeringLabProps {
+  hideHeader?: boolean;
+}
+
+export function L7EngineeringLab({ hideHeader = false }: L7EngineeringLabProps) {
+  const { lang } = useLanguage();
   const [activeSimulator, setActiveSimulator] = useState<'NEURAL_MATRIX_3D' | 'TOKEN_BPE' | 'MINHASH_CPARSER'>('NEURAL_MATRIX_3D');
 
   return (
-    <section className="w-full max-w-6xl my-16">
+    <section className={`w-full max-w-6xl ${hideHeader ? 'my-4' : 'my-16'}`}>
       {/* Encabezado del Bloque 3 */}
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-sm bg-[#0e0e13]/90 border border-[#C5A059]/40 text-[#C5A059] font-mono text-xs sm:text-sm tracking-widest uppercase shadow-[0_0_20px_rgba(197,160,89,0.18)] mb-3">
-          <Zap size={14} className="text-[#FFE066] animate-pulse" />
-          <span>// BLOQUE 3: LABORATORIO DE INGENIERÍA & SIMULADORES L7</span>
+      {!hideHeader && (
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-sm bg-[#0e0e13]/90 border border-[#C5A059]/40 text-[#C5A059] font-mono text-xs sm:text-sm tracking-widest uppercase shadow-[0_0_20px_rgba(197,160,89,0.18)] mb-3">
+            <Zap size={14} className="text-[#FFE066] animate-pulse" />
+            <span>{lang === 'en' ? '// R&D LAB: L7 ENGINEERING & INTERACTIVE SIMULATORS' : '// BLOQUE 3: LABORATORIO DE INGENIERÍA & SIMULADORES L7'}</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-serif text-white tracking-wide">
+            {lang === 'en' ? 'Technological Muscle: Live Interactive Simulators' : 'Músculo Tecnológico: Simuladores Interactivos en Vivo'}
+          </h2>
+          <p className="text-xs sm:text-sm text-zinc-400 font-sans max-w-2xl mx-auto mt-2">
+            {lang === 'en'
+              ? 'No commercial slide decks. Test our language model computational physics, 3D reasoning telemetry, and token economic audits live.'
+              : 'No vendemos presentaciones ni hipótesis comerciales. Pruebe en vivo nuestra física computacional de modelos de lenguaje, telemetría de razonamiento 3D y auditoría económica de tokens.'}
+          </p>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-serif text-white tracking-wide">
-          Músculo Tecnológico: Simuladores Interactivos en Vivo
-        </h2>
-        <p className="text-xs sm:text-sm text-zinc-400 font-sans max-w-2xl mx-auto mt-2">
-          No vendemos presentaciones ni hipótesis comerciales. Pruebe en vivo nuestra física computacional de modelos de lenguaje, telemetría de razonamiento 3D y auditoría económica de tokens.
-        </p>
-      </div>
+      )}
 
       {/* Selector de Simulador */}
       <div className="flex justify-center mb-6 px-2">
@@ -43,7 +53,7 @@ export function L7EngineeringLab() {
             }`}
           >
             <Orbit size={14} />
-            <span>NeuralMatrix 3D (Variedad & Telemetría)</span>
+            <span>{lang === 'en' ? 'NeuralMatrix 3D (Manifold & Telemetry)' : 'NeuralMatrix 3D (Variedad & Telemetría)'}</span>
           </button>
 
           <button
@@ -58,7 +68,7 @@ export function L7EngineeringLab() {
             }`}
           >
             <Cpu size={14} />
-            <span>Auditor de Costos BPE</span>
+            <span>{lang === 'en' ? 'BPE Cost & Token Auditor' : 'Auditor de Costos BPE'}</span>
           </button>
 
           <button
@@ -73,7 +83,7 @@ export function L7EngineeringLab() {
             }`}
           >
             <Binary size={14} />
-            <span>Pipeline L7 (MinHash + Parser C)</span>
+            <span>{lang === 'en' ? 'L7 Pipeline (MinHash + C Parser)' : 'Pipeline L7 (MinHash + Parser C)'}</span>
           </button>
         </div>
       </div>
