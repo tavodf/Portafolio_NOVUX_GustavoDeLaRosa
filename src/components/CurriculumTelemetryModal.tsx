@@ -539,7 +539,7 @@ export function CurriculumTelemetryModal() {
                       <div className="absolute inset-0 border border-[#00F0FF]/30 rounded pointer-events-none" />
                     </div>
                     <span className="font-mono text-[8.5px] font-bold text-[#00F0FF] tracking-wider text-center mt-1 block uppercase">
-                      ANALISTA &amp; DEV
+                      {lang === 'en' ? 'ANALYST & DEV' : 'ANALISTA & DEV'}
                     </span>
                   </div>
 
@@ -551,9 +551,6 @@ export function CurriculumTelemetryModal() {
                       <span className="px-2 py-0.5 rounded bg-emerald-950/70 border border-emerald-500/40 font-mono text-[10px] text-emerald-400 font-bold flex items-center gap-1 shadow-sm">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                         {lang === 'en' ? 'AVAILABLE // BOGOTA & REMOTE' : 'DISPONIBLE // BOGOTÁ & REMOTO'}
-                      </span>
-                      <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 font-mono text-[10px] text-zinc-400">
-                        {lang === 'en' ? 'OPERATIONAL AVAILABILITY: 100%' : 'DISPONIBILIDAD OPERATIVA: 100%'}
                       </span>
                     </div>
 
@@ -838,7 +835,7 @@ export function CurriculumTelemetryModal() {
                                       backgroundColor: `${activeProfile.primaryColor}15`
                                     }}
                                   >
-                                    {lang === 'en' ? `SPECIALIZED PROFILE 0${activeProfile.number} // ATS (1 PAGE)` : `PERFIL ESPECIALIZADO 0{activeProfile.number} // ATS (1 PÁGINA)`}
+                                    {lang === 'en' ? `SPECIALIZED PROFILE 0${activeProfile.number} // ATS (1 PAGE)` : `PERFIL ESPECIALIZADO 0${activeProfile.number} // ATS (1 PÁGINA)`}
                                   </span>
                                   <span className="text-[10.5px] font-mono text-zinc-400">
                                     {activeProfile.targetRole}
@@ -1473,8 +1470,8 @@ export function CurriculumTelemetryModal() {
                                 </div>
 
                                 <div className="flex items-center gap-3 text-[10px] text-zinc-400">
-                                  <span>Concept: <b className="text-[#FFE066]">{p.conceptHours}h</b></span>
-                                  <span>Code: <b className="text-[#00f0ff]">{p.materializeHours}h</b></span>
+                                  <span>{lang === 'en' ? 'Arch:' : 'Concepto:'} <b className="text-[#FFE066]">{p.conceptHours}h</b></span>
+                                  <span>{lang === 'en' ? 'Code:' : 'Código:'} <b className="text-[#00f0ff]">{p.materializeHours}h</b></span>
                                   <span className="text-white font-bold">Total: {p.totalHours}h</span>
                                   <span className="text-emerald-400 font-bold bg-emerald-950/60 px-1.5 py-0.2 rounded border border-emerald-500/30">
                                     {p.badgeEfficiency}
@@ -1678,10 +1675,14 @@ export function CurriculumTelemetryModal() {
                         </span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2">
                           {contractsList.map((c, idx) => (
-                            <div key={idx} className="p-2.5 rounded bg-black/70 border border-zinc-800/80 text-left">
-                              <div className="text-[11px] font-mono font-bold text-[#FFE066]">{c.code}</div>
-                              <div className="text-[9.5px] font-mono text-zinc-400 mb-1">{c.period}</div>
-                              <div className="text-[10px] text-zinc-300 line-clamp-2">{c.tag}</div>
+                            <div key={idx} className="p-2.5 rounded bg-black/70 border border-zinc-800/80 text-left flex flex-col justify-between">
+                              <div>
+                                <div className="text-[11px] font-mono font-bold text-[#FFE066]">{c.code}</div>
+                                <div className="text-[9.5px] font-mono text-zinc-400 mb-1">{c.period}</div>
+                                <div className="text-[10px] font-bold text-white mb-1 leading-snug">{c.role}</div>
+                                <div className="text-[9.5px] text-zinc-300 leading-snug line-clamp-3">{c.impact}</div>
+                              </div>
+                              <div className="text-[9px] font-mono text-emerald-400 mt-1.5 pt-1 border-t border-zinc-800/80 truncate">{c.tag}</div>
                             </div>
                           ))}
                         </div>
@@ -2154,7 +2155,7 @@ export function CurriculumTelemetryModal() {
 
                           <div className="pt-2 border-t border-red-500/30 flex items-baseline justify-between font-mono">
                             <span className="text-xs text-zinc-400">{lang === 'en' ? 'TOTAL MONTHLY COST:' : 'COSTO MENSUAL TOTAL:'}</span>
-                            <span className="text-base font-bold text-red-400">~$22.300.000 COP / mes</span>
+                            <span className="text-base font-bold text-red-400">{lang === 'en' ? '~$22,300,000 COP / mo' : '~$22.300.000 COP / mes'}</span>
                           </div>
                           <p className="text-[11px] text-zinc-400 font-sans leading-snug">
                             {lang === 'en'
@@ -2349,7 +2350,7 @@ export function CurriculumTelemetryModal() {
                       : 'NOVUX OPS // REGISTRO OFICIAL DE TELEMETRÍA Y CAPACIDAD OPERATIVA'}
                   </span>
                 </div>
-                <span>BOGOTÁ D.C. • AÑO 2026</span>
+                <span>{lang === 'en' ? 'BOGOTA D.C. • YEAR 2026' : 'BOGOTÁ D.C. • AÑO 2026'}</span>
               </div>
             </motion.div>
           </div>
