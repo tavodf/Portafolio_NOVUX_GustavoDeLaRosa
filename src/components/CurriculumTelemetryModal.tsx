@@ -260,36 +260,36 @@ const INVESTMENT_MODES: InvestmentMode[] = [
   {
     id: 'FULL_TIME',
     title: '01. EMPLEADO FULL-TIME',
-    badge: 'ROL ESTRATÉGICO DIRECTO',
+    badge: 'ROL INTEGRADOR & LIDERAZGO',
     targetCompensation: '$6.500.000 – $9.000.000 COP / mes',
     usdEquivalent: '$1.800 – $2.800 USD / mes (Remoto / On-site)',
-    savingsOrAdvantage: '65% de Ahorro Directo (+$13.5M COP/mes ahorrados)',
+    savingsOrAdvantage: '+70% Velocidad de Entrega & Sinergia Transversal de Equipos',
     color: '#00F0FF',
     keyHighlights: [
-      'Liderazgo y desarrollo unificado de pipelines de datos',
-      'Propiedad intelectual 100% in-house para su organización',
-      'Cero dependencia de proveedores externos costosos',
-      'Despliegues ágiles sin burocracia ni intermediarios'
+      'Puente articulador entre Equipos de Campo, Datos, TI y Dirección',
+      'Automatiza carga repetitiva para liberar tiempo de alto valor al equipo',
+      'Propiedad intelectual y transferencia de conocimiento 100% in-house',
+      'Aceleración desde el Día 1 con +1.140h de librerías y pipelines listos'
     ],
-    operationalImpact: 'Dirección técnica in situ, optimización continua de bases de datos territoriales y comerciales, y desarrollo de nuevas líneas de producto sin requerir contratar células sobredimensionadas.',
-    whatsappMessage: 'Hola Gustavo, revisé tu perfil profesional y el simulador de ROI en novuxops.com y nos interesa evaluar una vinculación como Empleado Full-Time para liderar proyectos de Datos e Inteligencia de Software.'
+    operationalImpact: 'Liderazgo colaborativo in situ que articula al talento existente: elimina cuellos de botella manuales, conecta la operación territorial/comercial con la ingeniería de datos y acelera los entregables institucionales desde la primera semana.',
+    whatsappMessage: 'Hola Gustavo, revisé tu perfil profesional y el simulador de impacto en novuxops.com y nos interesa evaluar una vinculación como Empleado Full-Time para articular proyectos de Operaciones, Datos e Ingeniería de Software.'
   },
   {
     id: 'CONTRACTOR',
     title: '02. CONTRATISTA / PRESTACIÓN DE SERVICIOS',
     badge: 'FLEXIBILIDAD & ALTO IMPACTO',
     targetCompensation: '$7.500.000 – $10.500.000 COP / mes',
-    usdEquivalent: '0% Carga Prestacional / Pasivo Laboral Cero',
+    usdEquivalent: 'Facturación Directa / Ejecución por Objetivos e Hitos',
     savingsOrAdvantage: 'Deducción tributaria 100% como gasto operativo B2B',
     color: '#F59E0B',
     keyHighlights: [
       '2 años de trayectoria real demostrable en Santa Fe (Bogotá)',
-      'Interlocución con entidades públicas y comités directivos',
-      'Arquitectura de datos y ciberseguridad con entrega por hitos',
-      'Cumplimiento estricto de estándares técnicos y Ley 1581/2012'
+      'Interlocución con entidades públicas, equipos técnicos y comités',
+      'Arquitectura de datos y automatización con entrega por hitos',
+      'Cumplimiento estricto de estándares MIPG y Ley 1581/2012'
     ],
-    operationalImpact: 'Agilidad de contratación inmediata, facturación directa como persona natural o jurídica, auditoría técnica estricta y entregables verificables sin generar pasivos laborales ni contingencias.',
-    whatsappMessage: 'Hola Gustavo, me pongo en contacto desde novuxops.com para explorar una contratación por Prestación de Servicios / Consultoría Técnica para un sprint estratégico en nuestra entidad/empresa.'
+    operationalImpact: 'Agilidad de vinculación inmediata para reforzar equipos en proyectos críticos, auditoría de calidad de datos, automatización de reportes y entregables verificables con transferencia técnica completa.',
+    whatsappMessage: 'Hola Gustavo, me pongo en contacto desde novuxops.com para explorar una contratación por Prestación de Servicios / Consultoría Técnica para apoyar a nuestro equipo en un proyecto estratégico.'
   },
   {
     id: 'PARTNER',
@@ -297,15 +297,15 @@ const INVESTMENT_MODES: InvestmentMode[] = [
     badge: 'ALIANZA ESTRATÉGICA & REVENUE SHARE',
     targetCompensation: '$2.800.000 – $6.500.000 COP por Sprint',
     usdEquivalent: 'O Revenue Share sobre Novux PCD, Novux COT y Novux ARES SCRAP',
-    savingsOrAdvantage: 'Acceso inmediato a $68.4M COP en código pre-construido',
+    savingsOrAdvantage: 'Acceso inmediato a $68.4M COP en módulos pre-construidos',
     color: '#10B981',
     keyHighlights: [
       'Time-to-market récord (despliegue en 2 a 4 semanas)',
-      'Blindaje legal SAS con actas de confidencialidad y cesión',
-      'Soporte técnico y hardening perimetral L7 continuo',
+      'Blindaje legal SAS con actas de confidencialidad y co-desarrollo',
+      'Soporte técnico y acompañamiento continuo al equipo interno',
       'Ecosistema activo con más de 1.140 horas de I+D lista'
     ],
-    operationalImpact: 'Lanzamiento rápido de productos de software propios o integración comercial de los motores NOVUX (Novux PCD, Novux COT y Novux ARES SCRAP) para licitar con entidades del estado o competir en mercados privados.',
+    operationalImpact: 'Lanzamiento acelerado de soluciones de software o integración comercial de los motores NOVUX (Novux PCD, Novux COT y Novux ARES SCRAP) para potenciar las capacidades de su organización en licitaciones o mercados B2B.',
     whatsappMessage: 'Hola Gustavo, me interesa coordinar una reunión ejecutiva para evaluar una alianza como Socio Tecnológico / Consultor B2B sobre las tecnologías del ecosistema NOVUX.'
   }
 ];
@@ -314,36 +314,36 @@ const INVESTMENT_MODES_EN: InvestmentMode[] = [
   {
     id: 'FULL_TIME',
     title: '01. FULL-TIME EMPLOYEE',
-    badge: 'DIRECT STRATEGIC ROLE',
+    badge: 'INTEGRATIVE & LEADERSHIP ROLE',
     targetCompensation: '$6,500,000 – $9,000,000 COP / mo',
     usdEquivalent: '$1,800 – $2,800 USD / mo (Remote / On-site)',
-    savingsOrAdvantage: '65% Direct Savings (+$13.5M COP/mo saved)',
+    savingsOrAdvantage: '+70% Faster Delivery & Cross-Functional Team Synergy',
     color: '#00F0FF',
     keyHighlights: [
-      'Unified leadership & development of data pipelines',
-      '100% in-house intellectual property for your organization',
-      'Zero dependency on costly external vendors',
-      'Agile delivery without corporate bureaucracy'
+      'Active bridge connecting Field Ops, Data, Engineering & Executive Boards',
+      'Automates repetitive bottlenecks so your team focuses on high-value goals',
+      '100% in-house intellectual property & continuous knowledge transfer',
+      'Day-1 acceleration backed by +1,140h of pre-built libraries & pipelines'
     ],
-    operationalImpact: 'On-site technical direction, continuous optimization of territorial and commercial databases, and development of new product lines without overstaffing.',
-    whatsappMessage: 'Hello Gustavo, I reviewed your profile and the ROI simulator on novuxops.com and we are interested in evaluating a Full-Time position to lead Data and Software Intelligence projects.'
+    operationalImpact: 'Collaborative on-site leadership that empowers existing talent: eliminates manual bottlenecks, connects field/commercial operations with data engineering, and accelerates institutional deliverables from week one.',
+    whatsappMessage: 'Hello Gustavo, I reviewed your profile and the impact simulator on novuxops.com and we are interested in evaluating a Full-Time position to integrate Operations, Data, and Software Engineering projects.'
   },
   {
     id: 'CONTRACTOR',
     title: '02. CONTRACTOR / PROFESSIONAL SERVICES',
     badge: 'FLEXIBILITY & HIGH IMPACT',
     targetCompensation: '$7,500,000 – $10,500,000 COP / mo',
-    usdEquivalent: '0% Payroll Taxes / Zero Labor Liabilities',
+    usdEquivalent: 'Direct Invoicing / Milestone & Goal-Oriented Execution',
     savingsOrAdvantage: '100% Tax deductible as B2B operating expense',
     color: '#F59E0B',
     keyHighlights: [
       '2 years of verifiable track record in Santa Fe (Bogota)',
-      'High-level dialogue with public entities and executive boards',
-      'Data architecture & cybersecurity with milestone deliverables',
-      'Strict compliance with technical standards and Data Law 1581'
+      'Seamless collaboration with public entities, tech teams & boards',
+      'Data architecture & process automation with milestone deliverables',
+      'Strict compliance with MIPG standards and Data Privacy Law 1581'
     ],
-    operationalImpact: 'Immediate hiring agility, direct B2B invoicing, strict technical auditing, and auditable deliverables without labor contingency risks.',
-    whatsappMessage: 'Hello Gustavo, I am reaching out from novuxops.com to explore a Professional Services / Technical Consulting contract for a strategic sprint in our organization.'
+    operationalImpact: 'Immediate onboarding agility to reinforce your internal teams during critical sprints, data quality audits, report automation, and verifiable deliverables with full technical handoff.',
+    whatsappMessage: 'Hello Gustavo, I am reaching out from novuxops.com to explore a Professional Services / Technical Consulting contract to support our team on a strategic project.'
   },
   {
     id: 'PARTNER',
@@ -351,15 +351,15 @@ const INVESTMENT_MODES_EN: InvestmentMode[] = [
     badge: 'STRATEGIC ALLIANCE & REVENUE SHARE',
     targetCompensation: '$2,800,000 – $6,500,000 COP per Sprint',
     usdEquivalent: 'Or Revenue Share on Novux PCD, Novux COT, and Novux ARES SCRAP',
-    savingsOrAdvantage: 'Immediate access to $68.4M COP in pre-built code',
+    savingsOrAdvantage: 'Immediate access to $68.4M COP in pre-built modules',
     color: '#10B981',
     keyHighlights: [
       'Record time-to-market (deployment in 2 to 4 weeks)',
-      'Corporate legal shielding with NDAs and IP assignment',
-      'Continuous technical support and L7 perimeter hardening',
+      'Corporate legal shielding with NDAs and co-development agreements',
+      'Continuous technical support and enablement for your internal team',
       'Active ecosystem with over 1,140 hours of turnkey R&D'
     ],
-    operationalImpact: 'Rapid rollout of proprietary software products or commercial integration of NOVUX engines to bid on government contracts or dominate private markets.',
+    operationalImpact: 'Accelerated rollout of software solutions or commercial integration of NOVUX engines to strengthen your organization in government tenders or private B2B markets.',
     whatsappMessage: 'Hello Gustavo, I would like to schedule an executive meeting to evaluate an alliance as Tech Partner / B2B Consultant on the NOVUX ecosystem.'
   }
 ];
@@ -2097,111 +2097,111 @@ export function CurriculumTelemetryModal() {
                       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-1">
                         <h3 className="text-xs font-mono font-bold text-[#10b981] uppercase tracking-wider flex items-center gap-1.5">
                           <Calculator size={14} />
-                          <span>{lang === 'en' ? 'FINANCIAL ROI SIMULATOR // CAPITAL IMPACT & TALENT MULTIPLIER' : 'SIMULADOR DE RETORNO DE INVERSIÓN (ROI) // COSTO-BENEFICIO AL VINCULAR A GUSTAVO DE LA ROSA'}</span>
+                          <span>{lang === 'en' ? 'VALUE & ROI SIMULATOR // VERSATILITY ACROSS 4 TECHNICAL DISCIPLINES' : 'SIMULADOR DE VALOR & RETORNO (ROI) // VERSATILIDAD EN 4 DISCIPLINAS TÉCNICAS'}</span>
                         </h3>
                         <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/70 border border-emerald-500/40 px-2 py-0.5 rounded font-bold">
-                          {lang === 'en' ? 'VALIDATED FINANCIAL EFFICIENCY' : 'EFICIENCIA FINANCIERA VALIDADA'}
+                          {lang === 'en' ? 'VALIDATED TECHNICAL VERSATILITY' : 'VERSATILIDAD TÉCNICA VALIDADA'}
                         </span>
                       </div>
                       <p className="text-xs text-zinc-300 leading-relaxed font-sans">
                         {lang === 'en'
-                          ? <span>Capital optimization &amp; cost model: compares the impact of hiring a traditional technical pod versus the multiplier effect of bringing on Gustavo De La Rosa with over <b>1,140 hours of pre-built software and pipelines</b> from day one.</span>
-                          : <span>Modelo de costeo y optimización de capital: compara el impacto de contratar una célula técnica tradicional frente al efecto multiplicador de incorporar a Gustavo De La Rosa con más de <b>1.140 horas de software y pipelines pre-construidos</b> desde el primer día.</span>}
+                          ? <span>Technical value &amp; operational synergy model: details the <b>4 critical engineering disciplines</b> that Gustavo De La Rosa masters and can actively execute, providing your organization with the versatility to cover multiple technical fronts and over <b>1,140 hours of pre-built software and pipelines</b> from day one.</span>
+                          : <span>Modelo de valoración técnica y sinergia operativa: detalla las <b>4 disciplinas clave de ingeniería</b> que Gustavo De La Rosa domina y puede desempeñar operativamente, brindando a su organización la versatilidad de cubrir múltiples frentes técnicos con más de <b>1.140 horas de software y pipelines pre-construidos</b> desde el primer día.</span>}
                       </p>
                     </div>
 
-                    {/* BLOQUE A: EFECTO MULTIPLICADOR 4x1 (CÉLULA TRADICIONAL VS. GUSTAVO DE LA ROSA) */}
+                    {/* BLOQUE A: VERSATILIDAD 4 EN 1 (COBERTURA DE 4 FUNCIONES TÉCNICAS ESTRATÉGICAS) */}
                     <div className="p-4 sm:p-5 rounded-lg bg-[#070a14] border border-zinc-800 space-y-4">
                       <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
                         <span className="font-mono text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
                           <Users size={14} className="text-[#38bdf8]" />
-                          <span>{lang === 'en' ? 'BLOCK A: 4-IN-1 MULTIPLIER EFFECT — REGIONAL & GLOBAL BENCHMARK' : 'BLOQUE A: EFECTO MULTIPLICADOR 4 EN 1 — ANÁLISIS DE MERCADO COLOMBIA'}</span>
+                          <span>{lang === 'en' ? 'BLOCK A: 4-IN-1 VERSATILITY — COVERAGE ACROSS 4 STRATEGIC TECHNICAL DISCIPLINES' : 'BLOQUE A: VERSATILIDAD 4 EN 1 — COBERTURA DE 4 FUNCIONES TÉCNICAS ESTRATÉGICAS'}</span>
                         </span>
-                        <span className="text-[10px] font-mono text-amber-400 bg-amber-950/60 border border-amber-500/40 px-2 py-0.5 rounded">
-                          {lang === 'en' ? 'ANNUAL SAVINGS: ~$190M+ COP' : 'AHORRO ANUAL: ~$190M+ COP'}
+                        <span className="text-[10px] font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-500/40 px-2 py-0.5 rounded">
+                          {lang === 'en' ? 'MARKET BENCHMARK: ~$22.3M COP' : 'VALOR DE MERCADO: ~$22.3M COP'}
                         </span>
                       </div>
 
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                        {/* Opción A: Célula Tradicional */}
-                        <div className="p-3.5 rounded bg-red-950/15 border border-red-500/30 space-y-2.5">
+                        {/* Tarjeta 1: Las 4 Disciplinas Técnicas Cubiertas (Referencia de Mercado) */}
+                        <div className="p-3.5 rounded bg-blue-950/20 border border-blue-500/35 space-y-2.5">
                           <div className="flex items-center justify-between">
-                            <span className="font-mono text-xs font-bold text-red-400 uppercase">
-                              {lang === 'en' ? 'OPTION A: TRADITIONAL TECHNICAL POD' : 'OPCIÓN A: CÉLULA TÉCNICA TRADICIONAL'}
+                            <span className="font-mono text-xs font-bold text-blue-400 uppercase">
+                              {lang === 'en' ? '4 TECHNICAL DISCIPLINES COVERED' : '4 DISCIPLINAS TÉCNICAS CUBIERTAS'}
                             </span>
-                            <span className="text-[10px] font-mono text-zinc-400">
-                              {lang === 'en' ? '4 Separate Payrolls' : '4 Nóminas Separadas'}
+                            <span className="text-[10px] font-mono text-blue-300/80 bg-blue-950/70 border border-blue-500/30 px-1.5 py-0.5 rounded">
+                              {lang === 'en' ? 'Market Reference' : 'Referencia de Mercado'}
                             </span>
                           </div>
 
                           <div className="space-y-1.5 font-mono text-xs text-zinc-300">
-                            <div className="flex justify-between py-1 border-b border-zinc-800/60">
-                              <span>• {lang === 'en' ? 'Data Analyst & BI Specialist' : 'Analista de Datos & BI (SQL/Looker)'}</span>
-                              <span className="text-zinc-200 font-bold">$5.500.000 COP</span>
+                            <div className="flex justify-between py-1 border-b border-zinc-800/60 gap-2">
+                              <span>• {lang === 'en' ? 'Data Analyst & BI Specialist (SQL / Looker)' : 'Analista de Datos & BI (SQL / Looker Studio)'}</span>
+                              <span className="text-zinc-200 font-bold text-right shrink-0">$5.500.000 COP</span>
                             </div>
-                            <div className="flex justify-between py-1 border-b border-zinc-800/60">
-                              <span>• {lang === 'en' ? 'Scraping & L7 Bypass Engineer' : 'Ingeniero de Scraping & WAF Bypass L7'}</span>
-                              <span className="text-zinc-200 font-bold">$7.200.000 COP</span>
+                            <div className="flex justify-between py-1 border-b border-zinc-800/60 gap-2">
+                              <span>• {lang === 'en' ? 'Web Scraping & L7 Bypass Engineer' : 'Ingeniero de Scraping & Bypass WAF L7'}</span>
+                              <span className="text-zinc-200 font-bold text-right shrink-0">$7.200.000 COP</span>
                             </div>
-                            <div className="flex justify-between py-1 border-b border-zinc-800/60">
-                              <span>• {lang === 'en' ? 'Frontend WebGL/React Developer' : 'Desarrollador Frontend React & 3D WebGL'}</span>
-                              <span className="text-zinc-200 font-bold">$6.000.000 COP</span>
+                            <div className="flex justify-between py-1 border-b border-zinc-800/60 gap-2">
+                              <span>• {lang === 'en' ? 'Frontend React & 3D WebGL Developer' : 'Desarrollador Frontend React & 3D WebGL'}</span>
+                              <span className="text-zinc-200 font-bold text-right shrink-0">$6.000.000 COP</span>
                             </div>
-                            <div className="flex justify-between py-1 border-b border-zinc-800/60">
-                              <span>• {lang === 'en' ? 'AI & Infrastructure Architect' : 'Arquitecto de Infraestructura & IA Local'}</span>
-                              <span className="text-zinc-200 font-bold">$8.000.000 COP</span>
+                            <div className="flex justify-between py-1 border-b border-zinc-800/60 gap-2">
+                              <span>• {lang === 'en' ? 'Automation Architect & Backend Engineer' : 'Arquitecto de Automatización & Backend FastAPI'}</span>
+                              <span className="text-zinc-200 font-bold text-right shrink-0">$8.000.000 COP</span>
                             </div>
                           </div>
 
-                          <div className="pt-2 border-t border-red-500/30 flex items-baseline justify-between font-mono">
-                            <span className="text-xs text-zinc-400">{lang === 'en' ? 'TOTAL MONTHLY COST:' : 'COSTO MENSUAL TOTAL:'}</span>
-                            <span className="text-base font-bold text-red-400">{lang === 'en' ? '~$22,300,000 COP / mo' : '~$22.300.000 COP / mes'}</span>
+                          <div className="pt-2 border-t border-blue-500/30 flex items-baseline justify-between font-mono gap-2">
+                            <span className="text-xs text-zinc-400">{lang === 'en' ? 'MARKET VALUE BENCHMARK:' : 'VALOR TÉCNICO DE REFERENCIA:'}</span>
+                            <span className="text-sm sm:text-base font-bold text-blue-300 text-right">{lang === 'en' ? '~$22,300,000 COP / mo' : '~$22.300.000 COP / mes'}</span>
                           </div>
                           <p className="text-[11px] text-zinc-400 font-sans leading-snug">
                             {lang === 'en'
-                              ? '* Implies $267.6M COP/yr + recruitment, onboarding, legal payroll taxes (+52%), communication friction, and a minimum 4-month learning curve.'
-                              : '* Implica $267.6M COP/año + costos de onboarding, cargas prestacionales (+52%), fricción de comunicación y 4 meses mínimos de curva de aprendizaje.'}
+                              ? '* Represents the benchmark market valuation of these 4 high-demand technical capabilities that converge in Gustavo’s profile.'
+                              : '* Representa el valor de mercado referencial de estas 4 funciones técnicas de alta demanda que convergen en la experiencia de Gustavo.'}
                           </p>
                         </div>
 
-                        {/* Opción B: Solución Unificada Gustavo De La Rosa */}
+                        {/* Tarjeta 2: Gustavo De La Rosa (Dominio y Ejecución de las 4 Funciones) */}
                         <div className="p-3.5 rounded bg-emerald-950/20 border border-emerald-500/40 space-y-2.5">
                           <div className="flex items-center justify-between">
                             <span className="font-mono text-xs font-bold text-emerald-400 uppercase">
-                              {lang === 'en' ? 'OPTION B: UNIFIED LEADERSHIP (GUSTAVO DE LA ROSA)' : 'OPCIÓN B: INTEGRACIÓN UNIFICADA (GUSTAVO DE LA ROSA)'}
+                              {lang === 'en' ? 'GUSTAVO: EXECUTION ACROSS ALL 4 DISCIPLINES' : 'GUSTAVO: DOMINIO Y COBERTURA DE LAS 4 FUNCIONES'}
                             </span>
                             <span className="text-[10px] font-mono text-emerald-300 font-bold bg-emerald-950/80 px-1.5 py-0.5 rounded border border-emerald-500/40">
-                              {lang === 'en' ? '4x1 MULTIPLIER' : 'MULTIPLICADOR 4x1'}
+                              {lang === 'en' ? '4-IN-1 VERSATILITY' : 'VERSATILIDAD 4 EN 1'}
                             </span>
                           </div>
 
                           <div className="space-y-1.5 text-xs text-zinc-200 font-sans">
                             <div className="flex items-start gap-1.5">
                               <CheckCircle2 size={13} className="text-emerald-400 shrink-0 mt-0.5" />
-                              <span><b>{lang === 'en' ? 'Single strategic mind:' : 'Una sola mente estratégica:'}</b> {lang === 'en' ? 'Architecture, territorial data, L7 scraping, and WebGL 3D twins delivered without friction.' : 'Arquitectura, datos territoriales, scraping L7 y gemelos WebGL 3D ejecutados sin silos.'}</span>
+                              <span><b>{lang === 'en' ? 'Capacity to fulfill all 4 functions:' : 'Capacidad de cumplir las 4 funciones:'}</b> {lang === 'en' ? 'Can step in and execute directly across data, backend, scraping, or frontend according to the organization’s tactical priorities.' : 'Puede asumir y desarrollar tareas directamente en cualquiera de estas cuatro áreas según las prioridades tácticas de la organización.'}</span>
                             </div>
                             <div className="flex items-start gap-1.5">
                               <CheckCircle2 size={13} className="text-emerald-400 shrink-0 mt-0.5" />
-                              <span><b>{lang === 'en' ? 'Day 1 Intellectual Capital:' : 'Capital Intelectual Día 1:'}</b> {lang === 'en' ? 'Contributes 1,140 hours of tested libraries, C parsers (libxml2), and battle-hardened pipelines.' : 'Aporta 1.140 horas de librerías, parsers en C (libxml2) y pipelines probados en campo.'}</span>
+                              <span><b>{lang === 'en' ? 'Team Catalyst & Bridge (Does Not Replace People):' : 'Potenciador del Equipo (No reemplaza personas):'}</b> {lang === 'en' ? 'Empowers existing specialists by speaking their technical language, eliminating manual roadblocks, and connecting field with IT.' : 'Potencia a los especialistas del equipo al hablar su mismo lenguaje técnico, eliminando reprocesos manuales y conectando campo con TI.'}</span>
                             </div>
                             <div className="flex items-start gap-1.5">
                               <CheckCircle2 size={13} className="text-emerald-400 shrink-0 mt-0.5" />
-                              <span><b>{lang === 'en' ? 'Pre-built Asset Value:' : 'Valor en Activos Pre-construidos:'}</b> {lang === 'en' ? 'Over $68.4M COP in proprietary production-ready software.' : 'Más de $68.400.000 COP en software propietario listo para producción inmediata.'}</span>
+                              <span><b>{lang === 'en' ? '+1,140 Hours of Ready Assets:' : 'Aporte de +1.140h de Software Listo:'}</b> {lang === 'en' ? 'Brings pre-built C parsers, resilient scrapers, and ETL pipelines that accelerate delivery from day one.' : 'Aporta parsers en C, motores de extracción resilientes y pipelines ETL pre-construidos que aceleran entregables desde el primer día.'}</span>
                             </div>
                             <div className="flex items-start gap-1.5">
                               <CheckCircle2 size={13} className="text-emerald-400 shrink-0 mt-0.5" />
-                              <span><b>{lang === 'en' ? 'Business Alignment:' : 'Alineación con el Negocio:'}</b> {lang === 'en' ? 'Proven capacity in public governance (Santa Fe) and B2B commercial pipelines.' : 'Capacidad demostrada en el sector público (Santa Fe) y proyectos comerciales B2B.'}</span>
+                              <span><b>{lang === 'en' ? 'High Agility & Capital Efficiency:' : 'Alta Agilidad y Retorno de Inversión:'}</b> {lang === 'en' ? 'Enables agile coverage across multiple technical fronts with investment ranges starting from $6.5M – $9.0M COP/mo.' : 'Permite resolver múltiples frentes con máxima agilidad bajo esquemas de vinculación desde $6.5M – $9.0M COP/mes o sprints.'}</span>
                             </div>
                           </div>
 
-                          <div className="pt-2 border-t border-emerald-500/30 flex items-baseline justify-between font-mono">
-                            <span className="text-xs text-zinc-300">{lang === 'en' ? 'ESTIMATED NET SAVINGS:' : 'AHORRO NETO ESTIMADO:'}</span>
-                            <span className="text-base font-bold text-emerald-400">{lang === 'en' ? '+60% to 70% Direct' : '+60% a 70% Directo'}</span>
+                          <div className="pt-2 border-t border-emerald-500/30 flex items-baseline justify-between font-mono gap-2">
+                            <span className="text-xs text-zinc-300">{lang === 'en' ? 'COVERAGE & AGILITY IMPACT:' : 'IMPACTO EN COBERTURA & AGILIDAD:'}</span>
+                            <span className="text-sm sm:text-base font-bold text-emerald-400 text-right">{lang === 'en' ? '+70% Faster Delivery & Full Coverage' : '+70% Velocidad & Cobertura Integral'}</span>
                           </div>
                           <p className="text-[11px] text-zinc-400 font-sans leading-snug">
                             {lang === 'en'
-                              ? '* Immediate rollout without long ramp-up periods or misalignment between frontend, backend, and data analytics.'
-                              : '* Despliegue inmediato sin semanas de inducción ni desalineación entre frontend, backend y analítica de datos.'}
+                              ? '* A versatile, collaborative profile designed to solve end-to-end technical challenges without creating departmental bottlenecks.'
+                              : '* Un perfil versátil y colaborativo diseñado para resolver desafíos técnicos de punta a punta sin generar cuellos de botella.'}
                           </p>
                         </div>
                       </div>
